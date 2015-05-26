@@ -1,0 +1,38 @@
+---
+layout: post
+title: recMD5 installs on gentoo
+date: 2015-05-23 01:52:59.000000000 -04:00
+categories: []
+tags: []
+status: publish
+type: post
+published: true
+meta:
+  _wpcom_is_markdown: '1'
+  _rest_api_published: '1'
+  _rest_api_client_id: '-1'
+  _publicize_job_id: '10909384467'
+  _publicize_failed_9621972: 'O:13:"Keyring_Error":2:{s:6:"errors";a:1:{s:21:"keyring-request-error";a:1:{i:0;a:5:{s:7:"headers";a:12:{s:16:"www-authenticate";s:181:"OAuth
+    "Facebook Platform" "invalid_token" "Error validating access token: Session has
+    expired on Sunday, 15-Feb-15 18:06:57 PST. The current time is Friday, 22-May-15
+    18:53:03 PDT."";s:27:"access-control-allow-origin";s:1:"*";s:12:"content-type";s:31:"application/json;
+    charset=UTF-8";s:13:"x-fb-trace-id";s:11:"CWHlCHF96Pg";s:8:"x-fb-rev";s:7:"1751754";s:6:"pragma";s:8:"no-cache";s:13:"cache-control";s:8:"no-store";s:7:"expires";s:29:"Sat,
+    01 Jan 2000 00:00:00 GMT";s:10:"x-fb-debug";s:88:"jUUBk9vfNzLZ2OuYvBL1FDpMFx06MtzDuYadqZQhF09x+0gxs+A1CScajINmeIT/fW4s/iwRMLUNmRCLEE6hXg==";s:4:"date";s:29:"Sat,
+    23 May 2015 01:53:03 GMT";s:10:"connection";s:5:"close";s:14:"content-length";s:3:"216";}s:4:"body";s:216:"{"error":{"message":"Error
+    validating access token: Session has expired on Sunday, 15-Feb-15 18:06:57 PST.
+    The current time is Friday, 22-May-15 18:53:03 PDT.","type":"OAuthException","code":190,"error_subcode":463}}";s:8:"response";a:2:{s:4:"code";i:401;s:7:"message";s:12:"Unauthorized";}s:7:"cookies";a:0:{}s:8:"filename";N;}}}s:10:"error_data";a:0:{}}'
+author:
+  login: moaxcp
+  email: moaxcp@gmail.com
+  display_name: moaxcp
+  first_name: ''
+  last_name: ''
+excerpt: !ruby/object:Hpricot::Doc
+  options: {}
+---
+<p>For the final step of the recmd5 project I want create a gentoo ebuild that will build recmd5 and<br />
+install it on the system for use.</p>
+<p>I'm starting by using an example ebuild that seems to be a maven project similar to mine as far as building goes: <a href="https://sources.gentoo.org/cgi-bin/viewvc.cgi/gentoo-x86/dev-java/gson/gson-2.3.1.ebuild?view=markup">gson</a>.</p>
+<p>The final ebuild looks like <a href="https://github.com/moaxcp/moaxcp-gentoo-overlay/blob/master/dev-java/recMD5/recMD5-1.0.1.ebuild">this</a></p>
+<p>Currently it is getting the source from the maven repository rather than the github archive of the source. I know the source is the same but I'm not sure which to pick. It is easier to get it from maven because the github name is recMD5 while the source file is recmd5.</p>
+<p>I'm very excited to finally package my software for an os. I may work on getting my download manager installing on gentoo as well.</p>

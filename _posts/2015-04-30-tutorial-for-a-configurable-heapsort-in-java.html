@@ -1,0 +1,195 @@
+---
+layout: post
+title: Tutorial For A Configurable Heapsort In Java
+date: 2015-04-30 23:50:57.000000000 -04:00
+categories: []
+tags: []
+status: publish
+type: post
+published: true
+meta:
+  blogger_blog: rationalcomputing.blogspot.com
+  blogger_author: John Mercier
+  blogger_efb6f97314f2a283ebd03485e7f9be30_permalink: '1359126849408666640'
+  _edit_last: '77255856'
+  _wpcom_is_markdown: '1'
+  geo_public: '0'
+  _rest_api_published: '1'
+  _rest_api_client_id: '-1'
+  _wpas_facebook_publicize_failure: 'O:13:"Keyring_Error":2:{s:6:"errors";a:1:{s:21:"keyring-request-error";a:1:{i:0;a:5:{s:7:"headers";a:11:{s:12:"content-type";s:31:"application/json;
+    charset=UTF-8";s:16:"www-authenticate";s:183:"OAuth "Facebook Platform" "invalid_token"
+    "Error validating access token: Session has expired on Sunday, 15-Feb-15 18:06:57
+    PST. The current time is Thursday, 30-Apr-15 16:50:35 PDT."";s:27:"access-control-allow-origin";s:1:"*";s:8:"x-fb-rev";s:7:"1715289";s:6:"pragma";s:8:"no-cache";s:13:"cache-control";s:8:"no-store";s:7:"expires";s:29:"Sat,
+    01 Jan 2000 00:00:00 GMT";s:10:"x-fb-debug";s:44:"7oyvoaQGS38XNVcfRJBFDFOA4e0Vdccqs89vhwhQBmA=";s:4:"date";s:29:"Thu,
+    30 Apr 2015 23:50:35 GMT";s:10:"connection";s:5:"close";s:14:"content-length";s:3:"218";}s:4:"body";s:218:"{"error":{"message":"Error
+    validating access token: Session has expired on Sunday, 15-Feb-15 18:06:57 PST.
+    The current time is Thursday, 30-Apr-15 16:50:35 PDT.","type":"OAuthException","code":190,"error_subcode":463}}";s:8:"response";a:2:{s:4:"code";i:401;s:7:"message";s:12:"Unauthorized";}s:7:"cookies";a:0:{}s:8:"filename";N;}}}s:10:"error_data";a:0:{}}'
+  publicize_facebook_url: https://facebook.com/
+author:
+  login: moaxcp
+  email: moaxcp@gmail.com
+  display_name: moaxcp
+  first_name: ''
+  last_name: ''
+excerpt: !ruby/object:Hpricot::Doc
+  options: {}
+---
+<div dir="ltr" style="text-align:left;">Heapsort is implemented by creating a heap and continuously removing the root element until the heap is empty. A heap is a tree with two properties: shape and heap. The shape property requires that the tree is always a complete tree. The heap property requires the tree to be in min-heap order or max-heap order. A min-heap is a tree where each node is smaller than it's children. A max-heap is a tree where each node is larger than it's children. d-ary is used to describe the maximum number of children a node can have in the heap. Typical heapsort algorithms use a 2-ary heap but others are possible including a 1-ary heap.</div>
+<div dir="ltr" style="text-align:left;"></div>
+<div dir="ltr" style="text-align:left;">From the above concepts two choices are made when designing a heapsort. What heap property to use and what d-ary to use? A configurable heapsort would allow a user to make these decisions instead of being hard coded into the algorithm. If a user could make those choices what would the heapsort look like? How can the algorithm change between min-heap and max-heap? How can the algorithm change between 2-ary, 3-ary, 1-ary, or 15-ary? First, lets look at a heap sort.</div>
+<div dir="ltr" style="text-align:left;"></div>
+<h2 style="text-align:left;">A 2-ary heap sort</h2>
+<div dir="ltr" style="text-align:left;">To get things started the following is a 2-ary heapsort</div>
+<div dir="ltr" style="text-align:left;">
+<p>[code language="java"]<br />
+import java.util.Arrays;</p>
+<p>public class HeapSort {</p>
+<p>     private void swap(int[] list, int i, int j) {<br />
+         int temp = list[j];<br />
+         list[j] = list[i];<br />
+         list[i] = temp;<br />
+     }</p>
+<p>     private void siftDown(int[] list, int start, int end) {<br />
+         int root = start;</p>
+<p>         while(root *2 + 1 &lt;= end) {<br />
+             int child = root * 2 + 1;<br />
+             int swap = root;<br />
+             if(list[swap] &lt; list[child]) {<br />
+                 swap = child;<br />
+             }</p>
+<p>             if(child + 1 &lt;= end &amp;&amp; list[swap] &lt; list[child + 1]) {<br />
+                 swap = child + 1;<br />
+             }</p>
+<p>             if(swap != root) {<br />
+                 swap(list, root, swap);<br />
+                 root = swap;<br />
+             } else {<br />
+                 return;<br />
+             }<br />
+         }<br />
+     }</p>
+<p>     private void heapify(int[] list) {<br />
+         int start = (list.length - 2) / 2;<br />
+         while(start &gt;= 0) {<br />
+             siftDown(list, start, list.length - 1);<br />
+             start -= 1;<br />
+         }<br />
+     }</p>
+<p>     public void sort(int[] list) {<br />
+         heapify(list);<br />
+         int end = list.length - 1;<br />
+         while(end &gt; 0) {<br />
+             swap(list, end, 0);<br />
+             end -= 1;<br />
+             siftDown(list, 0, end);<br />
+         }<br />
+     }</p>
+<p>     public static void main(String... args) {<br />
+         int[] list = {5, 6, 4, 9, 1, 2, 8, 7, 3};<br />
+         System.out.println(&quot;before: &quot; + Arrays.toString(list));<br />
+         new HeapSort().sort(list);<br />
+         System.out.println(&quot;after: &quot; + Arrays.toString(list));<br />
+     }<br />
+}<br />
+[/code]</p>
+</div>
+<div dir="ltr" style="text-align:left;">
+<h2>Adding the heap property</h2>
+<p>Changing the order requires switching the relational operator on line 21 and 17 from less than to greater than. This requires an if statement to decided which comparison to make.</p>
+<p>There are a few different designs that could be implemented. There could be two implementations of an abstract HeapSort. One that implements a min-heap and another that implements a max-heap. siftDown is the only method that needs to be abstract. This could get complicated when implementing a configuration for d-ary. MaxHeapSort and MinHeapSort would both need to implement the code for d-ary which will mean overriding the other methods.</p>
+<p>For now, I am going with a simple approach of using an enum to configure the heap behavior. I split the siftDown method into two different methods: siftDownMin and siftDownMax. Which method is used when siftDown is called depends on the value of the enum member variable. The performance benefit of using two different methods is to only make one comparison of the enum when siftDown is called rather than in the while loop for siftDown. This design does call for copying almost the exact code in the two methods. Since the methods are short and well defined this exception is reasonable.</p>
+</div>
+<p>[code language="java"]<br />
+import java.util.Arrays;</p>
+<p>public class HeapSortSelectHeap {</p>
+<p>    public enum Heap { MINHEAP, MAXHEAP };</p>
+<p>    private Heap heap;</p>
+<p>    public HeapSortSelectHeap(Heap heap) {<br />
+        this.heap = heap;<br />
+    }</p>
+<p>    private void swap(int[] list, int i, int j) {<br />
+        int temp = list[j];<br />
+        list[j] = list[i];<br />
+        list[i] = temp;<br />
+    }</p>
+<p>    private void siftDown(int[] list, int start, int end) {<br />
+        switch(heap) {<br />
+            case MINHEAP:<br />
+                siftDownMin(list, start, end);<br />
+                break;<br />
+            case MAXHEAP:<br />
+                siftDownMax(list, start, end);<br />
+                break;<br />
+        }<br />
+    }</p>
+<p>    private void siftDownMin(int[] list, int start, int end) {<br />
+        int root = start;</p>
+<p>        while(root * 2 + 1 &lt;= end) {<br />
+            int child = root * 2 + 1;<br />
+            int swap = root;<br />
+            if(list[swap] &gt; list[child]) {<br />
+                swap = child;<br />
+            }</p>
+<p>            if(child + 1 &lt;= end &amp;&amp; list[swap] &gt; list[child + 1]) {<br />
+                swap = child + 1;<br />
+            }</p>
+<p>            if(swap != root) {<br />
+                swap(list, root, swap);<br />
+                root = swap;<br />
+            } else {<br />
+                return;<br />
+            }<br />
+        }<br />
+    }</p>
+<p>    private void siftDownMax(int[] list, int start, int end) {<br />
+        int root = start;</p>
+<p>        while(root * 2 + 1 &lt;= end) {<br />
+            int child = root * 2 + 1;<br />
+            int swap = root;<br />
+            if(list[swap] &lt; list[child]) {<br />
+                swap = child;<br />
+            }</p>
+<p>            if(child + 1 &lt;= end &amp;&amp; list[swap] &lt; list[child + 1]) {<br />
+                swap = child + 1;<br />
+            }</p>
+<p>            if(swap != root) {<br />
+                swap(list, root, swap);<br />
+                root = swap;<br />
+            } else {<br />
+                return;<br />
+            }<br />
+        }<br />
+     }</p>
+<p>    private void heapify(int[] list) {<br />
+        int start = (list.length - 2) / 2;<br />
+        while(start &gt;= 0) {<br />
+            siftDown(list, start, list.length - 1);<br />
+            start -= 1;<br />
+        }<br />
+    }</p>
+<p>    public void sort(int[] list) {<br />
+        heapify(list);<br />
+        int end = list.length - 1;<br />
+        while(end &gt; 0) {<br />
+            swap(list, end, 0);<br />
+            end -= 1;<br />
+            siftDown(list, 0, end);<br />
+        }<br />
+    }</p>
+<p>    public static void runList(int[] list, Heap heap) {<br />
+        System.out.println(&quot;before: &quot; + Arrays.toString(list));<br />
+        new HeapSortSelectHeap(heap).sort(list);<br />
+        System.out.println(&quot;after: &quot; + Arrays.toString(list));<br />
+    }</p>
+<p>    public static void main(String... args) {<br />
+        int[] list = {5, 6, 4, 9, 1, 2, 0, 8, 7, 3};<br />
+        runList(list, HeapSortSelectHeap.Heap.MINHEAP);<br />
+        list = new int[] {7, 9, 2, 6, 4, 1, 0, 3, 5, 8};<br />
+        runList(list, HeapSortSelectHeap.Heap.MAXHEAP);<br />
+    }<br />
+}<br />
+[/code]</p>
+<div dir="ltr" style="text-align:left;"><a title="This" href="https://github.com/moaxcp/heapsort">This</a> is the repository for the heapsort project.</div>
+<div dir="ltr" style="text-align:left;">In the next post I will show how to make a ternary heapsort and generalize it into any possible d-ary heapsort.</div>
+<div dir="ltr" style="text-align:left;"></div>
+<div dir="ltr" style="text-align:left;">Edit: I fixed an error in siftDownMax and siftDownMin. They used the wrong comparison operators.</div>

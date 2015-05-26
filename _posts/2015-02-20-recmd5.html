@@ -1,0 +1,64 @@
+---
+layout: post
+title: recmd5
+date: 2015-02-20 00:56:06.000000000 -05:00
+categories: []
+tags: []
+status: publish
+type: post
+published: true
+meta:
+  _rest_api_published: '1'
+  _rest_api_client_id: '-1'
+  _wpas_skip_google_plus: '1'
+  _wpas_skip_twitter: '1'
+  _wpas_skip_linkedin: '1'
+  _wpas_skip_tumblr: '1'
+  _wpas_skip_path: '1'
+  _wpas_facebook_publicize_failure: O:13:"Keyring_Error":2:{s:16:"
+  publicize_facebook_url: https://facebook.com/
+author:
+  login: moaxcp
+  email: moaxcp@gmail.com
+  display_name: moaxcp
+  first_name: ''
+  last_name: ''
+excerpt: !ruby/object:Hpricot::Doc
+  options: {}
+---
+<div>I have created a small project focused on the md5 algorithm. I noticed the md5 in java cannot be restarted. If my program is md5ing a large file, I need to start the process over again if the program crashes.</div>
+<div></div>
+<div>To solve this problem I created an MD5State which holds the state of the algorithm. A user can write this state to a file or database as bytes are being processed. If the program crashes the state can be recovered and processing can begin from where it left off.</div>
+<div></div>
+<div>I originally wrote this on google code ages ago but I wanted try using some of the other internet tools out there. I moved the project over to github and signed up for a travis-ci account. I created a cloud9 project to work on it through a browser. I even created some tests so travis-ci could fail builds if I messed something up.</div>
+<div>
+<div></div>
+<div>I looked into installing this as a MessageDigest object in the java platform. It looks easy but I'm not sure if it is useful enough.</div>
+</div>
+<div>The test method is a good example of how to use this project. It takes a byte array and compares the md5 with the md5 from java.</div>
+<pre> private boolean testAgainstJavaMD5(byte[] bytes) {
+     MessageDigest expected = null;
+     MD5MessageDigest test = null;
+     try {
+         expected = MessageDigest.getInstance("md5");
+         test = new MD5MessageDigest();
+     } catch (NoSuchAlgorithmException ex) {
+         Logger.getLogger(MD5MessageDigestTest.class.getName()).log(Level.SEVERE, null, ex);
+         throw new IllegalStateException("could not create MessageDigest", ex);
+     }
+
+     expected.update(bytes);
+     String s = new BigInteger(1, expected.digest()).toString(16);
+     if (s.length() == 31) {
+         s = "0" + s;
+     }
+     test.digest(bytes);
+     Logger.getLogger(MD5MessageDigestTest.class.getName()).info(s);
+     Logger.getLogger(MD5MessageDigestTest.class.getName()).info(test.getState().toString());
+     return s.equals(test.getState().toString());
+ }</pre>
+<div></div>
+<div>Here are the links to the project.</div>
+<div></div>
+<div><a href="https://github.com/moaxcp/recMD5" target="_blank">https://github.com/moaxcp/recMD5</a></div>
+<div><a href="https://travis-ci.org/moaxcp/recMD5" target="_blank">https://travis-ci.org/moaxcp/recMD5</a></div>

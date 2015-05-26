@@ -1,0 +1,45 @@
+---
+layout: post
+title: Negative Lookahead Regex
+date: 2015-05-04 22:30:47.000000000 -04:00
+categories: []
+tags: []
+status: publish
+type: post
+published: true
+meta:
+  _wpcom_is_markdown: '1'
+  _rest_api_published: '1'
+  _rest_api_client_id: '-1'
+  _wpas_facebook_publicize_failure: 'O:13:"Keyring_Error":2:{s:6:"errors";a:1:{s:21:"keyring-request-error";a:1:{i:0;a:5:{s:7:"headers";a:11:{s:12:"content-type";s:31:"application/json;
+    charset=UTF-8";s:16:"www-authenticate";s:181:"OAuth "Facebook Platform" "invalid_token"
+    "Error validating access token: Session has expired on Sunday, 15-Feb-15 18:06:57
+    PST. The current time is Monday, 04-May-15 15:30:29 PDT."";s:27:"access-control-allow-origin";s:1:"*";s:8:"x-fb-rev";s:7:"1720163";s:6:"pragma";s:8:"no-cache";s:13:"cache-control";s:8:"no-store";s:7:"expires";s:29:"Sat,
+    01 Jan 2000 00:00:00 GMT";s:10:"x-fb-debug";s:88:"TjXZtBuT1EaHCYNszfTkXNrfMp4tkV/+ASQD5kf/6pNf2WC2nhcuwnLaIPu78bsuCWLgMdu7Ij48Aj8iG2Ok+g==";s:4:"date";s:29:"Mon,
+    04 May 2015 22:30:29 GMT";s:10:"connection";s:5:"close";s:14:"content-length";s:3:"216";}s:4:"body";s:216:"{"error":{"message":"Error
+    validating access token: Session has expired on Sunday, 15-Feb-15 18:06:57 PST.
+    The current time is Monday, 04-May-15 15:30:29 PDT.","type":"OAuthException","code":190,"error_subcode":463}}";s:8:"response";a:2:{s:4:"code";i:401;s:7:"message";s:12:"Unauthorized";}s:7:"cookies";a:0:{}s:8:"filename";N;}}}s:10:"error_data";a:0:{}}'
+  publicize_facebook_url: https://facebook.com/
+author:
+  login: moaxcp
+  email: moaxcp@gmail.com
+  display_name: moaxcp
+  first_name: ''
+  last_name: ''
+excerpt: !ruby/object:Hpricot::Doc
+  options: {}
+---
+<div>Take a list of languages:</div>
+<div></div>
+<div>English</div>
+<div>French</div>
+<div>Spanish</div>
+<div>Portugues</div>
+<div></div>
+<div>And you want a regex that matches everything except English</div>
+<div></div>
+<div>using negative lookahead</div>
+<div></div>
+<div>(?im)^(?!English).+$</div>
+<div></div>
+<div>using only (?!English).+ will not work.</div>

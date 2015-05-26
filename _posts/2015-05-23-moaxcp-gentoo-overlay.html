@@ -1,0 +1,77 @@
+---
+layout: post
+title: moaxcp-gentoo-overlay
+date: 2015-05-23 01:56:03.000000000 -04:00
+categories: []
+tags: []
+status: publish
+type: post
+published: true
+meta:
+  _wpcom_is_markdown: '1'
+  _rest_api_published: '1'
+  _rest_api_client_id: '-1'
+  _publicize_job_id: '10909449127'
+  _publicize_failed_9621972: 'O:13:"Keyring_Error":2:{s:6:"errors";a:1:{s:21:"keyring-request-error";a:1:{i:0;a:5:{s:7:"headers";a:12:{s:16:"www-authenticate";s:181:"OAuth
+    "Facebook Platform" "invalid_token" "Error validating access token: Session has
+    expired on Sunday, 15-Feb-15 18:06:57 PST. The current time is Friday, 22-May-15
+    18:56:07 PDT."";s:27:"access-control-allow-origin";s:1:"*";s:12:"content-type";s:31:"application/json;
+    charset=UTF-8";s:13:"x-fb-trace-id";s:11:"ESEu5xM5UqI";s:8:"x-fb-rev";s:7:"1751754";s:6:"pragma";s:8:"no-cache";s:13:"cache-control";s:8:"no-store";s:7:"expires";s:29:"Sat,
+    01 Jan 2000 00:00:00 GMT";s:10:"x-fb-debug";s:88:"rHzMBUKQ/b3a5+ij3wWeevMhIHI7S8J1477QHx3s3SZLiZLeJU5iNbNyf0SGnTA6hX8+TJc1w2KF/yfny+dJTA==";s:4:"date";s:29:"Sat,
+    23 May 2015 01:56:07 GMT";s:10:"connection";s:5:"close";s:14:"content-length";s:3:"216";}s:4:"body";s:216:"{"error":{"message":"Error
+    validating access token: Session has expired on Sunday, 15-Feb-15 18:06:57 PST.
+    The current time is Friday, 22-May-15 18:56:07 PDT.","type":"OAuthException","code":190,"error_subcode":463}}";s:8:"response";a:2:{s:4:"code";i:401;s:7:"message";s:12:"Unauthorized";}s:7:"cookies";a:0:{}s:8:"filename";N;}}}s:10:"error_data";a:0:{}}'
+author:
+  login: moaxcp
+  email: moaxcp@gmail.com
+  display_name: moaxcp
+  first_name: ''
+  last_name: ''
+excerpt: !ruby/object:Hpricot::Doc
+  options: {}
+---
+<p>I created a <a href="https://github.com/moaxcp/moaxcp-gentoo-overlay">gentoo overlay</a> with the latest version of x11-wm/notion and my own project dev-java/recMD5. Go to the <a href="https://github.com/moaxcp/moaxcp-gentoo-overlay">overlay</a> and follow the README.md for instructions on using the <a href="https://github.com/moaxcp/moaxcp-gentoo-overlay">overlay</a>.</p>
+<p>Here are the notes from setting things up.</p>
+<p>I'm going through this [url]https://wiki.gentoo.org/wiki/Overlay/Local_overlay[/url] tutorial for creating an overlay. The base directory is</p>
+<blockquote><p>/usr/local/portage/moaxcp</p></blockquote>
+<p>from the first section</p>
+<blockquote><p>mkdir -p /usr/local/portage/moaxcp/{metadata,profiles}<br />
+echo 'moaxcp' &gt; /usr/local/portage/moaxcp/profiles/repo_name<br />
+echo 'masters = gentoo' &gt; /usr/local/portage/moaxcp/metadata/layout.conf<br />
+chown -R portage:portage /usr/local/portage/moaxcp<br />
+/usr/local/portage is already owned by portage<br />
+mkdir /etc/portage/repos.conf<br />
+nano /etc/portage/repos.conf/local.conf</p></blockquote>
+<p>add, save and exit</p>
+<blockquote><p>[moaxcp]<br />
+location = /usr/local/portage/moaxcp<br />
+masters = gentoo<br />
+auto-sync = no</p></blockquote>
+<blockquote><p>mkdir -p /usr/local/portage/moaxcp/x11-wm/notion<br />
+nano /usr/local/portage/moaxcp/x11-wm/notion/notion_p2014052800.ebuild</p></blockquote>
+<p>add text from [url]https://523566.bugs.gentoo.org/attachment.cgi?id=389597[/url]. The file is called notion-3-2014052800-src.tar.bz2 on sourceforge. Which looks similar to what the ebuild looks for.<br />
+save and exit</p>
+<p>chown -R portage:portage /usr/local/portage/moaxcp<br />
+pushd /usr/local/portage/moaxcp/x11-wm/notion<br />
+repoman manifest</p>
+<p>now I get</p>
+<blockquote><p>Invalid ebuild name: /usr/local/portage/moaxcp/x11-wm/notion/notion_p2014052800.ebuild<br />
+&gt;&gt;&gt; Creating Manifest for /usr/local/portage/moaxcp/x11-wm/notion<br />
+!!! Invalid package name: 'x11-wm/notion_p2014052800'<br />
+Unable to generate manifest.</p></blockquote>
+<p>This was caused by the file name not containing the version number. I changed the file name to<br />
+notion-3_p2014052800.ebuild and everything worked. Now add a keyword for the protected package so it will emerge.</p>
+<p>nano /etc/portage/package.keywords/notion<br />
+=x11-wm/notion-3_p2014052800 ~amd64</p>
+<p>Or use -a when emerging the package and accept the changes (don't forget to dispatch-conf).</p>
+<p>On a side note once the overlay is setup I added everything in the overlay to github and setup the overlay to sync<br />
+with github. Now when I do emerge --sync the overlay will sync with github. Any changes I make to the overlay can<br />
+by committed using git.</p>
+<p>To sync with git I changed the repos.conf/local.conf file</p>
+<p>nano /etc/portage/repos.conf/local.conf</p>
+<p><code>[moaxcp]<br />
+location = /usr/local/portage/moaxcp<br />
+sync-uri = https://github.com/moaxcp/moaxcp-gentoo-overlay.git<br />
+masters = gentoo<br />
+auto-sync = yes<br />
+sync-type = git</code></p>
