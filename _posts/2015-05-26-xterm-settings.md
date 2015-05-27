@@ -16,7 +16,9 @@ Here are some links to a few good color schemes I found.
 Just copy and paste these into the file.
 
 To enable changes to the file add
+
 ~~~ bash
 [[ -f ~/.Xresources ]] && xrdb -merge ~/.Xresources
 ~~~
+
 to ~/.xinitrc and restart your terminal or use source ~/.xinitrc
