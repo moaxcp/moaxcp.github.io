@@ -11,9 +11,9 @@ is running he will use a pipe between the two commands.
 
     ps aux | grep --color jboss
 
-Bash will take the output stream of `ps aux` and make it avaliable as the input stream of the grep program for processing.
+Bash will take the output stream of `ps aux` and make it available as the input stream of the grep program for processing.
 
-pipe-services will work in a similar fasion.
+pipe-services will work in a similar fashion.
 
     get http://example.com/service... | post http://nextexample.com/service2...
 
