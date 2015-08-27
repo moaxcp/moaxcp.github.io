@@ -1,3 +1,8 @@
+---
+title: Installing Spring Boot CLI in Gentoo
+layout: post
+---
+
 First, download the latest spring-boot-cli
 
 Then untar to /opt
