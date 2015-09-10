@@ -38,4 +38,33 @@ Obnam looks like a great system. It has one command with many features. The feat
 
 Currently, I have an external 1TB drive to put backups on. It is not ideal because I hate having extra things attached to my laptop but it will let me setup backups without having to buy a new harddrive (I tried taking it apart but the usb is permanently attached to the drive).
 
-##Mounting the drive
+###Mounting the drive
+I have autofs installed and it will automatically mount my drive to /mnt/auto/sdc1.
+
+###Configuring obnam
+Gentoo comes with a well documented config file for obnam. First, I set the repository to /mnt/auto/sdc1/obnam. I enabled compression with
+
+    compress-with = deflate
+    
+I added root, exclude, and one-file-system
+
+    root = /bin, /boot, /etc, /home, /lib32, /lib64, /opt, /root, /sbin, /usr, /var
+    exclude = ^/var/tmp/, .*\.pid$, \.cache/, ^/usr/src/linux.*/, ^/var/tmp/portage/, .*/.local/share/Trash/
+    one-file-system = true
+
+I may just change root to / because one-file-system skips everything I don't want to backup.
+
+I enabled logging
+
+    log = /var/log/obnam/obnam.log
+    log-level = debug
+    log-keep = 10
+    log-max = 0
+    log-mode = 0600
+    
+I forgot to setup the forget policy but according to the documentation this isn't needed until the backups build up.
+
+Once the config is finished it is easy to start obnam
+
+    obnam backup
+
