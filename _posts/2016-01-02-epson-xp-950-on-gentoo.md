@@ -1,6 +1,7 @@
 ---
 title: epson-xp-950-on-gentoo.md
 layout: post
+comments: true
 ---
 
 Adding a printer/scanner on gentoo can be easy or it can be hard. Here are some notes on how I did it.
