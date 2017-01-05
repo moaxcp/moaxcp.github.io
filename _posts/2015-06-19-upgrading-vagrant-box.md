@@ -1,7 +1,7 @@
 ---
 title: upgrading vagrant box
 layout: post
-comments:true
+comments: true
 ---
 I'm upgrading [moaxcp/gentoo64](https://vagrantcloud.com/moaxcp/boxes/gentoo64) and these are my notes.
 
