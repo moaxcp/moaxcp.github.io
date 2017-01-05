@@ -1,5 +1,5 @@
 ---
-title: epson-xp-950-on-gentoo.md
+title: epson xp-950 on gentoo
 layout: post
 comments: true
 ---

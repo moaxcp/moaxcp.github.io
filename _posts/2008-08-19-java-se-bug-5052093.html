@@ -8,6 +8,7 @@ tags: []
 status: publish
 type: post
 published: true
+comments: true
 ---
 <p>While I was working on my <a href="http://code.google.com/p/delta-utilities/">download manager</a> yesterday I found a bug in java. Every time I tried to make a connection to a fedora iso file I would get this error:</p>
 <p><span style="font-family:courier new;font-size:78%;">java.lang.NumberFormatException: For input string: "3580680192"<br />   at java.lang.NumberFormatException.forInputString(NumberFormatException.java:48)<br />   at java.lang.Integer.parseInt(Integer.java:459)<br />   at java.lang.Integer.parseInt(Integer.java:497)<br />   at sun.net.www.protocol.ftp.FtpURLConnection.getInputStream(FtpURLConnection.java:398)<br />   at sun.net.www.URLConnection.getContentLength(URLConnection.java:185)<br />   at mercier.lib.download.FTPDownloadConnectionFactory.initDownloadFromConnection(FTPDownloadConnectionFactory.java:50)<br />   at mercier.lib.download.FTPDownloadConnectionFactory.getVerifiedConnection(FTPDownloadConnectionFactory.java:71)<br />   at mercier.lib.download.FTPDownloadConnectionFactory.getConnection(FTPDownloadConnectionFactory.java:88)<br />   at mercier.lib.download.ConnectionFactory.getConnection(ConnectionFactory.java:60)<br />   at mercier.lib.download.ConnectionFactoryTest.testGetFTPDownloadConnection(ConnectionFactoryTest.java:119)<br />   at </span><span style="font-size:78%;"><span style="font-family:courier new;">...</span></span></p>

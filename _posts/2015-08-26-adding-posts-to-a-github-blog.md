@@ -1,6 +1,7 @@
 ---
 title: adding posts to a github blog
 layout: post
+commnets: true
 ---
 I just had this great idea to use github.com's editor for creating posts in this blog. Here is how it works.
 

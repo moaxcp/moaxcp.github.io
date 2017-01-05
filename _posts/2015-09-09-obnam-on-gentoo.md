@@ -1,6 +1,7 @@
 ---
 title: obnam on gentoo
 layout: post
+comments: true
 ---
 
 My system is a Dell Precision M4600 laptop with gentoo installed. It is great for travel and moving to different rooms in the home. Unfortunately, it does not have full backups. I currently have dropbox for my personal data but after after working on this system for a year, I would like to have backups for the entire system. The solution is to have real backups along with dropbox. 

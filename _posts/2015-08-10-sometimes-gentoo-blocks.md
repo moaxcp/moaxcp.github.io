@@ -1,6 +1,7 @@
 ---
 title: sometime gentoo blocks
 layout: post
+comments: true
 ---
 I was trying to update my system which resulted in a blocked package.
 

@@ -1,6 +1,7 @@
 ---
 title: Gentoo Vagrant Box
 layout: post
+comments: true
 ---
 Today I am working on a vagrant base box using gentoo and VirtualBox. I created a gentoo stage-3 vm in VirtualBox. But this is not enough to run gentoo in VirtualBox let alone as a vagrant box. There are a number of packages that need to be installed to make a stage-3 useful for virtual box and vagrant.
 

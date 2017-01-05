@@ -1,6 +1,7 @@
 ---
 title: Gentoo Audit Log
 layout: post
+comments: true
 ---
 Gentoo does not seem to have a lot of info on auditing unless it is under the hardened project. I am trying to get basic audit logging of users attempting to log into the system. It seems two things are needed: a properly configure kernel and the auditd service running.
 

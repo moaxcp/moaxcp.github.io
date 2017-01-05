@@ -1,6 +1,7 @@
 ---
 title: Installing Spring Boot CLI in Gentoo
 layout: post
+comments: true
 ---
 
 First, download the latest spring-boot-cli

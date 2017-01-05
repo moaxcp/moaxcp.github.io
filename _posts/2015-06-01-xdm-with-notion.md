@@ -1,6 +1,7 @@
 ---
 title: xdm with notion
 layout: post
+comments: true
 ---
 Today I am attempting to switch to xdm as my display manager. I currently use LXDE but I am integrating parts of it with the notion windows manager. LXDM is not needed so I would like to replace it with the original xdm.
 

@@ -1,6 +1,7 @@
 ---
 title: accumulo devserver
 layout: post
+comments: true
 ---
 Today I am messing with [this](https://github.com/joshelser/accumulo-devserver) project to create an accumulo dev server.
 

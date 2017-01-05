@@ -1,6 +1,7 @@
 ---
 title: xterm settings
 layout: post
+comments: true
 ---
 
 To setup xterm with different colors than the system default edit the file ~.Xresources.

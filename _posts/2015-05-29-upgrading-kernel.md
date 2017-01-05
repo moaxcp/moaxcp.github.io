@@ -1,6 +1,7 @@
 ---
 title: upgrading the kernel
 layout: post
+comments: true
 ---
 I'm following [this](https://wiki.gentoo.org/wiki/Kernel/Upgrade) guide to upgrade my gentoo kernel.
 
