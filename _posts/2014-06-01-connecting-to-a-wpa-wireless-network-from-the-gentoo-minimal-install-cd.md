@@ -29,6 +29,7 @@ wlp2s0  IEE802.11bgn ESSID:off/any
 ```
 
 2. Use the wireless interface name to create the init script for the interface
+
 ```console
 livecd~ # cp /etc/init.d/net.lo /etc/init.d/net.wlp2s0
 ```
@@ -76,6 +77,7 @@ OK
 ```
 
 7. Test the network with a ping
+
 ```console
 livecd ~ # ping www.google.com
 ```
