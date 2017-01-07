@@ -9,25 +9,25 @@ type: post
 published: true
 comments: true
 ---
-<p>I had to fix my previous post on HeapSort because I used the wrong comparison operators for siftDownMax and siftDownMin. To check these I made heapify public and printed the heap before sorting in runList.</p>
-<p>[code language="java"]<br />
-public static void runList(int[] list, Heap heap) {<br />
-    System.out.println(&quot;before: &quot; + Arrays.toString(list));<br />
-    HeapSortSelectHeap s = new HeapSortSelectHeap(heap);<br />
-    s.heapify(list);<br />
-    System.out.println(&quot;heap: &quot; + Arrays.toString(list));<br />
-    s.sort(list);<br />
-    System.out.println(&quot;after: &quot; + Arrays.toString(list));<br />
-}<br />
-[/code]</p>
-<p>This results in:</p>
-<blockquote><p>MINHEAP<br />
-before: [5, 6, 4, 9, 1, 2, 0, 8, 7, 3]<br />
-heap: [0, 1, 2, 7, 3, 5, 4, 8, 9, 6]<br />
-after: [9, 8, 7, 6, 5, 4, 3, 2, 1, 0]<br />
-MAXHEAP<br />
-before: [7, 9, 2, 6, 4, 1, 0, 3, 5, 8]<br />
-heap: [9, 8, 2, 6, 7, 1, 0, 3, 5, 4]<br />
-after: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
-</p></blockquote>
-<p>As you can see a min heap results in descending order and max heap results in ascending order.</p>
+I had to fix my previous post on HeapSort because I used the wrong comparison operators for siftDownMax and siftDownMin. To check these I made heapify public and printed the heap before sorting in runList.
+
+    public static void runList(int[] list, Heap heap) {
+        System.out.println("before: " + Arrays.toString(list));
+        HeapSortSelectHeap s = new HeapSortSelectHeap(heap);
+        s.heapify(list);
+        System.out.println("heap: " + Arrays.toString(list));
+        s.sort(list);
+        System.out.println("after: " + Arrays.toString(list));
+    }
+
+This results in:
+    MINHEAP
+    before: [5, 6, 4, 9, 1, 2, 0, 8, 7, 3]
+    heap: [0, 1, 2, 7, 3, 5, 4, 8, 9, 6]
+    after: [9, 8, 7, 6, 5, 4, 3, 2, 1, 0]
+    MAXHEAP
+    before: [7, 9, 2, 6, 4, 1, 0, 3, 5, 8]
+    heap: [9, 8, 2, 6, 7, 1, 0, 3, 5, 4]
+    after: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+
+As you can see a min heap results in descending order and max heap results in ascending order.
