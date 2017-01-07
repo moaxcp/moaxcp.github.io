@@ -10,7 +10,9 @@ type: post
 published: true
 comments: true
 ---
-<a href="/images/parserstream.png"><img src="/images/parserstream.png" border="0" /></a> Parsing Problem: Write a ParserStream that can parse tag attributes and simple text patterns. The Stream must also be able to replace those attributes with what the programmer wants.
+<a href="/images/parserstream.png"><img src="/images/parserstream.png" border="0" /></a>
+
+Parsing Problem: Write a ParserStream that can parse tag attributes and simple text patterns. The Stream must also be able to replace those attributes with what the programmer wants.
 
 Solution: The picture is a diagram of my solution (made with <a href="http://live.gnome.org/Dia">http://live.gnome.org/Dia</a>).
 

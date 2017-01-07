@@ -12,12 +12,14 @@ comments: true
 I've started a Google Code project for my [download manager](http://code.google.com/p/delta-utilities/). Here is the description so far:
 
 This program currently can:
+
 * Analyze a connection's headers
 * Start, stop, pause a download from a connection
 * Retry a download after a set amount of time
 * Limit the daily bandwidth used
 
 Future goals:
+
 * Download a webpage and all of it's sources
 * Crawl the internet and access offline
 
