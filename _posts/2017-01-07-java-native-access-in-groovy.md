@@ -1,5 +1,5 @@
 ---
-title: epson xp-950 on gentoo
+title: Java Navive Access in Groovy
 layout: post
 comments: true
 ---
