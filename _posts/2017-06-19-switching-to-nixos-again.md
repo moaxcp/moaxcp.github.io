@@ -24,6 +24,7 @@ helped save time and gave me less to worry about during the whole process.
 The partition setup is somewhat unique and I was able to piece it together by reading about setting up mdadm,
 luks, and lvm with gentoo and arch. The partitions look something like this:
 
+```
 partitions:
 
 /dev/sda
@@ -31,11 +32,16 @@ partitions:
 
 /dev/sdb
 |----/dev/sdb1----|------------/dev/sdb2------------|
+```
 
 The the first partitions of each drive are setup by mdadm as a raid1. The second partitions are setup by mdadm as a
 raid0. This is the logical view of the raid arrays.
 
+```
+raid arrays:
+
 |----/dev/md/0----|------------/dev/md/1------------|
+```
 
 /dev/md/0 is setup with ext4 and it becomes /boot in the filesystem. /dev/md/1 is slightly more complicated. It is a
 luks encrypted drive which contains lvm's volume group 0. vg0 contains swap and '/'.
@@ -43,10 +49,12 @@ luks encrypted drive which contains lvm's volume group 0. vg0 contains swap and 
 I know there is a lot more risk with raid0 but I also have a third drive which is used for backups using obnam. This
 mitigates any real risks of losing data.
 
+```
 backup partition:
 
 /dev/sdc
 |------------/dev/sdc1------------|
+```
 
 I read a few posts on reddit where the users coppied the current '/' to a different directory before starting the
 install. I decided to try this out since it would make recovering my home directory very easy. The gentoo root was
