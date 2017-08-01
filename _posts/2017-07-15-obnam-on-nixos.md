@@ -65,7 +65,7 @@ obnam.
 ```nix
 systemd.services.obnam = {
   description = "Perform system backup";
-  script = "obnam backup";
+  script = "${pkgs.obnam}/bin/obnam backup";
 }; 
  
 systemd.timers.obnam = {
