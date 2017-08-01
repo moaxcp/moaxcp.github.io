@@ -1,5 +1,5 @@
 ---
-title: connecting to wifi from nixos minimal install cd
+title: ivy remote configs
 layout: post
 comments: true
 ---
