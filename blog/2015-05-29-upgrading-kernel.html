@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>upgrading the kernel</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <meta name="keywords" content="">
+    <meta name="generator" content="JBake">
+
+    <!-- Le styles -->
+    <link href="../css/bootstrap.min.css" rel="stylesheet">
+    <link href="../css/asciidoctor.css" rel="stylesheet">
+    <link href="../css/base.css" rel="stylesheet">
+    <link href="../css/prettify.css" rel="stylesheet">
+
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+
+    <!-- Fav and touch icons -->
+    <!--<link rel="apple-touch-icon-precomposed" sizes="144x144" href="../assets/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="../assets/ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="../assets/ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="../assets/ico/apple-touch-icon-57-precomposed.png">-->
+    <link rel="shortcut icon" href="../favicon.ico">
+  </head>
+  <body onload="prettyPrint()">
+    <div id="wrap">
+	
+	<!-- Fixed navbar -->
+    <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="../">johnmercier.com</a>
+        </div>
+        <div class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+            <li><a href="../index.html">Blog</a></li>
+            <li><a href="../archive.html">Archive</a></li>
+            <!--<li><a href="../about.html">About</a></li>-->
+            <li><a href="../feed.xml">Subscribe</a></li>
+            <!--
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>
+              <ul class="dropdown-menu">
+                <li><a href="#">Action</a></li>
+                <li><a href="#">Another action</a></li>
+                <li><a href="#">Something else here</a></li>
+                <li class="divider"></li>
+                <li class="dropdown-header">Nav header</li>
+                <li><a href="#">Separated link</a></li>
+                <li><a href="#">One more separated link</a></li>
+              </ul>
+            </li>
+            -->
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </div>
+    <div class="container">	
+	<div class="page-header">
+		<h1>upgrading the kernel</h1>
+	</div>
+
+	<p><em>29 May 2015</em></p>
+
+	<p><div class="paragraph">
+<p>I&#8217;m following <a href="https://wiki.gentoo.org/wiki/Kernel/Upgrade">this</a> guide to upgrade my gentoo kernel.</p>
+</div>
+<div class="paragraph">
+<p>These are just some notes:</p>
+</div>
+<div class="paragraph">
+<p>backup current .config</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>    cp /usr/src/linux/.config ~/kernel-config-`uname -r`</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>change symlink for /usr/src/linux to new sources</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>    eselect kernel list
+    eselect kernel set ${from list}</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Interestingly, my system is running 3.17.8-gentoo-r1 and the latest installed sources is linux-3.18.12-gentoo but only
+the latest is displayed in the kernel listing.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>    john-gentoo src # ls -l
+    total 8
+    lrwxrwxrwx  1 root root   22 Feb  9 04:39 linux -&gt; linux-3.17.8-gentoo-r1
+    drwxr-xr-x 21 root root 4096 May  2 21:40 linux-3.17.8-gentoo-r1
+    drwxr-xr-x 24 root root 4096 May 20 20:31 linux-3.18.12-gentoo
+
+    john-gentoo src # eselect kernel list
+    Available kernel symlink targets:
+      [1]   linux-3.18.12-gentoo</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>I am selecting the available kernel.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>    john-gentoo src # eselect kernel set 1
+    john-gentoo src # eselect kernel list
+    Available kernel symlink targets:
+      [1]   linux-3.18.12-gentoo *</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>There is a make command to convert the old .config for the new kernel.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>    make silentoldconfig</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>I should have used make olddefconfig because I only want defaults for new items.</p>
+</div>
+<div class="paragraph">
+<p>Now to building the kernel. I have a sript that will build the kernel for my computer.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>    genkernel --menuconfig --lvm --mdadm --makeopts="-j9 -l8" all</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This will enable lvm, mdadm and let me look at the menu. The make opts will build the kernel faster and use all of the
+cores in my processor.</p>
+</div>
+<div class="paragraph">
+<p>Next I need to upgrade grub. The grub settings are located in /etc/default/grub. I needed to change the settings for my
+kernel and they still should be valid.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>    GRUB_CMDLINE_LINUX="domdadm dolvm real_root=/dev/vg0/home resume=/dev/vg0/swap"
+    GRUB_DISABLE_LINUX_UUID=true</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Rebuild the grub config for the new kernel.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>    grub2-mkconfig -o /boot/grub/grub.cfg</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Now to restart.</p>
+</div>
+<div class="paragraph">
+<p>After restarting X would not start. I needed to setup my nvidia drivers again following
+<a href="https://wiki.gentoo.org/wiki/NVIDIA_Driver_with_Optimus_Laptops">this</a> guide. I&#8217;m not sure how things worked before
+because I didn&#8217;t have a xorg.conf and I definately didn&#8217;t use an edid firmware for the monitor. Now I am glad to say my
+kernel is current and X starts.</p>
+</div></p>
+
+    <div id="disqus_thread"></div>
+    <script>
+
+    /**
+    *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+    *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+    /*
+    var disqus_config = function () {
+    this.page.url = 'http://johnmercier.com/blog/2015-05-29-upgrading-kernel.html';  // Replace PAGE_URL with your page's canonical URL variable
+    this.page.identifier = 'blog/2015-05-29-upgrading-kernel.html'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+    };
+    */
+    (function() { // DON'T EDIT BELOW THIS LINE
+    var d = document, s = d.createElement('script');
+    s.src = 'https://moaxcp.disqus.com/embed.js';
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+    })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+
+	<hr />
+	
+		</div>
+		<div id="push"></div>
+    </div>
+    
+    <div id="footer">
+      <div class="container">
+        <p class="muted credit">&copy; 2014 | Mixed with <a href="http://getbootstrap.com/">Bootstrap v3.1.1</a> | Baked with <a href="http://jbake.org">JBake v2.5.1</a></p>
+      </div>
+    </div>
+    
+    <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="../js/jquery-1.11.1.min.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+    <script src="../js/prettify.js"></script>
+    
+  </body>
+</html>

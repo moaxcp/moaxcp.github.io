@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>layman</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <meta name="keywords" content="">
+    <meta name="generator" content="JBake">
+
+    <!-- Le styles -->
+    <link href="../css/bootstrap.min.css" rel="stylesheet">
+    <link href="../css/asciidoctor.css" rel="stylesheet">
+    <link href="../css/base.css" rel="stylesheet">
+    <link href="../css/prettify.css" rel="stylesheet">
+
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+
+    <!-- Fav and touch icons -->
+    <!--<link rel="apple-touch-icon-precomposed" sizes="144x144" href="../assets/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="../assets/ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="../assets/ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="../assets/ico/apple-touch-icon-57-precomposed.png">-->
+    <link rel="shortcut icon" href="../favicon.ico">
+  </head>
+  <body onload="prettyPrint()">
+    <div id="wrap">
+	
+	<!-- Fixed navbar -->
+    <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="../">johnmercier.com</a>
+        </div>
+        <div class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+            <li><a href="../index.html">Blog</a></li>
+            <li><a href="../archive.html">Archive</a></li>
+            <!--<li><a href="../about.html">About</a></li>-->
+            <li><a href="../feed.xml">Subscribe</a></li>
+            <!--
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>
+              <ul class="dropdown-menu">
+                <li><a href="#">Action</a></li>
+                <li><a href="#">Another action</a></li>
+                <li><a href="#">Something else here</a></li>
+                <li class="divider"></li>
+                <li class="dropdown-header">Nav header</li>
+                <li><a href="#">Separated link</a></li>
+                <li><a href="#">One more separated link</a></li>
+              </ul>
+            </li>
+            -->
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </div>
+    <div class="container">	
+	<div class="page-header">
+		<h1>layman</h1>
+	</div>
+
+	<p><em>27 May 2015</em></p>
+
+	<p><div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>I&#8217;m working on getting <a href="https://wiki.gentoo.org/wiki/Layman">layman</a> setup on my gentoo system so I can connect to
+other overlays. Currently I have been copying ebuilds from overlays using my browser. This should be avoided unless I
+need to make changes to the overlay. I would also like to eventually get <a href="https://github.com/moaxcp/moaxcp-gentoo-overlay">my overlay</a>
+recognized as a <a href="https://overlays.gentoo.org/">gentoo overlay</a>.</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_use_flags">Use Flags</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>git - because I&#8217;m using git</p>
+</li>
+<li>
+<p>subversion - because people still use it</p>
+</li>
+<li>
+<p>sync-plugin-portage - This seems to work with the new portage system. Since I migrated to that system I will probably want to use it.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>To install layman:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>    $ nano /etc/portage/package.use/layman
+    app-portage/layman git subversion sync-plugin-portage
+    ctrl+x, y
+
+    $ emerge -a app-portage/layman
+    * IMPORTANT: 1 news items need reading for repository 'gentoo'.
+    * Use eselect news read to view new items.
+
+    These are the packages that would be merged, in order:
+
+    Calculating dependencies... done!
+    [ebuild   R    ] app-portage/layman-2.0.0-r3::gentoo  USE="git subversion -bazaar -cvs -darcs -mercurial {-test}" PYTHON_TARGETS="python2_7 (-pypy)" 0 KiB
+
+    Total: 1 package (1 reinstall), Size of downloads: 0 KiB
+
+    Would you like to merge these packages? [Yes/No] no</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>As you can see the sync-plugin-portage flag is ignored. This is because I am not getting the latest version of layman
+from the repo. To fix this add the ~amd64 keyword for the package.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>    nano /etc/portage/package.accept_keywords
+    app-portage/layman ~amd64
+    ctrl+x, y
+
+    emerge -av app-portage/layman
+
+    * IMPORTANT: 1 news items need reading for repository 'gentoo'.
+    * Use eselect news read to view new items.
+
+    These are the packages that would be merged, in order:
+
+    Calculating dependencies... done!
+    [ebuild     U ~] app-portage/layman-2.3.0::gentoo [2.0.0-r3::gentoo] USE="git subversion sync-plugin-portage%* -bazaar -cvs -darcs -g-sorcery% -gpg% -mercurial -squashfs% {-test}" PYTHON_TARGETS="python2_7 python3_3%* -pypy -python3_4%" 117 KiB
+
+    Total: 1 package (1 upgrade), Size of downloads: 117 KiB
+
+    Would you like to merge these packages? [Yes/No] yes
+    &gt;&gt;&gt; Verifying ebuild manifests
+    &gt;&gt;&gt; Running pre-merge checks for app-portage/layman-2.3.0
+    &gt;&gt;&gt; Emerging (1 of 1) app-portage/layman-2.3.0::gentoo
+    &gt;&gt;&gt; Installing (1 of 1) app-portage/layman-2.3.0::gentoo
+    &gt;&gt;&gt; Jobs: 1 of 1 complete                           Load avg: 0.38, 0.15, 0.08
+    &gt;&gt;&gt; Auto-cleaning packages...
+
+    &gt;&gt;&gt; No outdated packages were found on your system.
+
+    * GNU info directory index is up-to-date.</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Now I can remove vagrant from my overlay and use the original one.</p>
+</div>
+</div></p>
+
+    <div id="disqus_thread"></div>
+    <script>
+
+    /**
+    *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+    *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+    /*
+    var disqus_config = function () {
+    this.page.url = 'http://johnmercier.com/blog/2015-05-27-layman.html';  // Replace PAGE_URL with your page's canonical URL variable
+    this.page.identifier = 'blog/2015-05-27-layman.html'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+    };
+    */
+    (function() { // DON'T EDIT BELOW THIS LINE
+    var d = document, s = d.createElement('script');
+    s.src = 'https://moaxcp.disqus.com/embed.js';
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+    })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+
+	<hr />
+	
+		</div>
+		<div id="push"></div>
+    </div>
+    
+    <div id="footer">
+      <div class="container">
+        <p class="muted credit">&copy; 2014 | Mixed with <a href="http://getbootstrap.com/">Bootstrap v3.1.1</a> | Baked with <a href="http://jbake.org">JBake v2.5.1</a></p>
+      </div>
+    </div>
+    
+    <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="../js/jquery-1.11.1.min.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+    <script src="../js/prettify.js"></script>
+    
+  </body>
+</html>

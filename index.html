@@ -1,0 +1,2249 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>johnmercier.com</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <meta name="keywords" content="">
+    <meta name="generator" content="JBake">
+
+    <!-- Le styles -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/asciidoctor.css" rel="stylesheet">
+    <link href="css/base.css" rel="stylesheet">
+    <link href="css/prettify.css" rel="stylesheet">
+
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="js/html5shiv.min.js"></script>
+    <![endif]-->
+
+    <!-- Fav and touch icons -->
+    <!--<link rel="apple-touch-icon-precomposed" sizes="144x144" href="../assets/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="../assets/ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="../assets/ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="../assets/ico/apple-touch-icon-57-precomposed.png">-->
+    <link rel="shortcut icon" href="favicon.ico">
+  </head>
+  <body onload="prettyPrint()">
+    <div id="wrap">
+	
+	<!-- Fixed navbar -->
+    <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="">johnmercier.com</a>
+        </div>
+        <div class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+            <li><a href="index.html">Blog</a></li>
+            <li><a href="archive.html">Archive</a></li>
+            <!--<li><a href="about.html">About</a></li>-->
+            <li><a href="feed.xml">Subscribe</a></li>
+            <!--
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>
+              <ul class="dropdown-menu">
+                <li><a href="#">Action</a></li>
+                <li><a href="#">Another action</a></li>
+                <li><a href="#">Something else here</a></li>
+                <li class="divider"></li>
+                <li class="dropdown-header">Nav header</li>
+                <li><a href="#">Separated link</a></li>
+                <li><a href="#">One more separated link</a></li>
+              </ul>
+            </li>
+            -->
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </div>
+    <div class="container">
+	<div class="page-header">
+		<h1>Blog</h1>
+	</div>
+  			<a href="blog/2017-12-28-adding-jbake-to-nixpkgs.html"><h1>Adding JBake to nixpkgs</h1></a>
+  			<p>28 December 2017</p>
+  			<p><div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p><a href="http://jbake.org/">JBake</a> is a static site/blog generator. I have been
+using jekyll for this blog but I would like to try something new. My
+main operating system is <a href="https://nixos.org/">NixOS</a> which does not
+have a package to install <a href="http://jbake.org/">JBake</a>. It will need to
+be added. I have already updated
+<a href="https://visualvm.github.io/">visualvm</a> and
+<a href="https://github.com/raboof/notion">notion</a> for
+<a href="https://nixos.org/">NixOS</a> but adding a new package is something I
+haven&#8217;t tried yet.</p>
+</div>
+<div class="paragraph">
+<p>This post will walk through the process of developing the
+<a href="http://jbake.org/">JBake</a> nix expression for the
+<a href="https://github.com/NixOS/nixpkgs">nixpkgs</a> repository.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+</p>
+  			<a href="blog/2017-11-10-graph-dsl-views.html"><h1>graph-dsl views</h1></a>
+  			<p>10 November 2017</p>
+  			<p><div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>I&#8217;m adding a view method to graph-dsl. This method will generate a string which can be used
+by graphviz to create an image which can be displayed. This is the fist time
+graph-dsl will be
+integrated
+with
+another product.</p>
+</div>
+<div class="paragraph">
+<p>Spock tests can use a Mock to ensure the view calls the correct graphviz command.</p>
+</div>
+<div class="paragraph">
+<p>To test the view manually graph-dsl will need to be installed to the local maven repo. Then
+grape will need to be configured to use the local maven repo. Once grape can grab the
+dependency it can be used in a script.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+</p>
+  			<a href="blog/2017-07-15-obnam-on-nixos.html"><h1>obnam on nixos</h1></a>
+  			<p>15 July 2017</p>
+  			<p><div class="paragraph">
+<p><a href="http://www.obnam.org">obnam</a> is a backup program I have used
+<a href="http://moaxcp.github.io/2015/09/09/obnam-on-gentoo.html">used</a>
+in the past to backup my gentoo system. Now that I am using nixos I would like to setup backups for a number of reasons:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>I am on satalite internet so building the nix store, and downloading files from dropbox again could cost a lot of time.</p>
+</li>
+<li>
+<p>there are still a lot of files that are not in the nixstore.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>Setting up obnam on nixos starts with installing it. This is done by adding obnam to the systemPackages.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code class="language-nix" data-lang="nix">environment.systemPackages = with pkgs; [
+  obnam
+];</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The next part is setting up the configuration. obnam search for a config in the following order.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>/etc/obnam.conf
+/etc/obnam/*.conf
+~/.obnam.conf
+~/.config/obnam/*.conf</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Nixos is able to create an etc file from it&#8217;s configuration with the <code>environment.etc</code> attribute. To create <code>/etc/obnam.conf</code>
+add this code to <code>configuration.nix</code>.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code class="language-nix" data-lang="nix">environment.etc."obnam.conf" = {
+  enable = true;
+  text = ''
+    [config]
+    repository = /data/obnam/all
+    client-name = n1
+    log = /data/obnam/all.log
+    root = /
+    one-file-system = yes
+    exclude = /data
+  '';
+};</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>At this point (once <code>nixos-rebuild switch</code> is run) obnam can be run manually as root. It would be nice if backups were run
+daily though. This can be setup with fcron.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code class="language-nix" data-lang="nix">services.fcron = {
+  enable = true;
+  allow = [ "john" ];
+  systab = ''
+    @ 1d obnam backup
+  '';
+};</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The above code will install fcron and setup a job to run obnam once a day. Since systemd is used on nixos it would be better
+to use a timer instead of fcron. This can be done by removing <code>services.fcron</code> and adding a systemd service and timer for
+obnam.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code class="language-nix" data-lang="nix">systemd.services.obnam = {
+  description = "Perform system backup";
+  script = "${pkgs.obnam}/bin/obnam backup";
+};
+
+systemd.timers.obnam = {
+  description = "run obnam every day";
+  wantedBy = [ "timers.target" ];
+  timerConfig = {
+    OnCalendar = "daily";
+    Persistent = true;
+  };
+};</code></pre>
+</div>
+</div></p>
+  			<a href="blog/2017-06-24-linux-issue-in-nixos.html"><h1>linux issues in nixos</h1></a>
+  			<p>24 June 2017</p>
+  			<p><div class="paragraph">
+<p>After installing nixos I had some issues with the linux kernel and possibly kde. At boot I would get
+errors like this.</p>
+</div>
+<div class="paragraph">
+<p><a href="https://www.dropbox.com/s/bj50sqgfgy9yp1b/2017-06-20%2020.43.20.jpg?dl=0" class="bare">https://www.dropbox.com/s/bj50sqgfgy9yp1b/2017-06-20%2020.43.20.jpg?dl=0</a>
+<a href="https://www.dropbox.com/s/16mj6taamdekqyw/2017-06-21%2021.08.43.jpg?dl=0" class="bare">https://www.dropbox.com/s/16mj6taamdekqyw/2017-06-21%2021.08.43.jpg?dl=0</a>
+<a href="https://www.dropbox.com/s/o29rerznr38dkw0/2017-06-21%2021.06.05.jpg?dl=0" class="bare">https://www.dropbox.com/s/o29rerznr38dkw0/2017-06-21%2021.06.05.jpg?dl=0</a></p>
+</div>
+<div class="paragraph">
+<p>And once in Konsole I got this error just before the system froze.</p>
+</div>
+<div class="paragraph">
+<p><a href="https://www.dropbox.com/s/3rub75hpzfbludm/2017-06-20%2020.30.58.jpg?dl=0" class="bare">https://www.dropbox.com/s/3rub75hpzfbludm/2017-06-20%2020.30.58.jpg?dl=0</a></p>
+</div>
+<div class="paragraph">
+<p>After various searches for smp.c line 127 it seems like a bug in linux. I found
+<a href="https://bugs.archlinux.org/task/52246">this</a> issue for arch linux which indicates it was fixed for
+linux 4.9.6.</p>
+</div>
+<div class="paragraph">
+<p>After asking about the issue on reddit it was suggested to add this to my configuration.nix</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>boot.kernelPackages = pkgs.linuxPackages_latest</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>After adding this and performing a full update it appears to have solved my problem.</p>
+</div>
+<div class="paragraph">
+<p>As a note this command will get the previous log for X</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>journalctl -u display-manager --boot=-1</pre>
+</div>
+</div></p>
+  			<a href="blog/2017-06-20-connecting-to-wifi-from-nixos-minimal-install-cd.html"><h1>connecting to wifi from nixos minimal install cd</h1></a>
+  			<p>20 June 2017</p>
+  			<p><div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>One step in installing nixos I had trouble performing was connecting to wifi. On the minimal install boot
+wpa_supplicant is installed but there is no service. There are a few instructions for this online but this is
+what I did to get it working.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+</p>
+  			<a href="blog/2017-06-20-ivy-remote-configs.html"><h1>ivy remote configs</h1></a>
+  			<p>20 June 2017</p>
+  			<p><div class="paragraph">
+<p>I found an issue in an ivy.xml that resulted in hamcrest not being added to the test configuration. The junit
+dependency looked like this:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>&lt;dependency org="junit" name="junit" rev="4.12" conf="test-&gt;master"/&gt;</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The problem is <code>test-&gt;master</code> means only get the main artifacts from the remote dependency (no transitives). The
+fix is to change <code>test-&gt;master</code> to <code>test-&gt;default</code>. <code>master</code> and <code>default</code> are the only two values available for a
+maven repository.</p>
+</div></p>
+  			<a href="blog/2017-06-19-switching-to-nixos-again.html"><h1>switching to nixos</h1></a>
+  			<p>19 June 2017</p>
+  			<p><div class="paragraph">
+<p>I have decided to switch from gentoo to nixos. I tried nixos over a year ago but had a lot of troubles. This was
+probably because I used the unstable release and couldn&#8217;t really get gradle stuff to work. This time I will only use
+the stable release and try to import newer stuff from unstable if I decided I need it. Hopefully I will not have as
+many problems as I did with the unstable release.</p>
+</div>
+<div class="paragraph">
+<p>First, I downloaded the latest minimal install cd.</p>
+</div>
+<div class="paragraph">
+<p>Second, I backed up my stuff.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>rsync -r /home/john /mnt/backup</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The biggest worry I had with this install was getting the partitions and boot setup. A few years ago I had to replace
+my motherboard because installing the uefi boot loader completely messed up the whole machine. I also considered using
+zfs but I&#8217;m not sure I want to dive into that technology yet. So I decided to reuse the setup I used for gentoo. This
+helped save time and gave me less to worry about during the whole process.</p>
+</div>
+<div class="paragraph">
+<p>The partition setup is somewhat unique and I was able to piece it together by reading about setting up mdadm,
+luks, and lvm with gentoo and arch. The partitions look something like this:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>partitions:
+
+/dev/sda
+|----/dev/sda1----|------------/dev/sda2------------|
+
+/dev/sdb
+|----/dev/sdb1----|------------/dev/sdb2------------|</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The the first partitions of each drive are setup by mdadm as a raid1. The second partitions are setup by mdadm as a
+raid0. This is the logical view of the raid arrays.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>raid arrays:
+
+|----/dev/md/0----|------------/dev/md/1------------|</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>/dev/md/0 is setup with ext4 and it becomes /boot in the filesystem. /dev/md/1 is slightly more complicated. It is a
+luks encrypted drive which contains lvm&#8217;s volume group 0. vg0 contains swap and '/'.</p>
+</div>
+<div class="paragraph">
+<p>I know there is a lot more risk with raid0 but I also have a third drive which is used for backups using obnam. This
+mitigates any real risks of losing data.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>backup partition:
+
+/dev/sdc
+|------------/dev/sdc1------------|</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>I read a few posts on reddit where the users coppied the current '/' to a different directory before starting the
+install. I decided to try this out since it would make recovering my home directory very easy. The gentoo root was
+moved to /gentoo-root. This ended up helping a lot when I needed to setup the mdadm.conf. I just copied most of the
+content from the gentoo-root.</p>
+</div>
+<div class="paragraph">
+<p>Getting nixos to use the gentoo setup went smoothly. Here is the grub setup.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code class="language-nix" data-lang="nix">boot.loader.grub.enable = true;
+boot.loader.grub.version = 2;
+boot.loader.grub.devices = [ "/dev/sda" "/dev/sdb" ];</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Grub needs to be installed on both drives (/dev/sda and /dev/sdb) so that if either goes down it will still boot (not
+sure this would really work given the raid0). Nixos can open the luks encrypted drive by setting up
+<code>boot.initrd.luks.devices</code>.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code class="language-nix" data-lang="nix">boot.initrd.luks.devices = [
+  {
+    name = "root";
+    device = "/dev/md/1";
+    preLVM = true;
+  }
+];</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This sets up initrd to open the luks device before searching for lvm volumes. If this doesn&#8217;t happen before the lvm
+scan the boot will fail to find swap and '/'. The concept for this setup is 'lvm on luks'.</p>
+</div>
+<div class="paragraph">
+<p>Remember how my machine has two raid arrays? An interesting thing happens when you have two raid arrays. On each boot
+which one gets named /dev/md126 is non-deterministic. As a corollary which one gets named /dev/md127 is
+non-deterministic. It is impossible to determine which array contains the luks device ahead of time using these names.
+I found that sometimes the boot would ask for the passphrase and sometimes it would not be able to start at all. The
+solution is to setup named devices in mdadm.conf and use the correct name in the luks config above. Luckily nixos
+supports mdadm.conf within initrd.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code class="language-nix" data-lang="nix">boot.initrd.mdadmConf = ''
+  DEVICE /dev/sda1 /dev/sdb1
+  DEVICE /dev/sda2 /dev/sdb2
+  ARRAY /dev/md/0 metadata=1.2 UUID=2a7ffaec:fd80f34a:48cebc26:5caf521c name=g1:0
+  ARRAY /dev/md/1 metadata=1.2 UUID=70e06d78:4e14590a:a4e13279:9e6e387f name=g1:1
+'';</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This added the names /dev/md/0 and /dev/md/1 which should be used at boot instead of /dev/md126 and /dev/md127. This
+solved all the problems with initrd finding the luks device at boot.</p>
+</div>
+<div class="paragraph">
+<p>Getting this right was a real pain. I&#8217;m not going to say nixos makes it easier because I learned a lot going through
+this with gentoo. I believe the gentoo experience made setting this up in nixos easier.</p>
+</div></p>
+  			<a href="blog/2017-02-07-sonar-way-is-the-wrong-way.html"><h1>sonar way is the wrong way</h1></a>
+  			<p>07 February 2017</p>
+  			<p><div class="paragraph">
+<p>Codenarc is a static code analysis tool for groovy. It is the same tool <a href="http://sonarqube.com">sonarqube.com</a> uses to to publish its results.
+The <a href="https://github.com/moaxcp/graph-dsl">graph-dsl</a> project is setup to use codenarc for local development and <a href="http://sonarqube.com">sonarqube.com</a> for
+ continuous integration. There is just one problem with <a href="http://sonarqube.com">sonarqube.com</a>, it only uses 59 rules rather than the 353 rules available.
+ I wanted to find a way to send all of those rules to sonarqube.com that were missing.</p>
+</div>
+<div class="paragraph">
+<p>To start I found <a href="https://github.com/SonarQubeCommunity/sonar-groovy">sonar-groovy</a> this is a plugin for sonar-runner which
+scans groovy code. It can be configured to look at a codenarc report within groovy.</p>
+</div>
+<div class="paragraph">
+<p>Note: this porject uses gradle so the following is gradle configurations to accomplish this.</p>
+</div>
+<div class="paragraph">
+<p>First, codenarc needs to be setup to output xml formatted reports.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>codenarc {
+    reportFormat = 'xml'
+}</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Next, the sonarqube plugin needs to be configured to use that report.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>sonarqube {
+    properties {
+        property 'sonar.groovy.codenarc.reportPath', codenarcMain.getReports().getXml().getDestination()
+    }
+}</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This results in lots a messages that look like this</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>No such rule in Sonar, so violation from CodeNarc will be ignored:</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>It appears that <a href="http://sonarqube.com">sonarqube.com</a> is setup with Quality Profiles. These profiles determine which rules are
+actually turned on. The default for groovy projects only enables 59 of 353 rules. For <a href="https://github.com/moaxcp/graph-dsl">graph-dsl</a>
+it is not possible to modify the Quality Profile and as a result <a href="http://sonarqube.com">sonarqube.com</a> does not seem very useful for groovy projects.</p>
+</div></p>
+  			<a href="blog/2017-01-19-testing-graph-dsl.html"><h1>Testing graph-dsl</h1></a>
+  			<p>19 January 2017</p>
+  			<p><div class="paragraph">
+<p>graph-dsl is a project I started so I could write graphs and algorithms easily. Over the past
+year testing has become important to the way I write code. With graph-dsl I wanted to learn more
+about Test Driven Development and using different tools like gradle, spock, jacoco, and sonarqube.</p>
+</div>
+<div class="paragraph">
+<p>Gradle is the build tool I am most familiar with. It combines the best features from groovy, ant,
+ivy, and maven. It supports massive multiproject builds and it is easy to override any convention.
+It also has a large community for support and it is constantly updated.</p>
+</div>
+<div class="paragraph">
+<p>Spock is a testing framework built on top of JUnit. It provides an easy way to describe code and
+what it is expected to do. Spock is not really about testing units of code and integrating them.
+It is all about writing specifications and testing expected features of the code. The perspective
+is different but the end result is similar.</p>
+</div>
+<div class="paragraph">
+<p>Adding spock to a gradle project is easy. Just add the dependency.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code class="language-groovy" data-lang="groovy">dependencies {
+    testCompile 'org.spockframework:spock-core:1.0-groovy-2.4'
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>In spock it is not easy to separate unit tests from integration tests and run them separately.
+There isn&#8217;t really a convention for naming tests as there is in JUnit and it is common to end
+test classes with *Spec. When testing with groovy (in JUnit and Spock) it is helpful to use strings
+as method names.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>def 'can get correct second unvisited vertex'() {
+    setup:
+    def graph = new Graph()
+    graph.with {
+        vertex 'step1'
+        vertex 'step2'
+    }
+    def colors = ['step1': Graph.DepthFirstTraversalColor.GREY]
+
+    when:
+    def name = graph.getUnvisitedVertexName(colors)
+
+    then:
+    name == 'step2'
+}</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>When a test method fails the string should try to point out what feature failed. Spock is just one
+tool I am using for testing. I also rely on jacoco to ensure I have good test coverage.</p>
+</div>
+<div class="paragraph">
+<p>Jacoco is a great tool for viewing code coverage for tests or anything else running in the jvm. Gradle
+ makes using jacoco easy. To use jacoco in gradle apply the plugin.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code class="language-groovy" data-lang="groovy">apply plugin: 'jacoco'</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>If you plan on following TDD it is easy to see the coverage as you build tests and add code. It
+is not so easy to see what code each individual test is covering. There is some support to view
+this in sonar when using jacoco with maven but I haven&#8217;t found support in gradle.</p>
+</div>
+<div class="paragraph">
+<p>There is a trick to using jacoco with groovy that took me a while to figure out. When groovy is
+compiled there are some optimizations added to the resulting bytecode. These optimizations
+show up in jacoco as extra instructions that may not be covered in your tests. It is better to
+turn off these optimizations when running tests with jacoco. To do this I added the following
+to my build.gradle</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code class="language-groovy" data-lang="groovy">gradle.taskGraph.whenReady { graph -&gt;
+    if (graph.hasTask(':jacocoTestReport') || graph.hasTask(':sonarqube')) {
+        compileGroovy.groovyOptions.optimizationOptions.all = false
+    }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This will turn off optimizations any time jacocoTestReport or sonarqube will be run.</p>
+</div>
+<div class="paragraph">
+<p>Sonarqube is a tool that performs static code analysis. It provides reports on bugs and vulnerabilities
+like and has a nice user interface. It also provides a central place to view test reports and
+code coverage from jacoco (I could only find info about this for maven). Metrics are rated in
+sonarqube which allows the developer to see the health of a project.</p>
+</div>
+<div class="paragraph">
+<p>Adding sonarqube is easy</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code class="language-groovy" data-lang="groovy">apply plugin: 'org.sonarqube'</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Using sonarqube.com is free. Once you have an account set up and access key and add some entries to gradle.properties.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>systemProp.sonar.host.url=https://sonarqube.com/
+systemProp.sonar.login=sonar login</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>sonar seems to calculate line coverage differently than jacoco. It is usually a few percentage points
+higher.</p>
+</div></p>
+  			<a href="blog/2017-01-07-java-native-access-in-groovy.html"><h1>Java Navive Access in Groovy</h1></a>
+  			<p>07 January 2017</p>
+  			<p><div class="paragraph">
+<p>Using <a href="https://github.com/java-native-access/jna">Java Native Access</a> in a groovy script seems easy enough. Just use grape to grab the dependency and use it an a simple groovy script.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code class="language-groovy" data-lang="groovy">#!/usr/bin/env groovy
+
+// https://mvnrepository.com/artifact/net.java.dev.jna/jna
+@Grapes(
+    @Grab(group='net.java.dev.jna', module='jna', version='4.2.2')
+)
+
+import com.sun.jna.Library
+import com.sun.jna.Native
+import com.sun.jna.Platform
+
+public interface CLibrary extends Library {
+    CLibrary INSTANCE = (CLibrary) Native.loadLibrary((Platform.isWindows() ? 'msvcrt' : 'c'), CLibrary.class)
+
+    void printf(String format, Object... args)
+}
+
+CLibrary.INSTANCE.printf("Hello, World\n")
+for(int i = 0; i &lt; args.length; i++) {
+    CLibrary.INSTANCE.printf('Argument %d: %s\n', i, args[i])
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The <a href="https://github.com/java-native-access/jna/blob/master/www/DynamicallyTypedLanguages.md">Dynamically Typed Languages</a> article suggests that we can be smart about using jna in Jython and JRuby but what about groovy? Groovy supports intercepting missing methods but I&#8217;m going with just defining the methods. There doesn&#8217;t seem to be a way to map the invoke methods with the correct return type for the c methods. For example printf is a void method but in the article it would use invokeInt. This is not correct.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code class="language-groovy" data-lang="groovy">#!/usr/bin/env groovy
+
+// https://mvnrepository.com/artifact/net.java.dev.jna/jna
+@Grapes(
+    @Grab(group='net.java.dev.jna', module='jna', version='4.2.2')
+)
+
+import com.sun.jna.NativeLibrary
+import com.sun.jna.Platform
+
+public class CLib {
+    static def lib = NativeLibrary.getInstance(Platform.isWindows() ? 'msvcrt' : 'c')
+    static def printf(format, args) {
+        lib.getFunction('printf').invokeVoid([format, args])
+    }
+}
+
+CLib.printf("Hello, World\n")
+for(int i = 0; i &lt; args.length; i++) {
+    CLib.printf('Argument %d: %s\n', i, args[i])
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>JNA makes it very easy to map native code in groovy. Please check out the <a href="https://github.com/java-native-access/jna">project</a> for more details.</p>
+</div></p>
+  			<a href="blog/2017-01-02-epson-xp-950-on-gentoo.html"><h1>epson xp-950 on gentoo</h1></a>
+  			<p>02 January 2017</p>
+  			<p><div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>Adding a printer/scanner on gentoo can be easy or it can be hard. Here are some notes on how I did it.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+</p>
+  			<a href="blog/2015-09-09-obnam-on-gentoo.html"><h1>obnam on gentoo</h1></a>
+  			<p>09 September 2015</p>
+  			<p><div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>My system is a Dell Precision M4600 laptop with gentoo installed. It is great for travel and moving to different rooms in the home. Unfortunately, it does not have full backups. I currently have dropbox for my personal data but after after working on this system for a year, I would like to have backups for the entire system. The solution is to have real backups along with dropbox.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+</p>
+  			<a href="blog/2015-08-28-spring-boot-auto-completion-breaks-xdm.html"><h1>Spring Boot Auto-completion breaks xdm</h1></a>
+  			<p>28 August 2015</p>
+  			<p><div class="paragraph">
+<p>After setting up the spring boot cli auto-completion feature everything was working fine. Typing spring and then hitting tab in the console brought up the list of spring commands as promised. What I did not expect was after restarting my computer the xdm service complained about spring shell-completion.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre> * Caching service dependencies ...                  [ ok ]
+ * Stopping xdm ...
+ * start-stop-daemon: no matching processes found    [ ok ]
+ * Setting up xdm ...
+/opt/spring-1.2.5.RELEASE/shell-completion/bash/spring: line 16: syntax error near unexpected token `&lt;'
+/opt/spring-1.2.5.RELEASE/shell-completion/bash/spring: line 16: `      done &lt; &lt;(spring hint ${cword} ${words[*] [ ok ]</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>In a previous post I setup profile.d to create a spring cli environment for all users on my system. Once I remove the sourcing of shell-completion everything is fine but I want this to be fixed.</p>
+</div>
+<div class="paragraph">
+<p>After some research on the bash <a href="https://github.com/spring-projects/spring-boot/pull/3848">here document</a> the <a href="https://github.com/spring-projects/spring-boot/pull/3848">completion script</a> is using, I was not able to find the solution. The problem is not in the here-document but in the header of the script. After adding the correct sha-bang <code>#!/bin/bash</code> I was able to start xdm normally. I&#8217;m guessing that the double redirection with a here-document is not allowed in sh but is in bash and that xdm runs scripts in sh unless the sha-bang is present.</p>
+</div>
+<div class="paragraph">
+<p>I added a <a href="https://github.com/spring-projects/spring-boot/pull/3848">pull</a> request to spring-boot to fix the problem.</p>
+</div></p>
+  			<a href="blog/2015-08-26-adding-posts-to-a-github-blog.html"><h1>adding posts to a github blog</h1></a>
+  			<p>26 August 2015</p>
+  			<p><div class="paragraph">
+<p>I just had this great idea to use github.com&#8217;s editor for creating posts in this blog. Here is how it works.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>go to the repo moaxcp.github.io/_posts and click on the + to add a file</p>
+</li>
+<li>
+<p>create a file name and fill in the post</p>
+</li>
+<li>
+<p>commit to new branch for drafts or master if the post is good</p>
+</li>
+<li>
+<p>accept the pull request to publish the draft</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>I&#8217;ve been using vi and git on my laptop to write posts but I would much rather just use my broswer. The problem with the github editor is no spell checking but I have the same problem with my current vi setup.</p>
+</div>
+<div class="paragraph">
+<p>I&#8217;m sure this is known to many github users but it has taken me a while to put this idea together.</p>
+</div>
+<div class="paragraph">
+<p>This is the first post I am doing this with so lets see how it goes.</p>
+</div></p>
+  			<a href="blog/2015-08-26-installing-spring-boot-cli-in-gentoo.html"><h1>Installing Spring Boot CLI in Gentoo</h1></a>
+  			<p>26 August 2015</p>
+  			<p><div class="paragraph">
+<p>First, download the latest spring-boot-cli</p>
+</div>
+<div class="paragraph">
+<p>Then untar to /opt</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>untar -xf spring-boot-cli-1.2.5.RELEASE-bin.tar.gz</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Next, create a file in profile.d to setup the environment <code>vi /etc/profile.d/spring-cli.sh</code></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>\#!/bin/bash
+export SPRING_HOME=/opt/spring-1.2.5.RELEASE
+PATH=${SPRING_HOME}/bin:${PATH}
+export PATH</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Finally, restart the terminal or source the file <code>. vi /etc/profile.d/spring-cli.sh</code></p>
+</div></p>
+  			<a href="blog/2015-08-26-pipe-service.html"><h1>pipe-service</h1></a>
+  			<p>26 August 2015</p>
+  			<p><div class="paragraph">
+<p>I have been working on an idea for a microservice called <a href="https://github.com/moaxcp/pipe-service">pipe-service</a>. It will take output from one service
+and send it as input to another service. The services I have in mind are http(s) and the variety of ftp services.</p>
+</div>
+<div class="paragraph">
+<p>The project is called pipe-service as a reference to command line pipes. Pipes allow the output of one command to be
+used as input to another command. One example of this is ps and grep. When a user needs to see if a specific process
+is running he will use a pipe between the two commands.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>ps aux | grep --color jboss</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Bash will take the output stream of <code>ps aux</code> and make it available as the input stream of the grep program for processing.</p>
+</div>
+<div class="paragraph">
+<p>pipe-services will work in a similar fashion.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>get http://example.com/service... | post http://nextexample.com/service2...</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Another example is to send the input to ftp. This will transfer a file from http to ftp.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>get http://example.com/file.zip | put ftp://nextexample.com/home/john/file.zip</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Other services could be created to faciliate an entire pipeline of processing.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>get rest object | post transform-service
+get transform-service | post neo4j-service</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>I plan on using <a href="http://projects.spring.io/spring-boot/">spring-boot</a> since it provides so much out of the box. It would also be nice to write an <a href="https://angularjs.org/">angular</a> front end.
+Using something like <a href="https://jhipster.github.io/">JHipster</a> may help with that.</p>
+</div></p>
+  			<a href="blog/2015-08-18-gentoo-audit-log.html"><h1>Gentoo Audit Log</h1></a>
+  			<p>18 August 2015</p>
+  			<p><div class="paragraph">
+<p>Gentoo does not seem to have a lot of info on auditing unless it is under the hardened project. I am trying to get basic audit logging of users attempting to log into the system. It seems two things are needed: a properly configure kernel and the auditd service running.</p>
+</div>
+<div class="paragraph">
+<p>My kernel already has Auditing support enabled so the only thing I need to install is sys-process/audit.</p>
+</div>
+<div class="paragraph">
+<p>This added /etc/init.d/auditd. Now I can add it to the correct run level and run it.</p>
+</div>
+<div class="paragraph">
+<p>After looking at syslog-ng, it looks like that is what I should go with. It can be configured to create an auth.log which shows what I want. The default config that comes with gentoo is not very helpful. It only saves messages to the messages log file.</p>
+</div>
+<div class="paragraph">
+<p>By following <a href="http://www.gentoo-wiki.info/Syslog-ng">this</a> guide I was able to get logging setup.</p>
+</div></p>
+  			<a href="blog/2015-08-10-sometimes-gentoo-blocks.html"><h1>sometime gentoo blocks</h1></a>
+  			<p>10 August 2015</p>
+  			<p><div class="paragraph">
+<p>I was trying to update my system which resulted in a blocked package.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>emerge -avuUND --withb-deps=y @world
+
+* Error: The above package list contains packages which cannot be
+* installed at the same time on the same system.
+
+  (x11-libs/libfm-extra-1.2.3:0/4.3.0::gentoo, ebuild scheduled for merge) pulled in by
+    ~x11-libs/libfm-extra-1.2.3 required by (x11-libs/libfm-1.2.3-r1:0/4.3.0::gentoo, ebuild scheduled for merge)
+    x11-libs/libfm-extra required by (lxde-base/menu-cache-1.0.0-r1:0/2::gentoo, ebuild scheduled for merge)</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>After reading the change log for the ebuild it turns out the package was changed so users would unmerge the package and then merge it again.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>emerge --unmerge x11-libs/libfm</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Now my system is happy and being updated.</p>
+</div></p>
+  			<a href="blog/2015-06-26-bash-day.html"><h1>bash day</h1></a>
+  			<p>26 June 2015</p>
+  			<p><div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>Digging deeper into bash can be rewarding. Today, and possibly this weekend, I am going to focus on getting bash looking good (in xterm).</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+</p>
+  			<a href="blog/2015-06-19-upgrading-vagrant-box.html"><h1>upgrading vagrant box</h1></a>
+  			<p>19 June 2015</p>
+  			<p><div class="paragraph">
+<p>I&#8217;m upgrading <a href="https://vagrantcloud.com/moaxcp/boxes/gentoo64">moaxcp/gentoo64</a> and these are my notes.</p>
+</div>
+<div class="paragraph">
+<p>After an <code>emerge --sync</code> and <code>emerge -avuND @world</code> I found that gentoo release a new kernel (4.0.5). I followed
+<a href="https://wiki.gentoo.org/wiki/Kernel/Upgrade">this</a> to upgrade making sure to use –lvm. I added a new script
+/root/buildkernel.sh which will build the kernel with the correct options. I made sure to remove the old kernel
+to save space.</p>
+</div>
+<div class="paragraph">
+<p>There is a script cleanup_diskspace.sh which will remove some files and make the .box file smaller when it is
+built.</p>
+</div>
+<div class="paragraph">
+<p>When I originally created the vm I used lvm and made the root partition 7GB. Now is the time to resize it to
+something more useful. I changed the disk size to 120GB using <code>VBoxManage modifyhd gentoo-vagrant.vdi --resize
+122880</code></p>
+</div>
+<div class="paragraph">
+<p>LVM was not installed on the system even though the modules are in the kernel. When installing lvm there was an
+error related to <a href="https://forums.gentoo.org/viewtopic-t-986982.html?sid=6a911ac3752245becdc98096c9dd8081">this
+thread</a>. The advice on
+the thread is to remove parallel compilation by setting MAKEOPTS="-j1". After this change boost still did not
+compile. I added the ~amd64 keyword for dev-libs/boost to pick up a newer package. Even then I still had errors.</p>
+</div>
+<div class="paragraph">
+<p>The problem with parallel compilation is the amount of memory used. I increased the memory and got a different
+error. This time the error is No space left on device.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>    df -h
+
+    Filesystem            Size  Used Avail Use% Mounted on
+    udev                   10M  4.0K   10M   1% /dev
+    /dev/mapper/vg0-root  6.8G  4.5G  2.0G  70% /
+    tmpfs                 201M  388K  201M   1% /run
+    shm                  1005M     0 1005M   0% /dev/shm
+    cgroup_root            10M     0   10M   0% /sys/fs/cgroup</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This shows root as only 70% full but checking the inode count I get</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>    df -i
+
+    Filesystem           Inodes  IUsed  IFree IUse% Mounted on
+    udev                 256513    409 256104    1% /dev
+    /dev/mapper/vg0-root 458752 458745      7  100% /
+    tmpfs                257103    355 256748    1% /run
+    shm                  257103      1 257102    1% /dev/shm
+    cgroup_root          257103      4 257099    1% /sys/fs/cgroup</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This makes me want to rethink the entire gentoo64 build. I shouldn&#8217;t have to use lvm and I&#8217;m not sure why I
+installed it. I think I&#8217;m going to rebuild the whole system without lvm and make a larger hard drive.</p>
+</div></p>
+  			<a href="blog/2015-06-15-provisioning-java-on-gentoo-with-vagrant.html"><h1>provisioning java on gentoo-with-vagrant</h1></a>
+  			<p>15 June 2015</p>
+  			<p><div class="paragraph">
+<p>I wrote a <a href="https://github.com/moaxcp/fileServices/blob/master/Vagrantfile">small script</a> that will provision <a href="https://packages.gentoo.org/package/dev-java/oracle-jdk-bin">oracle-jdk-bin-1.8.0</a> on my <a href="https://atlas.hashicorp.com/moaxcp/boxes/gentoo64/versions/0.0.2">gentoo64</a> box. The script can be called multiple times through <code>vagrant reload --provision</code> and it will only install the jdk once. Oracle&#8217;s jdk has some restrictions. On gentoo the license needs to be accepted and a file needs to be manually downloaded and added to <code>/usr/portage/distfiles</code>. My Vagrantfile adds a share to <code>/usr/portage/distfiles</code> on the guest machine in <code>/distfiles</code>. The shell script will copy the file if it doesn&#8217;t exist, accept the license, and install the package. The only requirement is <code>jdk-8u45-linux-x64.tar.gz</code> needs to be located at '/usr/portage/distfiles'. This can be changed in your own project by editing the share in your Vagrantfile.</p>
+</div></p>
+  			<a href="blog/2015-06-13-release-of-vagrant-box.html"><h1>Release of Vagrant Box</h1></a>
+  			<p>13 June 2015</p>
+  			<p><div class="paragraph">
+<p>I just released a working version of my gentoo64 vagrant box. Setting it up is not as easy as vagrant makes it out to be. The issues are documented on the box page though. Please take a look at <a href="https://atlas.hashicorp.com/moaxcp/boxes/gentoo64">my gentoo vagrant box</a>.</p>
+</div>
+<div class="paragraph">
+<p>Uses</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>provision with java and now you can test your spring-boot applications.</p>
+</li>
+<li>
+<p>add your gentoo overlay and test your packages on a vm.</p>
+</li>
+</ul>
+</div></p>
+  			<a href="blog/2015-06-13-webcam.html"><h1>webcam</h1></a>
+  			<p>13 June 2015</p>
+  			<p><div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>My webcam doesn&#8217;t work on my gentoo machine. I actually have a list of hardware that I want to make sure works.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>webcam</p>
+</li>
+<li>
+<p>CAC card reader</p>
+</li>
+<li>
+<p>hdmi out</p>
+</li>
+<li>
+<p>bluetooth</p>
+</li>
+<li>
+<p>external dvd burner</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The gentoo wiki doesn&#8217;t seem to have a page for webcams but <a href="https://wiki.archlinux.org/index.php/Webcam_setup">arch linux</a> does.</p>
+</div>
+</div>
+</div>
+</p>
+  			<a href="blog/2015-06-10-gentoo-vagrant-box.html"><h1>gentoo vagrant box</h1></a>
+  			<p>10 June 2015</p>
+  			<p><div class="paragraph">
+<p>I finally got my gentoo vagrant box up and running. There was a <a href="https://github.com/mitchellh/vagrant/issues/5070#issuecomment-75738232">bug</a> in vagrant which I was able to find a workaround. I also had to make sure that the vboxsf module is loaded on boot. Otherwise, I got and error:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>    Failed to mount folders in Linux guest. This is usually because
+    the "vboxsf" file system is not available. Please verify that
+    the guest additions are properly installed in the guest and
+    can work properly. The command attempted was:
+
+    mount -t vboxsf -o uid=`id -u vagrant`,gid=`getent group vagrant | cut -d: -f3` vagrant /vagrant
+    mount -t vboxsf -o uid=`id -u vagrant`,gid=`id -g vagrant` vagrant /vagrant
+
+    The error output from the last command was:
+
+    /sbin/mount.vboxsf: mounting failed with the error: No such device</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>To fix this add</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>    modules="vboxsf"</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>to the file /etc/conf.d/modules.</p>
+</div>
+<div class="paragraph">
+<p>I was able to package the box after following another <a href="https://github.com/mitchellh/vagrant/issues/5186#issuecomment-77355450">fix</a> but I won&#8217;t be able to release the package until the above problems are fixed in the original vm.</p>
+</div></p>
+  			<a href="blog/2015-06-06-gentoo-vagrant-box.html"><h1>Gentoo Vagrant Box</h1></a>
+  			<p>06 June 2015</p>
+  			<p><div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>Today I am working on a vagrant base box using gentoo and VirtualBox. I created a gentoo stage-3 vm in VirtualBox. But this is not enough to run gentoo in VirtualBox let alone as a vagrant box. There are a number of packages that need to be installed to make a stage-3 useful for virtual box and vagrant.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>virtualbox-guest-additions</p>
+</li>
+<li>
+<p>acpi - for poweroff</p>
+</li>
+<li>
+<p>sudo - to run commands without a password</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+</p>
+  			<a href="blog/2015-06-01-xdm-with-notion.html"><h1>xdm with notion</h1></a>
+  			<p>01 June 2015</p>
+  			<p><div class="paragraph">
+<p>Today I am attempting to switch to xdm as my display manager. I currently use LXDE but I am integrating parts of it with the notion windows manager. LXDM is not needed so I would like to replace it with the original xdm.</p>
+</div>
+<div class="paragraph">
+<p>To start install xdm</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>    emerge -av x11-apps/xdm</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>add xdm as the display manager</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>    nano /etc/conf.d/xdm</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>set DISPLAYMANAGER to xdm</p>
+</div>
+<div class="paragraph">
+<p>The <a href="https://wiki.gentoo.org/wiki/NVIDIA_Driver_with_Optimus_Laptops">NVIDIA Driver with Optimus Laptops</a> guide has some pointers on how to setup xdm correctly. The driver requres that some xrandr commands are executed on xinit. The instructions are easy to follow.</p>
+</div>
+<div class="paragraph">
+<p>Now that this is complete I am exiting to the console and running the xdm command.</p>
+</div>
+<div class="paragraph">
+<p>It turns out that xdm is not loading my .xinitrc file.</p>
+</div>
+<div class="paragraph">
+<p>From my research on how xdm works and gentoo I learned a few things and this is what I did to get things running.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>copy /etc/X11/xinit/xinitrc to ~/.xinitrc</p>
+</li>
+<li>
+<p>make ~/.xinitrc executable</p>
+</li>
+<li>
+<p>create ~/.xsession</p>
+</li>
+<li>
+<p>add export XSESSION=notion to the top of the file</p>
+</li>
+<li>
+<p>add any other commands you need to execute</p>
+</li>
+<li>
+<p>add ~/.xinitrc as the final command</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The gentoo X system is setup in such a way that /etc/X11/xinitrc does everything most people want in a xinitrc file. The only problem is the file is not executable. By copying it to my home directory I am able to resuse it.</p>
+</div>
+<div class="paragraph">
+<p>Gentoo&#8217;s xinitrc looks for a XSESSION varaible and executes that session. If the session is not found twm is started.</p>
+</div>
+<div class="paragraph">
+<p>To get the default session to work x11-apps/xsm needs to be installed along with xterm an twm.</p>
+</div>
+<div class="paragraph">
+<p>xdm only executes a .xsession file in the user&#8217;s home directory using the authenticated user&#8217;s account.</p>
+</div>
+<div class="paragraph">
+<p>With this setup I am setting the XSESSION variable to run notion. The /etc/X11/Sessions/notion file points to /usr/bin/notion rather than where I installed it /usr/local/bin/notion.</p>
+</div>
+<div class="paragraph">
+<p>So far, I think this is one thing I can check of my list for building my system.</p>
+</div></p>
+  			<a href="blog/2015-05-31-notion-with-lxpanel.html"><h1>notion with lxpanel</h1></a>
+  			<p>31 May 2015</p>
+  			<p><div class="paragraph">
+<p>Today I am starting a project to use lxpanel from lxde in the notion window manager. I am starting with
+a fresh set of config files.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>    cp /usr/local/etc/notion/* /home/john/.notion</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Turn off mod_statusbar and turn on mod_dock.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>    nano /home/john/.notion/cfg_notion.lua</pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>comment out dopath("cfg_defaults")</p>
+</li>
+<li>
+<p>Uncomment the rest of the modules except for mod_statusbar</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Reload the session</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>press F12</p>
+</li>
+<li>
+<p>type session/restart</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>There will be a floating dock (black empty box) in the lower right of the workspace. To get rid of it</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>    nano /home/john/.notion/cfg_dock.lua</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The first section creates a dock floating dock that can be used to place the lxpanel application. Set the mode to embedded or floating. Floating will allow the panel to be hidden. Embedded will permenently place the panel at the bottom of the screen. Set floating_hidden=true to automatically hide the panel when the session starts. Restart the session once cfg_dock.lua is saved (F12 + session/restart).</p>
+</div>
+<div class="paragraph">
+<p>Start lxpanel by pression F3 and typing lxpanel.</p>
+</div>
+<div class="paragraph">
+<p>After the dock is setup add lxpanel to your .xinitrc This will make sure the panel is started when you log into the computer.</p>
+</div></p>
+  			<a href="blog/2015-05-30-notion-ebuild.html"><h1>notion 9999 ebuild.</h1></a>
+  			<p>30 May 2015</p>
+  			<p><div class="paragraph">
+<p>Today I am investigating installing the latest version of x11-wm/notion on my machine. I got an email from the developer that it should be safe. He said that there are no plans for a new release but many fixes have been made in the commit logs. I&#8217;m going to risk it and try out the latest development source code.</p>
+</div>
+<div class="paragraph">
+<p>Gentoo has a 9999 ebuild for notion. 9999 ebuilds directly install what is currently being developed in a project&#8217;s source code repository. It takes the current revision of the sources, compiles them, and installs the project on your system. For certain projects this can be dangerous. It depends a lot on the <a href="https://www.atlassian.com/git/tutorials/comparing-workflows">workflow</a> of the project and the policy for commiting broken code.</p>
+</div>
+<div class="paragraph">
+<p>Notion seems to use a <a href="https://www.atlassian.com/git/tutorials/comparing-workflows/forking-workflow">forking workflow</a> with a main repository located on sourceforge. There are a few repositories on github. My guess is the accepted changes all get put into the sourceforge repo and releases are made from it. With the forking workflow The main repository should not be broken and it should be safe to install software from it without problems. So I am going to install the 9999 package.</p>
+</div>
+<div class="paragraph">
+<p>Here is how I unmasked the 9999 ebuild and installed it.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>    echo "=x11-wm/notion-9999" &gt;&gt; /etc/portage/package.unmask
+    echo "=x11-wm/notion-9999 **" &gt;&gt; /etc/portage/package.accept_keywords
+    emerge -av x11-wm/notion</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This results in an error. Probably because the dependencies have changed since last year. To fix this I am copying the ebuild to my <a href="https://github.com/moaxcp/moaxcp-gentoo-overlay">git overlay</a> and updating it.</p>
+</div>
+<div class="paragraph">
+<p>It turns out that there is a problem with the current code. The lua detector is not able to detect the version of lua installed on the system. It uses the name of the lua executable rather than using lua -v to get the version. I will need to wait on installing the 9999 version of notion until this is resolved. The developer said it may not be until next weekend.</p>
+</div></p>
+  			<a href="blog/2015-05-29-upgrading-kernel.html"><h1>upgrading the kernel</h1></a>
+  			<p>29 May 2015</p>
+  			<p><div class="paragraph">
+<p>I&#8217;m following <a href="https://wiki.gentoo.org/wiki/Kernel/Upgrade">this</a> guide to upgrade my gentoo kernel.</p>
+</div>
+<div class="paragraph">
+<p>These are just some notes:</p>
+</div>
+<div class="paragraph">
+<p>backup current .config</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>    cp /usr/src/linux/.config ~/kernel-config-`uname -r`</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>change symlink for /usr/src/linux to new sources</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>    eselect kernel list
+    eselect kernel set ${from list}</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Interestingly, my system is running 3.17.8-gentoo-r1 and the latest installed sources is linux-3.18.12-gentoo but only
+the latest is displayed in the kernel listing.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>    john-gentoo src # ls -l
+    total 8
+    lrwxrwxrwx  1 root root   22 Feb  9 04:39 linux -&gt; linux-3.17.8-gentoo-r1
+    drwxr-xr-x 21 root root 4096 May  2 21:40 linux-3.17.8-gentoo-r1
+    drwxr-xr-x 24 root root 4096 May 20 20:31 linux-3.18.12-gentoo
+
+    john-gentoo src # eselect kernel list
+    Available kernel symlink targets:
+      [1]   linux-3.18.12-gentoo</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>I am selecting the available kernel.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>    john-gentoo src # eselect kernel set 1
+    john-gentoo src # eselect kernel list
+    Available kernel symlink targets:
+      [1]   linux-3.18.12-gentoo *</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>There is a make command to convert the old .config for the new kernel.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>    make silentoldconfig</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>I should have used make olddefconfig because I only want defaults for new items.</p>
+</div>
+<div class="paragraph">
+<p>Now to building the kernel. I have a sript that will build the kernel for my computer.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>    genkernel --menuconfig --lvm --mdadm --makeopts="-j9 -l8" all</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This will enable lvm, mdadm and let me look at the menu. The make opts will build the kernel faster and use all of the
+cores in my processor.</p>
+</div>
+<div class="paragraph">
+<p>Next I need to upgrade grub. The grub settings are located in /etc/default/grub. I needed to change the settings for my
+kernel and they still should be valid.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>    GRUB_CMDLINE_LINUX="domdadm dolvm real_root=/dev/vg0/home resume=/dev/vg0/swap"
+    GRUB_DISABLE_LINUX_UUID=true</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Rebuild the grub config for the new kernel.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>    grub2-mkconfig -o /boot/grub/grub.cfg</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Now to restart.</p>
+</div>
+<div class="paragraph">
+<p>After restarting X would not start. I needed to setup my nvidia drivers again following
+<a href="https://wiki.gentoo.org/wiki/NVIDIA_Driver_with_Optimus_Laptops">this</a> guide. I&#8217;m not sure how things worked before
+because I didn&#8217;t have a xorg.conf and I definately didn&#8217;t use an edid firmware for the monitor. Now I am glad to say my
+kernel is current and X starts.</p>
+</div></p>
+  			<a href="blog/2015-05-27-layman.html"><h1>layman</h1></a>
+  			<p>27 May 2015</p>
+  			<p><div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>I&#8217;m working on getting <a href="https://wiki.gentoo.org/wiki/Layman">layman</a> setup on my gentoo system so I can connect to
+other overlays. Currently I have been copying ebuilds from overlays using my browser. This should be avoided unless I
+need to make changes to the overlay. I would also like to eventually get <a href="https://github.com/moaxcp/moaxcp-gentoo-overlay">my overlay</a>
+recognized as a <a href="https://overlays.gentoo.org/">gentoo overlay</a>.</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+</p>
+  			<a href="blog/2015-05-26-accumulo-devserver.html"><h1>accumulo devserver</h1></a>
+  			<p>26 May 2015</p>
+  			<p><div class="paragraph">
+<p>Today I am messing with <a href="https://github.com/joshelser/accumulo-devserver">this</a> project to create an accumulo dev
+server.</p>
+</div>
+<div class="paragraph">
+<p>Since I already have virtualbox on my system I only needed to figure out how to install vagrant. Using my gentoo
+overlay I found an <a href="http://gpo.zugaina.org/app-emulation/vagrant-bin">ebuild</a> for the latest version and added it. Once
+unmasked and installed the vagrant command works.</p>
+</div>
+<div class="paragraph">
+<p>I ran into problems setting up the box. I had google a precise64 box because the default did not download (404 error).
+Using the command found <a href="http://docs.vagrantup.com/v2/providers/basic_usage.html">here</a> I was able to setup a box.</p>
+</div>
+<div class="paragraph">
+<p>After sshing into the server it looks like I cannot run accumulo shell. I guess I will have to try this again tomorrow.</p>
+</div>
+<div class="paragraph">
+<p>I think vagrant is the way to go for setting these dev boxes up. There is a gentoo box that could be used to setup a
+dev environment. The only problem is finding ebuilds for hadoop, accumulo, and zookeeper. Also hadoop requires
+ProtocolBuffer but there is already an updated ebuild for it in the master overlay.</p>
+</div></p>
+  			<a href="blog/2015-05-26-xterm-settings.html"><h1>xterm settings</h1></a>
+  			<p>26 May 2015</p>
+  			<p><div class="paragraph">
+<p>To setup xterm with different colors than the system default edit the file ~.Xresources.</p>
+</div>
+<div class="paragraph">
+<p>Here are some links to a few good color schemes I found.</p>
+</div>
+<div class="paragraph">
+<p><a href="https://wiki.mpich.org/mpich/index.php/Configure_xterm_Fonts_and_Colors_for_Your_Eyeball" class="bare">https://wiki.mpich.org/mpich/index.php/Configure_xterm_Fonts_and_Colors_for_Your_Eyeball</a></p>
+</div>
+<div class="paragraph">
+<p><a href="https://wiki.archlinux.org/index.php/x_resources" class="bare">https://wiki.archlinux.org/index.php/x_resources</a></p>
+</div>
+<div class="paragraph">
+<p><a href="https://unix4lyfe.org/xterm/" class="bare">https://unix4lyfe.org/xterm/</a></p>
+</div>
+<div class="paragraph">
+<p>Just copy and paste these into the file.</p>
+</div>
+<div class="paragraph">
+<p>To enable changes to the file add</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code class="language-bash" data-lang="bash">[[ -f ~/.Xresources ]] &amp;&amp; xrdb -merge ~/.Xresources</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>to ~/.xinitrc and restart your terminal or use source ~/.xinitrc</p>
+</div></p>
+  			<a href="blog/2015-05-23-moaxcp-gentoo-overlay.html"><h1>moaxcp-gentoo-overlay</h1></a>
+  			<p>23 May 2015</p>
+  			<p><div class="paragraph">
+<p>I created an <a href="https://github.com/moaxcp/moaxcp-gentoo-overlay">gentoo overlay</a> with the latest version of x11-wm/notion
+and my own project dev-java/recMD5. Go to the &lt;a href="https://github.com/moaxcp/moaxcp-gentoo-overlay"&gt;overlay&lt;/a&gt; and
+follow the README.md for instructions on using the <a href="https://github.com/moaxcp/moaxcp-gentoo-overlay">overlay</a>. Here are
+the notes from setting things up.</p>
+</div>
+<div class="paragraph">
+<p>I&#8217;m going through this <a href="https://wiki.gentoo.org/wiki/Overlay/Local_overlay">tutorial</a> for creating an overlay. The base
+directory is</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>/usr/local/portage/moaxcp</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>from the first section of the tutorial you create the repo</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>mkdir -p /usr/local/portage/moaxcp/{metadata,profiles}
+echo 'moaxcp' &gt; /usr/local/portage/moaxcp/profiles/repo_name
+echo 'masters = gentoo' &gt; /usr/local/portage/moaxcp/metadata/layout.conf
+chown -R portage:portage /usr/local/portage/moaxcp
+/usr/local/portage is already owned by portage
+mkdir /etc/portage/repos.conf
+nano /etc/portage/repos.conf/local.conf</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>add the following text, save and exit</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>[moaxcp]
+location = /usr/local/portage/moaxcp
+masters = gentoo
+auto-sync = no</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Now that the repo is create put a package in it</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>mkdir -p /usr/local/portage/moaxcp/x11-wm/notion
+nano /usr/local/portage/moaxcp/x11-wm/notion/notion_p2014052800.ebuild</pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Add text from <a href="https://523566.bugs.gentoo.org/attachment.cgi?id=389597" class="bare">https://523566.bugs.gentoo.org/attachment.cgi?id=389597</a>. The file is called notion-3-2014052800-src.tar.bz2 on sourceforge. Which looks similar to what the ebuild looks for.</p>
+</li>
+<li>
+<p>save and exit</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>chown -R portage:portage /usr/local/portage/moaxcp
+pushd /usr/local/portage/moaxcp/x11-wm/notion
+repoman manifest</p>
+</div>
+<div class="paragraph">
+<p>now I get</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>Invalid ebuild name: /usr/local/portage/moaxcp/x11-wm/notion/notion_p2014052800.ebuild
+&gt;&gt;&gt; Creating Manifest for /usr/local/portage/moaxcp/x11-wm/notion
+!!! Invalid package name: 'x11-wm/notion_p2014052800'
+Unable to generate manifest.</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This was caused by the file name not containing the version number. I changed the file name to notion-3_p2014052800.ebuild and everything worked. Now add a keyword for the protected package so it will emerge.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>nano /etc/portage/package.keywords/notion
+=x11-wm/notion-3_p2014052800 ~amd64</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Or use -a when emerging the package and accept the changes (don&#8217;t forget to dispatch-conf). On a side note once the overlay is setup I added everything in the overlay to github and setup the overlay to sync with github. Now when I do emerge –sync the overlay will sync with github. Any changes I make to the overlay can by committed using git.</p>
+</div>
+<div class="paragraph">
+<p>To sync with git I changed the repos.conf/local.conf file</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>nano /etc/portage/repos.conf/local.conf</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Add text</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>[moaxcp]
+location = /usr/local/portage/moaxcp
+sync-uri = https://github.com/moaxcp/moaxcp-gentoo-overlay.git
+masters = gentoo
+auto-sync = yes
+sync-type = git</pre>
+</div>
+</div></p>
+  			<a href="blog/2015-05-23-recmd5-installs-on-gentoo.html"><h1>recMD5 installs on gentoo</h1></a>
+  			<p>23 May 2015</p>
+  			<p><div class="paragraph">
+<p>For the final step of the recmd5 project I want create a gentoo ebuild that will build recmd5 and install it on the
+system for use.</p>
+</div>
+<div class="paragraph">
+<p>I&#8217;m starting by using an example ebuild that seems to be a maven project similar to mine as far as building goes:
+<a href="https://sources.gentoo.org/cgi-bin/viewvc.cgi/gentoo-x86/dev-java/gson/gson-2.3.1.ebuild?view=markup">gson</a>.</p>
+</div>
+<div class="paragraph">
+<p>The final ebuild looks like <a href="https://github.com/moaxcp/moaxcp-gentoo-overlay/blob/master/dev-java/recMD5/recMD5-1.0.1.ebuild">this</a>.</p>
+</div>
+<div class="paragraph">
+<p>Currently it is getting the source from the maven repository rather than the github archive of the source. I know the
+source is the same but I&#8217;m not sure which to pick. It is easier to get it from maven because the github name is recMD5
+while the source file is recmd5.</p>
+</div>
+<div class="paragraph">
+<p>I&#8217;m very excited to finally package my software for an os. I may work on getting my download manager installing on
+gentoo as well.</p>
+</div></p>
+  			<a href="blog/2015-05-17-virtualbox-gentoo-template.html"><h1>VirtualBox Gentoo Template</h1></a>
+  			<p>17 May 2015</p>
+  			<p><div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>I am creating a new virtualbox gentoo instance. This will be used as a template for other gentoo vms on my laptop. For now it will be very basic.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>1 cpu</p>
+</li>
+<li>
+<p>512 MB memory</p>
+</li>
+<li>
+<p>8 GB harddrive space</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Being able to increase the template may be important. I have had problems in the past with increasing cpus in a gentoo vm. Adding memory shouldn&#8217;t be a problem. Adding harddrive space would be better if I used LVM.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+</p>
+  			<a href="blog/2015-05-09-checking-heapsortselectheap-java.html"><h1>Checking HeapSortSelectHeap.java</h1></a>
+  			<p>09 May 2015</p>
+  			<p><div class="paragraph">
+<p>I had to fix my previous post on HeapSort because I used the wrong comparison operators for siftDownMax and
+siftDownMin. To check these I made heapify public and printed the heap before sorting in runList.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>public static void runList(int[] list, Heap heap) {
+    System.out.println("before: " + Arrays.toString(list));
+    HeapSortSelectHeap s = new HeapSortSelectHeap(heap);
+    s.heapify(list);
+    System.out.println("heap: " + Arrays.toString(list));
+    s.sort(list);
+    System.out.println("after: " + Arrays.toString(list));
+}</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This results in:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>MINHEAP
+before: [5, 6, 4, 9, 1, 2, 0, 8, 7, 3]
+heap: [0, 1, 2, 7, 3, 5, 4, 8, 9, 6]
+after: [9, 8, 7, 6, 5, 4, 3, 2, 1, 0]
+MAXHEAP
+before: [7, 9, 2, 6, 4, 1, 0, 3, 5, 8]
+heap: [9, 8, 2, 6, 7, 1, 0, 3, 5, 4]
+after: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>As you can see a min heap results in descending order and max heap results in ascending order.</p>
+</div></p>
+  			<a href="blog/2015-05-04-106.html"><h1>Negative Lookahead Regex</h1></a>
+  			<p>04 May 2015</p>
+  			<p><div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>Take a list of languages:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>English</p>
+</li>
+<li>
+<p>French</p>
+</li>
+<li>
+<p>Spanish</p>
+</li>
+<li>
+<p>Portugues</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>And you want a regex that matches everything except English</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+</p>
+  			<a href="blog/2015-04-30-tutorial-for-a-configurable-heapsort-in-java.html"><h1>Tutorial For A Configurable Heapsort In Java</h1></a>
+  			<p>30 April 2015</p>
+  			<p><div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>Heapsort is implemented by creating a heap and continuously removing the root element until the heap is empty. A heap
+is a tree with two properties: shape and heap. The shape property requires that the tree is always a complete tree. The
+heap property requires the tree to be in min-heap order or max-heap order. A min-heap is a tree where each node is
+smaller than it&#8217;s children. A max-heap is a tree where each node is larger than it&#8217;s children. d-ary is used to
+describe the maximum number of children a node can have in the heap. Typical heapsort algorithms use a 2-ary heap but
+others are possible including a 1-ary heap.</p>
+</div>
+<div class="paragraph">
+<p>From the above concepts two choices are made when designing a heapsort. What heap property to use and what d-ary to
+use? A configurable heapsort would allow a user to make these decisions instead of being hard coded into the algorithm.
+If a user could make those choices what would the heapsort look like? How can the algorithm change between min-heap and
+max-heap? How can the algorithm change between 2-ary, 3-ary, 1-ary, or 15-ary? First, lets look at a heap sort.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+</p>
+  			<a href="blog/2015-04-15-ps1-in-gentoo.html"><h1>$PS1 in gentoo</h1></a>
+  			<p>15 April 2015</p>
+  			<p><div class="paragraph">
+<p>I finally changed my terminal to get rid of long paths. Right now it is</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>john@john-gentoo ~/Dropbox/programming/groovy/factordb/grails-app/conf $</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>And after the change it is</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>john@john-gentoo conf $</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This is what I added to my .bashrc</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>PS1="\[33[01;32m\]\u\[33[01;34m\] \W \$\[33[00m\]"</pre>
+</div>
+</div></p>
+  			<a href="blog/2015-04-14-creating-factordb.html"><h1>Creating factordb</h1></a>
+  			<p>14 April 2015</p>
+  			<p><div class="paragraph">
+<p>I started creating a new app called <a href="https://github.com/moaxcp/factordb">factordb</a>. I am using the new grails 3.0.1. I
+have a few ideas for what it should do</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>add new numbers and their factors</p>
+</li>
+<li>
+<p>this will be validated by multiplying the two numbers (no authentication needed)</p>
+</li>
+<li>
+<p>web service to add new numbers</p>
+</li>
+<li>
+<p>add prime numbers</p>
+</li>
+<li>
+<p>These are numbers that cannot be factored</p>
+</li>
+<li>
+<p>These will be submitted as requests, added once processed</p>
+</li>
+<li>
+<p>maintain a list of numbers to factor</p>
+</li>
+<li>
+<p>maintain factoring program which distributes jobs</p>
+</li>
+<li>
+<p>start, stop, send numbers to factor</p>
+</li>
+<li>
+<p>display stats for factoring program</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>These are just some ideas for now. The factoring program will be a separate project based off of
+<a href="https://github.com/moaxcp/umuc-team-factor">umuc-team-factor</a>.</p>
+</div></p>
+  			<a href="blog/2015-04-14-setting-up-xterm.html"><h1>Setting up xterm</h1></a>
+  			<p>14 April 2015</p>
+  			<p><div class="paragraph">
+<p>from <a href="https://wiki.archlinux.org/index.php/x_resources" class="bare">https://wiki.archlinux.org/index.php/x_resources</a> If you do not use a desktop environment, you probably need to add
+the following line to your ~/.xinitrc:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>[[ -f ~/.Xresources ]] &amp;amp;&amp;amp; xrdb -merge ~/.Xresources</pre>
+</div>
+</div></p>
+  			<a href="blog/2015-02-20-recmd5.html"><h1>recmd5</h1></a>
+  			<p>20 February 2015</p>
+  			<p><div class="paragraph">
+<p>I have created a small project focused on the md5 algorithm. I noticed the md5 in java cannot be restarted. If my
+program is md5ing a large file, I need to start the process over again if the program crashes.</p>
+</div>
+<div class="paragraph">
+<p>To solve this problem I created an MD5State which holds the state of the algorithm. A user can write this state to a
+file or database as bytes are being processed. If the program crashes the state can be recovered and processing can
+begin from where it left off.</p>
+</div>
+<div class="paragraph">
+<p>I originally wrote this on google code ages ago but I wanted try using some of the other internet tools out there. I
+moved the project over to github and signed up for a travis-ci account. I created a cloud9 project to work on it
+through a browser. I even created some tests so travis-ci could fail builds if I messed something up.</p>
+</div>
+<div class="paragraph">
+<p>I looked into installing this as a MessageDigest object in the java platform. It looks easy but I&#8217;m not sure if it is
+useful enough.</p>
+</div>
+<div class="paragraph">
+<p>The test method is a good example of how to use this project. It takes a byte array and compares the md5 with the md5
+from java.</p>
+</div>
+<div class="paragraph">
+<p>`
+private boolean testAgainstJavaMD5(byte[] bytes) {
+     MessageDigest expected = null;
+     MD5MessageDigest test = null;
+     try {
+         expected = MessageDigest.getInstance(&quot;md5&quot;);
+         test = new MD5MessageDigest();
+     } catch (NoSuchAlgorithmException ex) {
+         Logger.getLogger(MD5MessageDigestTest.class.getName()).log(Level.SEVERE, null, ex);
+         throw new IllegalStateException(&quot;could not create MessageDigest&quot;, ex);
+     }
+     expected.update(bytes);
+     String s = new BigInteger(1, expected.digest()).toString(16);
+     if (s.length() == 31) {
+         s = &quot;0&quot; + s;
+     }
+     test.digest(bytes);
+     Logger.getLogger(MD5MessageDigestTest.class.getName()).info(s);
+     Logger.getLogger(MD5MessageDigestTest.class.getName()).info(test.getState().toString());
+     return s.equals(test.getState().toString());
+ }
+`</p>
+</div>
+<div class="paragraph">
+<p>Here are the links to the project.</p>
+</div>
+<div class="paragraph">
+<p><a href="https://github.com/moaxcp/recMD5" class="bare">https://github.com/moaxcp/recMD5</a></p>
+</div>
+<div class="paragraph">
+<p><a href="https://travis-ci.org/moaxcp/recMD5" class="bare">https://travis-ci.org/moaxcp/recMD5</a></p>
+</div></p>
+  			<a href="blog/2015-02-01-gentoo-on-the-java-x86-emulator.html"><h1>Gentoo on the Java x86 emulator</h1></a>
+  			<p>01 February 2015</p>
+  			<p><div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>Java has an <a href="http://jpc.sourceforge.net/download_application.html">x86 emulator</a> that claims to run linux. After
+attempting the demo links for other distributions that do not work I decided to try to install gentoo on it myself.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+</p>
+  			<a href="blog/2015-01-26-sony-vaio-p-update.html"><h1>sony vaio p update</h1></a>
+  			<p>26 January 2015</p>
+  			<p><div class="paragraph">
+<p>Today I was finally able to update my tiny laptop. It was having an compile issue with the package sys-devel/llvm. I&#8217;m
+not sure what the issue was but I masked the updated package and the rest of my system was able to update. Once I see
+an update to the ebuild I will try it again.</p>
+</div></p>
+  			<a href="blog/2015-01-03-bios-crashed.html"><h1>BIOS Crashed</h1></a>
+  			<p>03 January 2015</p>
+  			<p><div class="paragraph">
+<p>After trying to delete a UEFI entry in my system bios my computer no longer starts up. It gets to the BIOS screen, the
+progress bar fills in, and they system doesn&#8217;t start. Any attempt to get into the BIOS menu does not work. The screen
+says it is preparing the menu but it never opens. I have tried resetting the bios by unplugging it, taking out the
+battery, taking out the motherboard battery, and pressing the power button to remove any static power. The result is
+the same. It looks like I now need to replace the motherboard.</p>
+</div>
+<div class="paragraph">
+<p>I have started working on my tiny sony vaio p. gentoo will not update from a problem with sys-devel/llvm-3.5.0. It has
+already been reported in the forum <a href="http://forums.gentoo.org/viewtopic-p-7676898.html">here</a>.</p>
+</div>
+<div class="paragraph">
+<p>Meetup.com looks like fun. I have signed up for the NOVALUG group. I&#8217;m not sure where will happen but I&#8217;m excited about
+it.</p>
+</div>
+<div class="paragraph">
+<p>I found a site https://projecteuler.net/. It is a sight for solving math problems using computer programs. This would
+be fun to practice with clojure or the new java features if I can get my computer setup.</p>
+</div></p>
+  			<a href="blog/2014-12-20-setting-up-gentoo-again-part-1.html"><h1>Setting up gentoo again: Part 1</h1></a>
+  			<p>20 December 2014</p>
+  			<p><div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>Recently I decided to reinstall gentoo. The first install went well but I would like to switch the system to use raid
+0, GPT, and LVM on LUKS. Setting up the hard drives is the primary reason for doing a complete reinstall. I also want
+to setup X with LXDM, LXDE, and notion. I really like notion but I do not want to build an entire desktop environment
+around it.</p>
+</div>
+<div class="paragraph">
+<p>LVM on LUKS uses only one key to access the system.</p>
+</div>
+<div class="paragraph">
+<p>LVM cannot span multiple volumes in this case. Since I am using raid 0 on my two hard drives this will not be a problem
+and my system will never expand beyond two hard drives.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+</p>
+  			<a href="blog/2014-10-15-changing-keyboard-shortcuts-in-the-notion-windows-manager.html"><h1>Changing keyboard shortcuts in the notion windows manager</h1></a>
+  			<p>15 October 2014</p>
+  			<p><div class="paragraph">
+<p>There are two problems with notion&#8217;s keyboard shortcuts: using the Alt key and function key for commands. First the
+Alt key is used for things like splitting and resizing frames. The Alt key is usually used to select menus in a window.
+For instance, in Netbeans Alt+r selects the run menu. When I push Alt+r notion tries to resize the frame instead of
+letting netbeans open the menu. This is why most Tiling windows managers use the Super key (windows key) instead,
+allowing applications to use the Alt key. The second problem is, function keys are used for things like creating
+workspaces, opening a terminal, and running commands. Notion hijacks these keys so applications cannot use them. The
+most recent example I ran into is with alsamixer. Alsamixer uses the function keys for selecting the sound card and
+viewing system info. Notion&#8217;s keyboard shortcuts break applications. This is a problem for a mouse free windows
+manager. Notion should design a new shortcut layout that is simple and works with other X11 applications.</p>
+</div></p>
+  			<a href="blog/2014-10-12-adding-splitting-screen-shortcuts-to-the-notion-windows-manager.html"><h1>Adding splitting screen shortcuts to the notion windows manager</h1></a>
+  			<p>12 October 2014</p>
+  			<p><div class="paragraph">
+<p>Some time ago I asked a question on stack overflow about adding new commands to the notion window manager. These
+commands split the entire workspace, adding a new frame to the bottom or side of it. Here is a link:
+<a href="http://stackoverflow.com/questions/24494725/splitting-workspaces-in-the-notion-window-manager" class="bare">http://stackoverflow.com/questions/24494725/splitting-workspaces-in-the-notion-window-manager</a></p>
+</div>
+<div class="paragraph">
+<p>In cfg_tiling.lua add</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>kpress(META.."Z", "WTiling.split_top(_, 'bottom'):goto_focus()"),</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>inside the "defbindings("WTiling", {" block and add</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>kpress("Z", "Wtiling.split_top(_, 'left'):goto_focus()"),</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>inside the "submap(META.."K", {" block</p>
+</div>
+<div class="paragraph">
+<p>It sets up META..Z and META..K + Z as the key bindings for these actions.</p>
+</div>
+<div class="paragraph">
+<p>After setting these up on my Dell precision 4600 only META..Z seems to work and the focus is not moving to the new
+frame.</p>
+</div></p>
+  			<a href="blog/2014-10-11-stalonetray-in-notion.html"><h1>stalonetray in notion</h1></a>
+  			<p>11 October 2014</p>
+  			<p><div class="paragraph">
+<p>Currently, stalonetray is installed and running from the .xinitrc file with:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>stalonetray --geometry 6x1 --no-shrink --kludges force_icons_size -i 24 &amp;</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>In my current notion layout I have to move stalonetray to a small frame in the lower right hand side of my monitor. I
+would like to make stalonetray part of the status bar in notion.</p>
+</div>
+<div class="paragraph">
+<p>The first step is to create the config files in ~/.notion.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>cp /etc/notion/* .notion</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Now edit cfg_notion.lua and include</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>defwinprop {class="stalonetray", statusbar="dock"}</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Now edit cfg_statusbar.lua and add %systray_dock after %systray on the template line.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>template="[ %date || load: %load ] %filler%systray%systray_dock",</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>now when notion starts stalonetray will appear in the statusbar. The only problem I see now is when there is only one
+frame and it is split virtically, stalonetray is no longer in the lower right corner. I think have this fixed on my
+sony vaio p which I will look at tomorrow and try to fix.</p>
+</div></p>
+  			<a href="blog/2014-10-10-bluetooth-mouse-on-gentoo-part-2.html"><h1>Bluetooth mouse on Gentoo part 2</h1></a>
+  			<p>10 October 2014</p>
+  			<p><div class="paragraph">
+<p>simple-agent is no longer available in bluez. The gentoo wiki must be very outdated. The version I am using is 5.21.
+The test-programs use flag is no longer used. So I removed it from package.use. After searching for commands that start
+with blue I found bluetoothctl which did everything I needed. Here is what I did once bluetoothctl opened.</p>
+</div>
+<div class="paragraph">
+<p><code>list</code></p>
+</div>
+<div class="paragraph">
+<p>displays the local controllers on the computer.</p>
+</div>
+<div class="paragraph">
+<p><code>devices</code></p>
+</div>
+<div class="paragraph">
+<p>displays the devices.</p>
+</div>
+<div class="paragraph">
+<p><code>scan on</code></p>
+</div>
+<div class="paragraph">
+<p>starts scanning for new devices to add. (put the device in pairing mode).</p>
+</div>
+<div class="paragraph">
+<p><code>pair {mac address}</code></p>
+</div>
+<div class="paragraph">
+<p>pairs the device with the controller.</p>
+</div>
+<div class="paragraph">
+<p>From here I thought the mouse would work well but the mouse was still flashing for pairing. The help menu has a connect
+command in it so I tried that.</p>
+</div>
+<div class="paragraph">
+<p><code>connect {mac address}</code></p>
+</div>
+<div class="paragraph">
+<p>Now the mouse is working. I also have a bluetooth remote keyboard that I could add in the future. In the past I had to
+enter keys on it to pair. It will be interesting to see how bluetoothctl handles this.</p>
+</div></p>
+  			<a href="blog/2014-10-10-install-bluetooth-mouse.html"><h1>Install bluetooth mouse</h1></a>
+  			<p>10 October 2014</p>
+  			<p><div class="paragraph">
+<p>I am following the wiki article at: <a href="http://wiki.gentoo.org/wiki/Bluetooth" class="bare">http://wiki.gentoo.org/wiki/Bluetooth</a></p>
+</div>
+<div class="paragraph">
+<p>After installing bluez, the gentoo wiki says to use hcitool to list the bluetooth devices. On my computer there were no
+devices. The wiki suggests using rfkill to unblock the device but I found that I needed to use "hciconfig hci0 up" in
+order for the device to be listed. rfkill was helpful in listing the bluetooth device as hci0 though.</p>
+</div>
+<div class="paragraph">
+<p>The wiki uses simple-agent which will only be available from the bluez package if the test-programs use flag is enabled
+for that package. I added "net-wireless/bluez test-programs" to /etc/portage/package.use and re-emerged the package but
+it did not add simple-agent.</p>
+</div>
+<div class="paragraph">
+<p>I will have to continue this tomorrow.</p>
+</div></p>
+  			<a href="blog/2014-06-01-connecting-to-a-wpa-wireless-network-from-the-gentoo-minimal-install-cd.html"><h1>Connecting to a WPA Wireless Network From The Gentoo Minimal Install CD</h1></a>
+  			<p>01 June 2014</p>
+  			<p><div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>Connecting to a wpa enabled wireless network can be difficult in the gentoo minimum install cd. Most sources suggest
+not to use the cd if this is an issue and to use a cd from a different distribution. There is no reason to do this
+because the minimal install CD comes with wpa_supplicant. wpa_supplicant is the basic tool and library that most
+network configuration tools for all linux distributions use to connect to wpa networks.</p>
+</div>
+<div class="paragraph">
+<p>When using the minimal install cd the network card should be configured to use wpa_supplicant and wpa_cli should be
+used to connect to the network. Using the configuration files that most tutorials show is useless as any changes will
+only be temporary and will be lost once the system is restarted.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+</p>
+  			<a href="blog/2014-05-18-create-an-installer-for-gentoo.html"><h1>Create an Installer for Gentoo</h1></a>
+  			<p>18 May 2014</p>
+  			<p><div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>As with many linux distributions gentoo provides Live CDs which can be used to try out gentoo and install it. Gentoo
+offers two Live CDs one is a complete is with a GUI and the other is a minimal-install CD with only the tools needed to
+install Gentoo. These instructions will create gentoo&#8217;s minimal install cd.</p>
+</div>
+<div class="paragraph">
+<p>There are three steps to creating a Live CD for most Linux distributions: download the files, check the integrity of
+the files, and create and install medium. This example will create a usb stick with gentoo&#8217;s minimal install CD on it.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+</p>
+  			<a href="blog/2014-05-17-gentoo-introduction.html"><h1>Gentoo Introduction</h1></a>
+  			<p>17 May 2014</p>
+  			<p><div class="paragraph">
+<p>Gentoo is one of the few linux based operating systems that allows users to build the operating system from the ground
+up. Being able to choose every part of the operating system, gentoo is extremely customizable. As a result it can be
+adapted to meet any users needs.</p>
+</div>
+<div class="paragraph">
+<p>Old computers usually come with outdated operating system that are vulnerable to attack. By using gentoo a user can
+ensure an old computer is running a newer, less vulnerable operating system while enjoying all of the useful features
+linux has to offer.</p>
+</div>
+<div class="paragraph">
+<p>One of the goals of gentoo, which sets it apart from all linux distributions, is support for compiling applications
+before they are installed. Gentoo allows each application to be customized at compile time for the users needs before
+it is installed through the use of profiles and use flags. Gentoo does this with a program called portage.</p>
+</div>
+<div class="paragraph">
+<p>Compiling applications for the computer it is running on ensures the application is completely optimized for the best
+possible performance on the computer. Portage allows these optimizations to be set for the compiler so when an
+application is installed it is optimized with little input form the user. This series of posts will describe how to
+setup gentoo on a Sony VAIO P computer.</p>
+</div>
+<div class="paragraph">
+<p>The purpose of this series is to explain how to bring old computers back to life using gentoo. they will explain each
+step in updating an old sony viao p with a new gentoo operating system and explain how to get each device on the
+computer working. It will also describe the next steps to consider such as power management, using tmux, and links. The
+blog posts are not limited to users of a Sony Vaio P computer. They are intended for any user that may wish to bring an
+old computer back to life with gentoo.</p>
+</div>
+<div class="paragraph">
+<p>The series starts with creating a minimal boot cd which is used to install gentoo. The minimal boot cd opens a linux
+command line environment for the user to work on the system. Since gentoo does not have an installer it needs to be
+installed manually. This involves all of the commands outlined in these posts.</p>
+</div>
+<div class="paragraph">
+<p>The computer being used for this instruction manual is a Sony Vaio P. There is hardware on this computer that will not
+function without the drivers being selected in the kernel.</p>
+</div>
+<div class="paragraph">
+<p>Hardware:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>PCI-E Ethernet Controller</p>
+</li>
+<li>
+<p>PCI-E Wireless Adapter</p>
+</li>
+<li>
+<p>USB Bluetooth Device</p>
+</li>
+<li>
+<p>Sony Motion Eye Camera</p>
+</li>
+<li>
+<p>SD and DUO Card Reader</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The instructions will select options in the kernel to support these devices.</p>
+</div></p>
+  			<a href="blog/2008-08-19-java-se-bug-5052093.html"><h1>Java SE Bug #5052093</h1></a>
+  			<p>19 August 2008</p>
+  			<p><div class="paragraph">
+<p>While I was working on my
+<a href="http://code.google.com/p/delta-utilities/">download manager</a> yesterday
+I found a bug in java. Every time I tried to make a connection to a
+fedora iso file I would get this error:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>java.lang.NumberFormatException: For input string: "3580680192"
+   at java.lang.NumberFormatException.forInputString(NumberFormatException.java:48)
+   at java.lang.Integer.parseInt(Integer.java:459)
+   at java.lang.Integer.parseInt(Integer.java:497)
+   at sun.net.www.protocol.ftp.FtpURLConnection.getInputStream(FtpURLConnection.java:398)
+   at sun.net.www.URLConnection.getContentLength(URLConnection.java:185)
+   at mercier.lib.download.FTPDownloadConnectionFactory.initDownloadFromConnection(FTPDownloadConnectionFactory.java:50)
+   at mercier.lib.download.FTPDownloadConnectionFactory.getVerifiedConnection(FTPDownloadConnectionFactory.java:71)
+   at mercier.lib.download.FTPDownloadConnectionFactory.getConnection(FTPDownloadConnectionFactory.java:88)
+   at mercier.lib.download.ConnectionFactory.getConnection(ConnectionFactory.java:60)
+   at mercier.lib.download.ConnectionFactoryTest.testGetFTPDownloadConnection(ConnectionFactoryTest.java:119)
+   at
+   ...</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Does anyone know why this would happen? I found out after looking it up
+and finding <a href="http://bugs.sun.com/bugdatabase/view_bug.do?bug_id=5052093">bug #5052093</a>.
+It happened because the api for contentLength uses an int return value,
+which has a max of 2,147,483,647. Not only that but when the internal
+code parses the contentLength from the stream it has to parseInt in
+order to return an int. Since anything above 2,147,483,647 is not an
+int a NumberFormatException is thrown. The content-length for the iso
+is 3,580,680,192.</p>
+</div>
+<div class="paragraph">
+<p>The fix for this bug is only in JDK7 which can only be downloaded as a
+snapshot from java.net. Since they couldn&#8217;t change the original
+getContenthLength a new getContethLengthLong method has been added.
+From now on I&#8217;m going to use JDK7 even though it&#8217;s not out yet.</p>
+</div></p>
+  			<a href="blog/2008-05-18-google-code-project.html"><h1>Google Code Project</h1></a>
+  			<p>18 May 2008</p>
+  			<p><div class="paragraph">
+<p>I&#8217;ve started a Google Code project for my
+<a href="http://code.google.com/p/delta-utilities/">download manager</a>. Here is
+the description so far:</p>
+</div>
+<div class="paragraph">
+<p>This program currently can:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Analyze a connection&#8217;s headers</p>
+</li>
+<li>
+<p>Start, stop, pause a download from a connection</p>
+</li>
+<li>
+<p>Retry a download after a set amount of time</p>
+</li>
+<li>
+<p>Limit the daily bandwidth used</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Future goals:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Download a webpage and all of it&#8217;s sources</p>
+</li>
+<li>
+<p>Crawl the internet and access offline</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>This is the first project I&#8217;ve ever made using an outside website to
+store everything. I tried to use sourceforge once but I couldn&#8217;t figure
+out cvs. Now that netbeans does everything for me It&#8217;s great.</p>
+</div></p>
+  			<a href="blog/2008-03-25-fixing-could-not-open-install-log-file.html"><h1>Fixing &quot;Could not Open Install.log file!&quot;</h1></a>
+  			<p>25 March 2008</p>
+  			<p><div class="paragraph">
+<p>While trying to clean up my computer today I found some programs that I
+couldn&#8217;t uninstall. It seems that some installers need a Install.log
+file in order to uninstall some programs. Well I looked it up and here
+is the procedure I found:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Open the directory where the program is installed.</p>
+</li>
+<li>
+<p>Move (cut and paste somewhere else) the "install.log" to a different directory.</p>
+</li>
+<li>
+<p>Now, double click the uninstaller</p>
+</li>
+<li>
+<p>It will ask you to open the installation log. Locate to the "install.log" file on your desktop.</p>
+</li>
+<li>
+<p>Now, uninstall will work fine and you can uninstall the program.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>This works great.</p>
+</div></p>
+  			<a href="blog/2008-03-22-reading-file-input-from-the-internet-with-style.html"><h1>Reading File Input from the Internet with Style</h1></a>
+  			<p>22 March 2008</p>
+  			<p><div class="paragraph">
+<p><span class="image"><img src="/images/parserstream.png" alt="parserstream"></span></p>
+</div>
+<div class="paragraph">
+<p>Parsing Problem: Write a ParserStream that can parse tag attributes and
+simple text patterns. The Stream must also be able to replace those
+attributes with what the programmer wants.</p>
+</div>
+<div class="paragraph">
+<p>Solution: The picture is a diagram of my solution (made with
+<a href="http://live.gnome.org/Dia" class="bare">http://live.gnome.org/Dia</a>).</p>
+</div>
+<div class="paragraph">
+<p>Decorator Pattern: I got the idea to use the decorator pattern from
+"Head First Design Patterns". There is a great example of a Java I/O
+decorator that converts it&#8217;s input into lower case. This is the basic
+pattern that I started with and it grew from there. The main idea is to
+replace calls to read() with my own methods. My own methods of read
+will parse and replace the attributes. More on that later.</p>
+</div>
+<div class="paragraph">
+<p>Factory Pattern: The next chapter in Head First Design Patterns
+discusses the Factory Pattern. I use the Factory Pattern to return the
+ParserStream that works with each of the different content types that I
+would like to parse (html, jpeg, text). In order to create one of these
+Streams the Factory has to have the content type, the input stream for
+the content, and the two interfaces for storing the parsed attributes
+and replacing the attributes.</p>
+</div>
+<div class="paragraph">
+<p>Interface Pattern: I&#8217;m not sure if this is a more specific pattern but
+the basic idea is to allow the implementation of storing and
+overwriting the parsed attributes to be programmable. The parser
+interface is used to store attributes. The information passed to it
+will allow the programmer to determine the type of attribute
+(src, href) and the original value of the attribute before it is
+replaced by the formatting interface. The formattingInterface is used
+to change the attributes to whatever the programmer wants.</p>
+</div>
+<div class="paragraph">
+<p>Application: The main reason why I made this is so I can make programs
+that download web pages and store them locally and crawl to all the
+source files for each link. In order for the html to link properly on
+the local computer the src and href attribute values have to be
+changed. I&#8217;m not sure if I will need to parse jpeg or text files but
+the capability is there.</p>
+</div>
+<div class="paragraph">
+<p>Things to change: The only problem I see with this approach is that if
+I want to search for new attributes I will have to rewrite the
+ParserStream itself. While this is fine for me to do the class wouldn&#8217;t
+not be versatile in a library. One thing I will look into is making the
+attribute strings that the parser looks for work like Regular
+Expressions. I&#8217;m sure there is a way to do it but for now this will
+work.</p>
+</div></p>
+	
+	<hr />
+	
+	<p>Older posts are available in the <a href="archive.html">archive</a>.</p>
+
+		</div>
+		<div id="push"></div>
+    </div>
+    
+    <div id="footer">
+      <div class="container">
+        <p class="muted credit">&copy; 2014 | Mixed with <a href="http://getbootstrap.com/">Bootstrap v3.1.1</a> | Baked with <a href="http://jbake.org">JBake v2.5.1</a></p>
+      </div>
+    </div>
+    
+    <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="js/jquery-1.11.1.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/prettify.js"></script>
+    
+  </body>
+</html>

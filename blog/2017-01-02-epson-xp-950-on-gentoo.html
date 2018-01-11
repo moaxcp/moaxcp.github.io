@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>epson xp-950 on gentoo</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <meta name="keywords" content="">
+    <meta name="generator" content="JBake">
+
+    <!-- Le styles -->
+    <link href="../css/bootstrap.min.css" rel="stylesheet">
+    <link href="../css/asciidoctor.css" rel="stylesheet">
+    <link href="../css/base.css" rel="stylesheet">
+    <link href="../css/prettify.css" rel="stylesheet">
+
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+
+    <!-- Fav and touch icons -->
+    <!--<link rel="apple-touch-icon-precomposed" sizes="144x144" href="../assets/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="../assets/ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="../assets/ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="../assets/ico/apple-touch-icon-57-precomposed.png">-->
+    <link rel="shortcut icon" href="../favicon.ico">
+  </head>
+  <body onload="prettyPrint()">
+    <div id="wrap">
+	
+	<!-- Fixed navbar -->
+    <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="../">johnmercier.com</a>
+        </div>
+        <div class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+            <li><a href="../index.html">Blog</a></li>
+            <li><a href="../archive.html">Archive</a></li>
+            <!--<li><a href="../about.html">About</a></li>-->
+            <li><a href="../feed.xml">Subscribe</a></li>
+            <!--
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>
+              <ul class="dropdown-menu">
+                <li><a href="#">Action</a></li>
+                <li><a href="#">Another action</a></li>
+                <li><a href="#">Something else here</a></li>
+                <li class="divider"></li>
+                <li class="dropdown-header">Nav header</li>
+                <li><a href="#">Separated link</a></li>
+                <li><a href="#">One more separated link</a></li>
+              </ul>
+            </li>
+            -->
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </div>
+    <div class="container">	
+	<div class="page-header">
+		<h1>epson xp-950 on gentoo</h1>
+	</div>
+
+	<p><em>02 January 2017</em></p>
+
+	<p><div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>Adding a printer/scanner on gentoo can be easy or it can be hard. Here are some notes on how I did it.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_the_printer">The Printer</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>My printer is an Epson XP-950. My wife picked it out and I only lightly check to see if it supported linux by checking the provided drivers on the <a href="http://download.ebz.epson.net/dsc/search/01/search/?OSC=LX">support website</a>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_adding_the_printer_bits">Adding the printer bits</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Epson&#8217;s print drivers are provided through <a href="https://packages.gentoo.org/packages/net-print/epson-inkjet-printer-escpr">net-print/epson-inkjet-printer-escpr</a> on gentoo.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>emerge -av net-print/epson-inkjet-printer-escpr</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>These are the drivers provided through the epson downloads page I had checked before the printer was purchaces. Since I already have cups installed all I needed to do was install this package and add the printer through cups. XP-950 is one of the printers made available to cups through this package.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_adding_the_scanner_bits">Adding the scanner bits</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The scanner also has drivers through the <a href="http://download.ebz.epson.net/dsc/search/01/search/?OSC=LX">epson download page</a> but these are not installed through gentoo. On gentoo it is possible to setup scanners through <a href="https://wiki.gentoo.org/wiki/SANE">SANE</a>. I installed xsane:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>emerge -av media-gfx/xsane</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>xsane is about as bad as the epson scanner software for windows and android but it seems to work so far. I was able to find a bug pretty quickly:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>set pages to two</p>
+</li>
+<li>
+<p>select multipage</p>
+</li>
+<li>
+<p>click scan</p>
+</li>
+<li>
+<p>click cancel</p>
+</li>
+<li>
+<p>the program crashes</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>It also randomly decides there is no scanner for some reason.</p>
+</div>
+<div class="sect2">
+<h3 id="_other_options">Other options</h3>
+<div class="paragraph">
+<p>simple scan</p>
+</div>
+<div class="paragraph">
+<p>This permenantily does not find the scanner.</p>
+</div>
+<div class="paragraph">
+<p>gimp</p>
+</div>
+<div class="paragraph">
+<p>Not tried yet.</p>
+</div>
+</div>
+</div>
+</div></p>
+
+    <div id="disqus_thread"></div>
+    <script>
+
+    /**
+    *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+    *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+    /*
+    var disqus_config = function () {
+    this.page.url = 'http://johnmercier.com/blog/2017-01-02-epson-xp-950-on-gentoo.html';  // Replace PAGE_URL with your page's canonical URL variable
+    this.page.identifier = 'blog/2017-01-02-epson-xp-950-on-gentoo.html'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+    };
+    */
+    (function() { // DON'T EDIT BELOW THIS LINE
+    var d = document, s = d.createElement('script');
+    s.src = 'https://moaxcp.disqus.com/embed.js';
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+    })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+
+	<hr />
+	
+		</div>
+		<div id="push"></div>
+    </div>
+    
+    <div id="footer">
+      <div class="container">
+        <p class="muted credit">&copy; 2014 | Mixed with <a href="http://getbootstrap.com/">Bootstrap v3.1.1</a> | Baked with <a href="http://jbake.org">JBake v2.5.1</a></p>
+      </div>
+    </div>
+    
+    <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="../js/jquery-1.11.1.min.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+    <script src="../js/prettify.js"></script>
+    
+  </body>
+</html>
