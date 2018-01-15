@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>webcam</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <meta name="keywords" content="">
+    <meta name="generator" content="JBake">
+
+    <!-- Le styles -->
+    <link href="../../css/bootstrap.min.css" rel="stylesheet">
+    <link href="../../css/asciidoctor.css" rel="stylesheet">
+    <link href="../../css/base.css" rel="stylesheet">
+    <link href="../../css/prettify.css" rel="stylesheet">
+
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="../../js/html5shiv.min.js"></script>
+    <![endif]-->
+
+    <!-- Fav and touch icons -->
+    <!--<link rel="apple-touch-icon-precomposed" sizes="144x144" href="../assets/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="../assets/ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="../assets/ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="../assets/ico/apple-touch-icon-57-precomposed.png">-->
+    <link rel="shortcut icon" href="../../favicon.ico">
+  </head>
+  <body onload="prettyPrint()">
+    <div id="wrap">
+	
+	<!-- Fixed navbar -->
+    <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="../../">johnmercier.com</a>
+        </div>
+        <div class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+            <li><a href="../../index.html">Blog</a></li>
+            <li><a href="../../archive.html">Archive</a></li>
+            <!--<li><a href="../../about.html">About</a></li>-->
+            <li><a href="../../feed.xml">Subscribe</a></li>
+            <!--
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>
+              <ul class="dropdown-menu">
+                <li><a href="#">Action</a></li>
+                <li><a href="#">Another action</a></li>
+                <li><a href="#">Something else here</a></li>
+                <li class="divider"></li>
+                <li class="dropdown-header">Nav header</li>
+                <li><a href="#">Separated link</a></li>
+                <li><a href="#">One more separated link</a></li>
+              </ul>
+            </li>
+            -->
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </div>
+    <div class="container">	
+	<div class="page-header">
+		<h1>webcam</h1>
+	</div>
+
+	<p><em>13 June 2015</em></p>
+
+	<p><div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>My webcam doesn&#8217;t work on my gentoo machine. I actually have a list of hardware that I want to make sure works.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>webcam</p>
+</li>
+<li>
+<p>CAC card reader</p>
+</li>
+<li>
+<p>hdmi out</p>
+</li>
+<li>
+<p>bluetooth</p>
+</li>
+<li>
+<p>external dvd burner</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The gentoo wiki doesn&#8217;t seem to have a page for webcams but <a href="https://wiki.archlinux.org/index.php/Webcam_setup">arch linux</a> does.</p>
+</div>
+</div>
+</div>
+<h1 id="_using_lsusb" class="sect0">Using lsusb</h1>
+<div class="paragraph">
+<p>To view all devices</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>    lsusb
+
+    Bus 002 Device 003: ID 0a5c:5800 Broadcom Corp. BCM5880 Secure Applications Processor
+    Bus 002 Device 002: ID 8087:0024 Intel Corp. Integrated Rate Matching Hub
+    Bus 002 Device 001: ID 1d6b:0002 Linux Foundation 2.0 root hub
+    Bus 004 Device 001: ID 1d6b:0003 Linux Foundation 3.0 root hub
+    Bus 003 Device 001: ID 1d6b:0002 Linux Foundation 2.0 root hub
+    Bus 001 Device 004: ID 1bcf:280b Sunplus Innovation Technology Inc.
+    Bus 001 Device 003: ID 413c:8187 Dell Computer Corp. DW375 Bluetooth Module
+    Bus 001 Device 002: ID 8087:0024 Intel Corp. Integrated Rate Matching Hub
+    Bus 001 Device 001: ID 1d6b:0002 Linux Foundation 2.0 root hub</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>To view the details of the web cam</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>    lsusb -s 001:004
+
+    Bus 001 Device 004: ID 1bcf:280b Sunplus Innovation Technology Inc.</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>To view more details</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>    lsusb -v -s 001:004
+
+    Bus 001 Device 004: ID 1bcf:280b Sunplus Innovation Technology Inc.
+    Device Descriptor:
+      bLength                18
+      bDescriptorType         1
+      bcdUSB               2.00
+      bDeviceClass          239 Miscellaneous Device
+      bDeviceSubClass         2
+      bDeviceProtocol         1 Interface Association
+      bMaxPacketSize0        64
+      idVendor           0x1bcf Sunplus Innovation Technology Inc.
+      idProduct          0x280b
+      bcdDevice            3.10
+      iManufacturer           1 CN0CJ3P27248724CBBDJA01
+      iProduct                2 Laptop_Integrated_Webcam_FHD
+      iSerial                 0
+      bNumConfigurations      1
+    ...</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Check for messages about the device</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>    dmesg | less
+
+    typing /usb+enter will highlight the word usb. Type n to go to next match.
+
+    [    9.505824] usb 1-1.5: new high-speed USB device number 4 using ehci-pci
+    [    9.787353] usb 1-1.5: New USB device found, idVendor=1bcf, idProduct=280b
+    [    9.787356] usb 1-1.5: New USB device strings: Mfr=1, Product=2, SerialNumber=0
+    [    9.787357] usb 1-1.5: Product: Laptop_Integrated_Webcam_FHD
+    [    9.787358] usb 1-1.5: Manufacturer: CN0CJ3P27248724CBBDJA01</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Now we know the device is recognized but it doesn&#8217;t look like a driver is being loaded. This is indicated by a missing /dev/video0. Devices are assigned by udev. After trying to test using</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>    udevadm --debug test /sys/class/video4linux/video0</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>I found that I do not have video4linux. This could mean the kernel does not support video4linux.</p>
+</div>
+<div class="paragraph">
+<p>running my buildkernel.sh I found that I did not have the kernel setup for webcams.</p>
+</div>
+<div class="paragraph">
+<p>Device Drivers –&gt;
+ &lt;M&gt; Multimedia support —&gt;
+ [*] Cameras/video grabbers support
+ [<em>] Media USB Adapters —&gt;
+ &lt;M&gt; USB Video Class (UVC)
+ [</em>] UVC input events device support (NEW)</p>
+</div>
+<div class="paragraph">
+<p>Now that the kernel is compiled with these options I am restarting the system to see what happens.
+…
+The camera works in Cheese!</p>
+</div>
+<div class="paragraph">
+<p>Note: when making this post I was able to file an <a href="https://github.com/tmux/tmux/issues/25">issue</a> with tmux.</p>
+</div></p>
+
+    <div id="disqus_thread"></div>
+    <script>
+
+    /**
+    *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+    *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+    /*
+    var disqus_config = function () {
+    this.page.url = 'http://johnmercier.com/blog/2015/06-13-webcam.html';  // Replace PAGE_URL with your page's canonical URL variable
+    this.page.identifier = 'blog/2015/06-13-webcam.html'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+    };
+    */
+    (function() { // DON'T EDIT BELOW THIS LINE
+    var d = document, s = d.createElement('script');
+    s.src = 'https://moaxcp.disqus.com/embed.js';
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+    })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+
+	<hr />
+	
+		</div>
+		<div id="push"></div>
+    </div>
+    
+    <div id="footer">
+      <div class="container">
+        <p class="muted credit">&copy; 2014 | Mixed with <a href="http://getbootstrap.com/">Bootstrap v3.1.1</a> | Baked with <a href="http://jbake.org">JBake v2.5.1</a></p>
+      </div>
+    </div>
+    
+    <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="../../js/jquery-1.11.1.min.js"></script>
+    <script src="../../js/bootstrap.min.js"></script>
+    <script src="../../js/prettify.js"></script>
+    
+  </body>
+</html>

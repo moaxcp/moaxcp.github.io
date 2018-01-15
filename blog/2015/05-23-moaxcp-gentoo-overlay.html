@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>moaxcp-gentoo-overlay</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <meta name="keywords" content="">
+    <meta name="generator" content="JBake">
+
+    <!-- Le styles -->
+    <link href="../../css/bootstrap.min.css" rel="stylesheet">
+    <link href="../../css/asciidoctor.css" rel="stylesheet">
+    <link href="../../css/base.css" rel="stylesheet">
+    <link href="../../css/prettify.css" rel="stylesheet">
+
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="../../js/html5shiv.min.js"></script>
+    <![endif]-->
+
+    <!-- Fav and touch icons -->
+    <!--<link rel="apple-touch-icon-precomposed" sizes="144x144" href="../assets/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="../assets/ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="../assets/ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="../assets/ico/apple-touch-icon-57-precomposed.png">-->
+    <link rel="shortcut icon" href="../../favicon.ico">
+  </head>
+  <body onload="prettyPrint()">
+    <div id="wrap">
+	
+	<!-- Fixed navbar -->
+    <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="../../">johnmercier.com</a>
+        </div>
+        <div class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+            <li><a href="../../index.html">Blog</a></li>
+            <li><a href="../../archive.html">Archive</a></li>
+            <!--<li><a href="../../about.html">About</a></li>-->
+            <li><a href="../../feed.xml">Subscribe</a></li>
+            <!--
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>
+              <ul class="dropdown-menu">
+                <li><a href="#">Action</a></li>
+                <li><a href="#">Another action</a></li>
+                <li><a href="#">Something else here</a></li>
+                <li class="divider"></li>
+                <li class="dropdown-header">Nav header</li>
+                <li><a href="#">Separated link</a></li>
+                <li><a href="#">One more separated link</a></li>
+              </ul>
+            </li>
+            -->
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </div>
+    <div class="container">	
+	<div class="page-header">
+		<h1>moaxcp-gentoo-overlay</h1>
+	</div>
+
+	<p><em>23 May 2015</em></p>
+
+	<p><div class="paragraph">
+<p>I created an <a href="https://github.com/moaxcp/moaxcp-gentoo-overlay">gentoo overlay</a> with the latest version of x11-wm/notion
+and my own project dev-java/recMD5. Go to the &lt;a href="https://github.com/moaxcp/moaxcp-gentoo-overlay"&gt;overlay&lt;/a&gt; and
+follow the README.md for instructions on using the <a href="https://github.com/moaxcp/moaxcp-gentoo-overlay">overlay</a>. Here are
+the notes from setting things up.</p>
+</div>
+<div class="paragraph">
+<p>I&#8217;m going through this <a href="https://wiki.gentoo.org/wiki/Overlay/Local_overlay">tutorial</a> for creating an overlay. The base
+directory is</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>/usr/local/portage/moaxcp</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>from the first section of the tutorial you create the repo</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>mkdir -p /usr/local/portage/moaxcp/{metadata,profiles}
+echo 'moaxcp' &gt; /usr/local/portage/moaxcp/profiles/repo_name
+echo 'masters = gentoo' &gt; /usr/local/portage/moaxcp/metadata/layout.conf
+chown -R portage:portage /usr/local/portage/moaxcp
+/usr/local/portage is already owned by portage
+mkdir /etc/portage/repos.conf
+nano /etc/portage/repos.conf/local.conf</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>add the following text, save and exit</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>[moaxcp]
+location = /usr/local/portage/moaxcp
+masters = gentoo
+auto-sync = no</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Now that the repo is create put a package in it</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>mkdir -p /usr/local/portage/moaxcp/x11-wm/notion
+nano /usr/local/portage/moaxcp/x11-wm/notion/notion_p2014052800.ebuild</pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Add text from <a href="https://523566.bugs.gentoo.org/attachment.cgi?id=389597" class="bare">https://523566.bugs.gentoo.org/attachment.cgi?id=389597</a>. The file is called notion-3-2014052800-src.tar.bz2 on sourceforge. Which looks similar to what the ebuild looks for.</p>
+</li>
+<li>
+<p>save and exit</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>chown -R portage:portage /usr/local/portage/moaxcp
+pushd /usr/local/portage/moaxcp/x11-wm/notion
+repoman manifest</p>
+</div>
+<div class="paragraph">
+<p>now I get</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>Invalid ebuild name: /usr/local/portage/moaxcp/x11-wm/notion/notion_p2014052800.ebuild
+&gt;&gt;&gt; Creating Manifest for /usr/local/portage/moaxcp/x11-wm/notion
+!!! Invalid package name: 'x11-wm/notion_p2014052800'
+Unable to generate manifest.</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This was caused by the file name not containing the version number. I changed the file name to notion-3_p2014052800.ebuild and everything worked. Now add a keyword for the protected package so it will emerge.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>nano /etc/portage/package.keywords/notion
+=x11-wm/notion-3_p2014052800 ~amd64</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Or use -a when emerging the package and accept the changes (don&#8217;t forget to dispatch-conf). On a side note once the overlay is setup I added everything in the overlay to github and setup the overlay to sync with github. Now when I do emerge –sync the overlay will sync with github. Any changes I make to the overlay can by committed using git.</p>
+</div>
+<div class="paragraph">
+<p>To sync with git I changed the repos.conf/local.conf file</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>nano /etc/portage/repos.conf/local.conf</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Add text</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>[moaxcp]
+location = /usr/local/portage/moaxcp
+sync-uri = https://github.com/moaxcp/moaxcp-gentoo-overlay.git
+masters = gentoo
+auto-sync = yes
+sync-type = git</pre>
+</div>
+</div></p>
+
+    <div id="disqus_thread"></div>
+    <script>
+
+    /**
+    *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+    *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+    /*
+    var disqus_config = function () {
+    this.page.url = 'http://johnmercier.com/blog/2015/05-23-moaxcp-gentoo-overlay.html';  // Replace PAGE_URL with your page's canonical URL variable
+    this.page.identifier = 'blog/2015/05-23-moaxcp-gentoo-overlay.html'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+    };
+    */
+    (function() { // DON'T EDIT BELOW THIS LINE
+    var d = document, s = d.createElement('script');
+    s.src = 'https://moaxcp.disqus.com/embed.js';
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+    })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+
+	<hr />
+	
+		</div>
+		<div id="push"></div>
+    </div>
+    
+    <div id="footer">
+      <div class="container">
+        <p class="muted credit">&copy; 2014 | Mixed with <a href="http://getbootstrap.com/">Bootstrap v3.1.1</a> | Baked with <a href="http://jbake.org">JBake v2.5.1</a></p>
+      </div>
+    </div>
+    
+    <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="../../js/jquery-1.11.1.min.js"></script>
+    <script src="../../js/bootstrap.min.js"></script>
+    <script src="../../js/prettify.js"></script>
+    
+  </body>
+</html>

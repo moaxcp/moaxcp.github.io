@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>Create an Installer for Gentoo</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <meta name="keywords" content="">
+    <meta name="generator" content="JBake">
+
+    <!-- Le styles -->
+    <link href="../../css/bootstrap.min.css" rel="stylesheet">
+    <link href="../../css/asciidoctor.css" rel="stylesheet">
+    <link href="../../css/base.css" rel="stylesheet">
+    <link href="../../css/prettify.css" rel="stylesheet">
+
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="../../js/html5shiv.min.js"></script>
+    <![endif]-->
+
+    <!-- Fav and touch icons -->
+    <!--<link rel="apple-touch-icon-precomposed" sizes="144x144" href="../assets/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="../assets/ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="../assets/ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="../assets/ico/apple-touch-icon-57-precomposed.png">-->
+    <link rel="shortcut icon" href="../../favicon.ico">
+  </head>
+  <body onload="prettyPrint()">
+    <div id="wrap">
+	
+	<!-- Fixed navbar -->
+    <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="../../">johnmercier.com</a>
+        </div>
+        <div class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+            <li><a href="../../index.html">Blog</a></li>
+            <li><a href="../../archive.html">Archive</a></li>
+            <!--<li><a href="../../about.html">About</a></li>-->
+            <li><a href="../../feed.xml">Subscribe</a></li>
+            <!--
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>
+              <ul class="dropdown-menu">
+                <li><a href="#">Action</a></li>
+                <li><a href="#">Another action</a></li>
+                <li><a href="#">Something else here</a></li>
+                <li class="divider"></li>
+                <li class="dropdown-header">Nav header</li>
+                <li><a href="#">Separated link</a></li>
+                <li><a href="#">One more separated link</a></li>
+              </ul>
+            </li>
+            -->
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </div>
+    <div class="container">	
+	<div class="page-header">
+		<h1>Create an Installer for Gentoo</h1>
+	</div>
+
+	<p><em>18 May 2014</em></p>
+
+	<p><div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>As with many linux distributions gentoo provides Live CDs which can be used to try out gentoo and install it. Gentoo
+offers two Live CDs one is a complete is with a GUI and the other is a minimal-install CD with only the tools needed to
+install Gentoo. These instructions will create gentoo&#8217;s minimal install cd.</p>
+</div>
+<div class="paragraph">
+<p>There are three steps to creating a Live CD for most Linux distributions: download the files, check the integrity of
+the files, and create and install medium. This example will create a usb stick with gentoo&#8217;s minimal install CD on it.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_download_the_files">Download the Files</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>First the iso file and digest file must be downloaded. This can be accomplished by going to gentoo.org, clicking the
+get Gentoo link, and following the links to download the minimal install iso along with the digest file.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_check_file_integrity">Check File Integrity</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>To check the integirty of the iso file first open the DIGEST file in a text editor and remove everything but the
+hashcode for the method you will be using to check the iso file. This is an example of checking the sha512 hash.</p>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="/images/2-editdigestfile.png" alt="editdigestfile"></span></p>
+</div>
+<div class="paragraph">
+<p>Next open a terminal and check the integrity of the iso file.</p>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="/images/3-checkdigest.png" alt="checkdigest"></span></p>
+</div>
+<div class="paragraph">
+<p>If the file is OK then it is valid and can be used for the installation.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_create_install_medium">Create Install Medium</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The next step is to either burn the iso file to a cd or write it to a usb drive. Burning a CD can be performed with any
+program that can burn an image. Here is an example of burning the image using brasero:</p>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="/images/4-burncd.png" alt="burncd"></span></p>
+</div>
+<div class="paragraph">
+<p>This is an example of writing the iso to a usb drive using usb-imagewriter:</p>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="/images/6writeimageusb.png" alt="write image usb"></span></p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_boot_the_system">Boot the System</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Once the installer is ready the next step is to boot into it.</p>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="/images/2014-04-0619-28-30.jpg" alt="screen"></span></p>
+</div>
+<div class="paragraph">
+<p>Note: There is another option for building Gentoo on a usb drive manually at
+<a href="https://wiki.gentoo.org/wiki/LiveUSB/HOWTO" class="bare">https://wiki.gentoo.org/wiki/LiveUSB/HOWTO</a>. There are two advantages with
+this method. First all the space on the usbdrive can be used and second the extra space can be used to install
+applications and change the configuration.</p>
+</div>
+</div>
+</div></p>
+
+    <div id="disqus_thread"></div>
+    <script>
+
+    /**
+    *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+    *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+    /*
+    var disqus_config = function () {
+    this.page.url = 'http://johnmercier.com/blog/2014/05-18-create-an-installer-for-gentoo.html';  // Replace PAGE_URL with your page's canonical URL variable
+    this.page.identifier = 'blog/2014/05-18-create-an-installer-for-gentoo.html'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+    };
+    */
+    (function() { // DON'T EDIT BELOW THIS LINE
+    var d = document, s = d.createElement('script');
+    s.src = 'https://moaxcp.disqus.com/embed.js';
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+    })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+
+	<hr />
+	
+		</div>
+		<div id="push"></div>
+    </div>
+    
+    <div id="footer">
+      <div class="container">
+        <p class="muted credit">&copy; 2014 | Mixed with <a href="http://getbootstrap.com/">Bootstrap v3.1.1</a> | Baked with <a href="http://jbake.org">JBake v2.5.1</a></p>
+      </div>
+    </div>
+    
+    <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="../../js/jquery-1.11.1.min.js"></script>
+    <script src="../../js/bootstrap.min.js"></script>
+    <script src="../../js/prettify.js"></script>
+    
+  </body>
+</html>

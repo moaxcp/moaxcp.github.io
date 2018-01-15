@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>obnam on gentoo</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <meta name="keywords" content="">
+    <meta name="generator" content="JBake">
+
+    <!-- Le styles -->
+    <link href="../../css/bootstrap.min.css" rel="stylesheet">
+    <link href="../../css/asciidoctor.css" rel="stylesheet">
+    <link href="../../css/base.css" rel="stylesheet">
+    <link href="../../css/prettify.css" rel="stylesheet">
+
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="../../js/html5shiv.min.js"></script>
+    <![endif]-->
+
+    <!-- Fav and touch icons -->
+    <!--<link rel="apple-touch-icon-precomposed" sizes="144x144" href="../assets/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="../assets/ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="../assets/ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="../assets/ico/apple-touch-icon-57-precomposed.png">-->
+    <link rel="shortcut icon" href="../../favicon.ico">
+  </head>
+  <body onload="prettyPrint()">
+    <div id="wrap">
+	
+	<!-- Fixed navbar -->
+    <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="../../">johnmercier.com</a>
+        </div>
+        <div class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+            <li><a href="../../index.html">Blog</a></li>
+            <li><a href="../../archive.html">Archive</a></li>
+            <!--<li><a href="../../about.html">About</a></li>-->
+            <li><a href="../../feed.xml">Subscribe</a></li>
+            <!--
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>
+              <ul class="dropdown-menu">
+                <li><a href="#">Action</a></li>
+                <li><a href="#">Another action</a></li>
+                <li><a href="#">Something else here</a></li>
+                <li class="divider"></li>
+                <li class="dropdown-header">Nav header</li>
+                <li><a href="#">Separated link</a></li>
+                <li><a href="#">One more separated link</a></li>
+              </ul>
+            </li>
+            -->
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </div>
+    <div class="container">	
+	<div class="page-header">
+		<h1>obnam on gentoo</h1>
+	</div>
+
+	<p><em>09 September 2015</em></p>
+
+	<p><div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>My system is a Dell Precision M4600 laptop with gentoo installed. It is great for travel and moving to different rooms in the home. Unfortunately, it does not have full backups. I currently have dropbox for my personal data but after after working on this system for a year, I would like to have backups for the entire system. The solution is to have real backups along with dropbox.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_dropbox">Dropbox</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>I love dropbox but there are a few problems with only using dropbox as a backup system. First, it does not work well with gir repositories. It is a duplicate version control system that sometimes has conflicts. When dropbox has a conflict for a git repository it can be annoying but I really want my repositories to be backed up. Second, if my system goes down I have to download the entire dropbox folder (40+GB). Finally, it doesn&#8217;t back up the entire system.</p>
+</div>
+<div class="paragraph">
+<p>This is what I like about dropbox</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>quickly sync with phone (pictures/videos)</p>
+</li>
+<li>
+<p>over the network sync with other computers</p>
+</li>
+<li>
+<p>30 days of history</p>
+</li>
+<li>
+<p>works anywhere with internet</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_the_plan">The Plan</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>My plan is to have a backup system that works well for me. Something that doesn&#8217;t require an external hard drive and allows me to do backups while traveling. Right now I only have an external drive so this is it for now:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>plug in and mount external drive</p>
+</li>
+<li>
+<p>setup obnam to backup system to drive</p>
+</li>
+<li>
+<p>move git repositories outside of Dropbox folder</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>In the future:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>install internal drive (2TB)</p>
+</li>
+<li>
+<p>setup obnam to backup system to drive</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>If I am able to get a server setup at home:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>create repository on server</p>
+</li>
+<li>
+<p>setup obnam to backup system to server along with internal drive</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>Obnam looks like a great system. It has one command with many features. The features I&#8217;m interested in are the ease of use and encryption. Eventually, I would like to have my system encrypted and have the backup encrypted as well.</p>
+</div>
+<div class="paragraph">
+<p>Currently, I have an external 1TB drive to put backups on. It is not ideal because I hate having extra things attached to my laptop but it will let me setup backups without having to buy a new harddrive (I tried taking it apart but the usb is permanently attached to the drive).</p>
+</div>
+<div class="sect2">
+<h3 id="_mounting_the_drive">Mounting the drive</h3>
+<div class="paragraph">
+<p>I have autofs installed and it will automatically mount my drive to /mnt/auto/sdc1.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_configuring_obnam">Configuring obnam</h3>
+<div class="paragraph">
+<p>Gentoo comes with a well documented config file for obnam. First, I set the repository to /mnt/auto/sdc1/obnam. I enabled compression with</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>compress-with = deflate</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>I added root, exclude, and one-file-system</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>root = /bin, /boot, /etc, /home, /lib32, /lib64, /opt, /root, /sbin, /usr, /var
+exclude = ^/var/tmp/, .*\.pid$, \.cache/, ^/usr/src/linux.*/, ^/var/tmp/portage/, .*/.local/share/Trash/
+one-file-system = true</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>I may just change root to / because one-file-system skips everything I don&#8217;t want to backup.</p>
+</div>
+<div class="paragraph">
+<p>I enabled logging</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>log = /var/log/obnam/obnam.log
+log-level = debug
+log-keep = 10
+log-max = 0
+log-mode = 0600</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>I forgot to setup the forget policy but according to the documentation this isn&#8217;t needed until the backups build up.</p>
+</div>
+<div class="paragraph">
+<p>Once the config is finished it is easy to start obnam</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>obnam backup</pre>
+</div>
+</div>
+</div>
+</div>
+</div></p>
+
+    <div id="disqus_thread"></div>
+    <script>
+
+    /**
+    *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+    *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+    /*
+    var disqus_config = function () {
+    this.page.url = 'http://johnmercier.com/blog/2015/09-09-obnam-on-gentoo.html';  // Replace PAGE_URL with your page's canonical URL variable
+    this.page.identifier = 'blog/2015/09-09-obnam-on-gentoo.html'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+    };
+    */
+    (function() { // DON'T EDIT BELOW THIS LINE
+    var d = document, s = d.createElement('script');
+    s.src = 'https://moaxcp.disqus.com/embed.js';
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+    })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+
+	<hr />
+	
+		</div>
+		<div id="push"></div>
+    </div>
+    
+    <div id="footer">
+      <div class="container">
+        <p class="muted credit">&copy; 2014 | Mixed with <a href="http://getbootstrap.com/">Bootstrap v3.1.1</a> | Baked with <a href="http://jbake.org">JBake v2.5.1</a></p>
+      </div>
+    </div>
+    
+    <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="../../js/jquery-1.11.1.min.js"></script>
+    <script src="../../js/bootstrap.min.js"></script>
+    <script src="../../js/prettify.js"></script>
+    
+  </body>
+</html>

@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>Connecting to a WPA Wireless Network From The Gentoo Minimal Install CD</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <meta name="keywords" content="">
+    <meta name="generator" content="JBake">
+
+    <!-- Le styles -->
+    <link href="../../css/bootstrap.min.css" rel="stylesheet">
+    <link href="../../css/asciidoctor.css" rel="stylesheet">
+    <link href="../../css/base.css" rel="stylesheet">
+    <link href="../../css/prettify.css" rel="stylesheet">
+
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="../../js/html5shiv.min.js"></script>
+    <![endif]-->
+
+    <!-- Fav and touch icons -->
+    <!--<link rel="apple-touch-icon-precomposed" sizes="144x144" href="../assets/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="../assets/ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="../assets/ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="../assets/ico/apple-touch-icon-57-precomposed.png">-->
+    <link rel="shortcut icon" href="../../favicon.ico">
+  </head>
+  <body onload="prettyPrint()">
+    <div id="wrap">
+	
+	<!-- Fixed navbar -->
+    <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="../../">johnmercier.com</a>
+        </div>
+        <div class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+            <li><a href="../../index.html">Blog</a></li>
+            <li><a href="../../archive.html">Archive</a></li>
+            <!--<li><a href="../../about.html">About</a></li>-->
+            <li><a href="../../feed.xml">Subscribe</a></li>
+            <!--
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>
+              <ul class="dropdown-menu">
+                <li><a href="#">Action</a></li>
+                <li><a href="#">Another action</a></li>
+                <li><a href="#">Something else here</a></li>
+                <li class="divider"></li>
+                <li class="dropdown-header">Nav header</li>
+                <li><a href="#">Separated link</a></li>
+                <li><a href="#">One more separated link</a></li>
+              </ul>
+            </li>
+            -->
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </div>
+    <div class="container">	
+	<div class="page-header">
+		<h1>Connecting to a WPA Wireless Network From The Gentoo Minimal Install CD</h1>
+	</div>
+
+	<p><em>01 June 2014</em></p>
+
+	<p><div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>Connecting to a wpa enabled wireless network can be difficult in the gentoo minimum install cd. Most sources suggest
+not to use the cd if this is an issue and to use a cd from a different distribution. There is no reason to do this
+because the minimal install CD comes with wpa_supplicant. wpa_supplicant is the basic tool and library that most
+network configuration tools for all linux distributions use to connect to wpa networks.</p>
+</div>
+<div class="paragraph">
+<p>When using the minimal install cd the network card should be configured to use wpa_supplicant and wpa_cli should be
+used to connect to the network. Using the configuration files that most tutorials show is useless as any changes will
+only be temporary and will be lost once the system is restarted.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_get_the_wireless_interface_name">Get the wireless interface name</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code class="language-console" data-lang="console">livecd ~ # iwconfig
+lo      no wireless extensions.
+
+enp1s0  no wireless extensions.
+
+wlp2s0  IEE802.11bgn ESSID:off/any
+       Mode:Managed Access Point: Not-Associated Tx-Power=15 dBm
+       Retry long limit:7 RTS thr:off Fragment thr:off
+       Encryption key:off
+       Power Management:off</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_use_the_wireless_interface_name_to_create_the_init_script_for_the_interface">Use the wireless interface name to create the init script for the interface</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code class="language-console" data-lang="console">livecd~ # cp /etc/init.d/net.lo /etc/init.d/net.wlp2s0</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_create_the_init_script_for_the_wlp2s0_interface">Create the init script for the wlp2s0 interface</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code class="language-console" data-lang="console">livecd~ # nano /etc/conf.d/net
+...
+modules="wpa_supplicant"
+wpa_supplicant_wlp2s0="-Dwext -iwlp2s0 -c/etc/wpa_supplicant/wpa_supplicant.conf"
+config_wlp2s0="dhcp"</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_edit_etc_wpa_supplicant_wpa_supplicant_conf">Edit /etc/wpa_supplicant/wpa_supplicant.conf</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code class="language-console" data-lang="console">livecd ~ # nano /etc/wpa_supplicant/wpa_supplicant.conf
+...
+ctrl_interface=/var/run/wpa_supplicant
+ctrl_interface_group=0</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_start_the_wlp2s0_interface">Start the wlp2s0 interface</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code class="language-console" data-lang="console">livecd ~ # /etc/init.d/net.wlp2s0 start</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_connect_to_the_network_using_wpa_cli">Connect to the network using wpa_cli</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code class="language-console" data-lang="console">livecd ~ # wpa_cli&amp;gt;scan
+CTRL-EVENT-SCAN-RESULTS
+&gt;scan_results
+&gt;add_network
+0
+&gt;set_network 0 ssid "NetworkName"
+OK
+&gt;set_network 0 psk "passphrase"
+OK
+&gt;enable_network 0
+OK
+&gt;quit</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_test_the_network_with_a_ping">Test the network with a ping</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code class="language-console" data-lang="console">livecd ~ # ping www.google.com</code></pre>
+</div>
+</div>
+</div>
+</div></p>
+
+    <div id="disqus_thread"></div>
+    <script>
+
+    /**
+    *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+    *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+    /*
+    var disqus_config = function () {
+    this.page.url = 'http://johnmercier.com/blog/2014/06-01-connecting-to-a-wpa-wireless-network-from-the-gentoo-minimal-install-cd.html';  // Replace PAGE_URL with your page's canonical URL variable
+    this.page.identifier = 'blog/2014/06-01-connecting-to-a-wpa-wireless-network-from-the-gentoo-minimal-install-cd.html'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+    };
+    */
+    (function() { // DON'T EDIT BELOW THIS LINE
+    var d = document, s = d.createElement('script');
+    s.src = 'https://moaxcp.disqus.com/embed.js';
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+    })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+
+	<hr />
+	
+		</div>
+		<div id="push"></div>
+    </div>
+    
+    <div id="footer">
+      <div class="container">
+        <p class="muted credit">&copy; 2014 | Mixed with <a href="http://getbootstrap.com/">Bootstrap v3.1.1</a> | Baked with <a href="http://jbake.org">JBake v2.5.1</a></p>
+      </div>
+    </div>
+    
+    <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="../../js/jquery-1.11.1.min.js"></script>
+    <script src="../../js/bootstrap.min.js"></script>
+    <script src="../../js/prettify.js"></script>
+    
+  </body>
+</html>

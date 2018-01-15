@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>recmd5</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <meta name="keywords" content="">
+    <meta name="generator" content="JBake">
+
+    <!-- Le styles -->
+    <link href="../../css/bootstrap.min.css" rel="stylesheet">
+    <link href="../../css/asciidoctor.css" rel="stylesheet">
+    <link href="../../css/base.css" rel="stylesheet">
+    <link href="../../css/prettify.css" rel="stylesheet">
+
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="../../js/html5shiv.min.js"></script>
+    <![endif]-->
+
+    <!-- Fav and touch icons -->
+    <!--<link rel="apple-touch-icon-precomposed" sizes="144x144" href="../assets/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="../assets/ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="../assets/ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="../assets/ico/apple-touch-icon-57-precomposed.png">-->
+    <link rel="shortcut icon" href="../../favicon.ico">
+  </head>
+  <body onload="prettyPrint()">
+    <div id="wrap">
+	
+	<!-- Fixed navbar -->
+    <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="../../">johnmercier.com</a>
+        </div>
+        <div class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+            <li><a href="../../index.html">Blog</a></li>
+            <li><a href="../../archive.html">Archive</a></li>
+            <!--<li><a href="../../about.html">About</a></li>-->
+            <li><a href="../../feed.xml">Subscribe</a></li>
+            <!--
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>
+              <ul class="dropdown-menu">
+                <li><a href="#">Action</a></li>
+                <li><a href="#">Another action</a></li>
+                <li><a href="#">Something else here</a></li>
+                <li class="divider"></li>
+                <li class="dropdown-header">Nav header</li>
+                <li><a href="#">Separated link</a></li>
+                <li><a href="#">One more separated link</a></li>
+              </ul>
+            </li>
+            -->
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </div>
+    <div class="container">	
+	<div class="page-header">
+		<h1>recmd5</h1>
+	</div>
+
+	<p><em>20 February 2015</em></p>
+
+	<p><div class="paragraph">
+<p>I have created a small project focused on the md5 algorithm. I noticed the md5 in java cannot be restarted. If my
+program is md5ing a large file, I need to start the process over again if the program crashes.</p>
+</div>
+<div class="paragraph">
+<p>To solve this problem I created an MD5State which holds the state of the algorithm. A user can write this state to a
+file or database as bytes are being processed. If the program crashes the state can be recovered and processing can
+begin from where it left off.</p>
+</div>
+<div class="paragraph">
+<p>I originally wrote this on google code ages ago but I wanted try using some of the other internet tools out there. I
+moved the project over to github and signed up for a travis-ci account. I created a cloud9 project to work on it
+through a browser. I even created some tests so travis-ci could fail builds if I messed something up.</p>
+</div>
+<div class="paragraph">
+<p>I looked into installing this as a MessageDigest object in the java platform. It looks easy but I&#8217;m not sure if it is
+useful enough.</p>
+</div>
+<div class="paragraph">
+<p>The test method is a good example of how to use this project. It takes a byte array and compares the md5 with the md5
+from java.</p>
+</div>
+<div class="paragraph">
+<p>`
+private boolean testAgainstJavaMD5(byte[] bytes) {
+     MessageDigest expected = null;
+     MD5MessageDigest test = null;
+     try {
+         expected = MessageDigest.getInstance(&quot;md5&quot;);
+         test = new MD5MessageDigest();
+     } catch (NoSuchAlgorithmException ex) {
+         Logger.getLogger(MD5MessageDigestTest.class.getName()).log(Level.SEVERE, null, ex);
+         throw new IllegalStateException(&quot;could not create MessageDigest&quot;, ex);
+     }
+     expected.update(bytes);
+     String s = new BigInteger(1, expected.digest()).toString(16);
+     if (s.length() == 31) {
+         s = &quot;0&quot; + s;
+     }
+     test.digest(bytes);
+     Logger.getLogger(MD5MessageDigestTest.class.getName()).info(s);
+     Logger.getLogger(MD5MessageDigestTest.class.getName()).info(test.getState().toString());
+     return s.equals(test.getState().toString());
+ }
+`</p>
+</div>
+<div class="paragraph">
+<p>Here are the links to the project.</p>
+</div>
+<div class="paragraph">
+<p><a href="https://github.com/moaxcp/recMD5" class="bare">https://github.com/moaxcp/recMD5</a></p>
+</div>
+<div class="paragraph">
+<p><a href="https://travis-ci.org/moaxcp/recMD5" class="bare">https://travis-ci.org/moaxcp/recMD5</a></p>
+</div></p>
+
+    <div id="disqus_thread"></div>
+    <script>
+
+    /**
+    *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+    *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+    /*
+    var disqus_config = function () {
+    this.page.url = 'http://johnmercier.com/blog/2015/02-20-recmd5.html';  // Replace PAGE_URL with your page's canonical URL variable
+    this.page.identifier = 'blog/2015/02-20-recmd5.html'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+    };
+    */
+    (function() { // DON'T EDIT BELOW THIS LINE
+    var d = document, s = d.createElement('script');
+    s.src = 'https://moaxcp.disqus.com/embed.js';
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+    })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+
+	<hr />
+	
+		</div>
+		<div id="push"></div>
+    </div>
+    
+    <div id="footer">
+      <div class="container">
+        <p class="muted credit">&copy; 2014 | Mixed with <a href="http://getbootstrap.com/">Bootstrap v3.1.1</a> | Baked with <a href="http://jbake.org">JBake v2.5.1</a></p>
+      </div>
+    </div>
+    
+    <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="../../js/jquery-1.11.1.min.js"></script>
+    <script src="../../js/bootstrap.min.js"></script>
+    <script src="../../js/prettify.js"></script>
+    
+  </body>
+</html>
