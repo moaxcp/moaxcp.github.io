@@ -1,0 +1,784 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>Switching From Jekyll To JBake</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <meta name="keywords" content="">
+    <meta name="generator" content="JBake">
+
+    <!-- Le styles -->
+    <link href="../../css/bootstrap.min.css" rel="stylesheet">
+    <link href="../../css/asciidoctor.css" rel="stylesheet">
+    <link href="../../css/base.css" rel="stylesheet">
+    <link href="../../css/prettify.css" rel="stylesheet">
+
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="../../js/html5shiv.min.js"></script>
+    <![endif]-->
+
+    <!-- Fav and touch icons -->
+    <!--<link rel="apple-touch-icon-precomposed" sizes="144x144" href="../assets/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="../assets/ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="../assets/ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="../assets/ico/apple-touch-icon-57-precomposed.png">-->
+    <link rel="shortcut icon" href="../../favicon.ico">
+  </head>
+  <body onload="prettyPrint()">
+    <div id="wrap">
+	
+	<!-- Fixed navbar -->
+    <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="../../">johnmercier.com</a>
+        </div>
+        <div class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+            <li><a href="../../index.html">Blog</a></li>
+            <li><a href="../../archive.html">Archive</a></li>
+            <!--<li><a href="../../about.html">About</a></li>-->
+            <li><a href="../../feed.xml">Subscribe</a></li>
+            <!--
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>
+              <ul class="dropdown-menu">
+                <li><a href="#">Action</a></li>
+                <li><a href="#">Another action</a></li>
+                <li><a href="#">Something else here</a></li>
+                <li class="divider"></li>
+                <li class="dropdown-header">Nav header</li>
+                <li><a href="#">Separated link</a></li>
+                <li><a href="#">One more separated link</a></li>
+              </ul>
+            </li>
+            -->
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </div>
+    <div class="container">	
+	<div class="page-header">
+		<h1>Switching From Jekyll To JBake</h1>
+	</div>
+
+	<p><em>16 January 2018</em></p>
+
+	<p><div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>In a previous post <a href="http://jbake.org/">JBake</a> was added to nixos. Now it is time to convert this blog to
+<a href="http://jbake.org/">JBake</a>. As with any user blog hosted by <a href="https://github.com">github</a> the content needs to be
+posted to a git repository for the user. My repository is <a href="https://github.com/moaxcp/moaxcp.github.io">moaxcp.github.com</a>.
+I&#8217;m using a <a href="https://github.com/moaxcp/johnmercier.com">second repository</a> for the sources of the site.</p>
+</div>
+<div class="paragraph">
+<p>There are a few tools I want to use. <a href="https://gradle.org/">Gradle</a> to build the
+<a href="https://github.com/moaxcp/johnmercier.com">sources</a> and publish the blog to github.
+<a href="https://travis-ci.org/">Travis CI</a> to run the <a href="https://gradle.org/">Gradle</a> tasks anytime the
+<a href="https://github.com/moaxcp/johnmercier.com">sources</a> change.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Convert posts from jekyll Markdown format to JBake asciidoc format</p>
+</li>
+<li>
+<p>Setup Gradle to build and publish the blog</p>
+</li>
+<li>
+<p>Setup travis-ci to update the blog when sources change</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>To get started I had to setup gradle and JBake in a workflow for converting posts and viewing the site.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_setup_gradle">Setup Gradle</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Gradle has a JBake plugin that can be used to bake the site.</p>
+</div>
+<div class="paragraph">
+<p>This is good for automating the creation of the site using gradle. Here is an example build.gradle file using the
+plugin:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>plugins {
+    id 'org.jbake.site' version '1.0.0'
+}
+
+repositories {
+    jcenter()
+}
+
+tasks.assemble.dependsOn 'bake'</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>JBake sources need to be created in <code>src/jbake</code>. This is done with <code>jbake -i</code>.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>mkdir -p src/jbake
+cd src/jbake
+jbake -i</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Once the sources are setup gradle can bake the site.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>./gradlew build</pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_using_jbake">Using JBake</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>A few changes need to be made to <code>jbake.properties</code>. First <code>site.host</code> needs to point to the host url of the site.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>site.host=http://johnmercier.com</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Next the destination folder needs to match where gradle will build the jbake site.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>destination.folder=../../build/jbake</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>With these settings <code>jbake</code> commands will match the output directory for gradle.</p>
+</div>
+<div class="paragraph">
+<p>Here is the complete <code>jbake.properties</code> file.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>site.host=http://johnmercier.com
+render.tags=true
+render.sitemap=true
+destination.folder=../../build/jbake</pre>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_viewing_content">Viewing content</h3>
+<div class="paragraph">
+<p>There are a few options to viewing content. First, you can build with gradle and then navigate to index.html and open
+it in a browser. Another option is <code>jbake -s</code>. This command will serve the content locally and update the content when
+the source files change. Gradle does not support this option so <code>jbake -s</code> needs to be executed manually. This is the
+best option but jbake doesn&#8217;t seem to update content when the templates change.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_workflow">Workflow</h3>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>start jbake server <code>jbake -s</code></p>
+</li>
+<li>
+<p>Open browser to localhost:8082</p>
+</li>
+<li>
+<p>Convert posts and refresh browser to view changes</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>Note: when changing templates restart the server</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_converting_posts">Converting Posts</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Now that there is an established workflow to view the blog the posts can be converted. The blog posts are written in
+Markdown with a jekyll header. A simple groovy script can be used to read the files and convert them.</p>
+</div>
+<div class="sect2">
+<h3 id="_jekyll_files">Jekyll files</h3>
+<div class="paragraph">
+<p>Jekyll posts are added under src/jekyll in the gradle project. The file name starts with the date followed by the
+title. For example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>2015-05-30-notion-ebuild.md</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The following code gets this information.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>Date fileNameDate = Date.parse('yyyy-MM-dd', file.name.substring(0, 10))
+String fileNameTitle = file.name.substring(11, file.name.lastIndexOf('.'))</pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_jbake_files">JBake files</h3>
+<div class="paragraph">
+<p>In the jekyll blog all posts are in one dir. The file names start with a timestamp. When the site is generated all post
+URIs convert the timestamps into directories. A file named <code>2015-07-12-post-title.md</code> has a URI of
+2015/07/12/post-title.html. In JBake it would have a URI of 2015-07-12-post-title.html. This can cause problems for
+posts that have comments in <a href="https://disqus.com/">disqus</a> because the uri is also an id. For this blog I am organizing
+files by year. Each year has a directory with all the posts prefixed with month and day (MM-dd). It would be nice to
+have the disqus id match for old posts and organize the posts in any way possible.</p>
+</div>
+<div class="paragraph">
+<p>Fortunately for me I have no comments on this blog. So I can organize the files in anyway without a problem. JBake does
+allow for custom metadata. A disqus id can be added to each post which matches the id used in Jekyll. The post.ftl can
+check for this id. If it is present use it. If the id is not present default to the uri. I&#8217;m not going to implement
+this solution though since I have no comments.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_reading_the_posts">Reading the posts</h3>
+<div class="paragraph">
+<p>Reading jekyll&#8217;s markdown files involves reading the header and reading the content.</p>
+</div>
+<div class="paragraph">
+<p>The header is always at the top of the file starting and ending with <code>---</code>. The header is in yaml format. The dashes
+and yaml is the <a href="https://jekyllrb.com/docs/frontmatter/">Front Matter</a>. This gets the header text as a string:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>assert file.text.startsWith('---\n'), file.name
+def removeStart = file.text.substring(4)
+assert removeStart.contains('---\n'), file.name
+def headerEnd = removeStart.indexOf('---\n')
+def headerText = removeStart.substring(0, headerEnd)</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The rest of the text is the Markdown content.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>def content = removeStart.substring(headerEnd + 4)</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Jekyll&#8217;s header is in yaml format Yaml can be read in groovy using <a href="https://bitbucket.org/asomov/snakeyaml">snakeyaml</a>.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>@Grab('org.yaml:snakeyaml:1.19')
+import org.yaml.snakeyaml.Yaml
+
+...
+
+Yaml parser = new Yaml()
+Map header = parser.load(headerText)</pre>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_alternative_using_atlasian_commonmark">Alternative: using atlasian commonmark</h4>
+<div class="paragraph">
+<p>An alternative I tried using to read the files is atlassian&#8217;s
+<a href="https://github.com/atlassian/commonmark-java">commonmark</a> libraries. commonmark is able to fully parse the header and
+content as a Markdown abstract syntax tree. The tree can be manipulated which can be very useful in fixing the Markdown
+before posts to asciidoc. Unfortunately, commonmark does not have the ability to render the tree back into Markdown. I
+had to go a different route but this is what I learned about commonmark.</p>
+</div>
+<div class="paragraph">
+<p>To setup commonmark I added the dependencies for commonmark and the front matter extension. The front matter extension
+can read the header.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>@Grab('com.atlassian.commonmark:commonmark:0.10.0')
+@Grab('com.atlassian.commonmark:commonmark-ext-yaml-front-matter:0.10.0')
+
+import org.commonmark.parser.Parser
+import org.commonmark.renderer.text.TextContentRenderer
+import org.commonmark.node.*
+import org.commonmark.ext.front.matter.*</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Next, the Parser is created with the front matter extension.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>commonmark = Parser.builder()
+        .extensions([YamlFrontMatterExtension.create()])
+        .build()</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Parsing a document is easy with the parser and two visitors.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>Document document = commonmark.parse(file.text)
+Map data = getHeaderAndUnlink(document)
+convertHeadings(document)</pre>
+</div>
+</div>
+<div class="paragraph">
+<p><code>getHeaderAndUnlink</code> uses a <code>YamlFrontMatterVisitor</code> to parse the header and remove it from the document. This is so
+the document can be rendered without the header.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>Map getHeaderAndUnlink(Document document) {
+    def visitor = new AbstractVisitor() {
+        YamlFrontMatterVisitor yamlVisitor = new YamlFrontMatterVisitor()
+        void visit(CustomNode node) {
+            yamlVisitor.visit(node)
+            if(node.class == YamlFrontMatterNode) {
+                node.unlink()
+            }
+            visitChildren(node)
+        }
+        Map&lt;String, List&lt;String&gt;&gt; getData() {
+            return yamlVisitor.data
+        }
+    }
+    document.accept(visitor)
+    return visitor.data
+}</pre>
+</div>
+</div>
+<div class="paragraph">
+<p><code>convertHeadings</code> increases all of the headings levels by 1. This is because in an asciidoc post the title should be
+the only level 1 heading in the file.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>void convertHeadings(Document document) {
+    document.accept(new AbstractVisitor() {
+        void visit(Heading heading) {
+            heading.level += 1
+            visitChildren(heading)
+        }
+    })
+}</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The problem now is how to render the Markdown content again so it may be converted to asciidoc. This currently doesn&#8217;t
+seem possible. I tried using</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>TextContentRenderer.builder().build().render(document)</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This only renders the text without Markdown formatting. Until commonmark gets a MarkdownRenderer it will not be of
+help. This could be a good open source contribution in the future.</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_converting_jekyll_markdown_to_jbake_markdown_instead_of_asciidoc">Converting Jekyll Markdown to JBake Markdown Instead of AsciiDoc</h3>
+<div class="paragraph">
+<p>At this point there is enough information to make a script which can convert the files to JBake&#8217;s Markdown format. Here
+is the full script:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>@Grab('org.yaml:snakeyaml:1.19')
+import org.yaml.snakeyaml.Yaml
+
+def source = new File('src/jekyll/_posts')
+def destination = new File('src/jbake/content/blog')
+source.eachFile { file -&gt;
+    println file
+    assert file.text.startsWith('---\n'), file.name
+    def removeStart = file.text.substring(4)
+    assert removeStart.contains('---\n'), file.name
+    def headerEnd = removeStart.indexOf('---\n')
+    def headerText = removeStart.substring(0, headerEnd)
+
+    assert headerText
+
+    def content = removeStart.substring(headerEnd + 4)
+
+    assert content
+
+    Date fileNameDate = Date.parse('yyyy-MM-dd', file.name.substring(0, 10))
+
+    assert fileNameDate
+
+    Yaml parser = new Yaml()
+    Map header = parser.load(headerText)
+
+    assert header.keySet()*.toString().every {
+        it in [
+                'layout',
+                'title',
+                'date',
+                'categories',
+                'tags',
+                'status',
+                'type',
+                'published',
+                'meta',
+                'author',
+                'comments'
+        ]
+    }
+
+    destination.mkdirs()
+    def newFile = new File(destination.toString() + '/' + file.name)
+
+    newFile.withWriter {
+        it.println 'type=post'
+        it.println "title=$header.title"
+        it.println "date=${fileNameDate.format('yyyy-MM-dd')}"
+        it.println 'status=published'
+        it.println '~~~~~~'
+        it.write content
+    }
+}</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This was enough to see what the content looks like in JBake. The problem with markdown in JBake is all newlines are
+displayed. I couldn&#8217;t figure out how to fix this even with the pegdown extensions enabled. Converting to asciidoc is
+my next choice.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_converting_jekyll_markdown_to_asciidoc">Converting Jekyll Markdown to AsciiDoc</h3>
+<div class="sect3">
+<h4 id="_converting_the_header">Converting the Header</h4>
+<div class="paragraph">
+<p>The header can be converted to an asciidoc format with JBake attibutes.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>it.println "= $header.title"
+it.println 'John Mercier'
+it.println fileNameDate.format('yyyy-MM-dd')
+it.println ':jbake-type: post'
+it.println ':jbake-status: published'</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>As mentioned earlier the title should be the only level 1 heading. The rest need to be converted. Without a parser I
+used regex to fix the headings.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>content = content.replaceAll('(?m)^####\\s', '##### ')
+content = content.replaceAll('(?m)^###\\s', '#### ')
+content = content.replaceAll('(?m)^##\\s', '### ')
+content = content.replaceAll('(?m)^#\\s', '## ')</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Using regex where a parser is required is a common mistake programmers make. In this case the mistake is in codeblocks.
+Any codeblock containing <code>#</code> will be read as a Markdown heading.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>## comments</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>would become</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>### comments</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>I&#8217;m willing to accept this risk and fix any issues manually.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_converting_the_content">Converting the content</h4>
+<div class="paragraph">
+<p>It would be really difficult to write an entire solution to this problem. In my search for a solution I found
+<a href="https://github.com/bodiam/markdown-to-asciidoc">bodiam/markdown-to-asciidoc</a>. markdown-to-asciidoc is able to convert
+a Markdown string into asciidoc. This is exactly what I need.</p>
+</div>
+<div class="paragraph">
+<p>First the script grabs the dependency and imports the Converter class.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>@Grab('nl.jworks.markdown_to_asciidoc:markdown_to_asciidoc:1.0')
+import nl.jworks.markdown_to_asciidoc.Converter</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The markdown content can be converted to asciidoc in one line.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>it.write Converter.convertMarkdownToAsciiDoc(content)</pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_the_final_script">The final script</h3>
+<div class="paragraph">
+<p>This is the resulting script</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>@Grab('org.yaml:snakeyaml:1.19')
+@Grab('nl.jworks.markdown_to_asciidoc:markdown_to_asciidoc:1.0')
+
+import org.yaml.snakeyaml.Yaml
+import nl.jworks.markdown_to_asciidoc.Converter
+
+def source = new File('src/jekyll/_posts')
+def destination = new File('src/jbake/content/blog')
+
+source.eachFile { file -&gt;
+    Date fileNameDate = Date.parse('yyyy-MM-dd', file.name.substring(0, 10))
+    assert fileNameDate
+
+    println file
+    assert file.text.startsWith('---\n'), file.name
+    def removeStart = file.text.substring(4)
+    assert removeStart.contains('---\n'), file.name
+    def headerEnd = removeStart.indexOf('---\n')
+    def headerText = removeStart.substring(0, headerEnd)
+    assert headerText
+
+    def content = removeStart.substring(headerEnd + 4)
+    assert content
+
+    Yaml parser = new Yaml()
+    Map header = parser.load(headerText)
+
+    assert header.keySet()*.toString().every {
+        it in [
+                'layout',
+                'title',
+                'date',
+                'categories',
+                'tags',
+                'status',
+                'type',
+                'published',
+                'meta',
+                'author',
+                'comments'
+        ]
+    }
+
+    destination.mkdirs()
+    def fileName = file.name.replaceAll('\\.md$', '.adoc')
+    def newFile = new File(destination.toString() + '/' + fileNameDate.format('yyyy') + '/' + fileName.substring(5))
+
+    newFile.getParentFile().mkdirs()
+
+    newFile.withWriter {
+        it.println "= $header.title"
+        it.println 'John Mercier &lt;moaxcp@gmail.com&gt;'
+        it.println fileNameDate.format('yyyy-MM-dd')
+        it.println ':jbake-type: post'
+        it.println ':jbake-status: published'
+        content = content.replaceAll('(?m)^####\\s', '##### ')
+        content = content.replaceAll('(?m)^###\\s', '#### ')
+        content = content.replaceAll('(?m)^##\\s', '### ')
+        content = content.replaceAll('(?m)^#\\s', '## ')
+        it.write Converter.convertMarkdownToAsciiDoc(content)
+    }
+}</pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_adding_images">Adding images</h3>
+<div class="paragraph">
+<p>Images from jekyll are simply placed into the assets directory in JBake. Many of the images in my posts use html tags.
+This works in Markdown but not in AsciiDoc. The converter does not convert html tags to AsciiDoc and AsciiDoc does not
+recognize the tags. As a result the tags are in plain text when viewing the posts. These posts were fixed manually to
+use Markdown instead of html.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_gradle_git_publish">Gradle git-publish</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Publishing posts can be accomplished using a gradle plugin called git-publish. After adding the plugin a task called
+<code>gitPublishPush</code> is added which can publish the blog.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>plugins {
+    id 'org.jbake.site' version '1.0.0'
+    id 'org.ajoberstar.git-publish' version '0.4.0-rc.2'
+}
+
+repositories {
+    jcenter()
+}
+
+tasks.assemble.dependsOn 'bake'
+
+gitPublish {
+    repoUri = 'https://github.com/moaxcp/moaxcp.github.io.git'
+
+    branch = 'master'
+
+    contents {
+        from bake.output
+        from 'src/github/CNAME'
+    }
+
+    commitMessage = 'Publishing from gradle.'
+}
+
+tasks.gitPublishPush.dependsOn 'bake'</pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_automatic_publishing_with_travis_ci">Automatic publishing with travis-ci</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Travis first needs a github token. This token will be used to authenticate travis-ci when it tries to push changes to
+the <a href="https://github.com/moaxcp/johnmercier.com">repo</a>. I followed
+<a href="https://help.github.com/articles/creating-a-personal-access-token-for-the-command-line/">this</a> guide to create a
+token. Once the token is create it can be added to the <code>.travis.yml</code> using
+[The Travis Client(<a href="https://github.com/travis-ci/travis.rb" class="bare">https://github.com/travis-ci/travis.rb</a>):</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>travis encrypt 'GITHUB_TOKEN=&lt;generated token&gt;' --add</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The token will be set as an environment variable when travis-ci runs. It can be passed to gradle as a system property
+and used as credentials in <code>gitPublishPush</code>. The entire travis-ci file looks like this:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>jdk: oraclejdk8
+env:
+  global:
+    secure: eDaQxbFklEL3ei/nkm1ZLXL9/mPohN0t0HaMpHN6R9rKBoMxtue5VnEGEJFa51Mj2/GZUAhGLuRHlAAgKLAt9SE6pBkeuk9JyXkh5QC9MQsqnXGnHec6+jWWqtv3H+U+HciZIPo1LqDsHNALBCtXO7fP1lWVopbbehTz6HiIz+zzXVlsg4xBJ+bvOlMY7Bbt41s37Wyq5XMuFPIqS23ONDjMS9mb/C6FM7Jjo0JwqPv0C9OuHZRkZcZK9u+F4LV9+OnJxqlk4FJIcF7F7mH6TApURm0TbZZXSrInVUdPMQQOoLjJaqQz6WXUAcssFCa+8DK3j6r6hwk9f4+PEyOd5oqCHy5XKNW+pfo6lbcOrRFXmEOl7uD9gUbuiiC8VJfkla1TBq80uG9w2lprga0VsdF1Sd4l2aNEvxImZPT4x3R2ImQ07phYHbl4NYpMmTsn7cWMiM3XGuQbaQP7vr8t8e77FwxHbmFKaJUvP0PfCbctbFvKJqgZLAIDDrQPb+cTn8gMlB65vIUQJgP0hJ2nqn/pV7SOMcATSUqOUE5e97OWNi/4dOvwe+G7+SwOiTIWmUhilBZosSt163fcRzbLzgnu0m7w9o8ynwdIQ16ft+86h9bIhqQpshGteNviZNG93KCvhmlE424ggOkUz79H4h5iwDc84CV+uNn+rZs6GBc=
+script:
+- "./gradlew build"
+- git config --global user.email "travis@travis-ci.org"
+- git config --global user.name "travis-ci"
+- "./gradlew -Dorg.ajoberstar.grgit.auth.username=$GITHUB_TOKEN gitPublishPush"</pre>
+</div>
+</div>
+<div class="paragraph">
+<p><code>org.ajoberstar.grgit.auth.username</code> is the system property git-publish uses to authorize with github. The full
+build.gradle file looks like this.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>plugins {
+    id 'org.jbake.site' version '1.0.0'
+    id 'org.ajoberstar.git-publish' version '0.4.0-rc.2'
+}
+
+repositories {
+    jcenter()
+}
+
+tasks.assemble.dependsOn 'bake'
+
+gitPublish {
+    repoUri = "https://github.com/moaxcp/moaxcp.github.io.git"
+
+    branch = 'master'
+
+    contents {
+        from bake.output
+        from 'src/github/CNAME'
+    }
+
+    commitMessage = 'Publishing from gradle.'
+}
+
+tasks.gitPublishPush.dependsOn 'bake'</pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_conclusion">Conclusion</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>We live in a world where there are all sorts of solutions to software problems. Finding one that works is not always
+obvious. This is the solution I found for my problem and I am happy with it. Thanks for reading!</p>
+</div>
+</div>
+</div></p>
+
+    <div id="disqus_thread"></div>
+    <script>
+
+    /**
+    *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+    *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+    /*
+    var disqus_config = function () {
+    this.page.url = 'http://johnmercier.com/blog/2018/01-16-switching-from-jekyll-to-jbake.html';  // Replace PAGE_URL with your page's canonical URL variable
+    this.page.identifier = 'blog/2018/01-16-switching-from-jekyll-to-jbake.html'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+    };
+    */
+    (function() { // DON'T EDIT BELOW THIS LINE
+    var d = document, s = d.createElement('script');
+    s.src = 'https://moaxcp.disqus.com/embed.js';
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+    })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+
+	<hr />
+	
+		</div>
+		<div id="push"></div>
+    </div>
+    
+    <div id="footer">
+      <div class="container">
+        <p class="muted credit">&copy; 2014 | Mixed with <a href="http://getbootstrap.com/">Bootstrap v3.1.1</a> | Baked with <a href="http://jbake.org">JBake v2.5.1</a></p>
+      </div>
+    </div>
+    
+    <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="../../js/jquery-1.11.1.min.js"></script>
+    <script src="../../js/bootstrap.min.js"></script>
+    <script src="../../js/prettify.js"></script>
+    
+  </body>
+</html>
