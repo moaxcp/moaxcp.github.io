@@ -6,13 +6,686 @@
     <atom:link href="http://johnmercier.com/feed.xml" rel="self" type="application/rss+xml" />
     <description>JBake Bootstrap Template</description>
     <language>en-gb</language>
-    <pubDate>Mon, 15 Jan 2018 02:39:04 +0000</pubDate>
-    <lastBuildDate>Mon, 15 Jan 2018 02:39:04 +0000</lastBuildDate>
+    <pubDate>Tue, 16 Jan 2018 21:58:48 -0500</pubDate>
+    <lastBuildDate>Tue, 16 Jan 2018 21:58:48 -0500</lastBuildDate>
 
+    <item>
+      <title>Switching From Jekyll To JBake</title>
+      <link>http://johnmercier.com/blog/2018/01-04-switching-from-jekyll-to-jbake.html</link>
+      <pubDate>Thu, 4 Jan 2018 00:00:00 -0500</pubDate>
+      <guid isPermaLink="false">blog/2018/01-04-switching-from-jekyll-to-jbake.html</guid>
+      	<description>
+	&lt;div id=&quot;preamble&quot;&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;In a previous post &lt;a href=&quot;http://jbake.org/&quot;&gt;JBake&lt;/a&gt; was added to nixos. Now it is time to convert this blog to
+&lt;a href=&quot;http://jbake.org/&quot;&gt;JBake&lt;/a&gt;. As with any user blog hosted by &lt;a href=&quot;https://github.com&quot;&gt;github&lt;/a&gt; the content needs to be
+posted to a git repository for the user. My repository is &lt;a href=&quot;https://github.com/moaxcp/moaxcp.github.io&quot;&gt;moaxcp.github.com&lt;/a&gt;.
+I&amp;#8217;m using a &lt;a href=&quot;https://github.com/moaxcp/johnmercier.com&quot;&gt;second repository&lt;/a&gt; for the sources of the site.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;There are a few tools I want to use. &lt;a href=&quot;https://gradle.org/&quot;&gt;Gradle&lt;/a&gt; to build the
+&lt;a href=&quot;https://github.com/moaxcp/johnmercier.com&quot;&gt;sources&lt;/a&gt; and publish the blog to github.
+&lt;a href=&quot;https://travis-ci.org/&quot;&gt;Travis CI&lt;/a&gt; to run the &lt;a href=&quot;https://gradle.org/&quot;&gt;Gradle&lt;/a&gt; tasks anytime the
+&lt;a href=&quot;https://github.com/moaxcp/johnmercier.com&quot;&gt;sources&lt;/a&gt; change.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;olist arabic&quot;&gt;
+&lt;ol class=&quot;arabic&quot;&gt;
+&lt;li&gt;
+&lt;p&gt;Convert posts from jekyll Markdown format to JBake asciidoc format&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Setup Gradle to build and publish the blog&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Setup travis-ci to update the blog when sources change&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;To get started I had to setup gradle and JBake in a workflow for converting posts and viewing the site.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;_setup_gradle&quot;&gt;Setup Gradle&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Gradle has a JBake plugin that can be used to bake the site.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;This is good for automating the creation of the site using gradle. Here is an example build.gradle file using the
+plugin:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre&gt;plugins {
+    id &apos;org.jbake.site&apos; version &apos;1.0.0&apos;
+}
+
+repositories {
+    jcenter()
+}
+
+tasks.assemble.dependsOn &apos;bake&apos;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;JBake sources need to be created in &lt;code&gt;src/jbake&lt;/code&gt;. This is done with &lt;code&gt;jbake -i&lt;/code&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre&gt;mkdir -p src/jbake
+cd src/jbake
+jbake -i&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Once the sources are setup gradle can bake the site.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre&gt;./gradlew build&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;_using_jbake&quot;&gt;Using JBake&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;A few changes need to be made to &lt;code&gt;jbake.properties&lt;/code&gt;. First &lt;code&gt;site.host&lt;/code&gt; needs to point to the host url of the site.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre&gt;site.host=http://johnmercier.com&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Next the destination folder needs to match where gradle will build the jbake site.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre&gt;destination.folder=../../build/jbake&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;With these settings &lt;code&gt;jbake&lt;/code&gt; commands will match the output directory for gradle.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Here is the complete &lt;code&gt;jbake.properties&lt;/code&gt; file.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre&gt;site.host=http://johnmercier.com
+render.tags=true
+render.sitemap=true
+destination.folder=../../build/jbake&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect2&quot;&gt;
+&lt;h3 id=&quot;_viewing_content&quot;&gt;Viewing content&lt;/h3&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;There are a few options to viewing content. First, you can build with gradle and then navigate to index.html and open
+it in a browser. Another option is &lt;code&gt;jbake -s&lt;/code&gt;. This command will serve the content locally and update the content when
+the source files change. Gradle does not support this option so &lt;code&gt;jbake -s&lt;/code&gt; needs to be executed manually. This is the
+best option but jbake doesn&amp;#8217;t seem to update content when the templates change.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect2&quot;&gt;
+&lt;h3 id=&quot;_workflow&quot;&gt;Workflow&lt;/h3&gt;
+&lt;div class=&quot;olist arabic&quot;&gt;
+&lt;ol class=&quot;arabic&quot;&gt;
+&lt;li&gt;
+&lt;p&gt;start jbake server &lt;code&gt;jbake -s&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Open browser to localhost:8082&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Convert posts and refresh browser to view changes&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Note: when changing templates restart the server&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;_converting_posts&quot;&gt;Converting Posts&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Now that there is an established workflow to view the blog the posts can be converted. The blog posts are written in
+Markdown with a jekyll header. A simple groovy script can be used to read the files and convert them.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect2&quot;&gt;
+&lt;h3 id=&quot;_jekyll_files&quot;&gt;Jekyll files&lt;/h3&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Jekyll posts are added under src/jekyll in the gradle project. The file name starts with the date followed by the
+title. For example:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre&gt;2015-05-30-notion-ebuild.md&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;The following code gets this information.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre&gt;Date fileNameDate = Date.parse(&apos;yyyy-MM-dd&apos;, file.name.substring(0, 10))
+String fileNameTitle = file.name.substring(11, file.name.lastIndexOf(&apos;.&apos;))&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect2&quot;&gt;
+&lt;h3 id=&quot;_jbake_files&quot;&gt;JBake files&lt;/h3&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;In the jekyll blog all posts are in one dir. The file names start with a timestamp. When the site is generated all post
+URIs convert the timestamps into directories. A file named &lt;code&gt;2015-07-12-post-title.md&lt;/code&gt; has a URI of
+2015/07/12/post-title.html. In JBake it would have a URI of 2015-07-12-post-title.html. This can cause problems for
+posts that have comments in &lt;a href=&quot;https://disqus.com/&quot;&gt;disqus&lt;/a&gt; because the uri is also an id. For this blog I am organizing
+files by year. Each year has a directory with all the posts prefixed with month and day (MM-dd). It would be nice to
+have the disqus id match for old posts and organize the posts in any way possible.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Fortunately for me I have no comments on this blog. So I can organize the files in anyway without a problem. JBake does
+allow for custom metadata. A disqus id can be added to each post which matches the id used in Jekyll. The post.ftl can
+check for this id. If it is present use it. If the id is not present default to the uri. I&amp;#8217;m not going to implement
+this solution though since I have no comments.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect2&quot;&gt;
+&lt;h3 id=&quot;_reading_the_posts&quot;&gt;Reading the posts&lt;/h3&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Reading jekyll&amp;#8217;s markdown files involves reading the header and reading the content.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;The header is always at the top of the file starting and ending with &lt;code&gt;---&lt;/code&gt;. The header is in yaml format. The dashes
+and yaml is the &lt;a href=&quot;https://jekyllrb.com/docs/frontmatter/&quot;&gt;Front Matter&lt;/a&gt;. This gets the header text as a string:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre&gt;assert file.text.startsWith(&apos;---\n&apos;), file.name
+def removeStart = file.text.substring(4)
+assert removeStart.contains(&apos;---\n&apos;), file.name
+def headerEnd = removeStart.indexOf(&apos;---\n&apos;)
+def headerText = removeStart.substring(0, headerEnd)&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;The rest of the text is the Markdown content.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre&gt;def content = removeStart.substring(headerEnd + 4)&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Jekyll&amp;#8217;s header is in yaml format Yaml can be read in groovy using &lt;a href=&quot;https://bitbucket.org/asomov/snakeyaml&quot;&gt;snakeyaml&lt;/a&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre&gt;@Grab(&apos;org.yaml:snakeyaml:1.19&apos;)
+import org.yaml.snakeyaml.Yaml
+
+...
+
+Yaml parser = new Yaml()
+Map header = parser.load(headerText)&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect3&quot;&gt;
+&lt;h4 id=&quot;_alternative_using_atlasian_commonmark&quot;&gt;Alternative: using atlasian commonmark&lt;/h4&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;An alternative I tried using to read the files is atlassian&amp;#8217;s
+&lt;a href=&quot;https://github.com/atlassian/commonmark-java&quot;&gt;commonmark&lt;/a&gt; libraries. commonmark is able to fully parse the header and
+content as a Markdown abstract syntax tree. The tree can be manipulated which can be very useful in fixing the Markdown
+before posts to asciidoc. Unfortunately, commonmark does not have the ability to render the tree back into Markdown. I
+had to go a different route but this is what I learned about commonmark.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;To setup commonmark I added the dependencies for commonmark and the front matter extension. The front matter extension
+can read the header.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre&gt;@Grab(&apos;com.atlassian.commonmark:commonmark:0.10.0&apos;)
+@Grab(&apos;com.atlassian.commonmark:commonmark-ext-yaml-front-matter:0.10.0&apos;)
+
+import org.commonmark.parser.Parser
+import org.commonmark.renderer.text.TextContentRenderer
+import org.commonmark.node.*
+import org.commonmark.ext.front.matter.*&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Next, the Parser is created with the front matter extension.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre&gt;commonmark = Parser.builder()
+        .extensions([YamlFrontMatterExtension.create()])
+        .build()&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Parsing a document is easy with the parser and two visitors.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre&gt;Document document = commonmark.parse(file.text)
+Map data = getHeaderAndUnlink(document)
+convertHeadings(document)&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&lt;code&gt;getHeaderAndUnlink&lt;/code&gt; uses a &lt;code&gt;YamlFrontMatterVisitor&lt;/code&gt; to parse the header and remove it from the document. This is so
+the document can be rendered without the header.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre&gt;Map getHeaderAndUnlink(Document document) {
+    def visitor = new AbstractVisitor() {
+        YamlFrontMatterVisitor yamlVisitor = new YamlFrontMatterVisitor()
+        void visit(CustomNode node) {
+            yamlVisitor.visit(node)
+            if(node.class == YamlFrontMatterNode) {
+                node.unlink()
+            }
+            visitChildren(node)
+        }
+        Map&amp;lt;String, List&amp;lt;String&amp;gt;&amp;gt; getData() {
+            return yamlVisitor.data
+        }
+    }
+    document.accept(visitor)
+    return visitor.data
+}&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&lt;code&gt;convertHeadings&lt;/code&gt; increases all of the headings levels by 1. This is because in an asciidoc post the title should be
+the only level 1 heading in the file.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre&gt;void convertHeadings(Document document) {
+    document.accept(new AbstractVisitor() {
+        void visit(Heading heading) {
+            heading.level += 1
+            visitChildren(heading)
+        }
+    })
+}&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;The problem now is how to render the Markdown content again so it may be converted to asciidoc. This currently doesn&amp;#8217;t
+seem possible. I tried using&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre&gt;TextContentRenderer.builder().build().render(document)&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;This only renders the text without Markdown formatting. Until commonmark gets a MarkdownRenderer it will not be of
+help. This could be a good open source contribution in the future.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect2&quot;&gt;
+&lt;h3 id=&quot;_converting_jekyll_markdown_to_jbake_markdown_instead_of_asciidoc&quot;&gt;Converting Jekyll Markdown to JBake Markdown Instead of AsciiDoc&lt;/h3&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;At this point there is enough information to make a script which can convert the files to JBake&amp;#8217;s Markdown format. Here
+is the full script:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre&gt;@Grab(&apos;org.yaml:snakeyaml:1.19&apos;)
+import org.yaml.snakeyaml.Yaml
+
+def source = new File(&apos;src/jekyll/_posts&apos;)
+def destination = new File(&apos;src/jbake/content/blog&apos;)
+source.eachFile { file -&amp;gt;
+    println file
+    assert file.text.startsWith(&apos;---\n&apos;), file.name
+    def removeStart = file.text.substring(4)
+    assert removeStart.contains(&apos;---\n&apos;), file.name
+    def headerEnd = removeStart.indexOf(&apos;---\n&apos;)
+    def headerText = removeStart.substring(0, headerEnd)
+
+    assert headerText
+
+    def content = removeStart.substring(headerEnd + 4)
+
+    assert content
+
+    Date fileNameDate = Date.parse(&apos;yyyy-MM-dd&apos;, file.name.substring(0, 10))
+
+    assert fileNameDate
+
+    Yaml parser = new Yaml()
+    Map header = parser.load(headerText)
+
+    assert header.keySet()*.toString().every {
+        it in [
+                &apos;layout&apos;,
+                &apos;title&apos;,
+                &apos;date&apos;,
+                &apos;categories&apos;,
+                &apos;tags&apos;,
+                &apos;status&apos;,
+                &apos;type&apos;,
+                &apos;published&apos;,
+                &apos;meta&apos;,
+                &apos;author&apos;,
+                &apos;comments&apos;
+        ]
+    }
+
+    destination.mkdirs()
+    def newFile = new File(destination.toString() + &apos;/&apos; + file.name)
+
+    newFile.withWriter {
+        it.println &apos;type=post&apos;
+        it.println &quot;title=$header.title&quot;
+        it.println &quot;date=${fileNameDate.format(&apos;yyyy-MM-dd&apos;)}&quot;
+        it.println &apos;status=published&apos;
+        it.println &apos;~~~~~~&apos;
+        it.write content
+    }
+}&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;This was enough to see what the content looks like in JBake. The problem with markdown in JBake is all newlines are
+displayed. I couldn&amp;#8217;t figure out how to fix this even with the pegdown extensions enabled. Converting to asciidoc is
+my next choice.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect2&quot;&gt;
+&lt;h3 id=&quot;_converting_jekyll_markdown_to_asciidoc&quot;&gt;Converting Jekyll Markdown to AsciiDoc&lt;/h3&gt;
+&lt;div class=&quot;sect3&quot;&gt;
+&lt;h4 id=&quot;_converting_the_header&quot;&gt;Converting the Header&lt;/h4&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;The header can be converted to an asciidoc format with JBake attibutes.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre&gt;it.println &quot;= $header.title&quot;
+it.println &apos;John Mercier&apos;
+it.println fileNameDate.format(&apos;yyyy-MM-dd&apos;)
+it.println &apos;:jbake-type: post&apos;
+it.println &apos;:jbake-status: published&apos;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;As mentioned earlier the title should be the only level 1 heading. The rest need to be converted. Without a parser I
+used regex to fix the headings.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre&gt;content = content.replaceAll(&apos;(?m)^####\\s&apos;, &apos;##### &apos;)
+content = content.replaceAll(&apos;(?m)^###\\s&apos;, &apos;#### &apos;)
+content = content.replaceAll(&apos;(?m)^##\\s&apos;, &apos;### &apos;)
+content = content.replaceAll(&apos;(?m)^#\\s&apos;, &apos;## &apos;)&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Using regex where a parser is required is a common mistake programmers make. In this case the mistake is in codeblocks.
+Any codeblock containing &lt;code&gt;#&lt;/code&gt; will be read as a Markdown heading.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre&gt;## comments&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;would become&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre&gt;### comments&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;I&amp;#8217;m willing to accept this risk and fix any issues manually.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect3&quot;&gt;
+&lt;h4 id=&quot;_converting_the_content&quot;&gt;Converting the content&lt;/h4&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;It would be really difficult to write an entire solution to this problem. In my search for a solution I found
+&lt;a href=&quot;https://github.com/bodiam/markdown-to-asciidoc&quot;&gt;bodiam/markdown-to-asciidoc&lt;/a&gt;. markdown-to-asciidoc is able to convert
+a Markdown string into asciidoc. This is exactly what I need.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;First the script grabs the dependency and imports the Converter class.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre&gt;@Grab(&apos;nl.jworks.markdown_to_asciidoc:markdown_to_asciidoc:1.0&apos;)
+import nl.jworks.markdown_to_asciidoc.Converter&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;The markdown content can be converted to asciidoc in one line.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre&gt;it.write Converter.convertMarkdownToAsciiDoc(content)&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect2&quot;&gt;
+&lt;h3 id=&quot;_the_final_script&quot;&gt;The final script&lt;/h3&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;This is the resulting script&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre&gt;@Grab(&apos;org.yaml:snakeyaml:1.19&apos;)
+@Grab(&apos;nl.jworks.markdown_to_asciidoc:markdown_to_asciidoc:1.0&apos;)
+
+import org.yaml.snakeyaml.Yaml
+import nl.jworks.markdown_to_asciidoc.Converter
+
+def source = new File(&apos;src/jekyll/_posts&apos;)
+def destination = new File(&apos;src/jbake/content/blog&apos;)
+
+source.eachFile { file -&amp;gt;
+    Date fileNameDate = Date.parse(&apos;yyyy-MM-dd&apos;, file.name.substring(0, 10))
+    assert fileNameDate
+
+    println file
+    assert file.text.startsWith(&apos;---\n&apos;), file.name
+    def removeStart = file.text.substring(4)
+    assert removeStart.contains(&apos;---\n&apos;), file.name
+    def headerEnd = removeStart.indexOf(&apos;---\n&apos;)
+    def headerText = removeStart.substring(0, headerEnd)
+    assert headerText
+
+    def content = removeStart.substring(headerEnd + 4)
+    assert content
+
+    Yaml parser = new Yaml()
+    Map header = parser.load(headerText)
+
+    assert header.keySet()*.toString().every {
+        it in [
+                &apos;layout&apos;,
+                &apos;title&apos;,
+                &apos;date&apos;,
+                &apos;categories&apos;,
+                &apos;tags&apos;,
+                &apos;status&apos;,
+                &apos;type&apos;,
+                &apos;published&apos;,
+                &apos;meta&apos;,
+                &apos;author&apos;,
+                &apos;comments&apos;
+        ]
+    }
+
+    destination.mkdirs()
+    def fileName = file.name.replaceAll(&apos;\\.md$&apos;, &apos;.adoc&apos;)
+    def newFile = new File(destination.toString() + &apos;/&apos; + fileNameDate.format(&apos;yyyy&apos;) + &apos;/&apos; + fileName.substring(5))
+
+    newFile.getParentFile().mkdirs()
+
+    newFile.withWriter {
+        it.println &quot;= $header.title&quot;
+        it.println &apos;John Mercier &amp;lt;moaxcp@gmail.com&amp;gt;&apos;
+        it.println fileNameDate.format(&apos;yyyy-MM-dd&apos;)
+        it.println &apos;:jbake-type: post&apos;
+        it.println &apos;:jbake-status: published&apos;
+        content = content.replaceAll(&apos;(?m)^####\\s&apos;, &apos;##### &apos;)
+        content = content.replaceAll(&apos;(?m)^###\\s&apos;, &apos;#### &apos;)
+        content = content.replaceAll(&apos;(?m)^##\\s&apos;, &apos;### &apos;)
+        content = content.replaceAll(&apos;(?m)^#\\s&apos;, &apos;## &apos;)
+        it.write Converter.convertMarkdownToAsciiDoc(content)
+    }
+}&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect2&quot;&gt;
+&lt;h3 id=&quot;_adding_images&quot;&gt;Adding images&lt;/h3&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Images from jekyll are simply placed into the assets directory in JBake. Many of the images in my posts use html tags.
+This works in Markdown but not in AsciiDoc. The converter does not convert html tags to AsciiDoc and AsciiDoc does not
+recognize the tags. As a result the tags are in plain text when viewing the posts. These posts were fixed manually to
+use Markdown instead of html.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;_gradle_git_publish&quot;&gt;Gradle git-publish&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Publishing posts can be accomplished using a gradle plugin called git-publish. After adding the plugin a task called
+&lt;code&gt;gitPublishPush&lt;/code&gt; is added which can publish the blog.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre&gt;plugins {
+    id &apos;org.jbake.site&apos; version &apos;1.0.0&apos;
+    id &apos;org.ajoberstar.git-publish&apos; version &apos;0.4.0-rc.2&apos;
+}
+
+repositories {
+    jcenter()
+}
+
+tasks.assemble.dependsOn &apos;bake&apos;
+
+gitPublish {
+    repoUri = &apos;https://github.com/moaxcp/moaxcp.github.io.git&apos;
+
+    branch = &apos;master&apos;
+
+    contents {
+        from bake.output
+        from &apos;src/github/CNAME&apos;
+    }
+
+    commitMessage = &apos;Publishing from gradle.&apos;
+}
+
+tasks.gitPublishPush.dependsOn &apos;bake&apos;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;_automatic_publishing_with_travis_ci&quot;&gt;Automatic publishing with travis-ci&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Travis first needs a github token. This token will be used to authenticate travis-ci when it tries to push changes to
+the &lt;a href=&quot;https://github.com/moaxcp/johnmercier.com&quot;&gt;repo&lt;/a&gt;. I followed
+&lt;a href=&quot;https://help.github.com/articles/creating-a-personal-access-token-for-the-command-line/&quot;&gt;this&lt;/a&gt; guide to create a
+token. Once the token is create it can be added to the &lt;code&gt;.travis.yml&lt;/code&gt; using
+[The Travis Client(&lt;a href=&quot;https://github.com/travis-ci/travis.rb&quot; class=&quot;bare&quot;&gt;https://github.com/travis-ci/travis.rb&lt;/a&gt;):&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre&gt;travis encrypt &apos;GITHUB_TOKEN=&amp;lt;generated token&amp;gt;&apos; --add&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;The token will be set as an environment variable when travis-ci runs. It can be passed to gradle as a system property
+and used as credentials in &lt;code&gt;gitPublishPush&lt;/code&gt;. The entire travis-ci file looks like this:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre&gt;jdk: oraclejdk8
+env:
+  global:
+    secure: eDaQxbFklEL3ei/nkm1ZLXL9/mPohN0t0HaMpHN6R9rKBoMxtue5VnEGEJFa51Mj2/GZUAhGLuRHlAAgKLAt9SE6pBkeuk9JyXkh5QC9MQsqnXGnHec6+jWWqtv3H+U+HciZIPo1LqDsHNALBCtXO7fP1lWVopbbehTz6HiIz+zzXVlsg4xBJ+bvOlMY7Bbt41s37Wyq5XMuFPIqS23ONDjMS9mb/C6FM7Jjo0JwqPv0C9OuHZRkZcZK9u+F4LV9+OnJxqlk4FJIcF7F7mH6TApURm0TbZZXSrInVUdPMQQOoLjJaqQz6WXUAcssFCa+8DK3j6r6hwk9f4+PEyOd5oqCHy5XKNW+pfo6lbcOrRFXmEOl7uD9gUbuiiC8VJfkla1TBq80uG9w2lprga0VsdF1Sd4l2aNEvxImZPT4x3R2ImQ07phYHbl4NYpMmTsn7cWMiM3XGuQbaQP7vr8t8e77FwxHbmFKaJUvP0PfCbctbFvKJqgZLAIDDrQPb+cTn8gMlB65vIUQJgP0hJ2nqn/pV7SOMcATSUqOUE5e97OWNi/4dOvwe+G7+SwOiTIWmUhilBZosSt163fcRzbLzgnu0m7w9o8ynwdIQ16ft+86h9bIhqQpshGteNviZNG93KCvhmlE424ggOkUz79H4h5iwDc84CV+uNn+rZs6GBc=
+script:
+- &quot;./gradlew build&quot;
+- git config --global user.email &quot;travis@travis-ci.org&quot;
+- git config --global user.name &quot;travis-ci&quot;
+- &quot;./gradlew -Dorg.ajoberstar.grgit.auth.username=$GITHUB_TOKEN gitPublishPush&quot;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&lt;code&gt;org.ajoberstar.grgit.auth.username&lt;/code&gt; is the system property git-publish uses to authorize with github. The full
+build.gradle file looks like this.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre&gt;plugins {
+    id &apos;org.jbake.site&apos; version &apos;1.0.0&apos;
+    id &apos;org.ajoberstar.git-publish&apos; version &apos;0.4.0-rc.2&apos;
+}
+
+repositories {
+    jcenter()
+}
+
+tasks.assemble.dependsOn &apos;bake&apos;
+
+gitPublish {
+    repoUri = &quot;https://github.com/moaxcp/moaxcp.github.io.git&quot;
+
+    branch = &apos;master&apos;
+
+    contents {
+        from bake.output
+        from &apos;src/github/CNAME&apos;
+    }
+
+    commitMessage = &apos;Publishing from gradle.&apos;
+}
+
+tasks.gitPublishPush.dependsOn &apos;bake&apos;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;_conclusion&quot;&gt;Conclusion&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;We live in a world where there are all sorts of solutions to software problems. Finding one that works is not always
+obvious. This is the solution I found for my problem and I am happy with it. Thanks for reading!&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+	</description>
+    </item>
     <item>
       <title>Adding JBake to nixpkgs</title>
       <link>http://johnmercier.com/blog/2017/12-28-adding-jbake-to-nixpkgs.html</link>
-      <pubDate>Thu, 28 Dec 2017 00:00:00 +0000</pubDate>
+      <pubDate>Thu, 28 Dec 2017 00:00:00 -0500</pubDate>
       <guid isPermaLink="false">blog/2017/12-28-adding-jbake-to-nixpkgs.html</guid>
       	<description>
 	&lt;div id=&quot;preamble&quot;&gt;
@@ -611,7 +1284,7 @@ added/maintained. I hope this helps in some way.&lt;/p&gt;
     <item>
       <title>graph-dsl views</title>
       <link>http://johnmercier.com/blog/2017/11-10-graph-dsl-views.html</link>
-      <pubDate>Fri, 10 Nov 2017 00:00:00 +0000</pubDate>
+      <pubDate>Fri, 10 Nov 2017 00:00:00 -0500</pubDate>
       <guid isPermaLink="false">blog/2017/11-10-graph-dsl-views.html</guid>
       	<description>
 	&lt;div id=&quot;preamble&quot;&gt;
@@ -691,7 +1364,7 @@ method to display a graph using graphviz.&lt;/p&gt;
     <item>
       <title>obnam on nixos</title>
       <link>http://johnmercier.com/blog/2017/07-15-obnam-on-nixos.html</link>
-      <pubDate>Sat, 15 Jul 2017 00:00:00 +0000</pubDate>
+      <pubDate>Sat, 15 Jul 2017 00:00:00 -0400</pubDate>
       <guid isPermaLink="false">blog/2017/07-15-obnam-on-nixos.html</guid>
       	<description>
 	&lt;div class=&quot;paragraph&quot;&gt;
@@ -792,7 +1465,7 @@ systemd.timers.obnam = {
     <item>
       <title>linux issues in nixos</title>
       <link>http://johnmercier.com/blog/2017/06-24-linux-issue-in-nixos.html</link>
-      <pubDate>Sat, 24 Jun 2017 00:00:00 +0000</pubDate>
+      <pubDate>Sat, 24 Jun 2017 00:00:00 -0400</pubDate>
       <guid isPermaLink="false">blog/2017/06-24-linux-issue-in-nixos.html</guid>
       	<description>
 	&lt;div class=&quot;paragraph&quot;&gt;
@@ -839,7 +1512,7 @@ linux 4.9.6.&lt;/p&gt;
     <item>
       <title>connecting to wifi from nixos minimal install cd</title>
       <link>http://johnmercier.com/blog/2017/06-20-connecting-to-wifi-from-nixos-minimal-install-cd.html</link>
-      <pubDate>Tue, 20 Jun 2017 00:00:00 +0000</pubDate>
+      <pubDate>Tue, 20 Jun 2017 00:00:00 -0400</pubDate>
       <guid isPermaLink="false">blog/2017/06-20-connecting-to-wifi-from-nixos-minimal-install-cd.html</guid>
       	<description>
 	&lt;div id=&quot;preamble&quot;&gt;
@@ -906,7 +1579,7 @@ quit&lt;/pre&gt;
     <item>
       <title>ivy remote configs</title>
       <link>http://johnmercier.com/blog/2017/06-20-ivy-remote-configs.html</link>
-      <pubDate>Tue, 20 Jun 2017 00:00:00 +0000</pubDate>
+      <pubDate>Tue, 20 Jun 2017 00:00:00 -0400</pubDate>
       <guid isPermaLink="false">blog/2017/06-20-ivy-remote-configs.html</guid>
       	<description>
 	&lt;div class=&quot;paragraph&quot;&gt;
@@ -928,7 +1601,7 @@ maven repository.&lt;/p&gt;
     <item>
       <title>switching to nixos</title>
       <link>http://johnmercier.com/blog/2017/06-19-switching-to-nixos-again.html</link>
-      <pubDate>Mon, 19 Jun 2017 00:00:00 +0000</pubDate>
+      <pubDate>Mon, 19 Jun 2017 00:00:00 -0400</pubDate>
       <guid isPermaLink="false">blog/2017/06-19-switching-to-nixos-again.html</guid>
       	<description>
 	&lt;div class=&quot;paragraph&quot;&gt;
@@ -1063,7 +1736,7 @@ this with gentoo. I believe the gentoo experience made setting this up in nixos 
     <item>
       <title>sonar way is the wrong way</title>
       <link>http://johnmercier.com/blog/2017/02-07-sonar-way-is-the-wrong-way.html</link>
-      <pubDate>Tue, 7 Feb 2017 00:00:00 +0000</pubDate>
+      <pubDate>Tue, 7 Feb 2017 00:00:00 -0500</pubDate>
       <guid isPermaLink="false">blog/2017/02-07-sonar-way-is-the-wrong-way.html</guid>
       	<description>
 	&lt;div class=&quot;paragraph&quot;&gt;
@@ -1119,7 +1792,7 @@ it is not possible to modify the Quality Profile and as a result &lt;a href=&quo
     <item>
       <title>Testing graph-dsl</title>
       <link>http://johnmercier.com/blog/2017/01-19-testing-graph-dsl.html</link>
-      <pubDate>Thu, 19 Jan 2017 00:00:00 +0000</pubDate>
+      <pubDate>Thu, 19 Jan 2017 00:00:00 -0500</pubDate>
       <guid isPermaLink="false">blog/2017/01-19-testing-graph-dsl.html</guid>
       	<description>
 	&lt;div class=&quot;paragraph&quot;&gt;
@@ -1242,7 +1915,7 @@ higher.&lt;/p&gt;
     <item>
       <title>Java Navive Access in Groovy</title>
       <link>http://johnmercier.com/blog/2017/01-07-java-native-access-in-groovy.html</link>
-      <pubDate>Sat, 7 Jan 2017 00:00:00 +0000</pubDate>
+      <pubDate>Sat, 7 Jan 2017 00:00:00 -0500</pubDate>
       <guid isPermaLink="false">blog/2017/01-07-java-native-access-in-groovy.html</guid>
       	<description>
 	&lt;div class=&quot;paragraph&quot;&gt;
@@ -1309,7 +1982,7 @@ for(int i = 0; i &amp;lt; args.length; i++) {
     <item>
       <title>epson xp-950 on gentoo</title>
       <link>http://johnmercier.com/blog/2017/01-02-epson-xp-950-on-gentoo.html</link>
-      <pubDate>Mon, 2 Jan 2017 00:00:00 +0000</pubDate>
+      <pubDate>Mon, 2 Jan 2017 00:00:00 -0500</pubDate>
       <guid isPermaLink="false">blog/2017/01-02-epson-xp-950-on-gentoo.html</guid>
       	<description>
 	&lt;div id=&quot;preamble&quot;&gt;
@@ -1401,7 +2074,7 @@ for(int i = 0; i &amp;lt; args.length; i++) {
     <item>
       <title>obnam on gentoo</title>
       <link>http://johnmercier.com/blog/2015/09-09-obnam-on-gentoo.html</link>
-      <pubDate>Wed, 9 Sep 2015 00:00:00 +0000</pubDate>
+      <pubDate>Wed, 9 Sep 2015 00:00:00 -0400</pubDate>
       <guid isPermaLink="false">blog/2015/09-09-obnam-on-gentoo.html</guid>
       	<description>
 	&lt;div id=&quot;preamble&quot;&gt;
@@ -1549,7 +2222,7 @@ log-mode = 0600&lt;/pre&gt;
     <item>
       <title>Spring Boot Auto-completion breaks xdm</title>
       <link>http://johnmercier.com/blog/2015/08-28-spring-boot-auto-completion-breaks-xdm.html</link>
-      <pubDate>Fri, 28 Aug 2015 00:00:00 +0000</pubDate>
+      <pubDate>Fri, 28 Aug 2015 00:00:00 -0400</pubDate>
       <guid isPermaLink="false">blog/2015/08-28-spring-boot-auto-completion-breaks-xdm.html</guid>
       	<description>
 	&lt;div class=&quot;paragraph&quot;&gt;
@@ -1579,7 +2252,7 @@ log-mode = 0600&lt;/pre&gt;
     <item>
       <title>adding posts to a github blog</title>
       <link>http://johnmercier.com/blog/2015/08-26-adding-posts-to-a-github-blog.html</link>
-      <pubDate>Wed, 26 Aug 2015 00:00:00 +0000</pubDate>
+      <pubDate>Wed, 26 Aug 2015 00:00:00 -0400</pubDate>
       <guid isPermaLink="false">blog/2015/08-26-adding-posts-to-a-github-blog.html</guid>
       	<description>
 	&lt;div class=&quot;paragraph&quot;&gt;
@@ -1615,7 +2288,7 @@ log-mode = 0600&lt;/pre&gt;
     <item>
       <title>Installing Spring Boot CLI in Gentoo</title>
       <link>http://johnmercier.com/blog/2015/08-26-installing-spring-boot-cli-in-gentoo.html</link>
-      <pubDate>Wed, 26 Aug 2015 00:00:00 +0000</pubDate>
+      <pubDate>Wed, 26 Aug 2015 00:00:00 -0400</pubDate>
       <guid isPermaLink="false">blog/2015/08-26-installing-spring-boot-cli-in-gentoo.html</guid>
       	<description>
 	&lt;div class=&quot;paragraph&quot;&gt;
@@ -1648,7 +2321,7 @@ export PATH&lt;/pre&gt;
     <item>
       <title>pipe-service</title>
       <link>http://johnmercier.com/blog/2015/08-26-pipe-service.html</link>
-      <pubDate>Wed, 26 Aug 2015 00:00:00 +0000</pubDate>
+      <pubDate>Wed, 26 Aug 2015 00:00:00 -0400</pubDate>
       <guid isPermaLink="false">blog/2015/08-26-pipe-service.html</guid>
       	<description>
 	&lt;div class=&quot;paragraph&quot;&gt;
@@ -1702,7 +2375,7 @@ Using something like &lt;a href=&quot;https://jhipster.github.io/&quot;&gt;JHips
     <item>
       <title>Gentoo Audit Log</title>
       <link>http://johnmercier.com/blog/2015/08-18-gentoo-audit-log.html</link>
-      <pubDate>Tue, 18 Aug 2015 00:00:00 +0000</pubDate>
+      <pubDate>Tue, 18 Aug 2015 00:00:00 -0400</pubDate>
       <guid isPermaLink="false">blog/2015/08-18-gentoo-audit-log.html</guid>
       	<description>
 	&lt;div class=&quot;paragraph&quot;&gt;
@@ -1725,7 +2398,7 @@ Using something like &lt;a href=&quot;https://jhipster.github.io/&quot;&gt;JHips
     <item>
       <title>sometime gentoo blocks</title>
       <link>http://johnmercier.com/blog/2015/08-10-sometimes-gentoo-blocks.html</link>
-      <pubDate>Mon, 10 Aug 2015 00:00:00 +0000</pubDate>
+      <pubDate>Mon, 10 Aug 2015 00:00:00 -0400</pubDate>
       <guid isPermaLink="false">blog/2015/08-10-sometimes-gentoo-blocks.html</guid>
       	<description>
 	&lt;div class=&quot;paragraph&quot;&gt;
@@ -1759,7 +2432,7 @@ Using something like &lt;a href=&quot;https://jhipster.github.io/&quot;&gt;JHips
     <item>
       <title>bash day</title>
       <link>http://johnmercier.com/blog/2015/06-26-bash-day.html</link>
-      <pubDate>Fri, 26 Jun 2015 00:00:00 +0000</pubDate>
+      <pubDate>Fri, 26 Jun 2015 00:00:00 -0400</pubDate>
       <guid isPermaLink="false">blog/2015/06-26-bash-day.html</guid>
       	<description>
 	&lt;div id=&quot;preamble&quot;&gt;
@@ -1877,7 +2550,7 @@ I now have consolefont setup. The font can be changed in /etc/conf.d/consolefont
     <item>
       <title>upgrading vagrant box</title>
       <link>http://johnmercier.com/blog/2015/06-19-upgrading-vagrant-box.html</link>
-      <pubDate>Fri, 19 Jun 2015 00:00:00 +0000</pubDate>
+      <pubDate>Fri, 19 Jun 2015 00:00:00 -0400</pubDate>
       <guid isPermaLink="false">blog/2015/06-19-upgrading-vagrant-box.html</guid>
       	<description>
 	&lt;div class=&quot;paragraph&quot;&gt;
@@ -1945,7 +2618,7 @@ installed it. I think I&amp;#8217;m going to rebuild the whole system without lv
     <item>
       <title>provisioning java on gentoo-with-vagrant</title>
       <link>http://johnmercier.com/blog/2015/06-15-provisioning-java-on-gentoo-with-vagrant.html</link>
-      <pubDate>Mon, 15 Jun 2015 00:00:00 +0000</pubDate>
+      <pubDate>Mon, 15 Jun 2015 00:00:00 -0400</pubDate>
       <guid isPermaLink="false">blog/2015/06-15-provisioning-java-on-gentoo-with-vagrant.html</guid>
       	<description>
 	&lt;div class=&quot;paragraph&quot;&gt;
@@ -1956,7 +2629,7 @@ installed it. I think I&amp;#8217;m going to rebuild the whole system without lv
     <item>
       <title>Release of Vagrant Box</title>
       <link>http://johnmercier.com/blog/2015/06-13-release-of-vagrant-box.html</link>
-      <pubDate>Sat, 13 Jun 2015 00:00:00 +0000</pubDate>
+      <pubDate>Sat, 13 Jun 2015 00:00:00 -0400</pubDate>
       <guid isPermaLink="false">blog/2015/06-13-release-of-vagrant-box.html</guid>
       	<description>
 	&lt;div class=&quot;paragraph&quot;&gt;
@@ -1980,7 +2653,7 @@ installed it. I think I&amp;#8217;m going to rebuild the whole system without lv
     <item>
       <title>webcam</title>
       <link>http://johnmercier.com/blog/2015/06-13-webcam.html</link>
-      <pubDate>Sat, 13 Jun 2015 00:00:00 +0000</pubDate>
+      <pubDate>Sat, 13 Jun 2015 00:00:00 -0400</pubDate>
       <guid isPermaLink="false">blog/2015/06-13-webcam.html</guid>
       	<description>
 	&lt;div id=&quot;preamble&quot;&gt;
@@ -2118,7 +2791,7 @@ The camera works in Cheese!&lt;/p&gt;
     <item>
       <title>gentoo vagrant box</title>
       <link>http://johnmercier.com/blog/2015/06-10-gentoo-vagrant-box.html</link>
-      <pubDate>Wed, 10 Jun 2015 00:00:00 +0000</pubDate>
+      <pubDate>Wed, 10 Jun 2015 00:00:00 -0400</pubDate>
       <guid isPermaLink="false">blog/2015/06-10-gentoo-vagrant-box.html</guid>
       	<description>
 	&lt;div class=&quot;paragraph&quot;&gt;
@@ -2158,7 +2831,7 @@ The camera works in Cheese!&lt;/p&gt;
     <item>
       <title>Gentoo Vagrant Box</title>
       <link>http://johnmercier.com/blog/2015/06-06-gentoo-vagrant-box.html</link>
-      <pubDate>Sat, 6 Jun 2015 00:00:00 +0000</pubDate>
+      <pubDate>Sat, 6 Jun 2015 00:00:00 -0400</pubDate>
       <guid isPermaLink="false">blog/2015/06-06-gentoo-vagrant-box.html</guid>
       	<description>
 	&lt;div id=&quot;preamble&quot;&gt;
@@ -2221,7 +2894,7 @@ The camera works in Cheese!&lt;/p&gt;
     <item>
       <title>xdm with notion</title>
       <link>http://johnmercier.com/blog/2015/06-01-xdm-with-notion.html</link>
-      <pubDate>Mon, 1 Jun 2015 00:00:00 +0000</pubDate>
+      <pubDate>Mon, 1 Jun 2015 00:00:00 -0400</pubDate>
       <guid isPermaLink="false">blog/2015/06-01-xdm-with-notion.html</guid>
       	<description>
 	&lt;div class=&quot;paragraph&quot;&gt;
@@ -2303,7 +2976,7 @@ The camera works in Cheese!&lt;/p&gt;
     <item>
       <title>notion with lxpanel</title>
       <link>http://johnmercier.com/blog/2015/05-31-notion-with-lxpanel.html</link>
-      <pubDate>Sun, 31 May 2015 00:00:00 +0000</pubDate>
+      <pubDate>Sun, 31 May 2015 00:00:00 -0400</pubDate>
       <guid isPermaLink="false">blog/2015/05-31-notion-with-lxpanel.html</guid>
       	<description>
 	&lt;div class=&quot;paragraph&quot;&gt;
@@ -2368,7 +3041,7 @@ a fresh set of config files.&lt;/p&gt;
     <item>
       <title>notion 9999 ebuild.</title>
       <link>http://johnmercier.com/blog/2015/05-30-notion-ebuild.html</link>
-      <pubDate>Sat, 30 May 2015 00:00:00 +0000</pubDate>
+      <pubDate>Sat, 30 May 2015 00:00:00 -0400</pubDate>
       <guid isPermaLink="false">blog/2015/05-30-notion-ebuild.html</guid>
       	<description>
 	&lt;div class=&quot;paragraph&quot;&gt;
@@ -2401,7 +3074,7 @@ a fresh set of config files.&lt;/p&gt;
     <item>
       <title>upgrading the kernel</title>
       <link>http://johnmercier.com/blog/2015/05-29-upgrading-kernel.html</link>
-      <pubDate>Fri, 29 May 2015 00:00:00 +0000</pubDate>
+      <pubDate>Fri, 29 May 2015 00:00:00 -0400</pubDate>
       <guid isPermaLink="false">blog/2015/05-29-upgrading-kernel.html</guid>
       	<description>
 	&lt;div class=&quot;paragraph&quot;&gt;
@@ -2510,7 +3183,7 @@ kernel is current and X starts.&lt;/p&gt;
     <item>
       <title>layman</title>
       <link>http://johnmercier.com/blog/2015/05-27-layman.html</link>
-      <pubDate>Wed, 27 May 2015 00:00:00 +0000</pubDate>
+      <pubDate>Wed, 27 May 2015 00:00:00 -0400</pubDate>
       <guid isPermaLink="false">blog/2015/05-27-layman.html</guid>
       	<description>
 	&lt;div id=&quot;preamble&quot;&gt;
@@ -2605,7 +3278,7 @@ from the repo. To fix this add the ~amd64 keyword for the package.&lt;/p&gt;
     <item>
       <title>accumulo devserver</title>
       <link>http://johnmercier.com/blog/2015/05-26-accumulo-devserver.html</link>
-      <pubDate>Tue, 26 May 2015 00:00:00 +0000</pubDate>
+      <pubDate>Tue, 26 May 2015 00:00:00 -0400</pubDate>
       <guid isPermaLink="false">blog/2015/05-26-accumulo-devserver.html</guid>
       	<description>
 	&lt;div class=&quot;paragraph&quot;&gt;
@@ -2634,7 +3307,7 @@ ProtocolBuffer but there is already an updated ebuild for it in the master overl
     <item>
       <title>xterm settings</title>
       <link>http://johnmercier.com/blog/2015/05-26-xterm-settings.html</link>
-      <pubDate>Tue, 26 May 2015 00:00:00 +0000</pubDate>
+      <pubDate>Tue, 26 May 2015 00:00:00 -0400</pubDate>
       <guid isPermaLink="false">blog/2015/05-26-xterm-settings.html</guid>
       	<description>
 	&lt;div class=&quot;paragraph&quot;&gt;
@@ -2671,7 +3344,7 @@ ProtocolBuffer but there is already an updated ebuild for it in the master overl
     <item>
       <title>moaxcp-gentoo-overlay</title>
       <link>http://johnmercier.com/blog/2015/05-23-moaxcp-gentoo-overlay.html</link>
-      <pubDate>Sat, 23 May 2015 00:00:00 +0000</pubDate>
+      <pubDate>Sat, 23 May 2015 00:00:00 -0400</pubDate>
       <guid isPermaLink="false">blog/2015/05-23-moaxcp-gentoo-overlay.html</guid>
       	<description>
 	&lt;div class=&quot;paragraph&quot;&gt;
@@ -2787,7 +3460,7 @@ sync-type = git&lt;/pre&gt;
     <item>
       <title>recMD5 installs on gentoo</title>
       <link>http://johnmercier.com/blog/2015/05-23-recmd5-installs-on-gentoo.html</link>
-      <pubDate>Sat, 23 May 2015 00:00:00 +0000</pubDate>
+      <pubDate>Sat, 23 May 2015 00:00:00 -0400</pubDate>
       <guid isPermaLink="false">blog/2015/05-23-recmd5-installs-on-gentoo.html</guid>
       	<description>
 	&lt;div class=&quot;paragraph&quot;&gt;
@@ -2815,7 +3488,7 @@ gentoo as well.&lt;/p&gt;
     <item>
       <title>VirtualBox Gentoo Template</title>
       <link>http://johnmercier.com/blog/2015/05-17-virtualbox-gentoo-template.html</link>
-      <pubDate>Sun, 17 May 2015 00:00:00 +0000</pubDate>
+      <pubDate>Sun, 17 May 2015 00:00:00 -0400</pubDate>
       <guid isPermaLink="false">blog/2015/05-17-virtualbox-gentoo-template.html</guid>
       	<description>
 	&lt;div id=&quot;preamble&quot;&gt;
@@ -2904,7 +3577,7 @@ gentoo as well.&lt;/p&gt;
     <item>
       <title>Checking HeapSortSelectHeap.java</title>
       <link>http://johnmercier.com/blog/2015/05-09-checking-heapsortselectheap-java.html</link>
-      <pubDate>Sat, 9 May 2015 00:00:00 +0000</pubDate>
+      <pubDate>Sat, 9 May 2015 00:00:00 -0400</pubDate>
       <guid isPermaLink="false">blog/2015/05-09-checking-heapsortselectheap-java.html</guid>
       	<description>
 	&lt;div class=&quot;paragraph&quot;&gt;
@@ -2946,7 +3619,7 @@ after: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]&lt;/pre&gt;
     <item>
       <title>Negative Lookahead Regex</title>
       <link>http://johnmercier.com/blog/2015/05-04-106.html</link>
-      <pubDate>Mon, 4 May 2015 00:00:00 +0000</pubDate>
+      <pubDate>Mon, 4 May 2015 00:00:00 -0400</pubDate>
       <guid isPermaLink="false">blog/2015/05-04-106.html</guid>
       	<description>
 	&lt;div id=&quot;preamble&quot;&gt;
@@ -3001,7 +3674,7 @@ after: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]&lt;/pre&gt;
     <item>
       <title>Tutorial For A Configurable Heapsort In Java</title>
       <link>http://johnmercier.com/blog/2015/04-30-tutorial-for-a-configurable-heapsort-in-java.html</link>
-      <pubDate>Thu, 30 Apr 2015 00:00:00 +0000</pubDate>
+      <pubDate>Thu, 30 Apr 2015 00:00:00 -0400</pubDate>
       <guid isPermaLink="false">blog/2015/04-30-tutorial-for-a-configurable-heapsort-in-java.html</guid>
       	<description>
 	&lt;div id=&quot;preamble&quot;&gt;
@@ -3225,7 +3898,7 @@ to make a ternary heapsort and generalize it into any possible d-ary heapsort.&l
     <item>
       <title>$PS1 in gentoo</title>
       <link>http://johnmercier.com/blog/2015/04-15-ps1-in-gentoo.html</link>
-      <pubDate>Wed, 15 Apr 2015 00:00:00 +0000</pubDate>
+      <pubDate>Wed, 15 Apr 2015 00:00:00 -0400</pubDate>
       <guid isPermaLink="false">blog/2015/04-15-ps1-in-gentoo.html</guid>
       	<description>
 	&lt;div class=&quot;paragraph&quot;&gt;
@@ -3257,7 +3930,7 @@ to make a ternary heapsort and generalize it into any possible d-ary heapsort.&l
     <item>
       <title>Creating factordb</title>
       <link>http://johnmercier.com/blog/2015/04-14-creating-factordb.html</link>
-      <pubDate>Tue, 14 Apr 2015 00:00:00 +0000</pubDate>
+      <pubDate>Tue, 14 Apr 2015 00:00:00 -0400</pubDate>
       <guid isPermaLink="false">blog/2015/04-14-creating-factordb.html</guid>
       	<description>
 	&lt;div class=&quot;paragraph&quot;&gt;
@@ -3307,7 +3980,7 @@ have a few ideas for what it should do&lt;/p&gt;
     <item>
       <title>Setting up xterm</title>
       <link>http://johnmercier.com/blog/2015/04-14-setting-up-xterm.html</link>
-      <pubDate>Tue, 14 Apr 2015 00:00:00 +0000</pubDate>
+      <pubDate>Tue, 14 Apr 2015 00:00:00 -0400</pubDate>
       <guid isPermaLink="false">blog/2015/04-14-setting-up-xterm.html</guid>
       	<description>
 	&lt;div class=&quot;paragraph&quot;&gt;
@@ -3324,7 +3997,7 @@ the following line to your ~/.xinitrc:&lt;/p&gt;
     <item>
       <title>recmd5</title>
       <link>http://johnmercier.com/blog/2015/02-20-recmd5.html</link>
-      <pubDate>Fri, 20 Feb 2015 00:00:00 +0000</pubDate>
+      <pubDate>Fri, 20 Feb 2015 00:00:00 -0500</pubDate>
       <guid isPermaLink="false">blog/2015/02-20-recmd5.html</guid>
       	<description>
 	&lt;div class=&quot;paragraph&quot;&gt;
@@ -3387,7 +4060,7 @@ private boolean testAgainstJavaMD5(byte[] bytes) {
     <item>
       <title>Gentoo on the Java x86 emulator</title>
       <link>http://johnmercier.com/blog/2015/02-01-gentoo-on-the-java-x86-emulator.html</link>
-      <pubDate>Sun, 1 Feb 2015 00:00:00 +0000</pubDate>
+      <pubDate>Sun, 1 Feb 2015 00:00:00 -0500</pubDate>
       <guid isPermaLink="false">blog/2015/02-01-gentoo-on-the-java-x86-emulator.html</guid>
       	<description>
 	&lt;div id=&quot;preamble&quot;&gt;
@@ -3595,7 +4268,7 @@ forward everything from the EthernetHubServer to the host system network card so
     <item>
       <title>sony vaio p update</title>
       <link>http://johnmercier.com/blog/2015/01-26-sony-vaio-p-update.html</link>
-      <pubDate>Mon, 26 Jan 2015 00:00:00 +0000</pubDate>
+      <pubDate>Mon, 26 Jan 2015 00:00:00 -0500</pubDate>
       <guid isPermaLink="false">blog/2015/01-26-sony-vaio-p-update.html</guid>
       	<description>
 	&lt;div class=&quot;paragraph&quot;&gt;
@@ -3608,7 +4281,7 @@ an update to the ebuild I will try it again.&lt;/p&gt;
     <item>
       <title>BIOS Crashed</title>
       <link>http://johnmercier.com/blog/2015/01-03-bios-crashed.html</link>
-      <pubDate>Sat, 3 Jan 2015 00:00:00 +0000</pubDate>
+      <pubDate>Sat, 3 Jan 2015 00:00:00 -0500</pubDate>
       <guid isPermaLink="false">blog/2015/01-03-bios-crashed.html</guid>
       	<description>
 	&lt;div class=&quot;paragraph&quot;&gt;
@@ -3635,7 +4308,7 @@ be fun to practice with clojure or the new java features if I can get my compute
     <item>
       <title>Setting up gentoo again: Part 1</title>
       <link>http://johnmercier.com/blog/2014/12-20-setting-up-gentoo-again-part-1.html</link>
-      <pubDate>Sat, 20 Dec 2014 00:00:00 +0000</pubDate>
+      <pubDate>Sat, 20 Dec 2014 00:00:00 -0500</pubDate>
       <guid isPermaLink="false">blog/2014/12-20-setting-up-gentoo-again-part-1.html</guid>
       	<description>
 	&lt;div id=&quot;preamble&quot;&gt;
@@ -3742,7 +4415,7 @@ do volume management (add, remove, resize partitions).&lt;/p&gt;
     <item>
       <title>Changing keyboard shortcuts in the notion windows manager</title>
       <link>http://johnmercier.com/blog/2014/10-15-changing-keyboard-shortcuts-in-the-notion-windows-manager.html</link>
-      <pubDate>Wed, 15 Oct 2014 00:00:00 +0000</pubDate>
+      <pubDate>Wed, 15 Oct 2014 00:00:00 -0400</pubDate>
       <guid isPermaLink="false">blog/2014/10-15-changing-keyboard-shortcuts-in-the-notion-windows-manager.html</guid>
       	<description>
 	&lt;div class=&quot;paragraph&quot;&gt;
@@ -3761,7 +4434,7 @@ manager. Notion should design a new shortcut layout that is simple and works wit
     <item>
       <title>Adding splitting screen shortcuts to the notion windows manager</title>
       <link>http://johnmercier.com/blog/2014/10-12-adding-splitting-screen-shortcuts-to-the-notion-windows-manager.html</link>
-      <pubDate>Sun, 12 Oct 2014 00:00:00 +0000</pubDate>
+      <pubDate>Sun, 12 Oct 2014 00:00:00 -0400</pubDate>
       <guid isPermaLink="false">blog/2014/10-12-adding-splitting-screen-shortcuts-to-the-notion-windows-manager.html</guid>
       	<description>
 	&lt;div class=&quot;paragraph&quot;&gt;
@@ -3800,7 +4473,7 @@ frame.&lt;/p&gt;
     <item>
       <title>stalonetray in notion</title>
       <link>http://johnmercier.com/blog/2014/10-11-stalonetray-in-notion.html</link>
-      <pubDate>Sat, 11 Oct 2014 00:00:00 +0000</pubDate>
+      <pubDate>Sat, 11 Oct 2014 00:00:00 -0400</pubDate>
       <guid isPermaLink="false">blog/2014/10-11-stalonetray-in-notion.html</guid>
       	<description>
 	&lt;div class=&quot;paragraph&quot;&gt;
@@ -3849,7 +4522,7 @@ sony vaio p which I will look at tomorrow and try to fix.&lt;/p&gt;
     <item>
       <title>Bluetooth mouse on Gentoo part 2</title>
       <link>http://johnmercier.com/blog/2014/10-10-bluetooth-mouse-on-gentoo-part-2.html</link>
-      <pubDate>Fri, 10 Oct 2014 00:00:00 +0000</pubDate>
+      <pubDate>Fri, 10 Oct 2014 00:00:00 -0400</pubDate>
       <guid isPermaLink="false">blog/2014/10-10-bluetooth-mouse-on-gentoo-part-2.html</guid>
       	<description>
 	&lt;div class=&quot;paragraph&quot;&gt;
@@ -3897,7 +4570,7 @@ enter keys on it to pair. It will be interesting to see how bluetoothctl handles
     <item>
       <title>Install bluetooth mouse</title>
       <link>http://johnmercier.com/blog/2014/10-10-install-bluetooth-mouse.html</link>
-      <pubDate>Fri, 10 Oct 2014 00:00:00 +0000</pubDate>
+      <pubDate>Fri, 10 Oct 2014 00:00:00 -0400</pubDate>
       <guid isPermaLink="false">blog/2014/10-10-install-bluetooth-mouse.html</guid>
       	<description>
 	&lt;div class=&quot;paragraph&quot;&gt;
@@ -3921,7 +4594,7 @@ it did not add simple-agent.&lt;/p&gt;
     <item>
       <title>Connecting to a WPA Wireless Network From The Gentoo Minimal Install CD</title>
       <link>http://johnmercier.com/blog/2014/06-01-connecting-to-a-wpa-wireless-network-from-the-gentoo-minimal-install-cd.html</link>
-      <pubDate>Sun, 1 Jun 2014 00:00:00 +0000</pubDate>
+      <pubDate>Sun, 1 Jun 2014 00:00:00 -0400</pubDate>
       <guid isPermaLink="false">blog/2014/06-01-connecting-to-a-wpa-wireless-network-from-the-gentoo-minimal-install-cd.html</guid>
       	<description>
 	&lt;div id=&quot;preamble&quot;&gt;
@@ -4041,7 +4714,7 @@ OK
     <item>
       <title>Create an Installer for Gentoo</title>
       <link>http://johnmercier.com/blog/2014/05-18-create-an-installer-for-gentoo.html</link>
-      <pubDate>Sun, 18 May 2014 00:00:00 +0000</pubDate>
+      <pubDate>Sun, 18 May 2014 00:00:00 -0400</pubDate>
       <guid isPermaLink="false">blog/2014/05-18-create-an-installer-for-gentoo.html</guid>
       	<description>
 	&lt;div id=&quot;preamble&quot;&gt;
@@ -4127,7 +4800,7 @@ applications and change the configuration.&lt;/p&gt;
     <item>
       <title>Gentoo Introduction</title>
       <link>http://johnmercier.com/blog/2014/05-17-gentoo-introduction.html</link>
-      <pubDate>Sat, 17 May 2014 00:00:00 +0000</pubDate>
+      <pubDate>Sat, 17 May 2014 00:00:00 -0400</pubDate>
       <guid isPermaLink="false">blog/2014/05-17-gentoo-introduction.html</guid>
       	<description>
 	&lt;div class=&quot;paragraph&quot;&gt;
@@ -4197,7 +4870,7 @@ function without the drivers being selected in the kernel.&lt;/p&gt;
     <item>
       <title>Java SE Bug #5052093</title>
       <link>http://johnmercier.com/blog/2008/08-19-java-se-bug-5052093.html</link>
-      <pubDate>Tue, 19 Aug 2008 00:00:00 +0000</pubDate>
+      <pubDate>Tue, 19 Aug 2008 00:00:00 -0400</pubDate>
       <guid isPermaLink="false">blog/2008/08-19-java-se-bug-5052093.html</guid>
       	<description>
 	&lt;div class=&quot;paragraph&quot;&gt;
@@ -4244,7 +4917,7 @@ From now on I&amp;#8217;m going to use JDK7 even though it&amp;#8217;s not out y
     <item>
       <title>Google Code Project</title>
       <link>http://johnmercier.com/blog/2008/05-18-google-code-project.html</link>
-      <pubDate>Sun, 18 May 2008 00:00:00 +0000</pubDate>
+      <pubDate>Sun, 18 May 2008 00:00:00 -0400</pubDate>
       <guid isPermaLink="false">blog/2008/05-18-google-code-project.html</guid>
       	<description>
 	&lt;div class=&quot;paragraph&quot;&gt;
@@ -4294,7 +4967,7 @@ out cvs. Now that netbeans does everything for me It&amp;#8217;s great.&lt;/p&gt
     <item>
       <title>Fixing &quot;Could not Open Install.log file!&quot;</title>
       <link>http://johnmercier.com/blog/2008/03-25-fixing-could-not-open-install-log-file.html</link>
-      <pubDate>Tue, 25 Mar 2008 00:00:00 +0000</pubDate>
+      <pubDate>Tue, 25 Mar 2008 00:00:00 -0400</pubDate>
       <guid isPermaLink="false">blog/2008/03-25-fixing-could-not-open-install-log-file.html</guid>
       	<description>
 	&lt;div class=&quot;paragraph&quot;&gt;
@@ -4330,7 +5003,7 @@ is the procedure I found:&lt;/p&gt;
     <item>
       <title>Reading File Input from the Internet with Style</title>
       <link>http://johnmercier.com/blog/2008/03-22-reading-file-input-from-the-internet-with-style.html</link>
-      <pubDate>Sat, 22 Mar 2008 00:00:00 +0000</pubDate>
+      <pubDate>Sat, 22 Mar 2008 00:00:00 -0400</pubDate>
       <guid isPermaLink="false">blog/2008/03-22-reading-file-input-from-the-internet-with-style.html</guid>
       	<description>
 	&lt;div class=&quot;paragraph&quot;&gt;

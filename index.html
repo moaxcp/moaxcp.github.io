@@ -70,6 +70,42 @@
 	<div class="page-header">
 		<h1>Blog</h1>
 	</div>
+  			<a href="blog/2018/01-04-switching-from-jekyll-to-jbake.html"><h1>Switching From Jekyll To JBake</h1></a>
+  			<p>04 January 2018</p>
+  			<p><div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>In a previous post <a href="http://jbake.org/">JBake</a> was added to nixos. Now it is time to convert this blog to
+<a href="http://jbake.org/">JBake</a>. As with any user blog hosted by <a href="https://github.com">github</a> the content needs to be
+posted to a git repository for the user. My repository is <a href="https://github.com/moaxcp/moaxcp.github.io">moaxcp.github.com</a>.
+I&#8217;m using a <a href="https://github.com/moaxcp/johnmercier.com">second repository</a> for the sources of the site.</p>
+</div>
+<div class="paragraph">
+<p>There are a few tools I want to use. <a href="https://gradle.org/">Gradle</a> to build the
+<a href="https://github.com/moaxcp/johnmercier.com">sources</a> and publish the blog to github.
+<a href="https://travis-ci.org/">Travis CI</a> to run the <a href="https://gradle.org/">Gradle</a> tasks anytime the
+<a href="https://github.com/moaxcp/johnmercier.com">sources</a> change.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Convert posts from jekyll Markdown format to JBake asciidoc format</p>
+</li>
+<li>
+<p>Setup Gradle to build and publish the blog</p>
+</li>
+<li>
+<p>Setup travis-ci to update the blog when sources change</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>To get started I had to setup gradle and JBake in a workflow for converting posts and viewing the site.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+</p>
   			<a href="blog/2017/12-28-adding-jbake-to-nixpkgs.html"><h1>Adding JBake to nixpkgs</h1></a>
   			<p>28 December 2017</p>
   			<p><div id="preamble">
