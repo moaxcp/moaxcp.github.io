@@ -6,13 +6,13 @@
     <atom:link href="http://johnmercier.com/feed.xml" rel="self" type="application/rss+xml" />
     <description>JBake Bootstrap Template</description>
     <language>en-gb</language>
-    <pubDate>Tue, 16 Jan 2018 22:21:46 -0500</pubDate>
-    <lastBuildDate>Tue, 16 Jan 2018 22:21:46 -0500</lastBuildDate>
+    <pubDate>Sun, 21 Jan 2018 19:03:08 +0000</pubDate>
+    <lastBuildDate>Sun, 21 Jan 2018 19:03:08 +0000</lastBuildDate>
 
     <item>
       <title>Switching From Jekyll To JBake</title>
       <link>http://johnmercier.com/blog/2018/01-16-switching-from-jekyll-to-jbake.html</link>
-      <pubDate>Tue, 16 Jan 2018 00:00:00 -0500</pubDate>
+      <pubDate>Tue, 16 Jan 2018 00:00:00 +0000</pubDate>
       <guid isPermaLink="false">blog/2018/01-16-switching-from-jekyll-to-jbake.html</guid>
       	<description>
 	&lt;div id=&quot;preamble&quot;&gt;
@@ -685,7 +685,7 @@ obvious. This is the solution I found for my problem and I am happy with it. Tha
     <item>
       <title>Adding JBake to nixpkgs</title>
       <link>http://johnmercier.com/blog/2017/12-28-adding-jbake-to-nixpkgs.html</link>
-      <pubDate>Thu, 28 Dec 2017 00:00:00 -0500</pubDate>
+      <pubDate>Thu, 28 Dec 2017 00:00:00 +0000</pubDate>
       <guid isPermaLink="false">blog/2017/12-28-adding-jbake-to-nixpkgs.html</guid>
       	<description>
 	&lt;div id=&quot;preamble&quot;&gt;
@@ -1284,7 +1284,7 @@ added/maintained. I hope this helps in some way.&lt;/p&gt;
     <item>
       <title>graph-dsl views</title>
       <link>http://johnmercier.com/blog/2017/11-10-graph-dsl-views.html</link>
-      <pubDate>Fri, 10 Nov 2017 00:00:00 -0500</pubDate>
+      <pubDate>Fri, 10 Nov 2017 00:00:00 +0000</pubDate>
       <guid isPermaLink="false">blog/2017/11-10-graph-dsl-views.html</guid>
       	<description>
 	&lt;div id=&quot;preamble&quot;&gt;
@@ -1364,7 +1364,7 @@ method to display a graph using graphviz.&lt;/p&gt;
     <item>
       <title>obnam on nixos</title>
       <link>http://johnmercier.com/blog/2017/07-15-obnam-on-nixos.html</link>
-      <pubDate>Sat, 15 Jul 2017 00:00:00 -0400</pubDate>
+      <pubDate>Sat, 15 Jul 2017 00:00:00 +0000</pubDate>
       <guid isPermaLink="false">blog/2017/07-15-obnam-on-nixos.html</guid>
       	<description>
 	&lt;div class=&quot;paragraph&quot;&gt;
@@ -1465,7 +1465,7 @@ systemd.timers.obnam = {
     <item>
       <title>linux issues in nixos</title>
       <link>http://johnmercier.com/blog/2017/06-24-linux-issue-in-nixos.html</link>
-      <pubDate>Sat, 24 Jun 2017 00:00:00 -0400</pubDate>
+      <pubDate>Sat, 24 Jun 2017 00:00:00 +0000</pubDate>
       <guid isPermaLink="false">blog/2017/06-24-linux-issue-in-nixos.html</guid>
       	<description>
 	&lt;div class=&quot;paragraph&quot;&gt;
@@ -1512,7 +1512,7 @@ linux 4.9.6.&lt;/p&gt;
     <item>
       <title>connecting to wifi from nixos minimal install cd</title>
       <link>http://johnmercier.com/blog/2017/06-20-connecting-to-wifi-from-nixos-minimal-install-cd.html</link>
-      <pubDate>Tue, 20 Jun 2017 00:00:00 -0400</pubDate>
+      <pubDate>Tue, 20 Jun 2017 00:00:00 +0000</pubDate>
       <guid isPermaLink="false">blog/2017/06-20-connecting-to-wifi-from-nixos-minimal-install-cd.html</guid>
       	<description>
 	&lt;div id=&quot;preamble&quot;&gt;
@@ -1579,7 +1579,7 @@ quit&lt;/pre&gt;
     <item>
       <title>ivy remote configs</title>
       <link>http://johnmercier.com/blog/2017/06-20-ivy-remote-configs.html</link>
-      <pubDate>Tue, 20 Jun 2017 00:00:00 -0400</pubDate>
+      <pubDate>Tue, 20 Jun 2017 00:00:00 +0000</pubDate>
       <guid isPermaLink="false">blog/2017/06-20-ivy-remote-configs.html</guid>
       	<description>
 	&lt;div class=&quot;paragraph&quot;&gt;
@@ -1601,7 +1601,7 @@ maven repository.&lt;/p&gt;
     <item>
       <title>switching to nixos</title>
       <link>http://johnmercier.com/blog/2017/06-19-switching-to-nixos-again.html</link>
-      <pubDate>Mon, 19 Jun 2017 00:00:00 -0400</pubDate>
+      <pubDate>Mon, 19 Jun 2017 00:00:00 +0000</pubDate>
       <guid isPermaLink="false">blog/2017/06-19-switching-to-nixos-again.html</guid>
       	<description>
 	&lt;div class=&quot;paragraph&quot;&gt;
@@ -1736,7 +1736,7 @@ this with gentoo. I believe the gentoo experience made setting this up in nixos 
     <item>
       <title>sonar way is the wrong way</title>
       <link>http://johnmercier.com/blog/2017/02-07-sonar-way-is-the-wrong-way.html</link>
-      <pubDate>Tue, 7 Feb 2017 00:00:00 -0500</pubDate>
+      <pubDate>Tue, 7 Feb 2017 00:00:00 +0000</pubDate>
       <guid isPermaLink="false">blog/2017/02-07-sonar-way-is-the-wrong-way.html</guid>
       	<description>
 	&lt;div class=&quot;paragraph&quot;&gt;
@@ -1792,7 +1792,7 @@ it is not possible to modify the Quality Profile and as a result &lt;a href=&quo
     <item>
       <title>Testing graph-dsl</title>
       <link>http://johnmercier.com/blog/2017/01-19-testing-graph-dsl.html</link>
-      <pubDate>Thu, 19 Jan 2017 00:00:00 -0500</pubDate>
+      <pubDate>Thu, 19 Jan 2017 00:00:00 +0000</pubDate>
       <guid isPermaLink="false">blog/2017/01-19-testing-graph-dsl.html</guid>
       	<description>
 	&lt;div class=&quot;paragraph&quot;&gt;
@@ -1915,7 +1915,7 @@ higher.&lt;/p&gt;
     <item>
       <title>Java Navive Access in Groovy</title>
       <link>http://johnmercier.com/blog/2017/01-07-java-native-access-in-groovy.html</link>
-      <pubDate>Sat, 7 Jan 2017 00:00:00 -0500</pubDate>
+      <pubDate>Sat, 7 Jan 2017 00:00:00 +0000</pubDate>
       <guid isPermaLink="false">blog/2017/01-07-java-native-access-in-groovy.html</guid>
       	<description>
 	&lt;div class=&quot;paragraph&quot;&gt;
@@ -1982,7 +1982,7 @@ for(int i = 0; i &amp;lt; args.length; i++) {
     <item>
       <title>epson xp-950 on gentoo</title>
       <link>http://johnmercier.com/blog/2017/01-02-epson-xp-950-on-gentoo.html</link>
-      <pubDate>Mon, 2 Jan 2017 00:00:00 -0500</pubDate>
+      <pubDate>Mon, 2 Jan 2017 00:00:00 +0000</pubDate>
       <guid isPermaLink="false">blog/2017/01-02-epson-xp-950-on-gentoo.html</guid>
       	<description>
 	&lt;div id=&quot;preamble&quot;&gt;
@@ -2074,7 +2074,7 @@ for(int i = 0; i &amp;lt; args.length; i++) {
     <item>
       <title>obnam on gentoo</title>
       <link>http://johnmercier.com/blog/2015/09-09-obnam-on-gentoo.html</link>
-      <pubDate>Wed, 9 Sep 2015 00:00:00 -0400</pubDate>
+      <pubDate>Wed, 9 Sep 2015 00:00:00 +0000</pubDate>
       <guid isPermaLink="false">blog/2015/09-09-obnam-on-gentoo.html</guid>
       	<description>
 	&lt;div id=&quot;preamble&quot;&gt;
@@ -2222,7 +2222,7 @@ log-mode = 0600&lt;/pre&gt;
     <item>
       <title>Spring Boot Auto-completion breaks xdm</title>
       <link>http://johnmercier.com/blog/2015/08-28-spring-boot-auto-completion-breaks-xdm.html</link>
-      <pubDate>Fri, 28 Aug 2015 00:00:00 -0400</pubDate>
+      <pubDate>Fri, 28 Aug 2015 00:00:00 +0000</pubDate>
       <guid isPermaLink="false">blog/2015/08-28-spring-boot-auto-completion-breaks-xdm.html</guid>
       	<description>
 	&lt;div class=&quot;paragraph&quot;&gt;
@@ -2252,7 +2252,7 @@ log-mode = 0600&lt;/pre&gt;
     <item>
       <title>adding posts to a github blog</title>
       <link>http://johnmercier.com/blog/2015/08-26-adding-posts-to-a-github-blog.html</link>
-      <pubDate>Wed, 26 Aug 2015 00:00:00 -0400</pubDate>
+      <pubDate>Wed, 26 Aug 2015 00:00:00 +0000</pubDate>
       <guid isPermaLink="false">blog/2015/08-26-adding-posts-to-a-github-blog.html</guid>
       	<description>
 	&lt;div class=&quot;paragraph&quot;&gt;
@@ -2288,7 +2288,7 @@ log-mode = 0600&lt;/pre&gt;
     <item>
       <title>Installing Spring Boot CLI in Gentoo</title>
       <link>http://johnmercier.com/blog/2015/08-26-installing-spring-boot-cli-in-gentoo.html</link>
-      <pubDate>Wed, 26 Aug 2015 00:00:00 -0400</pubDate>
+      <pubDate>Wed, 26 Aug 2015 00:00:00 +0000</pubDate>
       <guid isPermaLink="false">blog/2015/08-26-installing-spring-boot-cli-in-gentoo.html</guid>
       	<description>
 	&lt;div class=&quot;paragraph&quot;&gt;
@@ -2321,7 +2321,7 @@ export PATH&lt;/pre&gt;
     <item>
       <title>pipe-service</title>
       <link>http://johnmercier.com/blog/2015/08-26-pipe-service.html</link>
-      <pubDate>Wed, 26 Aug 2015 00:00:00 -0400</pubDate>
+      <pubDate>Wed, 26 Aug 2015 00:00:00 +0000</pubDate>
       <guid isPermaLink="false">blog/2015/08-26-pipe-service.html</guid>
       	<description>
 	&lt;div class=&quot;paragraph&quot;&gt;
@@ -2375,7 +2375,7 @@ Using something like &lt;a href=&quot;https://jhipster.github.io/&quot;&gt;JHips
     <item>
       <title>Gentoo Audit Log</title>
       <link>http://johnmercier.com/blog/2015/08-18-gentoo-audit-log.html</link>
-      <pubDate>Tue, 18 Aug 2015 00:00:00 -0400</pubDate>
+      <pubDate>Tue, 18 Aug 2015 00:00:00 +0000</pubDate>
       <guid isPermaLink="false">blog/2015/08-18-gentoo-audit-log.html</guid>
       	<description>
 	&lt;div class=&quot;paragraph&quot;&gt;
@@ -2398,7 +2398,7 @@ Using something like &lt;a href=&quot;https://jhipster.github.io/&quot;&gt;JHips
     <item>
       <title>sometime gentoo blocks</title>
       <link>http://johnmercier.com/blog/2015/08-10-sometimes-gentoo-blocks.html</link>
-      <pubDate>Mon, 10 Aug 2015 00:00:00 -0400</pubDate>
+      <pubDate>Mon, 10 Aug 2015 00:00:00 +0000</pubDate>
       <guid isPermaLink="false">blog/2015/08-10-sometimes-gentoo-blocks.html</guid>
       	<description>
 	&lt;div class=&quot;paragraph&quot;&gt;
@@ -2432,7 +2432,7 @@ Using something like &lt;a href=&quot;https://jhipster.github.io/&quot;&gt;JHips
     <item>
       <title>bash day</title>
       <link>http://johnmercier.com/blog/2015/06-26-bash-day.html</link>
-      <pubDate>Fri, 26 Jun 2015 00:00:00 -0400</pubDate>
+      <pubDate>Fri, 26 Jun 2015 00:00:00 +0000</pubDate>
       <guid isPermaLink="false">blog/2015/06-26-bash-day.html</guid>
       	<description>
 	&lt;div id=&quot;preamble&quot;&gt;
@@ -2550,7 +2550,7 @@ I now have consolefont setup. The font can be changed in /etc/conf.d/consolefont
     <item>
       <title>upgrading vagrant box</title>
       <link>http://johnmercier.com/blog/2015/06-19-upgrading-vagrant-box.html</link>
-      <pubDate>Fri, 19 Jun 2015 00:00:00 -0400</pubDate>
+      <pubDate>Fri, 19 Jun 2015 00:00:00 +0000</pubDate>
       <guid isPermaLink="false">blog/2015/06-19-upgrading-vagrant-box.html</guid>
       	<description>
 	&lt;div class=&quot;paragraph&quot;&gt;
@@ -2618,7 +2618,7 @@ installed it. I think I&amp;#8217;m going to rebuild the whole system without lv
     <item>
       <title>provisioning java on gentoo-with-vagrant</title>
       <link>http://johnmercier.com/blog/2015/06-15-provisioning-java-on-gentoo-with-vagrant.html</link>
-      <pubDate>Mon, 15 Jun 2015 00:00:00 -0400</pubDate>
+      <pubDate>Mon, 15 Jun 2015 00:00:00 +0000</pubDate>
       <guid isPermaLink="false">blog/2015/06-15-provisioning-java-on-gentoo-with-vagrant.html</guid>
       	<description>
 	&lt;div class=&quot;paragraph&quot;&gt;
@@ -2629,7 +2629,7 @@ installed it. I think I&amp;#8217;m going to rebuild the whole system without lv
     <item>
       <title>Release of Vagrant Box</title>
       <link>http://johnmercier.com/blog/2015/06-13-release-of-vagrant-box.html</link>
-      <pubDate>Sat, 13 Jun 2015 00:00:00 -0400</pubDate>
+      <pubDate>Sat, 13 Jun 2015 00:00:00 +0000</pubDate>
       <guid isPermaLink="false">blog/2015/06-13-release-of-vagrant-box.html</guid>
       	<description>
 	&lt;div class=&quot;paragraph&quot;&gt;
@@ -2653,7 +2653,7 @@ installed it. I think I&amp;#8217;m going to rebuild the whole system without lv
     <item>
       <title>webcam</title>
       <link>http://johnmercier.com/blog/2015/06-13-webcam.html</link>
-      <pubDate>Sat, 13 Jun 2015 00:00:00 -0400</pubDate>
+      <pubDate>Sat, 13 Jun 2015 00:00:00 +0000</pubDate>
       <guid isPermaLink="false">blog/2015/06-13-webcam.html</guid>
       	<description>
 	&lt;div id=&quot;preamble&quot;&gt;
@@ -2791,7 +2791,7 @@ The camera works in Cheese!&lt;/p&gt;
     <item>
       <title>gentoo vagrant box</title>
       <link>http://johnmercier.com/blog/2015/06-10-gentoo-vagrant-box.html</link>
-      <pubDate>Wed, 10 Jun 2015 00:00:00 -0400</pubDate>
+      <pubDate>Wed, 10 Jun 2015 00:00:00 +0000</pubDate>
       <guid isPermaLink="false">blog/2015/06-10-gentoo-vagrant-box.html</guid>
       	<description>
 	&lt;div class=&quot;paragraph&quot;&gt;
@@ -2831,7 +2831,7 @@ The camera works in Cheese!&lt;/p&gt;
     <item>
       <title>Gentoo Vagrant Box</title>
       <link>http://johnmercier.com/blog/2015/06-06-gentoo-vagrant-box.html</link>
-      <pubDate>Sat, 6 Jun 2015 00:00:00 -0400</pubDate>
+      <pubDate>Sat, 6 Jun 2015 00:00:00 +0000</pubDate>
       <guid isPermaLink="false">blog/2015/06-06-gentoo-vagrant-box.html</guid>
       	<description>
 	&lt;div id=&quot;preamble&quot;&gt;
@@ -2894,7 +2894,7 @@ The camera works in Cheese!&lt;/p&gt;
     <item>
       <title>xdm with notion</title>
       <link>http://johnmercier.com/blog/2015/06-01-xdm-with-notion.html</link>
-      <pubDate>Mon, 1 Jun 2015 00:00:00 -0400</pubDate>
+      <pubDate>Mon, 1 Jun 2015 00:00:00 +0000</pubDate>
       <guid isPermaLink="false">blog/2015/06-01-xdm-with-notion.html</guid>
       	<description>
 	&lt;div class=&quot;paragraph&quot;&gt;
@@ -2976,7 +2976,7 @@ The camera works in Cheese!&lt;/p&gt;
     <item>
       <title>notion with lxpanel</title>
       <link>http://johnmercier.com/blog/2015/05-31-notion-with-lxpanel.html</link>
-      <pubDate>Sun, 31 May 2015 00:00:00 -0400</pubDate>
+      <pubDate>Sun, 31 May 2015 00:00:00 +0000</pubDate>
       <guid isPermaLink="false">blog/2015/05-31-notion-with-lxpanel.html</guid>
       	<description>
 	&lt;div class=&quot;paragraph&quot;&gt;
@@ -3041,7 +3041,7 @@ a fresh set of config files.&lt;/p&gt;
     <item>
       <title>notion 9999 ebuild.</title>
       <link>http://johnmercier.com/blog/2015/05-30-notion-ebuild.html</link>
-      <pubDate>Sat, 30 May 2015 00:00:00 -0400</pubDate>
+      <pubDate>Sat, 30 May 2015 00:00:00 +0000</pubDate>
       <guid isPermaLink="false">blog/2015/05-30-notion-ebuild.html</guid>
       	<description>
 	&lt;div class=&quot;paragraph&quot;&gt;
@@ -3074,7 +3074,7 @@ a fresh set of config files.&lt;/p&gt;
     <item>
       <title>upgrading the kernel</title>
       <link>http://johnmercier.com/blog/2015/05-29-upgrading-kernel.html</link>
-      <pubDate>Fri, 29 May 2015 00:00:00 -0400</pubDate>
+      <pubDate>Fri, 29 May 2015 00:00:00 +0000</pubDate>
       <guid isPermaLink="false">blog/2015/05-29-upgrading-kernel.html</guid>
       	<description>
 	&lt;div class=&quot;paragraph&quot;&gt;
@@ -3183,7 +3183,7 @@ kernel is current and X starts.&lt;/p&gt;
     <item>
       <title>layman</title>
       <link>http://johnmercier.com/blog/2015/05-27-layman.html</link>
-      <pubDate>Wed, 27 May 2015 00:00:00 -0400</pubDate>
+      <pubDate>Wed, 27 May 2015 00:00:00 +0000</pubDate>
       <guid isPermaLink="false">blog/2015/05-27-layman.html</guid>
       	<description>
 	&lt;div id=&quot;preamble&quot;&gt;
@@ -3278,7 +3278,7 @@ from the repo. To fix this add the ~amd64 keyword for the package.&lt;/p&gt;
     <item>
       <title>accumulo devserver</title>
       <link>http://johnmercier.com/blog/2015/05-26-accumulo-devserver.html</link>
-      <pubDate>Tue, 26 May 2015 00:00:00 -0400</pubDate>
+      <pubDate>Tue, 26 May 2015 00:00:00 +0000</pubDate>
       <guid isPermaLink="false">blog/2015/05-26-accumulo-devserver.html</guid>
       	<description>
 	&lt;div class=&quot;paragraph&quot;&gt;
@@ -3307,7 +3307,7 @@ ProtocolBuffer but there is already an updated ebuild for it in the master overl
     <item>
       <title>xterm settings</title>
       <link>http://johnmercier.com/blog/2015/05-26-xterm-settings.html</link>
-      <pubDate>Tue, 26 May 2015 00:00:00 -0400</pubDate>
+      <pubDate>Tue, 26 May 2015 00:00:00 +0000</pubDate>
       <guid isPermaLink="false">blog/2015/05-26-xterm-settings.html</guid>
       	<description>
 	&lt;div class=&quot;paragraph&quot;&gt;
@@ -3344,7 +3344,7 @@ ProtocolBuffer but there is already an updated ebuild for it in the master overl
     <item>
       <title>moaxcp-gentoo-overlay</title>
       <link>http://johnmercier.com/blog/2015/05-23-moaxcp-gentoo-overlay.html</link>
-      <pubDate>Sat, 23 May 2015 00:00:00 -0400</pubDate>
+      <pubDate>Sat, 23 May 2015 00:00:00 +0000</pubDate>
       <guid isPermaLink="false">blog/2015/05-23-moaxcp-gentoo-overlay.html</guid>
       	<description>
 	&lt;div class=&quot;paragraph&quot;&gt;
@@ -3460,7 +3460,7 @@ sync-type = git&lt;/pre&gt;
     <item>
       <title>recMD5 installs on gentoo</title>
       <link>http://johnmercier.com/blog/2015/05-23-recmd5-installs-on-gentoo.html</link>
-      <pubDate>Sat, 23 May 2015 00:00:00 -0400</pubDate>
+      <pubDate>Sat, 23 May 2015 00:00:00 +0000</pubDate>
       <guid isPermaLink="false">blog/2015/05-23-recmd5-installs-on-gentoo.html</guid>
       	<description>
 	&lt;div class=&quot;paragraph&quot;&gt;
@@ -3488,7 +3488,7 @@ gentoo as well.&lt;/p&gt;
     <item>
       <title>VirtualBox Gentoo Template</title>
       <link>http://johnmercier.com/blog/2015/05-17-virtualbox-gentoo-template.html</link>
-      <pubDate>Sun, 17 May 2015 00:00:00 -0400</pubDate>
+      <pubDate>Sun, 17 May 2015 00:00:00 +0000</pubDate>
       <guid isPermaLink="false">blog/2015/05-17-virtualbox-gentoo-template.html</guid>
       	<description>
 	&lt;div id=&quot;preamble&quot;&gt;
@@ -3577,7 +3577,7 @@ gentoo as well.&lt;/p&gt;
     <item>
       <title>Checking HeapSortSelectHeap.java</title>
       <link>http://johnmercier.com/blog/2015/05-09-checking-heapsortselectheap-java.html</link>
-      <pubDate>Sat, 9 May 2015 00:00:00 -0400</pubDate>
+      <pubDate>Sat, 9 May 2015 00:00:00 +0000</pubDate>
       <guid isPermaLink="false">blog/2015/05-09-checking-heapsortselectheap-java.html</guid>
       	<description>
 	&lt;div class=&quot;paragraph&quot;&gt;
@@ -3619,7 +3619,7 @@ after: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]&lt;/pre&gt;
     <item>
       <title>Negative Lookahead Regex</title>
       <link>http://johnmercier.com/blog/2015/05-04-106.html</link>
-      <pubDate>Mon, 4 May 2015 00:00:00 -0400</pubDate>
+      <pubDate>Mon, 4 May 2015 00:00:00 +0000</pubDate>
       <guid isPermaLink="false">blog/2015/05-04-106.html</guid>
       	<description>
 	&lt;div id=&quot;preamble&quot;&gt;
@@ -3674,7 +3674,7 @@ after: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]&lt;/pre&gt;
     <item>
       <title>Tutorial For A Configurable Heapsort In Java</title>
       <link>http://johnmercier.com/blog/2015/04-30-tutorial-for-a-configurable-heapsort-in-java.html</link>
-      <pubDate>Thu, 30 Apr 2015 00:00:00 -0400</pubDate>
+      <pubDate>Thu, 30 Apr 2015 00:00:00 +0000</pubDate>
       <guid isPermaLink="false">blog/2015/04-30-tutorial-for-a-configurable-heapsort-in-java.html</guid>
       	<description>
 	&lt;div id=&quot;preamble&quot;&gt;
@@ -3898,7 +3898,7 @@ to make a ternary heapsort and generalize it into any possible d-ary heapsort.&l
     <item>
       <title>$PS1 in gentoo</title>
       <link>http://johnmercier.com/blog/2015/04-15-ps1-in-gentoo.html</link>
-      <pubDate>Wed, 15 Apr 2015 00:00:00 -0400</pubDate>
+      <pubDate>Wed, 15 Apr 2015 00:00:00 +0000</pubDate>
       <guid isPermaLink="false">blog/2015/04-15-ps1-in-gentoo.html</guid>
       	<description>
 	&lt;div class=&quot;paragraph&quot;&gt;
@@ -3930,7 +3930,7 @@ to make a ternary heapsort and generalize it into any possible d-ary heapsort.&l
     <item>
       <title>Creating factordb</title>
       <link>http://johnmercier.com/blog/2015/04-14-creating-factordb.html</link>
-      <pubDate>Tue, 14 Apr 2015 00:00:00 -0400</pubDate>
+      <pubDate>Tue, 14 Apr 2015 00:00:00 +0000</pubDate>
       <guid isPermaLink="false">blog/2015/04-14-creating-factordb.html</guid>
       	<description>
 	&lt;div class=&quot;paragraph&quot;&gt;
@@ -3980,7 +3980,7 @@ have a few ideas for what it should do&lt;/p&gt;
     <item>
       <title>Setting up xterm</title>
       <link>http://johnmercier.com/blog/2015/04-14-setting-up-xterm.html</link>
-      <pubDate>Tue, 14 Apr 2015 00:00:00 -0400</pubDate>
+      <pubDate>Tue, 14 Apr 2015 00:00:00 +0000</pubDate>
       <guid isPermaLink="false">blog/2015/04-14-setting-up-xterm.html</guid>
       	<description>
 	&lt;div class=&quot;paragraph&quot;&gt;
@@ -3997,7 +3997,7 @@ the following line to your ~/.xinitrc:&lt;/p&gt;
     <item>
       <title>recmd5</title>
       <link>http://johnmercier.com/blog/2015/02-20-recmd5.html</link>
-      <pubDate>Fri, 20 Feb 2015 00:00:00 -0500</pubDate>
+      <pubDate>Fri, 20 Feb 2015 00:00:00 +0000</pubDate>
       <guid isPermaLink="false">blog/2015/02-20-recmd5.html</guid>
       	<description>
 	&lt;div class=&quot;paragraph&quot;&gt;
@@ -4060,7 +4060,7 @@ private boolean testAgainstJavaMD5(byte[] bytes) {
     <item>
       <title>Gentoo on the Java x86 emulator</title>
       <link>http://johnmercier.com/blog/2015/02-01-gentoo-on-the-java-x86-emulator.html</link>
-      <pubDate>Sun, 1 Feb 2015 00:00:00 -0500</pubDate>
+      <pubDate>Sun, 1 Feb 2015 00:00:00 +0000</pubDate>
       <guid isPermaLink="false">blog/2015/02-01-gentoo-on-the-java-x86-emulator.html</guid>
       	<description>
 	&lt;div id=&quot;preamble&quot;&gt;
@@ -4268,7 +4268,7 @@ forward everything from the EthernetHubServer to the host system network card so
     <item>
       <title>sony vaio p update</title>
       <link>http://johnmercier.com/blog/2015/01-26-sony-vaio-p-update.html</link>
-      <pubDate>Mon, 26 Jan 2015 00:00:00 -0500</pubDate>
+      <pubDate>Mon, 26 Jan 2015 00:00:00 +0000</pubDate>
       <guid isPermaLink="false">blog/2015/01-26-sony-vaio-p-update.html</guid>
       	<description>
 	&lt;div class=&quot;paragraph&quot;&gt;
@@ -4281,7 +4281,7 @@ an update to the ebuild I will try it again.&lt;/p&gt;
     <item>
       <title>BIOS Crashed</title>
       <link>http://johnmercier.com/blog/2015/01-03-bios-crashed.html</link>
-      <pubDate>Sat, 3 Jan 2015 00:00:00 -0500</pubDate>
+      <pubDate>Sat, 3 Jan 2015 00:00:00 +0000</pubDate>
       <guid isPermaLink="false">blog/2015/01-03-bios-crashed.html</guid>
       	<description>
 	&lt;div class=&quot;paragraph&quot;&gt;
@@ -4308,7 +4308,7 @@ be fun to practice with clojure or the new java features if I can get my compute
     <item>
       <title>Setting up gentoo again: Part 1</title>
       <link>http://johnmercier.com/blog/2014/12-20-setting-up-gentoo-again-part-1.html</link>
-      <pubDate>Sat, 20 Dec 2014 00:00:00 -0500</pubDate>
+      <pubDate>Sat, 20 Dec 2014 00:00:00 +0000</pubDate>
       <guid isPermaLink="false">blog/2014/12-20-setting-up-gentoo-again-part-1.html</guid>
       	<description>
 	&lt;div id=&quot;preamble&quot;&gt;
@@ -4415,7 +4415,7 @@ do volume management (add, remove, resize partitions).&lt;/p&gt;
     <item>
       <title>Changing keyboard shortcuts in the notion windows manager</title>
       <link>http://johnmercier.com/blog/2014/10-15-changing-keyboard-shortcuts-in-the-notion-windows-manager.html</link>
-      <pubDate>Wed, 15 Oct 2014 00:00:00 -0400</pubDate>
+      <pubDate>Wed, 15 Oct 2014 00:00:00 +0000</pubDate>
       <guid isPermaLink="false">blog/2014/10-15-changing-keyboard-shortcuts-in-the-notion-windows-manager.html</guid>
       	<description>
 	&lt;div class=&quot;paragraph&quot;&gt;
@@ -4434,7 +4434,7 @@ manager. Notion should design a new shortcut layout that is simple and works wit
     <item>
       <title>Adding splitting screen shortcuts to the notion windows manager</title>
       <link>http://johnmercier.com/blog/2014/10-12-adding-splitting-screen-shortcuts-to-the-notion-windows-manager.html</link>
-      <pubDate>Sun, 12 Oct 2014 00:00:00 -0400</pubDate>
+      <pubDate>Sun, 12 Oct 2014 00:00:00 +0000</pubDate>
       <guid isPermaLink="false">blog/2014/10-12-adding-splitting-screen-shortcuts-to-the-notion-windows-manager.html</guid>
       	<description>
 	&lt;div class=&quot;paragraph&quot;&gt;
@@ -4473,7 +4473,7 @@ frame.&lt;/p&gt;
     <item>
       <title>stalonetray in notion</title>
       <link>http://johnmercier.com/blog/2014/10-11-stalonetray-in-notion.html</link>
-      <pubDate>Sat, 11 Oct 2014 00:00:00 -0400</pubDate>
+      <pubDate>Sat, 11 Oct 2014 00:00:00 +0000</pubDate>
       <guid isPermaLink="false">blog/2014/10-11-stalonetray-in-notion.html</guid>
       	<description>
 	&lt;div class=&quot;paragraph&quot;&gt;
@@ -4522,7 +4522,7 @@ sony vaio p which I will look at tomorrow and try to fix.&lt;/p&gt;
     <item>
       <title>Bluetooth mouse on Gentoo part 2</title>
       <link>http://johnmercier.com/blog/2014/10-10-bluetooth-mouse-on-gentoo-part-2.html</link>
-      <pubDate>Fri, 10 Oct 2014 00:00:00 -0400</pubDate>
+      <pubDate>Fri, 10 Oct 2014 00:00:00 +0000</pubDate>
       <guid isPermaLink="false">blog/2014/10-10-bluetooth-mouse-on-gentoo-part-2.html</guid>
       	<description>
 	&lt;div class=&quot;paragraph&quot;&gt;
@@ -4570,7 +4570,7 @@ enter keys on it to pair. It will be interesting to see how bluetoothctl handles
     <item>
       <title>Install bluetooth mouse</title>
       <link>http://johnmercier.com/blog/2014/10-10-install-bluetooth-mouse.html</link>
-      <pubDate>Fri, 10 Oct 2014 00:00:00 -0400</pubDate>
+      <pubDate>Fri, 10 Oct 2014 00:00:00 +0000</pubDate>
       <guid isPermaLink="false">blog/2014/10-10-install-bluetooth-mouse.html</guid>
       	<description>
 	&lt;div class=&quot;paragraph&quot;&gt;
@@ -4594,7 +4594,7 @@ it did not add simple-agent.&lt;/p&gt;
     <item>
       <title>Connecting to a WPA Wireless Network From The Gentoo Minimal Install CD</title>
       <link>http://johnmercier.com/blog/2014/06-01-connecting-to-a-wpa-wireless-network-from-the-gentoo-minimal-install-cd.html</link>
-      <pubDate>Sun, 1 Jun 2014 00:00:00 -0400</pubDate>
+      <pubDate>Sun, 1 Jun 2014 00:00:00 +0000</pubDate>
       <guid isPermaLink="false">blog/2014/06-01-connecting-to-a-wpa-wireless-network-from-the-gentoo-minimal-install-cd.html</guid>
       	<description>
 	&lt;div id=&quot;preamble&quot;&gt;
@@ -4714,7 +4714,7 @@ OK
     <item>
       <title>Create an Installer for Gentoo</title>
       <link>http://johnmercier.com/blog/2014/05-18-create-an-installer-for-gentoo.html</link>
-      <pubDate>Sun, 18 May 2014 00:00:00 -0400</pubDate>
+      <pubDate>Sun, 18 May 2014 00:00:00 +0000</pubDate>
       <guid isPermaLink="false">blog/2014/05-18-create-an-installer-for-gentoo.html</guid>
       	<description>
 	&lt;div id=&quot;preamble&quot;&gt;
@@ -4800,7 +4800,7 @@ applications and change the configuration.&lt;/p&gt;
     <item>
       <title>Gentoo Introduction</title>
       <link>http://johnmercier.com/blog/2014/05-17-gentoo-introduction.html</link>
-      <pubDate>Sat, 17 May 2014 00:00:00 -0400</pubDate>
+      <pubDate>Sat, 17 May 2014 00:00:00 +0000</pubDate>
       <guid isPermaLink="false">blog/2014/05-17-gentoo-introduction.html</guid>
       	<description>
 	&lt;div class=&quot;paragraph&quot;&gt;
@@ -4870,7 +4870,7 @@ function without the drivers being selected in the kernel.&lt;/p&gt;
     <item>
       <title>Java SE Bug #5052093</title>
       <link>http://johnmercier.com/blog/2008/08-19-java-se-bug-5052093.html</link>
-      <pubDate>Tue, 19 Aug 2008 00:00:00 -0400</pubDate>
+      <pubDate>Tue, 19 Aug 2008 00:00:00 +0000</pubDate>
       <guid isPermaLink="false">blog/2008/08-19-java-se-bug-5052093.html</guid>
       	<description>
 	&lt;div class=&quot;paragraph&quot;&gt;
@@ -4917,7 +4917,7 @@ From now on I&amp;#8217;m going to use JDK7 even though it&amp;#8217;s not out y
     <item>
       <title>Google Code Project</title>
       <link>http://johnmercier.com/blog/2008/05-18-google-code-project.html</link>
-      <pubDate>Sun, 18 May 2008 00:00:00 -0400</pubDate>
+      <pubDate>Sun, 18 May 2008 00:00:00 +0000</pubDate>
       <guid isPermaLink="false">blog/2008/05-18-google-code-project.html</guid>
       	<description>
 	&lt;div class=&quot;paragraph&quot;&gt;
@@ -4967,7 +4967,7 @@ out cvs. Now that netbeans does everything for me It&amp;#8217;s great.&lt;/p&gt
     <item>
       <title>Fixing &quot;Could not Open Install.log file!&quot;</title>
       <link>http://johnmercier.com/blog/2008/03-25-fixing-could-not-open-install-log-file.html</link>
-      <pubDate>Tue, 25 Mar 2008 00:00:00 -0400</pubDate>
+      <pubDate>Tue, 25 Mar 2008 00:00:00 +0000</pubDate>
       <guid isPermaLink="false">blog/2008/03-25-fixing-could-not-open-install-log-file.html</guid>
       	<description>
 	&lt;div class=&quot;paragraph&quot;&gt;
@@ -5003,7 +5003,7 @@ is the procedure I found:&lt;/p&gt;
     <item>
       <title>Reading File Input from the Internet with Style</title>
       <link>http://johnmercier.com/blog/2008/03-22-reading-file-input-from-the-internet-with-style.html</link>
-      <pubDate>Sat, 22 Mar 2008 00:00:00 -0400</pubDate>
+      <pubDate>Sat, 22 Mar 2008 00:00:00 +0000</pubDate>
       <guid isPermaLink="false">blog/2008/03-22-reading-file-input-from-the-internet-with-style.html</guid>
       	<description>
 	&lt;div class=&quot;paragraph&quot;&gt;
