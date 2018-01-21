@@ -6,8 +6,8 @@
     <atom:link href="http://johnmercier.com/feed.xml" rel="self" type="application/rss+xml" />
     <description>JBake Bootstrap Template</description>
     <language>en-gb</language>
-    <pubDate>Sun, 21 Jan 2018 19:03:08 +0000</pubDate>
-    <lastBuildDate>Sun, 21 Jan 2018 19:03:08 +0000</lastBuildDate>
+    <pubDate>Sun, 21 Jan 2018 20:03:01 +0000</pubDate>
+    <lastBuildDate>Sun, 21 Jan 2018 20:03:01 +0000</lastBuildDate>
 
     <item>
       <title>Switching From Jekyll To JBake</title>
@@ -1276,86 +1276,6 @@ the template. The review should only take a few days. The review for
 &lt;p&gt;Adding packages to &lt;a href=&quot;https://github.com/NixOS/nixpkgs&quot;&gt;nixpkgs&lt;/a&gt; can be
 fun. There is a lot of packages especially for java that should be
 added/maintained. I hope this helps in some way.&lt;/p&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-	</description>
-    </item>
-    <item>
-      <title>graph-dsl views</title>
-      <link>http://johnmercier.com/blog/2017/11-10-graph-dsl-views.html</link>
-      <pubDate>Fri, 10 Nov 2017 00:00:00 +0000</pubDate>
-      <guid isPermaLink="false">blog/2017/11-10-graph-dsl-views.html</guid>
-      	<description>
-	&lt;div id=&quot;preamble&quot;&gt;
-&lt;div class=&quot;sectionbody&quot;&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;I&amp;#8217;m adding a view method to graph-dsl. This method will generate a string which can be used
-by graphviz to create an image which can be displayed. This is the fist time
-graph-dsl will be
-integrated
-with
-another product.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Spock tests can use a Mock to ensure the view calls the correct graphviz command.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;To test the view manually graph-dsl will need to be installed to the local maven repo. Then
-grape will need to be configured to use the local maven repo. Once grape can grab the
-dependency it can be used in a script.&lt;/p&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;sect1&quot;&gt;
-&lt;h2 id=&quot;_spock_test&quot;&gt;spock test&lt;/h2&gt;
-&lt;div class=&quot;sectionbody&quot;&gt;
-
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;sect1&quot;&gt;
-&lt;h2 id=&quot;_gradle_install&quot;&gt;gradle install&lt;/h2&gt;
-&lt;div class=&quot;sectionbody&quot;&gt;
-
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;sect1&quot;&gt;
-&lt;h2 id=&quot;_grape_config&quot;&gt;grape config&lt;/h2&gt;
-&lt;div class=&quot;sectionbody&quot;&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;The grape dependency management system allows groovy scripts to bring in dependencies. It
-allows the script to be independent of any other build system. Users of groovy scripts do not
-need to worry about dependencies for the script. It just works.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;To add maven-local as a repository in grape the following should be added to the
-downloadGrapes chain in grapeConfig.xml.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;prettyprint highlight&quot;&gt;&lt;code class=&quot;language-xml&quot; data-lang=&quot;xml&quot;&gt;      &amp;lt;filesystem name=&quot;local-maven2&quot; checkmodified=&quot;true&quot; changingPattern=&quot;.*&quot;
-changingMatcher=&quot;regexp&quot; m2compatible=&quot;true&quot; cache=&quot;nocache&quot;&amp;gt;
-        &amp;lt;artifact pattern=&quot;${user.home}/.m2/repository/[organisation]/[module]/[revision]/[module]-[revision](-[classifier]).[ext]&quot;/&amp;gt;
-        &amp;lt;ivy pattern=&quot;${user.home}/.m2/repository/[organisation]/[module]/[revision]/[module]-[revision](-[classifier]).pom&quot;/&amp;gt;
-      &amp;lt;/filesystem&amp;gt;&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;This tells grape to use the default location of .m2 to grab dependencies.&lt;/p&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;sect1&quot;&gt;
-&lt;h2 id=&quot;_grab_graph_dsl_in_script_and_use_it&quot;&gt;grab graph-dsl in script and use it&lt;/h2&gt;
-&lt;div class=&quot;sectionbody&quot;&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Now that everything is set up a dsl script to use graph-dsl can be setup which calls the view
-method to display a graph using graphviz.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;prettyprint highlight&quot;&gt;&lt;code class=&quot;language-groovy&quot; data-lang=&quot;groovy&quot;&gt;&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;

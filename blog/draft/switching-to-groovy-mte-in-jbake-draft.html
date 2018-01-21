@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8"/>
-    <title>graph-dsl views</title>
+    <title>Switching to groovy-mte in JBake</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
@@ -68,80 +68,67 @@
     </div>
     <div class="container">	
 	<div class="page-header">
-		<h1>graph-dsl views</h1>
+		<h1>Switching to groovy-mte in JBake</h1>
 	</div>
 
-	<p><em>10 November 2017</em></p>
+	<p><em>21 January 2018</em></p>
 
 	<p><div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>I&#8217;m adding a view method to graph-dsl. This method will generate a string which can be used
-by graphviz to create an image which can be displayed. This is the fist time
-graph-dsl will be
-integrated
-with
-another product.</p>
-</div>
-<div class="paragraph">
-<p>Spock tests can use a Mock to ensure the view calls the correct graphviz command.</p>
-</div>
-<div class="paragraph">
-<p>To test the view manually graph-dsl will need to be installed to the local maven repo. Then
-grape will need to be configured to use the local maven repo. Once grape can grab the
-dependency it can be used in a script.</p>
+<p>One thing I really don&#8217;t like about <a href="https://en.wikipedia.org/wiki/JavaServer_Pages">jsp</a> is that it looks like
+<a href="https://en.wikipedia.org/wiki/HTML">html</a>. The default engine for <a href="http://jbake.org/">JBake</a> is
+<a href="https://freemarker.apache.org/">freemaker</a>. Like many other template engines
+<a href="https://freemarker.apache.org/">freemaker</a> adds expressions to the html language. I would much rather work with
+something that looks like groovy so I&#8217;m going to try out groovy&#8217;s
+<a href="http://docs.groovy-lang.org/latest/html/documentation/template-engines.html#_the_markuptemplateengine">MarkupTemplateEngine</a>
+as the templating engine for <a href="http://jbake.org/">JBake</a>.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_spock_test">spock test</h2>
-<div class="sectionbody">
-
-</div>
-</div>
-<div class="sect1">
-<h2 id="_gradle_install">gradle install</h2>
-<div class="sectionbody">
-
-</div>
-</div>
-<div class="sect1">
-<h2 id="_grape_config">grape config</h2>
+<h2 id="_using_markuptemplateengine">Using MarkupTemplateEngine</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>The grape dependency management system allows groovy scripts to bring in dependencies. It
-allows the script to be independent of any other build system. Users of groovy scripts do not
-need to worry about dependencies for the script. It just works.</p>
-</div>
-<div class="paragraph">
-<p>To add maven-local as a repository in grape the following should be added to the
-downloadGrapes chain in grapeConfig.xml.</p>
+<p><a href="http://docs.groovy-lang.org/latest/html/documentation/template-engines.html#_the_markuptemplateengine">groovy-mte</a>
+support allows developers to write templates in a groovy dsl rather than markup. Here is a basic example:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="prettyprint highlight"><code class="language-xml" data-lang="xml">      &lt;filesystem name="local-maven2" checkmodified="true" changingPattern=".*"
-changingMatcher="regexp" m2compatible="true" cache="nocache"&gt;
-        &lt;artifact pattern="${user.home}/.m2/repository/[organisation]/[module]/[revision]/[module]-[revision](-[classifier]).[ext]"/&gt;
-        &lt;ivy pattern="${user.home}/.m2/repository/[organisation]/[module]/[revision]/[module]-[revision](-[classifier]).pom"/&gt;
-      &lt;/filesystem&gt;</code></pre>
+<pre>import groovy.text.markup.*
+
+def template = new MarkupTemplateEngine(new TemplateConfiguration()).createTemplate('''
+    html {
+        head {
+            title(pageTitle)
+        }
+        body {
+            h1(pageTitle)
+        }
+    }
+''')
+
+def model = [pageTitle:"Hello, World!"]
+
+template.make(model).writeTo(new PrintWriter(System.out))</pre>
 </div>
 </div>
 <div class="paragraph">
-<p>This tells grape to use the default location of .m2 to grab dependencies.</p>
+<p>The builder syntax allows for a more <code>groovy</code> like html, rather than using html tags. Running the script results in:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>&lt;html&gt;&lt;head&gt;&lt;title&gt;Hello, World!&lt;/title&gt;&lt;/head&gt;&lt;body&gt;&lt;h1&gt;Hello, World!&lt;/h1&gt;&lt;/body&gt;&lt;/html&gt;</pre>
+</div>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_grab_graph_dsl_in_script_and_use_it">grab graph-dsl in script and use it</h2>
+<h2 id="_switching_jbake_to_markuptemplateengine">Switching JBake to MarkupTemplateEngine</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Now that everything is set up a dsl script to use graph-dsl can be setup which calls the view
-method to display a graph using graphviz.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="prettyprint highlight"><code class="language-groovy" data-lang="groovy"></code></pre>
-</div>
+<p>The <a href="http://jbake.org/docs/2.5.1/#templates_directory">documentation</a> implies that templates and any assets need to be
+switched. There are also <a href="https://github.com/topics/jbake-template-project">examples</a> that can be used.</p>
 </div>
 </div>
 </div></p>
@@ -154,8 +141,8 @@ method to display a graph using graphviz.</p>
     *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
     /*
     var disqus_config = function () {
-    this.page.url = 'http://johnmercier.com/blog/2017/11-10-graph-dsl-views.html';  // Replace PAGE_URL with your page's canonical URL variable
-    this.page.identifier = 'blog/2017/11-10-graph-dsl-views.html'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+    this.page.url = 'http://johnmercier.com/blog/draft/switching-to-groovy-mte-in-jbake.html';  // Replace PAGE_URL with your page's canonical URL variable
+    this.page.identifier = 'blog/draft/switching-to-groovy-mte-in-jbake.html'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
     };
     */
     (function() { // DON'T EDIT BELOW THIS LINE
