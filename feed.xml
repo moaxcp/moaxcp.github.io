@@ -4,7 +4,7 @@
     <link href="http://johnmercier.com/"/>
     <link rel="self" type="application/atom+xml" href="http://johnmercier.com/feed.xml"/>
     <subtitle>[A software developer interested in java, groovy, and nixos]</subtitle>
-    <updated>2018-01-22T04:41:46Z</updated>
+    <updated>2018-01-22T04:45:30Z</updated>
     <id>tag:null,2018:01</id>
     <entry>
         <title>Switching to groovy-mte in JBake</title>
@@ -12,7 +12,7 @@
             <name>2018-01-21</name>
         </author>
         <link href="http://johnmercier.com/blog/2018/01-21-switching-to-groovy-mte-in-jbake.html"/>
-        <updated>2018-01-22T04:40:55Z</updated>
+        <updated>2018-01-22T04:44:36Z</updated>
         <id>http://johnmercier.com/blog/2018/01-21-switching-to-groovy-mte-in-jbake.html</id>
         <category term="jbake"/>
         <category term="groovy"/>
@@ -244,9 +244,9 @@ everything before the first section. Otherwise, the first paragraph is used.&lt;
     def h = post.body.indexOf(&quot;&amp;lt;h&quot;)
     def p = post.body.indexOf(&quot;&amp;lt;/div&amp;gt;&quot;)
     if(h &amp;gt; 0) {
-        post.summary = post.body.substring(0, h)
+        post.summary = post.body.substring(0, h) &lt;b class=&quot;conum&quot;&gt;(1)&lt;/b&gt;
     } else if(post.body.contains(&quot;&amp;lt;/div&amp;gt;&quot;)) {
-        post.summary = post.body.substring(0, p + 7)
+        post.summary = post.body.substring(0, p + 7) &lt;b class=&quot;conum&quot;&gt;(2)&lt;/b&gt;
     }
 }&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;

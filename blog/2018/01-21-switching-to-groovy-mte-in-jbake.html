@@ -309,9 +309,9 @@ everything before the first section. Otherwise, the first paragraph is used.</p>
     def h = post.body.indexOf("&lt;h")
     def p = post.body.indexOf("&lt;/div&gt;")
     if(h &gt; 0) {
-        post.summary = post.body.substring(0, h)
+        post.summary = post.body.substring(0, h) <b class="conum">(1)</b>
     } else if(post.body.contains("&lt;/div&gt;")) {
-        post.summary = post.body.substring(0, p + 7)
+        post.summary = post.body.substring(0, p + 7) <b class="conum">(2)</b>
     }
 }</code></pre>
 </div>
