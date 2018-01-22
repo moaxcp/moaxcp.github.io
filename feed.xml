@@ -1,21 +1,396 @@
 <?xml version="1.0"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>JBake</title>
-    <link>http://johnmercier.com</link>
-    <atom:link href="http://johnmercier.com/feed.xml" rel="self" type="application/rss+xml" />
-    <description>JBake Bootstrap Template</description>
-    <language>en-gb</language>
-    <pubDate>Sun, 21 Jan 2018 20:03:01 +0000</pubDate>
-    <lastBuildDate>Sun, 21 Jan 2018 20:03:01 +0000</lastBuildDate>
+<feed xmlns="http://www.w3.org/2005/Atom">
+    <title>John Mercier</title>
+    <link href="http://johnmercier.com/"/>
+    <link rel="self" type="application/atom+xml" href="http://johnmercier.com/feed.xml"/>
+    <subtitle>[A software developer interested in java, groovy, and nixos]</subtitle>
+    <updated>2018-01-22T04:41:46Z</updated>
+    <id>tag:null,2018:01</id>
+    <entry>
+        <title>Switching to groovy-mte in JBake</title>
+        <author>
+            <name>2018-01-21</name>
+        </author>
+        <link href="http://johnmercier.com/blog/2018/01-21-switching-to-groovy-mte-in-jbake.html"/>
+        <updated>2018-01-22T04:40:55Z</updated>
+        <id>http://johnmercier.com/blog/2018/01-21-switching-to-groovy-mte-in-jbake.html</id>
+        <category term="jbake"/>
+        <category term="groovy"/>
+        <content type="html">
+            &lt;div id=&quot;preamble&quot;&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;One thing I don&amp;#8217;t like about &lt;a href=&quot;https://en.wikipedia.org/wiki/JavaServer_Pages&quot;&gt;jsp&lt;/a&gt; is that it looks like
+&lt;a href=&quot;https://en.wikipedia.org/wiki/HTML&quot;&gt;html&lt;/a&gt;. The default engine for &lt;a href=&quot;http://jbake.org/&quot;&gt;JBake&lt;/a&gt; is
+&lt;a href=&quot;https://freemarker.apache.org/&quot;&gt;freemarker&lt;/a&gt;. Like many other template engines
+&lt;a href=&quot;https://freemarker.apache.org/&quot;&gt;freemarker&lt;/a&gt; adds expressions to the html language. I would much rather work with
+something that looks like groovy so I&amp;#8217;m going to try out groovy&amp;#8217;s
+&lt;a href=&quot;http://docs.groovy-lang.org/latest/html/documentation/template-engines.html#_the_markuptemplateengine&quot;&gt;MarkupTemplateEngine&lt;/a&gt;
+as the template engine for &lt;a href=&quot;http://jbake.org/&quot;&gt;JBake&lt;/a&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;_using_markuptemplateengine&quot;&gt;Using MarkupTemplateEngine&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&lt;a href=&quot;http://docs.groovy-lang.org/latest/html/documentation/template-engines.html#_the_markuptemplateengine&quot;&gt;groovy-mte&lt;/a&gt;
+support in &lt;a href=&quot;http://jbake.org/&quot;&gt;JBake&lt;/a&gt; allows developers to write templates in a groovy dsl rather than markup. Here is a
+basic example of how it works:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;prettyprint highlight&quot;&gt;&lt;code class=&quot;language-groovy&quot; data-lang=&quot;groovy&quot;&gt;import groovy.text.markup.*
 
-    <item>
-      <title>Switching From Jekyll To JBake</title>
-      <link>http://johnmercier.com/blog/2018/01-16-switching-from-jekyll-to-jbake.html</link>
-      <pubDate>Tue, 16 Jan 2018 00:00:00 +0000</pubDate>
-      <guid isPermaLink="false">blog/2018/01-16-switching-from-jekyll-to-jbake.html</guid>
-      	<description>
-	&lt;div id=&quot;preamble&quot;&gt;
+def template = new MarkupTemplateEngine(new TemplateConfiguration()).createTemplate(&apos;&apos;&apos;
+    html {
+        head {
+            title(pageTitle)
+        }
+        body {
+            h1(pageTitle)
+        }
+    }
+&apos;&apos;&apos;)&lt;b class=&quot;conum&quot;&gt;(1)&lt;/b&gt;
+
+def model = [pageTitle:&quot;Hello, World!&quot;] &lt;b class=&quot;conum&quot;&gt;(2)&lt;/b&gt;
+
+template.make(model).writeTo(new PrintWriter(System.out)) &lt;b class=&quot;conum&quot;&gt;(3)&lt;/b&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;colist arabic&quot;&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;Create a template&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Define a model&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Make the results&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;The builder syntax allows for a more &lt;code&gt;groovy&lt;/code&gt; html. It is easy to recognize as html but, rather than writing all those
+html tags, developers can use groovy. Running the script results in:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;prettyprint highlight&quot;&gt;&lt;code class=&quot;language-html&quot; data-lang=&quot;html&quot;&gt;&amp;lt;html&amp;gt;&amp;lt;head&amp;gt;&amp;lt;title&amp;gt;Hello, World!&amp;lt;/title&amp;gt;&amp;lt;/head&amp;gt;&amp;lt;body&amp;gt;&amp;lt;h1&amp;gt;Hello, World!&amp;lt;/h1&amp;gt;&amp;lt;/body&amp;gt;&amp;lt;/html&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;_switching_jbake_to_markuptemplateengine&quot;&gt;Switching JBake to MarkupTemplateEngine&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;The &lt;a href=&quot;http://jbake.org/docs/2.5.1/#templates_directory&quot;&gt;documentation&lt;/a&gt; implies that changing templates means removing any
+old templates and replacing them with the new templates. Default assets should also be replaced. There are a number of
+example templates using the &lt;a href=&quot;https://github.com/topics/jbake-template-project&quot;&gt;jbake-template-project&lt;/a&gt; tag on github. The
+&lt;a href=&quot;https://github.com/ancho/jbake-example-project-groovy-mte&quot;&gt;groovy-mte&lt;/a&gt; example templates are somewhat outdated but it is
+a good starting point.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect2&quot;&gt;
+&lt;h3 id=&quot;_copy_template_and_assets&quot;&gt;Copy Template and Assets&lt;/h3&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;First, clone the groovy-mte project.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre&gt;john@n1 ~/projects&amp;gt; git clone https://github.com/ancho/jbake-example-project-groovy-mte.git
+Cloning into &apos;jbake-example-project-groovy-mte&apos;...
+remote: Counting objects: 250, done.
+remote: Total 250 (delta 0), reused 0 (delta 0), pack-reused 250
+Receiving objects: 100% (250/250), 1.61 MiB | 312.00 KiB/s, done.
+Resolving deltas: 100% (85/85), done.&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Then remove the original &lt;code&gt;templates&lt;/code&gt; and &lt;code&gt;assets&lt;/code&gt; directories from the project.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Then go into the project and copy the files to the site&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre&gt;john@n1 ~/projects&amp;gt; cd jbake-example-project-groovy-mte/
+john@n1 ~/p/jbake-example-project-groovy-mte (master)&amp;gt; ls
+assets  content  jbake.properties  LICENSE  README.md  templates
+john@n1 ~/p/jbake-example-project-groovy-mte (master)&amp;gt; cp -r templates ../johnmercier.com/src/jbake/
+john@n1 ~/p/jbake-example-project-groovy-mte (master)&amp;gt; ls assets/
+css  fonts  img  js
+john@n1 ~/p/jbake-example-project-groovy-mte (master)&amp;gt; cp -r assets ../johnmercier.com/src/jbake/&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Bake the site and view the results.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect2&quot;&gt;
+&lt;h3 id=&quot;_issues&quot;&gt;Issues&lt;/h3&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;There were a few issues I found&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect3&quot;&gt;
+&lt;h4 id=&quot;_tags_tpl&quot;&gt;tags.tpl&lt;/h4&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;posts without tags caused an error in &lt;code&gt;tags.tpl&lt;/code&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;prettyprint highlight&quot;&gt;&lt;code class=&quot;language-groovy&quot; data-lang=&quot;groovy&quot;&gt;post.tags.contains(tag)&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Needed to be changed to&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;prettyprint highlight&quot;&gt;&lt;code class=&quot;language-groovy&quot; data-lang=&quot;groovy&quot;&gt;post.tags?.contains(tag)&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect3&quot;&gt;
+&lt;h4 id=&quot;_jbake_properties&quot;&gt;jbake.properties&lt;/h4&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;jbake.properties needed some new properties&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;prettyprint highlight&quot;&gt;&lt;code class=&quot;language-groovy&quot; data-lang=&quot;groovy&quot;&gt;site.contextPath=/
+blog.title=John Mercier
+blog.subtitle=A software developer interested in java, groovy, and nixos
+foundation.version=5.5.1&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Without &lt;code&gt;site.contextPath&lt;/code&gt; None of the pages could find assets. I have a feeling this could be removed and the
+templates could use content.rootpath instead. Using an absolute path like this makes it impossible to view the files
+locally without a server.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;_improvements&quot;&gt;Improvements&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;This got the site up and running with groovy-mte but I found a few improvements to make.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect2&quot;&gt;
+&lt;h3 id=&quot;_menu_tpl&quot;&gt;menu.tpl&lt;/h3&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;The twitter and github accounts were hardcoded in the template. The template was changed to use jbake.properties&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;title&quot;&gt;menu.tpl&lt;/div&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;prettyprint highlight&quot;&gt;&lt;code class=&quot;language-groovy&quot; data-lang=&quot;groovy&quot;&gt;p(class:&quot;title-contact&quot;){
+    a(href:&quot;https://twitter.com/$config.twitter&quot;){
+        i(class:&quot;foundicon-twitter&quot;){}
+    }
+    a(href:&quot;https://github.com/$config.github&quot;){
+        i(class:&quot;foundicon-github&quot;){}
+    }
+}&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;title&quot;&gt;jbake.properties&lt;/div&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;prettyprint highlight&quot;&gt;&lt;code class=&quot;language-groovy&quot; data-lang=&quot;groovy&quot;&gt;twitter=moaxcp
+github=moaxcp&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect2&quot;&gt;
+&lt;h3 id=&quot;_post_summary&quot;&gt;post summary&lt;/h3&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Having full posts on the index page can be annoying. I like having a summary of around 10 posts on the index. For most
+of my pages the summary is the first paragraph or everything up to the first section of the post. It is possible to
+add support for a summary to &lt;code&gt;post-brick.tpl&lt;/code&gt; but first an explanation.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&lt;code&gt;index.tpl&lt;/code&gt; and &lt;code&gt;post.tpl&lt;/code&gt; both use &lt;code&gt;post-brick.tpl&lt;/code&gt; as a template for displaying posts. &lt;code&gt;index.tpl&lt;/code&gt; and &lt;code&gt;post.tpl&lt;/code&gt; are
+&lt;strong&gt;composed&lt;/strong&gt; with &lt;code&gt;post-brick.tpl&lt;/code&gt; to display a consistent blog post. I don&amp;#8217;t want it to be consistent. I want
+&lt;code&gt;post-brick.tpl&lt;/code&gt; to only display a summary when it is used from &lt;code&gt;index.tpl&lt;/code&gt; and display the full post from &lt;code&gt;post.tpl&lt;/code&gt;.
+This can be done with a few changes to these files.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect3&quot;&gt;
+&lt;h4 id=&quot;_index_tpl&quot;&gt;index.tpl&lt;/h4&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;The first 10 published posts are visible from the index page.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;title&quot;&gt;index.tpl&lt;/div&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;prettyprint highlight&quot;&gt;&lt;code class=&quot;language-groovy&quot; data-lang=&quot;groovy&quot;&gt;published_posts[0..9].each { post -&amp;gt;
+    model.put(&apos;post&apos;, post)
+    include template: &apos;post-brick.tpl&apos;
+}&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Next a summary is added to each post unless the post already contains a summary. If there are sections the summary is
+everything before the first section. Otherwise, the first paragraph is used.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;title&quot;&gt;index.tpl&lt;/div&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;prettyprint highlight&quot;&gt;&lt;code class=&quot;language-groovy&quot; data-lang=&quot;groovy&quot;&gt;if(!post.summary) {
+    def h = post.body.indexOf(&quot;&amp;lt;h&quot;)
+    def p = post.body.indexOf(&quot;&amp;lt;/div&amp;gt;&quot;)
+    if(h &amp;gt; 0) {
+        post.summary = post.body.substring(0, h)
+    } else if(post.body.contains(&quot;&amp;lt;/div&amp;gt;&quot;)) {
+        post.summary = post.body.substring(0, p + 7)
+    }
+}&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;colist arabic&quot;&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;Text before first section is used&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;If there are no sections then use first paragraph&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Then &lt;code&gt;post-brick.tpl&lt;/code&gt; is called as a layout rather than an include. This has a few advantages like decoupling from the
+JBake model and being able to pass in only what is needed for the template to function.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;title&quot;&gt;index.tpl&lt;/div&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;prettyprint highlight&quot;&gt;&lt;code class=&quot;language-groovy&quot; data-lang=&quot;groovy&quot;&gt;layout &apos;post-brick.tpl&apos;, config:config, post:post, summary:true &lt;b class=&quot;conum&quot;&gt;(1)&lt;/b&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;colist arabic&quot;&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;summary flag set to true&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect3&quot;&gt;
+&lt;h4 id=&quot;_post_tpl&quot;&gt;post.tpl&lt;/h4&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&lt;code&gt;post.tpl&lt;/code&gt; is modified to use a layout just like &lt;code&gt;index.tpl&lt;/code&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;title&quot;&gt;post.tpl&lt;/div&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;prettyprint highlight&quot;&gt;&lt;code class=&quot;language-groovy&quot; data-lang=&quot;groovy&quot;&gt;layout &apos;post-brick.tpl&apos;, config:config, post:content, summary:false &lt;b class=&quot;conum&quot;&gt;(1)&lt;/b&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;colist arabic&quot;&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;summary flag set to false&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect3&quot;&gt;
+&lt;h4 id=&quot;_post_brick_tpl&quot;&gt;post-brick.tpl&lt;/h4&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&lt;code&gt;post-brick.tpl&lt;/code&gt; is modified to display the summary instead of body when needed.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;title&quot;&gt;post-brick.tpl&lt;/div&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;prettyprint highlight&quot;&gt;&lt;code class=&quot;language-groovy&quot; data-lang=&quot;groovy&quot;&gt;yieldUnescaped summary ? post.summary : post.body&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect2&quot;&gt;
+&lt;h3 id=&quot;_disqus_comments&quot;&gt;Disqus comments&lt;/h3&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Now that we know when a post in &lt;code&gt;post-brick.tpl&lt;/code&gt; is really a summary we can figure out if comments need to be
+displayed. Comments are displayed when the post is not a summary. Comments can be added as a new row.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;title&quot;&gt;post-brick.tpl&lt;/div&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;prettyprint highlight&quot;&gt;&lt;code class=&quot;language-groovy&quot; data-lang=&quot;groovy&quot;&gt;if(!summary) {
+    div(class:&apos;row&apos;) {
+        div(id:&apos;disqus_thread&apos;) {
+            script {
+                yieldUnescaped &quot;&quot;&quot;
+                    /**
+                    *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+                    *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+                    /*
+                    var disqus_config = function () {
+                    this.page.url = &apos;${config.site_host}/${post.uri}&apos;;  // Replace PAGE_URL with your page&apos;s canonical URL variable
+                    this.page.identifier = &apos;${post.uri}&apos;; // Replace PAGE_IDENTIFIER with your page&apos;s unique identifier variable
+                    };
+                    */
+                    (function() { // DON&apos;T EDIT BELOW THIS LINE
+                    var d = document, s = d.createElement(&apos;script&apos;);
+                    s.src = &apos;https://moaxcp.disqus.com/embed.js&apos;;
+                    s.setAttribute(&apos;data-timestamp&apos;, +new Date());
+                    (d.head || d.body).appendChild(s);
+                    })();
+                &quot;&quot;&quot;
+            }
+            noscript {
+                yieldUnescaped &apos;Please enable JavaScript to view the &amp;lt;a href=&quot;https://disqus.com/?ref_noscript&quot;&amp;gt;comments powered by Disqus.&amp;lt;/a&amp;gt;&apos;
+            }
+        }
+    }
+}&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;A comment count can also be added for each post. First the disqus script needs to be added to &lt;code&gt;maint.tpl&lt;/code&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;title&quot;&gt;main.tpl&lt;/div&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;prettyprint highlight&quot;&gt;&lt;code class=&quot;language-groovy&quot; data-lang=&quot;groovy&quot;&gt;yieldUnescaped &apos;&apos;&apos;
+    &amp;lt;script id=&quot;dsq-count-scr&quot; src=&quot;//moaxcp.disqus.com/count.js&quot; async&amp;gt;&amp;lt;/script&amp;gt;
+&apos;&apos;&apos;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;then a link needs to be added to &lt;code&gt;post-brick.tpl&lt;/code&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;title&quot;&gt;post-brick.tpl&lt;/div&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;prettyprint highlight&quot;&gt;&lt;code class=&quot;language-groovy&quot; data-lang=&quot;groovy&quot;&gt;a(href:&quot;${config.site_contextPath}${post.uri}#disqus_thread&quot;, &apos;comments&apos;)&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Disqus will look up comment counts using the script and update the link within the dom to include the count text.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+        </content>
+    </entry>
+    <entry>
+        <title>Switching From Jekyll To JBake</title>
+        <author>
+            <name>John Mercier</name>
+        </author>
+        <link href="http://johnmercier.com/blog/2018/01-16-switching-from-jekyll-to-jbake.html"/>
+        <updated>2018-01-16T00:00:00Z</updated>
+        <id>http://johnmercier.com/blog/2018/01-16-switching-from-jekyll-to-jbake.html</id>
+        <category term="jbake"/>
+        <category term="jekyll"/>
+        <category term="groovy"/>
+        <content type="html">
+            &lt;div id=&quot;preamble&quot;&gt;
 &lt;div class=&quot;sectionbody&quot;&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
 &lt;p&gt;In a previous post &lt;a href=&quot;http://jbake.org/&quot;&gt;JBake&lt;/a&gt; was added to nixos. Now it is time to convert this blog to
@@ -680,15 +1055,20 @@ obvious. This is the solution I found for my problem and I am happy with it. Tha
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-	</description>
-    </item>
-    <item>
-      <title>Adding JBake to nixpkgs</title>
-      <link>http://johnmercier.com/blog/2017/12-28-adding-jbake-to-nixpkgs.html</link>
-      <pubDate>Thu, 28 Dec 2017 00:00:00 +0000</pubDate>
-      <guid isPermaLink="false">blog/2017/12-28-adding-jbake-to-nixpkgs.html</guid>
-      	<description>
-	&lt;div id=&quot;preamble&quot;&gt;
+        </content>
+    </entry>
+    <entry>
+        <title>Adding JBake to nixpkgs</title>
+        <author>
+            <name>John Mercier</name>
+        </author>
+        <link href="http://johnmercier.com/blog/2017/12-28-adding-jbake-to-nixpkgs.html"/>
+        <updated>2017-12-28T00:00:00Z</updated>
+        <id>http://johnmercier.com/blog/2017/12-28-adding-jbake-to-nixpkgs.html</id>
+        <category term="jbake"/>
+        <category term="nixos"/>
+        <content type="html">
+            &lt;div id=&quot;preamble&quot;&gt;
 &lt;div class=&quot;sectionbody&quot;&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
 &lt;p&gt;&lt;a href=&quot;http://jbake.org/&quot;&gt;JBake&lt;/a&gt; is a static site/blog generator. I have been
@@ -1279,15 +1659,18 @@ added/maintained. I hope this helps in some way.&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-	</description>
-    </item>
-    <item>
-      <title>obnam on nixos</title>
-      <link>http://johnmercier.com/blog/2017/07-15-obnam-on-nixos.html</link>
-      <pubDate>Sat, 15 Jul 2017 00:00:00 +0000</pubDate>
-      <guid isPermaLink="false">blog/2017/07-15-obnam-on-nixos.html</guid>
-      	<description>
-	&lt;div class=&quot;paragraph&quot;&gt;
+        </content>
+    </entry>
+    <entry>
+        <title>obnam on nixos</title>
+        <author>
+            <name>John Mercier</name>
+        </author>
+        <link href="http://johnmercier.com/blog/2017/07-15-obnam-on-nixos.html"/>
+        <updated>2017-07-15T00:00:00Z</updated>
+        <id>http://johnmercier.com/blog/2017/07-15-obnam-on-nixos.html</id>
+        <content type="html">
+            &lt;div class=&quot;paragraph&quot;&gt;
 &lt;p&gt;&lt;a href=&quot;http://www.obnam.org&quot;&gt;obnam&lt;/a&gt; is a backup program I have used
 &lt;a href=&quot;http://moaxcp.github.io/2015/09/09/obnam-on-gentoo.html&quot;&gt;used&lt;/a&gt;
 in the past to backup my gentoo system. Now that I am using nixos I would like to setup backups for a number of reasons:&lt;/p&gt;
@@ -1380,15 +1763,18 @@ systemd.timers.obnam = {
 };&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-	</description>
-    </item>
-    <item>
-      <title>linux issues in nixos</title>
-      <link>http://johnmercier.com/blog/2017/06-24-linux-issue-in-nixos.html</link>
-      <pubDate>Sat, 24 Jun 2017 00:00:00 +0000</pubDate>
-      <guid isPermaLink="false">blog/2017/06-24-linux-issue-in-nixos.html</guid>
-      	<description>
-	&lt;div class=&quot;paragraph&quot;&gt;
+        </content>
+    </entry>
+    <entry>
+        <title>linux issues in nixos</title>
+        <author>
+            <name>John Mercier</name>
+        </author>
+        <link href="http://johnmercier.com/blog/2017/06-24-linux-issue-in-nixos.html"/>
+        <updated>2017-06-24T00:00:00Z</updated>
+        <id>http://johnmercier.com/blog/2017/06-24-linux-issue-in-nixos.html</id>
+        <content type="html">
+            &lt;div class=&quot;paragraph&quot;&gt;
 &lt;p&gt;After installing nixos I had some issues with the linux kernel and possibly kde. At boot I would get
 errors like this.&lt;/p&gt;
 &lt;/div&gt;
@@ -1427,15 +1813,18 @@ linux 4.9.6.&lt;/p&gt;
 &lt;pre&gt;journalctl -u display-manager --boot=-1&lt;/pre&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-	</description>
-    </item>
-    <item>
-      <title>connecting to wifi from nixos minimal install cd</title>
-      <link>http://johnmercier.com/blog/2017/06-20-connecting-to-wifi-from-nixos-minimal-install-cd.html</link>
-      <pubDate>Tue, 20 Jun 2017 00:00:00 +0000</pubDate>
-      <guid isPermaLink="false">blog/2017/06-20-connecting-to-wifi-from-nixos-minimal-install-cd.html</guid>
-      	<description>
-	&lt;div id=&quot;preamble&quot;&gt;
+        </content>
+    </entry>
+    <entry>
+        <title>connecting to wifi from nixos minimal install cd</title>
+        <author>
+            <name>John Mercier</name>
+        </author>
+        <link href="http://johnmercier.com/blog/2017/06-20-connecting-to-wifi-from-nixos-minimal-install-cd.html"/>
+        <updated>2017-06-20T00:00:00Z</updated>
+        <id>http://johnmercier.com/blog/2017/06-20-connecting-to-wifi-from-nixos-minimal-install-cd.html</id>
+        <content type="html">
+            &lt;div id=&quot;preamble&quot;&gt;
 &lt;div class=&quot;sectionbody&quot;&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
 &lt;p&gt;One step in installing nixos I had trouble performing was connecting to wifi. On the minimal install boot
@@ -1494,15 +1883,18 @@ quit&lt;/pre&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-	</description>
-    </item>
-    <item>
-      <title>ivy remote configs</title>
-      <link>http://johnmercier.com/blog/2017/06-20-ivy-remote-configs.html</link>
-      <pubDate>Tue, 20 Jun 2017 00:00:00 +0000</pubDate>
-      <guid isPermaLink="false">blog/2017/06-20-ivy-remote-configs.html</guid>
-      	<description>
-	&lt;div class=&quot;paragraph&quot;&gt;
+        </content>
+    </entry>
+    <entry>
+        <title>ivy remote configs</title>
+        <author>
+            <name>John Mercier</name>
+        </author>
+        <link href="http://johnmercier.com/blog/2017/06-20-ivy-remote-configs.html"/>
+        <updated>2017-06-20T00:00:00Z</updated>
+        <id>http://johnmercier.com/blog/2017/06-20-ivy-remote-configs.html</id>
+        <content type="html">
+            &lt;div class=&quot;paragraph&quot;&gt;
 &lt;p&gt;I found an issue in an ivy.xml that resulted in hamcrest not being added to the test configuration. The junit
 dependency looked like this:&lt;/p&gt;
 &lt;/div&gt;
@@ -1516,15 +1908,18 @@ dependency looked like this:&lt;/p&gt;
 fix is to change &lt;code&gt;test-&amp;gt;master&lt;/code&gt; to &lt;code&gt;test-&amp;gt;default&lt;/code&gt;. &lt;code&gt;master&lt;/code&gt; and &lt;code&gt;default&lt;/code&gt; are the only two values available for a
 maven repository.&lt;/p&gt;
 &lt;/div&gt;
-	</description>
-    </item>
-    <item>
-      <title>switching to nixos</title>
-      <link>http://johnmercier.com/blog/2017/06-19-switching-to-nixos-again.html</link>
-      <pubDate>Mon, 19 Jun 2017 00:00:00 +0000</pubDate>
-      <guid isPermaLink="false">blog/2017/06-19-switching-to-nixos-again.html</guid>
-      	<description>
-	&lt;div class=&quot;paragraph&quot;&gt;
+        </content>
+    </entry>
+    <entry>
+        <title>switching to nixos</title>
+        <author>
+            <name>John Mercier</name>
+        </author>
+        <link href="http://johnmercier.com/blog/2017/06-19-switching-to-nixos-again.html"/>
+        <updated>2017-06-19T00:00:00Z</updated>
+        <id>http://johnmercier.com/blog/2017/06-19-switching-to-nixos-again.html</id>
+        <content type="html">
+            &lt;div class=&quot;paragraph&quot;&gt;
 &lt;p&gt;I have decided to switch from gentoo to nixos. I tried nixos over a year ago but had a lot of troubles. This was
 probably because I used the unstable release and couldn&amp;#8217;t really get gradle stuff to work. This time I will only use
 the stable release and try to import newer stuff from unstable if I decided I need it. Hopefully I will not have as
@@ -1651,15 +2046,18 @@ solved all the problems with initrd finding the luks device at boot.&lt;/p&gt;
 &lt;p&gt;Getting this right was a real pain. I&amp;#8217;m not going to say nixos makes it easier because I learned a lot going through
 this with gentoo. I believe the gentoo experience made setting this up in nixos easier.&lt;/p&gt;
 &lt;/div&gt;
-	</description>
-    </item>
-    <item>
-      <title>sonar way is the wrong way</title>
-      <link>http://johnmercier.com/blog/2017/02-07-sonar-way-is-the-wrong-way.html</link>
-      <pubDate>Tue, 7 Feb 2017 00:00:00 +0000</pubDate>
-      <guid isPermaLink="false">blog/2017/02-07-sonar-way-is-the-wrong-way.html</guid>
-      	<description>
-	&lt;div class=&quot;paragraph&quot;&gt;
+        </content>
+    </entry>
+    <entry>
+        <title>sonar way is the wrong way</title>
+        <author>
+            <name>John Mercier</name>
+        </author>
+        <link href="http://johnmercier.com/blog/2017/02-07-sonar-way-is-the-wrong-way.html"/>
+        <updated>2017-02-07T00:00:00Z</updated>
+        <id>http://johnmercier.com/blog/2017/02-07-sonar-way-is-the-wrong-way.html</id>
+        <content type="html">
+            &lt;div class=&quot;paragraph&quot;&gt;
 &lt;p&gt;Codenarc is a static code analysis tool for groovy. It is the same tool &lt;a href=&quot;http://sonarqube.com&quot;&gt;sonarqube.com&lt;/a&gt; uses to to publish its results.
 The &lt;a href=&quot;https://github.com/moaxcp/graph-dsl&quot;&gt;graph-dsl&lt;/a&gt; project is setup to use codenarc for local development and &lt;a href=&quot;http://sonarqube.com&quot;&gt;sonarqube.com&lt;/a&gt; for
  continuous integration. There is just one problem with &lt;a href=&quot;http://sonarqube.com&quot;&gt;sonarqube.com&lt;/a&gt;, it only uses 59 rules rather than the 353 rules available.
@@ -1707,15 +2105,18 @@ scans groovy code. It can be configured to look at a codenarc report within groo
 actually turned on. The default for groovy projects only enables 59 of 353 rules. For &lt;a href=&quot;https://github.com/moaxcp/graph-dsl&quot;&gt;graph-dsl&lt;/a&gt;
 it is not possible to modify the Quality Profile and as a result &lt;a href=&quot;http://sonarqube.com&quot;&gt;sonarqube.com&lt;/a&gt; does not seem very useful for groovy projects.&lt;/p&gt;
 &lt;/div&gt;
-	</description>
-    </item>
-    <item>
-      <title>Testing graph-dsl</title>
-      <link>http://johnmercier.com/blog/2017/01-19-testing-graph-dsl.html</link>
-      <pubDate>Thu, 19 Jan 2017 00:00:00 +0000</pubDate>
-      <guid isPermaLink="false">blog/2017/01-19-testing-graph-dsl.html</guid>
-      	<description>
-	&lt;div class=&quot;paragraph&quot;&gt;
+        </content>
+    </entry>
+    <entry>
+        <title>Testing graph-dsl</title>
+        <author>
+            <name>John Mercier</name>
+        </author>
+        <link href="http://johnmercier.com/blog/2017/01-19-testing-graph-dsl.html"/>
+        <updated>2017-01-19T00:00:00Z</updated>
+        <id>http://johnmercier.com/blog/2017/01-19-testing-graph-dsl.html</id>
+        <content type="html">
+            &lt;div class=&quot;paragraph&quot;&gt;
 &lt;p&gt;graph-dsl is a project I started so I could write graphs and algorithms easily. Over the past
 year testing has become important to the way I write code. With graph-dsl I wanted to learn more
 about Test Driven Development and using different tools like gradle, spock, jacoco, and sonarqube.&lt;/p&gt;
@@ -1830,15 +2231,18 @@ systemProp.sonar.login=sonar login&lt;/pre&gt;
 &lt;p&gt;sonar seems to calculate line coverage differently than jacoco. It is usually a few percentage points
 higher.&lt;/p&gt;
 &lt;/div&gt;
-	</description>
-    </item>
-    <item>
-      <title>Java Navive Access in Groovy</title>
-      <link>http://johnmercier.com/blog/2017/01-07-java-native-access-in-groovy.html</link>
-      <pubDate>Sat, 7 Jan 2017 00:00:00 +0000</pubDate>
-      <guid isPermaLink="false">blog/2017/01-07-java-native-access-in-groovy.html</guid>
-      	<description>
-	&lt;div class=&quot;paragraph&quot;&gt;
+        </content>
+    </entry>
+    <entry>
+        <title>Java Navive Access in Groovy</title>
+        <author>
+            <name>John Mercier</name>
+        </author>
+        <link href="http://johnmercier.com/blog/2017/01-07-java-native-access-in-groovy.html"/>
+        <updated>2017-01-07T00:00:00Z</updated>
+        <id>http://johnmercier.com/blog/2017/01-07-java-native-access-in-groovy.html</id>
+        <content type="html">
+            &lt;div class=&quot;paragraph&quot;&gt;
 &lt;p&gt;Using &lt;a href=&quot;https://github.com/java-native-access/jna&quot;&gt;Java Native Access&lt;/a&gt; in a groovy script seems easy enough. Just use grape to grab the dependency and use it an a simple groovy script.&lt;/p&gt;
 &lt;/div&gt;
 &lt;div class=&quot;listingblock&quot;&gt;
@@ -1897,15 +2301,18 @@ for(int i = 0; i &amp;lt; args.length; i++) {
 &lt;div class=&quot;paragraph&quot;&gt;
 &lt;p&gt;JNA makes it very easy to map native code in groovy. Please check out the &lt;a href=&quot;https://github.com/java-native-access/jna&quot;&gt;project&lt;/a&gt; for more details.&lt;/p&gt;
 &lt;/div&gt;
-	</description>
-    </item>
-    <item>
-      <title>epson xp-950 on gentoo</title>
-      <link>http://johnmercier.com/blog/2017/01-02-epson-xp-950-on-gentoo.html</link>
-      <pubDate>Mon, 2 Jan 2017 00:00:00 +0000</pubDate>
-      <guid isPermaLink="false">blog/2017/01-02-epson-xp-950-on-gentoo.html</guid>
-      	<description>
-	&lt;div id=&quot;preamble&quot;&gt;
+        </content>
+    </entry>
+    <entry>
+        <title>epson xp-950 on gentoo</title>
+        <author>
+            <name>John Mercier</name>
+        </author>
+        <link href="http://johnmercier.com/blog/2017/01-02-epson-xp-950-on-gentoo.html"/>
+        <updated>2017-01-02T00:00:00Z</updated>
+        <id>http://johnmercier.com/blog/2017/01-02-epson-xp-950-on-gentoo.html</id>
+        <content type="html">
+            &lt;div id=&quot;preamble&quot;&gt;
 &lt;div class=&quot;sectionbody&quot;&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
 &lt;p&gt;Adding a printer/scanner on gentoo can be easy or it can be hard. Here are some notes on how I did it.&lt;/p&gt;
@@ -1989,15 +2396,18 @@ for(int i = 0; i &amp;lt; args.length; i++) {
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-	</description>
-    </item>
-    <item>
-      <title>obnam on gentoo</title>
-      <link>http://johnmercier.com/blog/2015/09-09-obnam-on-gentoo.html</link>
-      <pubDate>Wed, 9 Sep 2015 00:00:00 +0000</pubDate>
-      <guid isPermaLink="false">blog/2015/09-09-obnam-on-gentoo.html</guid>
-      	<description>
-	&lt;div id=&quot;preamble&quot;&gt;
+        </content>
+    </entry>
+    <entry>
+        <title>obnam on gentoo</title>
+        <author>
+            <name>John Mercier</name>
+        </author>
+        <link href="http://johnmercier.com/blog/2015/09-09-obnam-on-gentoo.html"/>
+        <updated>2015-09-09T00:00:00Z</updated>
+        <id>http://johnmercier.com/blog/2015/09-09-obnam-on-gentoo.html</id>
+        <content type="html">
+            &lt;div id=&quot;preamble&quot;&gt;
 &lt;div class=&quot;sectionbody&quot;&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
 &lt;p&gt;My system is a Dell Precision M4600 laptop with gentoo installed. It is great for travel and moving to different rooms in the home. Unfortunately, it does not have full backups. I currently have dropbox for my personal data but after after working on this system for a year, I would like to have backups for the entire system. The solution is to have real backups along with dropbox.&lt;/p&gt;
@@ -2137,15 +2547,18 @@ log-mode = 0600&lt;/pre&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-	</description>
-    </item>
-    <item>
-      <title>Spring Boot Auto-completion breaks xdm</title>
-      <link>http://johnmercier.com/blog/2015/08-28-spring-boot-auto-completion-breaks-xdm.html</link>
-      <pubDate>Fri, 28 Aug 2015 00:00:00 +0000</pubDate>
-      <guid isPermaLink="false">blog/2015/08-28-spring-boot-auto-completion-breaks-xdm.html</guid>
-      	<description>
-	&lt;div class=&quot;paragraph&quot;&gt;
+        </content>
+    </entry>
+    <entry>
+        <title>Spring Boot Auto-completion breaks xdm</title>
+        <author>
+            <name>John Mercier</name>
+        </author>
+        <link href="http://johnmercier.com/blog/2015/08-28-spring-boot-auto-completion-breaks-xdm.html"/>
+        <updated>2015-08-28T00:00:00Z</updated>
+        <id>http://johnmercier.com/blog/2015/08-28-spring-boot-auto-completion-breaks-xdm.html</id>
+        <content type="html">
+            &lt;div class=&quot;paragraph&quot;&gt;
 &lt;p&gt;After setting up the spring boot cli auto-completion feature everything was working fine. Typing spring and then hitting tab in the console brought up the list of spring commands as promised. What I did not expect was after restarting my computer the xdm service complained about spring shell-completion.&lt;/p&gt;
 &lt;/div&gt;
 &lt;div class=&quot;listingblock&quot;&gt;
@@ -2167,15 +2580,18 @@ log-mode = 0600&lt;/pre&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
 &lt;p&gt;I added a &lt;a href=&quot;https://github.com/spring-projects/spring-boot/pull/3848&quot;&gt;pull&lt;/a&gt; request to spring-boot to fix the problem.&lt;/p&gt;
 &lt;/div&gt;
-	</description>
-    </item>
-    <item>
-      <title>adding posts to a github blog</title>
-      <link>http://johnmercier.com/blog/2015/08-26-adding-posts-to-a-github-blog.html</link>
-      <pubDate>Wed, 26 Aug 2015 00:00:00 +0000</pubDate>
-      <guid isPermaLink="false">blog/2015/08-26-adding-posts-to-a-github-blog.html</guid>
-      	<description>
-	&lt;div class=&quot;paragraph&quot;&gt;
+        </content>
+    </entry>
+    <entry>
+        <title>adding posts to a github blog</title>
+        <author>
+            <name>John Mercier</name>
+        </author>
+        <link href="http://johnmercier.com/blog/2015/08-26-adding-posts-to-a-github-blog.html"/>
+        <updated>2015-08-26T00:00:00Z</updated>
+        <id>http://johnmercier.com/blog/2015/08-26-adding-posts-to-a-github-blog.html</id>
+        <content type="html">
+            &lt;div class=&quot;paragraph&quot;&gt;
 &lt;p&gt;I just had this great idea to use github.com&amp;#8217;s editor for creating posts in this blog. Here is how it works.&lt;/p&gt;
 &lt;/div&gt;
 &lt;div class=&quot;olist arabic&quot;&gt;
@@ -2203,15 +2619,18 @@ log-mode = 0600&lt;/pre&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
 &lt;p&gt;This is the first post I am doing this with so lets see how it goes.&lt;/p&gt;
 &lt;/div&gt;
-	</description>
-    </item>
-    <item>
-      <title>Installing Spring Boot CLI in Gentoo</title>
-      <link>http://johnmercier.com/blog/2015/08-26-installing-spring-boot-cli-in-gentoo.html</link>
-      <pubDate>Wed, 26 Aug 2015 00:00:00 +0000</pubDate>
-      <guid isPermaLink="false">blog/2015/08-26-installing-spring-boot-cli-in-gentoo.html</guid>
-      	<description>
-	&lt;div class=&quot;paragraph&quot;&gt;
+        </content>
+    </entry>
+    <entry>
+        <title>Installing Spring Boot CLI in Gentoo</title>
+        <author>
+            <name>John Mercier</name>
+        </author>
+        <link href="http://johnmercier.com/blog/2015/08-26-installing-spring-boot-cli-in-gentoo.html"/>
+        <updated>2015-08-26T00:00:00Z</updated>
+        <id>http://johnmercier.com/blog/2015/08-26-installing-spring-boot-cli-in-gentoo.html</id>
+        <content type="html">
+            &lt;div class=&quot;paragraph&quot;&gt;
 &lt;p&gt;First, download the latest spring-boot-cli&lt;/p&gt;
 &lt;/div&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
@@ -2236,15 +2655,18 @@ export PATH&lt;/pre&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
 &lt;p&gt;Finally, restart the terminal or source the file &lt;code&gt;. vi /etc/profile.d/spring-cli.sh&lt;/code&gt;&lt;/p&gt;
 &lt;/div&gt;
-	</description>
-    </item>
-    <item>
-      <title>pipe-service</title>
-      <link>http://johnmercier.com/blog/2015/08-26-pipe-service.html</link>
-      <pubDate>Wed, 26 Aug 2015 00:00:00 +0000</pubDate>
-      <guid isPermaLink="false">blog/2015/08-26-pipe-service.html</guid>
-      	<description>
-	&lt;div class=&quot;paragraph&quot;&gt;
+        </content>
+    </entry>
+    <entry>
+        <title>pipe-service</title>
+        <author>
+            <name>John Mercier</name>
+        </author>
+        <link href="http://johnmercier.com/blog/2015/08-26-pipe-service.html"/>
+        <updated>2015-08-26T00:00:00Z</updated>
+        <id>http://johnmercier.com/blog/2015/08-26-pipe-service.html</id>
+        <content type="html">
+            &lt;div class=&quot;paragraph&quot;&gt;
 &lt;p&gt;I have been working on an idea for a microservice called &lt;a href=&quot;https://github.com/moaxcp/pipe-service&quot;&gt;pipe-service&lt;/a&gt;. It will take output from one service
 and send it as input to another service. The services I have in mind are http(s) and the variety of ftp services.&lt;/p&gt;
 &lt;/div&gt;
@@ -2290,15 +2712,18 @@ get transform-service | post neo4j-service&lt;/pre&gt;
 &lt;p&gt;I plan on using &lt;a href=&quot;http://projects.spring.io/spring-boot/&quot;&gt;spring-boot&lt;/a&gt; since it provides so much out of the box. It would also be nice to write an &lt;a href=&quot;https://angularjs.org/&quot;&gt;angular&lt;/a&gt; front end.
 Using something like &lt;a href=&quot;https://jhipster.github.io/&quot;&gt;JHipster&lt;/a&gt; may help with that.&lt;/p&gt;
 &lt;/div&gt;
-	</description>
-    </item>
-    <item>
-      <title>Gentoo Audit Log</title>
-      <link>http://johnmercier.com/blog/2015/08-18-gentoo-audit-log.html</link>
-      <pubDate>Tue, 18 Aug 2015 00:00:00 +0000</pubDate>
-      <guid isPermaLink="false">blog/2015/08-18-gentoo-audit-log.html</guid>
-      	<description>
-	&lt;div class=&quot;paragraph&quot;&gt;
+        </content>
+    </entry>
+    <entry>
+        <title>Gentoo Audit Log</title>
+        <author>
+            <name>John Mercier</name>
+        </author>
+        <link href="http://johnmercier.com/blog/2015/08-18-gentoo-audit-log.html"/>
+        <updated>2015-08-18T00:00:00Z</updated>
+        <id>http://johnmercier.com/blog/2015/08-18-gentoo-audit-log.html</id>
+        <content type="html">
+            &lt;div class=&quot;paragraph&quot;&gt;
 &lt;p&gt;Gentoo does not seem to have a lot of info on auditing unless it is under the hardened project. I am trying to get basic audit logging of users attempting to log into the system. It seems two things are needed: a properly configure kernel and the auditd service running.&lt;/p&gt;
 &lt;/div&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
@@ -2313,15 +2738,18 @@ Using something like &lt;a href=&quot;https://jhipster.github.io/&quot;&gt;JHips
 &lt;div class=&quot;paragraph&quot;&gt;
 &lt;p&gt;By following &lt;a href=&quot;http://www.gentoo-wiki.info/Syslog-ng&quot;&gt;this&lt;/a&gt; guide I was able to get logging setup.&lt;/p&gt;
 &lt;/div&gt;
-	</description>
-    </item>
-    <item>
-      <title>sometime gentoo blocks</title>
-      <link>http://johnmercier.com/blog/2015/08-10-sometimes-gentoo-blocks.html</link>
-      <pubDate>Mon, 10 Aug 2015 00:00:00 +0000</pubDate>
-      <guid isPermaLink="false">blog/2015/08-10-sometimes-gentoo-blocks.html</guid>
-      	<description>
-	&lt;div class=&quot;paragraph&quot;&gt;
+        </content>
+    </entry>
+    <entry>
+        <title>sometime gentoo blocks</title>
+        <author>
+            <name>John Mercier</name>
+        </author>
+        <link href="http://johnmercier.com/blog/2015/08-10-sometimes-gentoo-blocks.html"/>
+        <updated>2015-08-10T00:00:00Z</updated>
+        <id>http://johnmercier.com/blog/2015/08-10-sometimes-gentoo-blocks.html</id>
+        <content type="html">
+            &lt;div class=&quot;paragraph&quot;&gt;
 &lt;p&gt;I was trying to update my system which resulted in a blocked package.&lt;/p&gt;
 &lt;/div&gt;
 &lt;div class=&quot;listingblock&quot;&gt;
@@ -2347,15 +2775,18 @@ Using something like &lt;a href=&quot;https://jhipster.github.io/&quot;&gt;JHips
 &lt;div class=&quot;paragraph&quot;&gt;
 &lt;p&gt;Now my system is happy and being updated.&lt;/p&gt;
 &lt;/div&gt;
-	</description>
-    </item>
-    <item>
-      <title>bash day</title>
-      <link>http://johnmercier.com/blog/2015/06-26-bash-day.html</link>
-      <pubDate>Fri, 26 Jun 2015 00:00:00 +0000</pubDate>
-      <guid isPermaLink="false">blog/2015/06-26-bash-day.html</guid>
-      	<description>
-	&lt;div id=&quot;preamble&quot;&gt;
+        </content>
+    </entry>
+    <entry>
+        <title>bash day</title>
+        <author>
+            <name>John Mercier</name>
+        </author>
+        <link href="http://johnmercier.com/blog/2015/06-26-bash-day.html"/>
+        <updated>2015-06-26T00:00:00Z</updated>
+        <id>http://johnmercier.com/blog/2015/06-26-bash-day.html</id>
+        <content type="html">
+            &lt;div id=&quot;preamble&quot;&gt;
 &lt;div class=&quot;sectionbody&quot;&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
 &lt;p&gt;Digging deeper into bash can be rewarding. Today, and possibly this weekend, I am going to focus on getting bash looking good (in xterm).&lt;/p&gt;
@@ -2465,15 +2896,18 @@ I now have consolefont setup. The font can be changed in /etc/conf.d/consolefont
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-	</description>
-    </item>
-    <item>
-      <title>upgrading vagrant box</title>
-      <link>http://johnmercier.com/blog/2015/06-19-upgrading-vagrant-box.html</link>
-      <pubDate>Fri, 19 Jun 2015 00:00:00 +0000</pubDate>
-      <guid isPermaLink="false">blog/2015/06-19-upgrading-vagrant-box.html</guid>
-      	<description>
-	&lt;div class=&quot;paragraph&quot;&gt;
+        </content>
+    </entry>
+    <entry>
+        <title>upgrading vagrant box</title>
+        <author>
+            <name>John Mercier</name>
+        </author>
+        <link href="http://johnmercier.com/blog/2015/06-19-upgrading-vagrant-box.html"/>
+        <updated>2015-06-19T00:00:00Z</updated>
+        <id>http://johnmercier.com/blog/2015/06-19-upgrading-vagrant-box.html</id>
+        <content type="html">
+            &lt;div class=&quot;paragraph&quot;&gt;
 &lt;p&gt;I&amp;#8217;m upgrading &lt;a href=&quot;https://vagrantcloud.com/moaxcp/boxes/gentoo64&quot;&gt;moaxcp/gentoo64&lt;/a&gt; and these are my notes.&lt;/p&gt;
 &lt;/div&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
@@ -2533,26 +2967,32 @@ error. This time the error is No space left on device.&lt;/p&gt;
 &lt;p&gt;This makes me want to rethink the entire gentoo64 build. I shouldn&amp;#8217;t have to use lvm and I&amp;#8217;m not sure why I
 installed it. I think I&amp;#8217;m going to rebuild the whole system without lvm and make a larger hard drive.&lt;/p&gt;
 &lt;/div&gt;
-	</description>
-    </item>
-    <item>
-      <title>provisioning java on gentoo-with-vagrant</title>
-      <link>http://johnmercier.com/blog/2015/06-15-provisioning-java-on-gentoo-with-vagrant.html</link>
-      <pubDate>Mon, 15 Jun 2015 00:00:00 +0000</pubDate>
-      <guid isPermaLink="false">blog/2015/06-15-provisioning-java-on-gentoo-with-vagrant.html</guid>
-      	<description>
-	&lt;div class=&quot;paragraph&quot;&gt;
+        </content>
+    </entry>
+    <entry>
+        <title>provisioning java on gentoo-with-vagrant</title>
+        <author>
+            <name>John Mercier</name>
+        </author>
+        <link href="http://johnmercier.com/blog/2015/06-15-provisioning-java-on-gentoo-with-vagrant.html"/>
+        <updated>2015-06-15T00:00:00Z</updated>
+        <id>http://johnmercier.com/blog/2015/06-15-provisioning-java-on-gentoo-with-vagrant.html</id>
+        <content type="html">
+            &lt;div class=&quot;paragraph&quot;&gt;
 &lt;p&gt;I wrote a &lt;a href=&quot;https://github.com/moaxcp/fileServices/blob/master/Vagrantfile&quot;&gt;small script&lt;/a&gt; that will provision &lt;a href=&quot;https://packages.gentoo.org/package/dev-java/oracle-jdk-bin&quot;&gt;oracle-jdk-bin-1.8.0&lt;/a&gt; on my &lt;a href=&quot;https://atlas.hashicorp.com/moaxcp/boxes/gentoo64/versions/0.0.2&quot;&gt;gentoo64&lt;/a&gt; box. The script can be called multiple times through &lt;code&gt;vagrant reload --provision&lt;/code&gt; and it will only install the jdk once. Oracle&amp;#8217;s jdk has some restrictions. On gentoo the license needs to be accepted and a file needs to be manually downloaded and added to &lt;code&gt;/usr/portage/distfiles&lt;/code&gt;. My Vagrantfile adds a share to &lt;code&gt;/usr/portage/distfiles&lt;/code&gt; on the guest machine in &lt;code&gt;/distfiles&lt;/code&gt;. The shell script will copy the file if it doesn&amp;#8217;t exist, accept the license, and install the package. The only requirement is &lt;code&gt;jdk-8u45-linux-x64.tar.gz&lt;/code&gt; needs to be located at &apos;/usr/portage/distfiles&apos;. This can be changed in your own project by editing the share in your Vagrantfile.&lt;/p&gt;
 &lt;/div&gt;
-	</description>
-    </item>
-    <item>
-      <title>Release of Vagrant Box</title>
-      <link>http://johnmercier.com/blog/2015/06-13-release-of-vagrant-box.html</link>
-      <pubDate>Sat, 13 Jun 2015 00:00:00 +0000</pubDate>
-      <guid isPermaLink="false">blog/2015/06-13-release-of-vagrant-box.html</guid>
-      	<description>
-	&lt;div class=&quot;paragraph&quot;&gt;
+        </content>
+    </entry>
+    <entry>
+        <title>Release of Vagrant Box</title>
+        <author>
+            <name>John Mercier</name>
+        </author>
+        <link href="http://johnmercier.com/blog/2015/06-13-release-of-vagrant-box.html"/>
+        <updated>2015-06-13T00:00:00Z</updated>
+        <id>http://johnmercier.com/blog/2015/06-13-release-of-vagrant-box.html</id>
+        <content type="html">
+            &lt;div class=&quot;paragraph&quot;&gt;
 &lt;p&gt;I just released a working version of my gentoo64 vagrant box. Setting it up is not as easy as vagrant makes it out to be. The issues are documented on the box page though. Please take a look at &lt;a href=&quot;https://atlas.hashicorp.com/moaxcp/boxes/gentoo64&quot;&gt;my gentoo vagrant box&lt;/a&gt;.&lt;/p&gt;
 &lt;/div&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
@@ -2568,15 +3008,18 @@ installed it. I think I&amp;#8217;m going to rebuild the whole system without lv
 &lt;/li&gt;
 &lt;/ul&gt;
 &lt;/div&gt;
-	</description>
-    </item>
-    <item>
-      <title>webcam</title>
-      <link>http://johnmercier.com/blog/2015/06-13-webcam.html</link>
-      <pubDate>Sat, 13 Jun 2015 00:00:00 +0000</pubDate>
-      <guid isPermaLink="false">blog/2015/06-13-webcam.html</guid>
-      	<description>
-	&lt;div id=&quot;preamble&quot;&gt;
+        </content>
+    </entry>
+    <entry>
+        <title>webcam</title>
+        <author>
+            <name>John Mercier</name>
+        </author>
+        <link href="http://johnmercier.com/blog/2015/06-13-webcam.html"/>
+        <updated>2015-06-13T00:00:00Z</updated>
+        <id>http://johnmercier.com/blog/2015/06-13-webcam.html</id>
+        <content type="html">
+            &lt;div id=&quot;preamble&quot;&gt;
 &lt;div class=&quot;sectionbody&quot;&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
 &lt;p&gt;My webcam doesn&amp;#8217;t work on my gentoo machine. I actually have a list of hardware that I want to make sure works.&lt;/p&gt;
@@ -2706,15 +3149,18 @@ The camera works in Cheese!&lt;/p&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
 &lt;p&gt;Note: when making this post I was able to file an &lt;a href=&quot;https://github.com/tmux/tmux/issues/25&quot;&gt;issue&lt;/a&gt; with tmux.&lt;/p&gt;
 &lt;/div&gt;
-	</description>
-    </item>
-    <item>
-      <title>gentoo vagrant box</title>
-      <link>http://johnmercier.com/blog/2015/06-10-gentoo-vagrant-box.html</link>
-      <pubDate>Wed, 10 Jun 2015 00:00:00 +0000</pubDate>
-      <guid isPermaLink="false">blog/2015/06-10-gentoo-vagrant-box.html</guid>
-      	<description>
-	&lt;div class=&quot;paragraph&quot;&gt;
+        </content>
+    </entry>
+    <entry>
+        <title>gentoo vagrant box</title>
+        <author>
+            <name>John Mercier</name>
+        </author>
+        <link href="http://johnmercier.com/blog/2015/06-10-gentoo-vagrant-box.html"/>
+        <updated>2015-06-10T00:00:00Z</updated>
+        <id>http://johnmercier.com/blog/2015/06-10-gentoo-vagrant-box.html</id>
+        <content type="html">
+            &lt;div class=&quot;paragraph&quot;&gt;
 &lt;p&gt;I finally got my gentoo vagrant box up and running. There was a &lt;a href=&quot;https://github.com/mitchellh/vagrant/issues/5070#issuecomment-75738232&quot;&gt;bug&lt;/a&gt; in vagrant which I was able to find a workaround. I also had to make sure that the vboxsf module is loaded on boot. Otherwise, I got and error:&lt;/p&gt;
 &lt;/div&gt;
 &lt;div class=&quot;listingblock&quot;&gt;
@@ -2746,15 +3192,18 @@ The camera works in Cheese!&lt;/p&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
 &lt;p&gt;I was able to package the box after following another &lt;a href=&quot;https://github.com/mitchellh/vagrant/issues/5186#issuecomment-77355450&quot;&gt;fix&lt;/a&gt; but I won&amp;#8217;t be able to release the package until the above problems are fixed in the original vm.&lt;/p&gt;
 &lt;/div&gt;
-	</description>
-    </item>
-    <item>
-      <title>Gentoo Vagrant Box</title>
-      <link>http://johnmercier.com/blog/2015/06-06-gentoo-vagrant-box.html</link>
-      <pubDate>Sat, 6 Jun 2015 00:00:00 +0000</pubDate>
-      <guid isPermaLink="false">blog/2015/06-06-gentoo-vagrant-box.html</guid>
-      	<description>
-	&lt;div id=&quot;preamble&quot;&gt;
+        </content>
+    </entry>
+    <entry>
+        <title>Gentoo Vagrant Box</title>
+        <author>
+            <name>John Mercier</name>
+        </author>
+        <link href="http://johnmercier.com/blog/2015/06-06-gentoo-vagrant-box.html"/>
+        <updated>2015-06-06T00:00:00Z</updated>
+        <id>http://johnmercier.com/blog/2015/06-06-gentoo-vagrant-box.html</id>
+        <content type="html">
+            &lt;div id=&quot;preamble&quot;&gt;
 &lt;div class=&quot;sectionbody&quot;&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
 &lt;p&gt;Today I am working on a vagrant base box using gentoo and VirtualBox. I created a gentoo stage-3 vm in VirtualBox. But this is not enough to run gentoo in VirtualBox let alone as a vagrant box. There are a number of packages that need to be installed to make a stage-3 useful for virtual box and vagrant.&lt;/p&gt;
@@ -2809,15 +3258,18 @@ The camera works in Cheese!&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-	</description>
-    </item>
-    <item>
-      <title>xdm with notion</title>
-      <link>http://johnmercier.com/blog/2015/06-01-xdm-with-notion.html</link>
-      <pubDate>Mon, 1 Jun 2015 00:00:00 +0000</pubDate>
-      <guid isPermaLink="false">blog/2015/06-01-xdm-with-notion.html</guid>
-      	<description>
-	&lt;div class=&quot;paragraph&quot;&gt;
+        </content>
+    </entry>
+    <entry>
+        <title>xdm with notion</title>
+        <author>
+            <name>John Mercier</name>
+        </author>
+        <link href="http://johnmercier.com/blog/2015/06-01-xdm-with-notion.html"/>
+        <updated>2015-06-01T00:00:00Z</updated>
+        <id>http://johnmercier.com/blog/2015/06-01-xdm-with-notion.html</id>
+        <content type="html">
+            &lt;div class=&quot;paragraph&quot;&gt;
 &lt;p&gt;Today I am attempting to switch to xdm as my display manager. I currently use LXDE but I am integrating parts of it with the notion windows manager. LXDM is not needed so I would like to replace it with the original xdm.&lt;/p&gt;
 &lt;/div&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
@@ -2891,15 +3343,18 @@ The camera works in Cheese!&lt;/p&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
 &lt;p&gt;So far, I think this is one thing I can check of my list for building my system.&lt;/p&gt;
 &lt;/div&gt;
-	</description>
-    </item>
-    <item>
-      <title>notion with lxpanel</title>
-      <link>http://johnmercier.com/blog/2015/05-31-notion-with-lxpanel.html</link>
-      <pubDate>Sun, 31 May 2015 00:00:00 +0000</pubDate>
-      <guid isPermaLink="false">blog/2015/05-31-notion-with-lxpanel.html</guid>
-      	<description>
-	&lt;div class=&quot;paragraph&quot;&gt;
+        </content>
+    </entry>
+    <entry>
+        <title>notion with lxpanel</title>
+        <author>
+            <name>John Mercier</name>
+        </author>
+        <link href="http://johnmercier.com/blog/2015/05-31-notion-with-lxpanel.html"/>
+        <updated>2015-05-31T00:00:00Z</updated>
+        <id>http://johnmercier.com/blog/2015/05-31-notion-with-lxpanel.html</id>
+        <content type="html">
+            &lt;div class=&quot;paragraph&quot;&gt;
 &lt;p&gt;Today I am starting a project to use lxpanel from lxde in the notion window manager. I am starting with
 a fresh set of config files.&lt;/p&gt;
 &lt;/div&gt;
@@ -2956,15 +3411,18 @@ a fresh set of config files.&lt;/p&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
 &lt;p&gt;After the dock is setup add lxpanel to your .xinitrc This will make sure the panel is started when you log into the computer.&lt;/p&gt;
 &lt;/div&gt;
-	</description>
-    </item>
-    <item>
-      <title>notion 9999 ebuild.</title>
-      <link>http://johnmercier.com/blog/2015/05-30-notion-ebuild.html</link>
-      <pubDate>Sat, 30 May 2015 00:00:00 +0000</pubDate>
-      <guid isPermaLink="false">blog/2015/05-30-notion-ebuild.html</guid>
-      	<description>
-	&lt;div class=&quot;paragraph&quot;&gt;
+        </content>
+    </entry>
+    <entry>
+        <title>notion 9999 ebuild.</title>
+        <author>
+            <name>John Mercier</name>
+        </author>
+        <link href="http://johnmercier.com/blog/2015/05-30-notion-ebuild.html"/>
+        <updated>2015-05-30T00:00:00Z</updated>
+        <id>http://johnmercier.com/blog/2015/05-30-notion-ebuild.html</id>
+        <content type="html">
+            &lt;div class=&quot;paragraph&quot;&gt;
 &lt;p&gt;Today I am investigating installing the latest version of x11-wm/notion on my machine. I got an email from the developer that it should be safe. He said that there are no plans for a new release but many fixes have been made in the commit logs. I&amp;#8217;m going to risk it and try out the latest development source code.&lt;/p&gt;
 &lt;/div&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
@@ -2989,15 +3447,18 @@ a fresh set of config files.&lt;/p&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
 &lt;p&gt;It turns out that there is a problem with the current code. The lua detector is not able to detect the version of lua installed on the system. It uses the name of the lua executable rather than using lua -v to get the version. I will need to wait on installing the 9999 version of notion until this is resolved. The developer said it may not be until next weekend.&lt;/p&gt;
 &lt;/div&gt;
-	</description>
-    </item>
-    <item>
-      <title>upgrading the kernel</title>
-      <link>http://johnmercier.com/blog/2015/05-29-upgrading-kernel.html</link>
-      <pubDate>Fri, 29 May 2015 00:00:00 +0000</pubDate>
-      <guid isPermaLink="false">blog/2015/05-29-upgrading-kernel.html</guid>
-      	<description>
-	&lt;div class=&quot;paragraph&quot;&gt;
+        </content>
+    </entry>
+    <entry>
+        <title>upgrading the kernel</title>
+        <author>
+            <name>John Mercier</name>
+        </author>
+        <link href="http://johnmercier.com/blog/2015/05-29-upgrading-kernel.html"/>
+        <updated>2015-05-29T00:00:00Z</updated>
+        <id>http://johnmercier.com/blog/2015/05-29-upgrading-kernel.html</id>
+        <content type="html">
+            &lt;div class=&quot;paragraph&quot;&gt;
 &lt;p&gt;I&amp;#8217;m following &lt;a href=&quot;https://wiki.gentoo.org/wiki/Kernel/Upgrade&quot;&gt;this&lt;/a&gt; guide to upgrade my gentoo kernel.&lt;/p&gt;
 &lt;/div&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
@@ -3098,15 +3559,18 @@ kernel and they still should be valid.&lt;/p&gt;
 because I didn&amp;#8217;t have a xorg.conf and I definately didn&amp;#8217;t use an edid firmware for the monitor. Now I am glad to say my
 kernel is current and X starts.&lt;/p&gt;
 &lt;/div&gt;
-	</description>
-    </item>
-    <item>
-      <title>layman</title>
-      <link>http://johnmercier.com/blog/2015/05-27-layman.html</link>
-      <pubDate>Wed, 27 May 2015 00:00:00 +0000</pubDate>
-      <guid isPermaLink="false">blog/2015/05-27-layman.html</guid>
-      	<description>
-	&lt;div id=&quot;preamble&quot;&gt;
+        </content>
+    </entry>
+    <entry>
+        <title>layman</title>
+        <author>
+            <name>John Mercier</name>
+        </author>
+        <link href="http://johnmercier.com/blog/2015/05-27-layman.html"/>
+        <updated>2015-05-27T00:00:00Z</updated>
+        <id>http://johnmercier.com/blog/2015/05-27-layman.html</id>
+        <content type="html">
+            &lt;div id=&quot;preamble&quot;&gt;
 &lt;div class=&quot;sectionbody&quot;&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
 &lt;p&gt;I&amp;#8217;m working on getting &lt;a href=&quot;https://wiki.gentoo.org/wiki/Layman&quot;&gt;layman&lt;/a&gt; setup on my gentoo system so I can connect to
@@ -3193,15 +3657,18 @@ from the repo. To fix this add the ~amd64 keyword for the package.&lt;/p&gt;
 &lt;p&gt;Now I can remove vagrant from my overlay and use the original one.&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-	</description>
-    </item>
-    <item>
-      <title>accumulo devserver</title>
-      <link>http://johnmercier.com/blog/2015/05-26-accumulo-devserver.html</link>
-      <pubDate>Tue, 26 May 2015 00:00:00 +0000</pubDate>
-      <guid isPermaLink="false">blog/2015/05-26-accumulo-devserver.html</guid>
-      	<description>
-	&lt;div class=&quot;paragraph&quot;&gt;
+        </content>
+    </entry>
+    <entry>
+        <title>accumulo devserver</title>
+        <author>
+            <name>John Mercier</name>
+        </author>
+        <link href="http://johnmercier.com/blog/2015/05-26-accumulo-devserver.html"/>
+        <updated>2015-05-26T00:00:00Z</updated>
+        <id>http://johnmercier.com/blog/2015/05-26-accumulo-devserver.html</id>
+        <content type="html">
+            &lt;div class=&quot;paragraph&quot;&gt;
 &lt;p&gt;Today I am messing with &lt;a href=&quot;https://github.com/joshelser/accumulo-devserver&quot;&gt;this&lt;/a&gt; project to create an accumulo dev
 server.&lt;/p&gt;
 &lt;/div&gt;
@@ -3222,15 +3689,18 @@ Using the command found &lt;a href=&quot;http://docs.vagrantup.com/v2/providers/
 dev environment. The only problem is finding ebuilds for hadoop, accumulo, and zookeeper. Also hadoop requires
 ProtocolBuffer but there is already an updated ebuild for it in the master overlay.&lt;/p&gt;
 &lt;/div&gt;
-	</description>
-    </item>
-    <item>
-      <title>xterm settings</title>
-      <link>http://johnmercier.com/blog/2015/05-26-xterm-settings.html</link>
-      <pubDate>Tue, 26 May 2015 00:00:00 +0000</pubDate>
-      <guid isPermaLink="false">blog/2015/05-26-xterm-settings.html</guid>
-      	<description>
-	&lt;div class=&quot;paragraph&quot;&gt;
+        </content>
+    </entry>
+    <entry>
+        <title>xterm settings</title>
+        <author>
+            <name>John Mercier</name>
+        </author>
+        <link href="http://johnmercier.com/blog/2015/05-26-xterm-settings.html"/>
+        <updated>2015-05-26T00:00:00Z</updated>
+        <id>http://johnmercier.com/blog/2015/05-26-xterm-settings.html</id>
+        <content type="html">
+            &lt;div class=&quot;paragraph&quot;&gt;
 &lt;p&gt;To setup xterm with different colors than the system default edit the file ~.Xresources.&lt;/p&gt;
 &lt;/div&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
@@ -3259,15 +3729,18 @@ ProtocolBuffer but there is already an updated ebuild for it in the master overl
 &lt;div class=&quot;paragraph&quot;&gt;
 &lt;p&gt;to ~/.xinitrc and restart your terminal or use source ~/.xinitrc&lt;/p&gt;
 &lt;/div&gt;
-	</description>
-    </item>
-    <item>
-      <title>moaxcp-gentoo-overlay</title>
-      <link>http://johnmercier.com/blog/2015/05-23-moaxcp-gentoo-overlay.html</link>
-      <pubDate>Sat, 23 May 2015 00:00:00 +0000</pubDate>
-      <guid isPermaLink="false">blog/2015/05-23-moaxcp-gentoo-overlay.html</guid>
-      	<description>
-	&lt;div class=&quot;paragraph&quot;&gt;
+        </content>
+    </entry>
+    <entry>
+        <title>moaxcp-gentoo-overlay</title>
+        <author>
+            <name>John Mercier</name>
+        </author>
+        <link href="http://johnmercier.com/blog/2015/05-23-moaxcp-gentoo-overlay.html"/>
+        <updated>2015-05-23T00:00:00Z</updated>
+        <id>http://johnmercier.com/blog/2015/05-23-moaxcp-gentoo-overlay.html</id>
+        <content type="html">
+            &lt;div class=&quot;paragraph&quot;&gt;
 &lt;p&gt;I created an &lt;a href=&quot;https://github.com/moaxcp/moaxcp-gentoo-overlay&quot;&gt;gentoo overlay&lt;/a&gt; with the latest version of x11-wm/notion
 and my own project dev-java/recMD5. Go to the &amp;lt;a href=&quot;https://github.com/moaxcp/moaxcp-gentoo-overlay&quot;&amp;gt;overlay&amp;lt;/a&amp;gt; and
 follow the README.md for instructions on using the &lt;a href=&quot;https://github.com/moaxcp/moaxcp-gentoo-overlay&quot;&gt;overlay&lt;/a&gt;. Here are
@@ -3375,15 +3848,18 @@ auto-sync = yes
 sync-type = git&lt;/pre&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-	</description>
-    </item>
-    <item>
-      <title>recMD5 installs on gentoo</title>
-      <link>http://johnmercier.com/blog/2015/05-23-recmd5-installs-on-gentoo.html</link>
-      <pubDate>Sat, 23 May 2015 00:00:00 +0000</pubDate>
-      <guid isPermaLink="false">blog/2015/05-23-recmd5-installs-on-gentoo.html</guid>
-      	<description>
-	&lt;div class=&quot;paragraph&quot;&gt;
+        </content>
+    </entry>
+    <entry>
+        <title>recMD5 installs on gentoo</title>
+        <author>
+            <name>John Mercier</name>
+        </author>
+        <link href="http://johnmercier.com/blog/2015/05-23-recmd5-installs-on-gentoo.html"/>
+        <updated>2015-05-23T00:00:00Z</updated>
+        <id>http://johnmercier.com/blog/2015/05-23-recmd5-installs-on-gentoo.html</id>
+        <content type="html">
+            &lt;div class=&quot;paragraph&quot;&gt;
 &lt;p&gt;For the final step of the recmd5 project I want create a gentoo ebuild that will build recmd5 and install it on the
 system for use.&lt;/p&gt;
 &lt;/div&gt;
@@ -3403,15 +3879,18 @@ while the source file is recmd5.&lt;/p&gt;
 &lt;p&gt;I&amp;#8217;m very excited to finally package my software for an os. I may work on getting my download manager installing on
 gentoo as well.&lt;/p&gt;
 &lt;/div&gt;
-	</description>
-    </item>
-    <item>
-      <title>VirtualBox Gentoo Template</title>
-      <link>http://johnmercier.com/blog/2015/05-17-virtualbox-gentoo-template.html</link>
-      <pubDate>Sun, 17 May 2015 00:00:00 +0000</pubDate>
-      <guid isPermaLink="false">blog/2015/05-17-virtualbox-gentoo-template.html</guid>
-      	<description>
-	&lt;div id=&quot;preamble&quot;&gt;
+        </content>
+    </entry>
+    <entry>
+        <title>VirtualBox Gentoo Template</title>
+        <author>
+            <name>John Mercier</name>
+        </author>
+        <link href="http://johnmercier.com/blog/2015/05-17-virtualbox-gentoo-template.html"/>
+        <updated>2015-05-17T00:00:00Z</updated>
+        <id>http://johnmercier.com/blog/2015/05-17-virtualbox-gentoo-template.html</id>
+        <content type="html">
+            &lt;div id=&quot;preamble&quot;&gt;
 &lt;div class=&quot;sectionbody&quot;&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
 &lt;p&gt;I am creating a new virtualbox gentoo instance. This will be used as a template for other gentoo vms on my laptop. For now it will be very basic.&lt;/p&gt;
@@ -3492,15 +3971,18 @@ gentoo as well.&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-	</description>
-    </item>
-    <item>
-      <title>Checking HeapSortSelectHeap.java</title>
-      <link>http://johnmercier.com/blog/2015/05-09-checking-heapsortselectheap-java.html</link>
-      <pubDate>Sat, 9 May 2015 00:00:00 +0000</pubDate>
-      <guid isPermaLink="false">blog/2015/05-09-checking-heapsortselectheap-java.html</guid>
-      	<description>
-	&lt;div class=&quot;paragraph&quot;&gt;
+        </content>
+    </entry>
+    <entry>
+        <title>Checking HeapSortSelectHeap.java</title>
+        <author>
+            <name>John Mercier</name>
+        </author>
+        <link href="http://johnmercier.com/blog/2015/05-09-checking-heapsortselectheap-java.html"/>
+        <updated>2015-05-09T00:00:00Z</updated>
+        <id>http://johnmercier.com/blog/2015/05-09-checking-heapsortselectheap-java.html</id>
+        <content type="html">
+            &lt;div class=&quot;paragraph&quot;&gt;
 &lt;p&gt;I had to fix my previous post on HeapSort because I used the wrong comparison operators for siftDownMax and
 siftDownMin. To check these I made heapify public and printed the heap before sorting in runList.&lt;/p&gt;
 &lt;/div&gt;
@@ -3534,15 +4016,18 @@ after: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]&lt;/pre&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
 &lt;p&gt;As you can see a min heap results in descending order and max heap results in ascending order.&lt;/p&gt;
 &lt;/div&gt;
-	</description>
-    </item>
-    <item>
-      <title>Negative Lookahead Regex</title>
-      <link>http://johnmercier.com/blog/2015/05-04-106.html</link>
-      <pubDate>Mon, 4 May 2015 00:00:00 +0000</pubDate>
-      <guid isPermaLink="false">blog/2015/05-04-106.html</guid>
-      	<description>
-	&lt;div id=&quot;preamble&quot;&gt;
+        </content>
+    </entry>
+    <entry>
+        <title>Negative Lookahead Regex</title>
+        <author>
+            <name>John Mercier</name>
+        </author>
+        <link href="http://johnmercier.com/blog/2015/05-04-106.html"/>
+        <updated>2015-05-04T00:00:00Z</updated>
+        <id>http://johnmercier.com/blog/2015/05-04-106.html</id>
+        <content type="html">
+            &lt;div id=&quot;preamble&quot;&gt;
 &lt;div class=&quot;sectionbody&quot;&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
 &lt;p&gt;Take a list of languages:&lt;/p&gt;
@@ -3589,15 +4074,18 @@ after: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]&lt;/pre&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-	</description>
-    </item>
-    <item>
-      <title>Tutorial For A Configurable Heapsort In Java</title>
-      <link>http://johnmercier.com/blog/2015/04-30-tutorial-for-a-configurable-heapsort-in-java.html</link>
-      <pubDate>Thu, 30 Apr 2015 00:00:00 +0000</pubDate>
-      <guid isPermaLink="false">blog/2015/04-30-tutorial-for-a-configurable-heapsort-in-java.html</guid>
-      	<description>
-	&lt;div id=&quot;preamble&quot;&gt;
+        </content>
+    </entry>
+    <entry>
+        <title>Tutorial For A Configurable Heapsort In Java</title>
+        <author>
+            <name>John Mercier</name>
+        </author>
+        <link href="http://johnmercier.com/blog/2015/04-30-tutorial-for-a-configurable-heapsort-in-java.html"/>
+        <updated>2015-04-30T00:00:00Z</updated>
+        <id>http://johnmercier.com/blog/2015/04-30-tutorial-for-a-configurable-heapsort-in-java.html</id>
+        <content type="html">
+            &lt;div id=&quot;preamble&quot;&gt;
 &lt;div class=&quot;sectionbody&quot;&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
 &lt;p&gt;Heapsort is implemented by creating a heap and continuously removing the root element until the heap is empty. A heap
@@ -3813,15 +4301,18 @@ to make a ternary heapsort and generalize it into any possible d-ary heapsort.&l
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-	</description>
-    </item>
-    <item>
-      <title>$PS1 in gentoo</title>
-      <link>http://johnmercier.com/blog/2015/04-15-ps1-in-gentoo.html</link>
-      <pubDate>Wed, 15 Apr 2015 00:00:00 +0000</pubDate>
-      <guid isPermaLink="false">blog/2015/04-15-ps1-in-gentoo.html</guid>
-      	<description>
-	&lt;div class=&quot;paragraph&quot;&gt;
+        </content>
+    </entry>
+    <entry>
+        <title>$PS1 in gentoo</title>
+        <author>
+            <name>John Mercier</name>
+        </author>
+        <link href="http://johnmercier.com/blog/2015/04-15-ps1-in-gentoo.html"/>
+        <updated>2015-04-15T00:00:00Z</updated>
+        <id>http://johnmercier.com/blog/2015/04-15-ps1-in-gentoo.html</id>
+        <content type="html">
+            &lt;div class=&quot;paragraph&quot;&gt;
 &lt;p&gt;I finally changed my terminal to get rid of long paths. Right now it is&lt;/p&gt;
 &lt;/div&gt;
 &lt;div class=&quot;listingblock&quot;&gt;
@@ -3845,15 +4336,18 @@ to make a ternary heapsort and generalize it into any possible d-ary heapsort.&l
 &lt;pre&gt;PS1=&quot;\[33[01;32m\]\u\[33[01;34m\] \W \$\[33[00m\]&quot;&lt;/pre&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-	</description>
-    </item>
-    <item>
-      <title>Creating factordb</title>
-      <link>http://johnmercier.com/blog/2015/04-14-creating-factordb.html</link>
-      <pubDate>Tue, 14 Apr 2015 00:00:00 +0000</pubDate>
-      <guid isPermaLink="false">blog/2015/04-14-creating-factordb.html</guid>
-      	<description>
-	&lt;div class=&quot;paragraph&quot;&gt;
+        </content>
+    </entry>
+    <entry>
+        <title>Creating factordb</title>
+        <author>
+            <name>John Mercier</name>
+        </author>
+        <link href="http://johnmercier.com/blog/2015/04-14-creating-factordb.html"/>
+        <updated>2015-04-14T00:00:00Z</updated>
+        <id>http://johnmercier.com/blog/2015/04-14-creating-factordb.html</id>
+        <content type="html">
+            &lt;div class=&quot;paragraph&quot;&gt;
 &lt;p&gt;I started creating a new app called &lt;a href=&quot;https://github.com/moaxcp/factordb&quot;&gt;factordb&lt;/a&gt;. I am using the new grails 3.0.1. I
 have a few ideas for what it should do&lt;/p&gt;
 &lt;/div&gt;
@@ -3895,15 +4389,18 @@ have a few ideas for what it should do&lt;/p&gt;
 &lt;p&gt;These are just some ideas for now. The factoring program will be a separate project based off of
 &lt;a href=&quot;https://github.com/moaxcp/umuc-team-factor&quot;&gt;umuc-team-factor&lt;/a&gt;.&lt;/p&gt;
 &lt;/div&gt;
-	</description>
-    </item>
-    <item>
-      <title>Setting up xterm</title>
-      <link>http://johnmercier.com/blog/2015/04-14-setting-up-xterm.html</link>
-      <pubDate>Tue, 14 Apr 2015 00:00:00 +0000</pubDate>
-      <guid isPermaLink="false">blog/2015/04-14-setting-up-xterm.html</guid>
-      	<description>
-	&lt;div class=&quot;paragraph&quot;&gt;
+        </content>
+    </entry>
+    <entry>
+        <title>Setting up xterm</title>
+        <author>
+            <name>John Mercier</name>
+        </author>
+        <link href="http://johnmercier.com/blog/2015/04-14-setting-up-xterm.html"/>
+        <updated>2015-04-14T00:00:00Z</updated>
+        <id>http://johnmercier.com/blog/2015/04-14-setting-up-xterm.html</id>
+        <content type="html">
+            &lt;div class=&quot;paragraph&quot;&gt;
 &lt;p&gt;from &lt;a href=&quot;https://wiki.archlinux.org/index.php/x_resources&quot; class=&quot;bare&quot;&gt;https://wiki.archlinux.org/index.php/x_resources&lt;/a&gt; If you do not use a desktop environment, you probably need to add
 the following line to your ~/.xinitrc:&lt;/p&gt;
 &lt;/div&gt;
@@ -3912,15 +4409,18 @@ the following line to your ~/.xinitrc:&lt;/p&gt;
 &lt;pre&gt;[[ -f ~/.Xresources ]] &amp;amp;amp;&amp;amp;amp; xrdb -merge ~/.Xresources&lt;/pre&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-	</description>
-    </item>
-    <item>
-      <title>recmd5</title>
-      <link>http://johnmercier.com/blog/2015/02-20-recmd5.html</link>
-      <pubDate>Fri, 20 Feb 2015 00:00:00 +0000</pubDate>
-      <guid isPermaLink="false">blog/2015/02-20-recmd5.html</guid>
-      	<description>
-	&lt;div class=&quot;paragraph&quot;&gt;
+        </content>
+    </entry>
+    <entry>
+        <title>recmd5</title>
+        <author>
+            <name>John Mercier</name>
+        </author>
+        <link href="http://johnmercier.com/blog/2015/02-20-recmd5.html"/>
+        <updated>2015-02-20T00:00:00Z</updated>
+        <id>http://johnmercier.com/blog/2015/02-20-recmd5.html</id>
+        <content type="html">
+            &lt;div class=&quot;paragraph&quot;&gt;
 &lt;p&gt;I have created a small project focused on the md5 algorithm. I noticed the md5 in java cannot be restarted. If my
 program is md5ing a large file, I need to start the process over again if the program crashes.&lt;/p&gt;
 &lt;/div&gt;
@@ -3975,15 +4475,18 @@ private boolean testAgainstJavaMD5(byte[] bytes) {
 &lt;div class=&quot;paragraph&quot;&gt;
 &lt;p&gt;&lt;a href=&quot;https://travis-ci.org/moaxcp/recMD5&quot; class=&quot;bare&quot;&gt;https://travis-ci.org/moaxcp/recMD5&lt;/a&gt;&lt;/p&gt;
 &lt;/div&gt;
-	</description>
-    </item>
-    <item>
-      <title>Gentoo on the Java x86 emulator</title>
-      <link>http://johnmercier.com/blog/2015/02-01-gentoo-on-the-java-x86-emulator.html</link>
-      <pubDate>Sun, 1 Feb 2015 00:00:00 +0000</pubDate>
-      <guid isPermaLink="false">blog/2015/02-01-gentoo-on-the-java-x86-emulator.html</guid>
-      	<description>
-	&lt;div id=&quot;preamble&quot;&gt;
+        </content>
+    </entry>
+    <entry>
+        <title>Gentoo on the Java x86 emulator</title>
+        <author>
+            <name>John Mercier</name>
+        </author>
+        <link href="http://johnmercier.com/blog/2015/02-01-gentoo-on-the-java-x86-emulator.html"/>
+        <updated>2015-02-01T00:00:00Z</updated>
+        <id>http://johnmercier.com/blog/2015/02-01-gentoo-on-the-java-x86-emulator.html</id>
+        <content type="html">
+            &lt;div id=&quot;preamble&quot;&gt;
 &lt;div class=&quot;sectionbody&quot;&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
 &lt;p&gt;Java has an &lt;a href=&quot;http://jpc.sourceforge.net/download_application.html&quot;&gt;x86 emulator&lt;/a&gt; that claims to run linux. After
@@ -4183,28 +4686,34 @@ forward everything from the EthernetHubServer to the host system network card so
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-	</description>
-    </item>
-    <item>
-      <title>sony vaio p update</title>
-      <link>http://johnmercier.com/blog/2015/01-26-sony-vaio-p-update.html</link>
-      <pubDate>Mon, 26 Jan 2015 00:00:00 +0000</pubDate>
-      <guid isPermaLink="false">blog/2015/01-26-sony-vaio-p-update.html</guid>
-      	<description>
-	&lt;div class=&quot;paragraph&quot;&gt;
+        </content>
+    </entry>
+    <entry>
+        <title>sony vaio p update</title>
+        <author>
+            <name>John Mercier</name>
+        </author>
+        <link href="http://johnmercier.com/blog/2015/01-26-sony-vaio-p-update.html"/>
+        <updated>2015-01-26T00:00:00Z</updated>
+        <id>http://johnmercier.com/blog/2015/01-26-sony-vaio-p-update.html</id>
+        <content type="html">
+            &lt;div class=&quot;paragraph&quot;&gt;
 &lt;p&gt;Today I was finally able to update my tiny laptop. It was having an compile issue with the package sys-devel/llvm. I&amp;#8217;m
 not sure what the issue was but I masked the updated package and the rest of my system was able to update. Once I see
 an update to the ebuild I will try it again.&lt;/p&gt;
 &lt;/div&gt;
-	</description>
-    </item>
-    <item>
-      <title>BIOS Crashed</title>
-      <link>http://johnmercier.com/blog/2015/01-03-bios-crashed.html</link>
-      <pubDate>Sat, 3 Jan 2015 00:00:00 +0000</pubDate>
-      <guid isPermaLink="false">blog/2015/01-03-bios-crashed.html</guid>
-      	<description>
-	&lt;div class=&quot;paragraph&quot;&gt;
+        </content>
+    </entry>
+    <entry>
+        <title>BIOS Crashed</title>
+        <author>
+            <name>John Mercier</name>
+        </author>
+        <link href="http://johnmercier.com/blog/2015/01-03-bios-crashed.html"/>
+        <updated>2015-01-03T00:00:00Z</updated>
+        <id>http://johnmercier.com/blog/2015/01-03-bios-crashed.html</id>
+        <content type="html">
+            &lt;div class=&quot;paragraph&quot;&gt;
 &lt;p&gt;After trying to delete a UEFI entry in my system bios my computer no longer starts up. It gets to the BIOS screen, the
 progress bar fills in, and they system doesn&amp;#8217;t start. Any attempt to get into the BIOS menu does not work. The screen
 says it is preparing the menu but it never opens. I have tried resetting the bios by unplugging it, taking out the
@@ -4223,15 +4732,18 @@ it.&lt;/p&gt;
 &lt;p&gt;I found a site https://projecteuler.net/. It is a sight for solving math problems using computer programs. This would
 be fun to practice with clojure or the new java features if I can get my computer setup.&lt;/p&gt;
 &lt;/div&gt;
-	</description>
-    </item>
-    <item>
-      <title>Setting up gentoo again: Part 1</title>
-      <link>http://johnmercier.com/blog/2014/12-20-setting-up-gentoo-again-part-1.html</link>
-      <pubDate>Sat, 20 Dec 2014 00:00:00 +0000</pubDate>
-      <guid isPermaLink="false">blog/2014/12-20-setting-up-gentoo-again-part-1.html</guid>
-      	<description>
-	&lt;div id=&quot;preamble&quot;&gt;
+        </content>
+    </entry>
+    <entry>
+        <title>Setting up gentoo again: Part 1</title>
+        <author>
+            <name>John Mercier</name>
+        </author>
+        <link href="http://johnmercier.com/blog/2014/12-20-setting-up-gentoo-again-part-1.html"/>
+        <updated>2014-12-20T00:00:00Z</updated>
+        <id>http://johnmercier.com/blog/2014/12-20-setting-up-gentoo-again-part-1.html</id>
+        <content type="html">
+            &lt;div id=&quot;preamble&quot;&gt;
 &lt;div class=&quot;sectionbody&quot;&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
 &lt;p&gt;Recently I decided to reinstall gentoo. The first install went well but I would like to switch the system to use raid
@@ -4330,15 +4842,18 @@ do volume management (add, remove, resize partitions).&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-	</description>
-    </item>
-    <item>
-      <title>Changing keyboard shortcuts in the notion windows manager</title>
-      <link>http://johnmercier.com/blog/2014/10-15-changing-keyboard-shortcuts-in-the-notion-windows-manager.html</link>
-      <pubDate>Wed, 15 Oct 2014 00:00:00 +0000</pubDate>
-      <guid isPermaLink="false">blog/2014/10-15-changing-keyboard-shortcuts-in-the-notion-windows-manager.html</guid>
-      	<description>
-	&lt;div class=&quot;paragraph&quot;&gt;
+        </content>
+    </entry>
+    <entry>
+        <title>Changing keyboard shortcuts in the notion windows manager</title>
+        <author>
+            <name>John Mercier</name>
+        </author>
+        <link href="http://johnmercier.com/blog/2014/10-15-changing-keyboard-shortcuts-in-the-notion-windows-manager.html"/>
+        <updated>2014-10-15T00:00:00Z</updated>
+        <id>http://johnmercier.com/blog/2014/10-15-changing-keyboard-shortcuts-in-the-notion-windows-manager.html</id>
+        <content type="html">
+            &lt;div class=&quot;paragraph&quot;&gt;
 &lt;p&gt;There are two problems with notion&amp;#8217;s keyboard shortcuts: using the Alt key and function key for commands. First the
 Alt key is used for things like splitting and resizing frames. The Alt key is usually used to select menus in a window.
 For instance, in Netbeans Alt+r selects the run menu. When I push Alt+r notion tries to resize the frame instead of
@@ -4349,15 +4864,18 @@ most recent example I ran into is with alsamixer. Alsamixer uses the function ke
 viewing system info. Notion&amp;#8217;s keyboard shortcuts break applications. This is a problem for a mouse free windows
 manager. Notion should design a new shortcut layout that is simple and works with other X11 applications.&lt;/p&gt;
 &lt;/div&gt;
-	</description>
-    </item>
-    <item>
-      <title>Adding splitting screen shortcuts to the notion windows manager</title>
-      <link>http://johnmercier.com/blog/2014/10-12-adding-splitting-screen-shortcuts-to-the-notion-windows-manager.html</link>
-      <pubDate>Sun, 12 Oct 2014 00:00:00 +0000</pubDate>
-      <guid isPermaLink="false">blog/2014/10-12-adding-splitting-screen-shortcuts-to-the-notion-windows-manager.html</guid>
-      	<description>
-	&lt;div class=&quot;paragraph&quot;&gt;
+        </content>
+    </entry>
+    <entry>
+        <title>Adding splitting screen shortcuts to the notion windows manager</title>
+        <author>
+            <name>John Mercier</name>
+        </author>
+        <link href="http://johnmercier.com/blog/2014/10-12-adding-splitting-screen-shortcuts-to-the-notion-windows-manager.html"/>
+        <updated>2014-10-12T00:00:00Z</updated>
+        <id>http://johnmercier.com/blog/2014/10-12-adding-splitting-screen-shortcuts-to-the-notion-windows-manager.html</id>
+        <content type="html">
+            &lt;div class=&quot;paragraph&quot;&gt;
 &lt;p&gt;Some time ago I asked a question on stack overflow about adding new commands to the notion window manager. These
 commands split the entire workspace, adding a new frame to the bottom or side of it. Here is a link:
 &lt;a href=&quot;http://stackoverflow.com/questions/24494725/splitting-workspaces-in-the-notion-window-manager&quot; class=&quot;bare&quot;&gt;http://stackoverflow.com/questions/24494725/splitting-workspaces-in-the-notion-window-manager&lt;/a&gt;&lt;/p&gt;
@@ -4388,15 +4906,18 @@ commands split the entire workspace, adding a new frame to the bottom or side of
 &lt;p&gt;After setting these up on my Dell precision 4600 only META..Z seems to work and the focus is not moving to the new
 frame.&lt;/p&gt;
 &lt;/div&gt;
-	</description>
-    </item>
-    <item>
-      <title>stalonetray in notion</title>
-      <link>http://johnmercier.com/blog/2014/10-11-stalonetray-in-notion.html</link>
-      <pubDate>Sat, 11 Oct 2014 00:00:00 +0000</pubDate>
-      <guid isPermaLink="false">blog/2014/10-11-stalonetray-in-notion.html</guid>
-      	<description>
-	&lt;div class=&quot;paragraph&quot;&gt;
+        </content>
+    </entry>
+    <entry>
+        <title>stalonetray in notion</title>
+        <author>
+            <name>John Mercier</name>
+        </author>
+        <link href="http://johnmercier.com/blog/2014/10-11-stalonetray-in-notion.html"/>
+        <updated>2014-10-11T00:00:00Z</updated>
+        <id>http://johnmercier.com/blog/2014/10-11-stalonetray-in-notion.html</id>
+        <content type="html">
+            &lt;div class=&quot;paragraph&quot;&gt;
 &lt;p&gt;Currently, stalonetray is installed and running from the .xinitrc file with:&lt;/p&gt;
 &lt;/div&gt;
 &lt;div class=&quot;listingblock&quot;&gt;
@@ -4437,15 +4958,18 @@ would like to make stalonetray part of the status bar in notion.&lt;/p&gt;
 frame and it is split virtically, stalonetray is no longer in the lower right corner. I think have this fixed on my
 sony vaio p which I will look at tomorrow and try to fix.&lt;/p&gt;
 &lt;/div&gt;
-	</description>
-    </item>
-    <item>
-      <title>Bluetooth mouse on Gentoo part 2</title>
-      <link>http://johnmercier.com/blog/2014/10-10-bluetooth-mouse-on-gentoo-part-2.html</link>
-      <pubDate>Fri, 10 Oct 2014 00:00:00 +0000</pubDate>
-      <guid isPermaLink="false">blog/2014/10-10-bluetooth-mouse-on-gentoo-part-2.html</guid>
-      	<description>
-	&lt;div class=&quot;paragraph&quot;&gt;
+        </content>
+    </entry>
+    <entry>
+        <title>Bluetooth mouse on Gentoo part 2</title>
+        <author>
+            <name>John Mercier</name>
+        </author>
+        <link href="http://johnmercier.com/blog/2014/10-10-bluetooth-mouse-on-gentoo-part-2.html"/>
+        <updated>2014-10-10T00:00:00Z</updated>
+        <id>http://johnmercier.com/blog/2014/10-10-bluetooth-mouse-on-gentoo-part-2.html</id>
+        <content type="html">
+            &lt;div class=&quot;paragraph&quot;&gt;
 &lt;p&gt;simple-agent is no longer available in bluez. The gentoo wiki must be very outdated. The version I am using is 5.21.
 The test-programs use flag is no longer used. So I removed it from package.use. After searching for commands that start
 with blue I found bluetoothctl which did everything I needed. Here is what I did once bluetoothctl opened.&lt;/p&gt;
@@ -4485,15 +5009,18 @@ command in it so I tried that.&lt;/p&gt;
 &lt;p&gt;Now the mouse is working. I also have a bluetooth remote keyboard that I could add in the future. In the past I had to
 enter keys on it to pair. It will be interesting to see how bluetoothctl handles this.&lt;/p&gt;
 &lt;/div&gt;
-	</description>
-    </item>
-    <item>
-      <title>Install bluetooth mouse</title>
-      <link>http://johnmercier.com/blog/2014/10-10-install-bluetooth-mouse.html</link>
-      <pubDate>Fri, 10 Oct 2014 00:00:00 +0000</pubDate>
-      <guid isPermaLink="false">blog/2014/10-10-install-bluetooth-mouse.html</guid>
-      	<description>
-	&lt;div class=&quot;paragraph&quot;&gt;
+        </content>
+    </entry>
+    <entry>
+        <title>Install bluetooth mouse</title>
+        <author>
+            <name>John Mercier</name>
+        </author>
+        <link href="http://johnmercier.com/blog/2014/10-10-install-bluetooth-mouse.html"/>
+        <updated>2014-10-10T00:00:00Z</updated>
+        <id>http://johnmercier.com/blog/2014/10-10-install-bluetooth-mouse.html</id>
+        <content type="html">
+            &lt;div class=&quot;paragraph&quot;&gt;
 &lt;p&gt;I am following the wiki article at: &lt;a href=&quot;http://wiki.gentoo.org/wiki/Bluetooth&quot; class=&quot;bare&quot;&gt;http://wiki.gentoo.org/wiki/Bluetooth&lt;/a&gt;&lt;/p&gt;
 &lt;/div&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
@@ -4509,15 +5036,18 @@ it did not add simple-agent.&lt;/p&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
 &lt;p&gt;I will have to continue this tomorrow.&lt;/p&gt;
 &lt;/div&gt;
-	</description>
-    </item>
-    <item>
-      <title>Connecting to a WPA Wireless Network From The Gentoo Minimal Install CD</title>
-      <link>http://johnmercier.com/blog/2014/06-01-connecting-to-a-wpa-wireless-network-from-the-gentoo-minimal-install-cd.html</link>
-      <pubDate>Sun, 1 Jun 2014 00:00:00 +0000</pubDate>
-      <guid isPermaLink="false">blog/2014/06-01-connecting-to-a-wpa-wireless-network-from-the-gentoo-minimal-install-cd.html</guid>
-      	<description>
-	&lt;div id=&quot;preamble&quot;&gt;
+        </content>
+    </entry>
+    <entry>
+        <title>Connecting to a WPA Wireless Network From The Gentoo Minimal Install CD</title>
+        <author>
+            <name>John Mercier</name>
+        </author>
+        <link href="http://johnmercier.com/blog/2014/06-01-connecting-to-a-wpa-wireless-network-from-the-gentoo-minimal-install-cd.html"/>
+        <updated>2014-06-01T00:00:00Z</updated>
+        <id>http://johnmercier.com/blog/2014/06-01-connecting-to-a-wpa-wireless-network-from-the-gentoo-minimal-install-cd.html</id>
+        <content type="html">
+            &lt;div id=&quot;preamble&quot;&gt;
 &lt;div class=&quot;sectionbody&quot;&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
 &lt;p&gt;Connecting to a wpa enabled wireless network can be difficult in the gentoo minimum install cd. Most sources suggest
@@ -4629,15 +5159,18 @@ OK
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-	</description>
-    </item>
-    <item>
-      <title>Create an Installer for Gentoo</title>
-      <link>http://johnmercier.com/blog/2014/05-18-create-an-installer-for-gentoo.html</link>
-      <pubDate>Sun, 18 May 2014 00:00:00 +0000</pubDate>
-      <guid isPermaLink="false">blog/2014/05-18-create-an-installer-for-gentoo.html</guid>
-      	<description>
-	&lt;div id=&quot;preamble&quot;&gt;
+        </content>
+    </entry>
+    <entry>
+        <title>Create an Installer for Gentoo</title>
+        <author>
+            <name>John Mercier</name>
+        </author>
+        <link href="http://johnmercier.com/blog/2014/05-18-create-an-installer-for-gentoo.html"/>
+        <updated>2014-05-18T00:00:00Z</updated>
+        <id>http://johnmercier.com/blog/2014/05-18-create-an-installer-for-gentoo.html</id>
+        <content type="html">
+            &lt;div id=&quot;preamble&quot;&gt;
 &lt;div class=&quot;sectionbody&quot;&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
 &lt;p&gt;As with many linux distributions gentoo provides Live CDs which can be used to try out gentoo and install it. Gentoo
@@ -4715,15 +5248,18 @@ applications and change the configuration.&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-	</description>
-    </item>
-    <item>
-      <title>Gentoo Introduction</title>
-      <link>http://johnmercier.com/blog/2014/05-17-gentoo-introduction.html</link>
-      <pubDate>Sat, 17 May 2014 00:00:00 +0000</pubDate>
-      <guid isPermaLink="false">blog/2014/05-17-gentoo-introduction.html</guid>
-      	<description>
-	&lt;div class=&quot;paragraph&quot;&gt;
+        </content>
+    </entry>
+    <entry>
+        <title>Gentoo Introduction</title>
+        <author>
+            <name>John Mercier</name>
+        </author>
+        <link href="http://johnmercier.com/blog/2014/05-17-gentoo-introduction.html"/>
+        <updated>2014-05-17T00:00:00Z</updated>
+        <id>http://johnmercier.com/blog/2014/05-17-gentoo-introduction.html</id>
+        <content type="html">
+            &lt;div class=&quot;paragraph&quot;&gt;
 &lt;p&gt;Gentoo is one of the few linux based operating systems that allows users to build the operating system from the ground
 up. Being able to choose every part of the operating system, gentoo is extremely customizable. As a result it can be
 adapted to meet any users needs.&lt;/p&gt;
@@ -4785,15 +5321,18 @@ function without the drivers being selected in the kernel.&lt;/p&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
 &lt;p&gt;The instructions will select options in the kernel to support these devices.&lt;/p&gt;
 &lt;/div&gt;
-	</description>
-    </item>
-    <item>
-      <title>Java SE Bug #5052093</title>
-      <link>http://johnmercier.com/blog/2008/08-19-java-se-bug-5052093.html</link>
-      <pubDate>Tue, 19 Aug 2008 00:00:00 +0000</pubDate>
-      <guid isPermaLink="false">blog/2008/08-19-java-se-bug-5052093.html</guid>
-      	<description>
-	&lt;div class=&quot;paragraph&quot;&gt;
+        </content>
+    </entry>
+    <entry>
+        <title>Java SE Bug #5052093</title>
+        <author>
+            <name>John Mercier</name>
+        </author>
+        <link href="http://johnmercier.com/blog/2008/08-19-java-se-bug-5052093.html"/>
+        <updated>2008-08-19T00:00:00Z</updated>
+        <id>http://johnmercier.com/blog/2008/08-19-java-se-bug-5052093.html</id>
+        <content type="html">
+            &lt;div class=&quot;paragraph&quot;&gt;
 &lt;p&gt;While I was working on my
 &lt;a href=&quot;http://code.google.com/p/delta-utilities/&quot;&gt;download manager&lt;/a&gt; yesterday
 I found a bug in java. Every time I tried to make a connection to a
@@ -4832,15 +5371,18 @@ snapshot from java.net. Since they couldn&amp;#8217;t change the original
 getContenthLength a new getContethLengthLong method has been added.
 From now on I&amp;#8217;m going to use JDK7 even though it&amp;#8217;s not out yet.&lt;/p&gt;
 &lt;/div&gt;
-	</description>
-    </item>
-    <item>
-      <title>Google Code Project</title>
-      <link>http://johnmercier.com/blog/2008/05-18-google-code-project.html</link>
-      <pubDate>Sun, 18 May 2008 00:00:00 +0000</pubDate>
-      <guid isPermaLink="false">blog/2008/05-18-google-code-project.html</guid>
-      	<description>
-	&lt;div class=&quot;paragraph&quot;&gt;
+        </content>
+    </entry>
+    <entry>
+        <title>Google Code Project</title>
+        <author>
+            <name>John Mercier</name>
+        </author>
+        <link href="http://johnmercier.com/blog/2008/05-18-google-code-project.html"/>
+        <updated>2008-05-18T00:00:00Z</updated>
+        <id>http://johnmercier.com/blog/2008/05-18-google-code-project.html</id>
+        <content type="html">
+            &lt;div class=&quot;paragraph&quot;&gt;
 &lt;p&gt;I&amp;#8217;ve started a Google Code project for my
 &lt;a href=&quot;http://code.google.com/p/delta-utilities/&quot;&gt;download manager&lt;/a&gt;. Here is
 the description so far:&lt;/p&gt;
@@ -4882,15 +5424,18 @@ the description so far:&lt;/p&gt;
 store everything. I tried to use sourceforge once but I couldn&amp;#8217;t figure
 out cvs. Now that netbeans does everything for me It&amp;#8217;s great.&lt;/p&gt;
 &lt;/div&gt;
-	</description>
-    </item>
-    <item>
-      <title>Fixing &quot;Could not Open Install.log file!&quot;</title>
-      <link>http://johnmercier.com/blog/2008/03-25-fixing-could-not-open-install-log-file.html</link>
-      <pubDate>Tue, 25 Mar 2008 00:00:00 +0000</pubDate>
-      <guid isPermaLink="false">blog/2008/03-25-fixing-could-not-open-install-log-file.html</guid>
-      	<description>
-	&lt;div class=&quot;paragraph&quot;&gt;
+        </content>
+    </entry>
+    <entry>
+        <title>Fixing "Could not Open Install.log file!"</title>
+        <author>
+            <name>John Mercier</name>
+        </author>
+        <link href="http://johnmercier.com/blog/2008/03-25-fixing-could-not-open-install-log-file.html"/>
+        <updated>2008-03-25T00:00:00Z</updated>
+        <id>http://johnmercier.com/blog/2008/03-25-fixing-could-not-open-install-log-file.html</id>
+        <content type="html">
+            &lt;div class=&quot;paragraph&quot;&gt;
 &lt;p&gt;While trying to clean up my computer today I found some programs that I
 couldn&amp;#8217;t uninstall. It seems that some installers need a Install.log
 file in order to uninstall some programs. Well I looked it up and here
@@ -4918,15 +5463,18 @@ is the procedure I found:&lt;/p&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
 &lt;p&gt;This works great.&lt;/p&gt;
 &lt;/div&gt;
-	</description>
-    </item>
-    <item>
-      <title>Reading File Input from the Internet with Style</title>
-      <link>http://johnmercier.com/blog/2008/03-22-reading-file-input-from-the-internet-with-style.html</link>
-      <pubDate>Sat, 22 Mar 2008 00:00:00 +0000</pubDate>
-      <guid isPermaLink="false">blog/2008/03-22-reading-file-input-from-the-internet-with-style.html</guid>
-      	<description>
-	&lt;div class=&quot;paragraph&quot;&gt;
+        </content>
+    </entry>
+    <entry>
+        <title>Reading File Input from the Internet with Style</title>
+        <author>
+            <name>John Mercier</name>
+        </author>
+        <link href="http://johnmercier.com/blog/2008/03-22-reading-file-input-from-the-internet-with-style.html"/>
+        <updated>2008-03-22T00:00:00Z</updated>
+        <id>http://johnmercier.com/blog/2008/03-22-reading-file-input-from-the-internet-with-style.html</id>
+        <content type="html">
+            &lt;div class=&quot;paragraph&quot;&gt;
 &lt;p&gt;&lt;span class=&quot;image&quot;&gt;&lt;img src=&quot;/images/parserstream.png&quot; alt=&quot;parserstream&quot;&gt;&lt;/span&gt;&lt;/p&gt;
 &lt;/div&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
@@ -4982,8 +5530,7 @@ attribute strings that the parser looks for work like Regular
 Expressions. I&amp;#8217;m sure there is a way to do it but for now this will
 work.&lt;/p&gt;
 &lt;/div&gt;
-	</description>
-    </item>
-
-  </channel> 
-</rss>
+        </content>
+    </entry>
+    
+</feed>
