@@ -4,7 +4,7 @@
     <link href="http://johnmercier.com/"/>
     <link rel="self" type="application/atom+xml" href="http://johnmercier.com/feed.xml"/>
     <subtitle>[A software developer interested in java, groovy, and nixos]</subtitle>
-    <updated>2018-03-26T02:21:38Z</updated>
+    <updated>2018-03-26T02:28:17Z</updated>
     <id>tag:null,2018:03</id>
     <entry>
         <title>Switching to groovy-mte in JBake</title>
@@ -12,7 +12,7 @@
             <name>2018-01-21</name>
         </author>
         <link href="http://johnmercier.com/blog/2018/01-21-switching-to-groovy-mte-in-jbake.html"/>
-        <updated>2018-03-26T02:20:48Z</updated>
+        <updated>2018-03-26T02:27:23Z</updated>
         <id>http://johnmercier.com/blog/2018/01-21-switching-to-groovy-mte-in-jbake.html</id>
         <category term="jbake"/>
         <category term="groovy"/>
@@ -372,6 +372,311 @@ displayed. Comments are displayed when the post is not a summary. Comments can b
 &lt;/div&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
 &lt;p&gt;Disqus will look up comment counts using the script and update the link within the dom to include the count text.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+        </content>
+    </entry>
+    <entry>
+        <title>Bootstrapping Ivy and Other Tasks in Ant</title>
+        <author>
+            <name>2018-03-25</name>
+        </author>
+        <link href="http://johnmercier.com/blog/2018/03-25-bootstrapping-ant.html"/>
+        <updated>2018-03-26T02:27:23Z</updated>
+        <id>http://johnmercier.com/blog/2018/03-25-bootstrapping-ant.html</id>
+        <category term="ant"/>
+        <content type="html">
+            &lt;div id=&quot;preamble&quot;&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Typically build libraries with &lt;a href=&quot;http://ant.apache.org/&quot;&gt;ant&lt;/a&gt; tasks are carefully managed in &lt;code&gt;~/.ant/lib&lt;/code&gt; or
+&lt;code&gt;$ANT_HOME/lib&lt;/code&gt; by the developer. Every project using &lt;a href=&quot;http://ant.apache.org/&quot;&gt;ant&lt;/a&gt; will have those tasks on the
+classpath every time &lt;a href=&quot;http://ant.apache.org/&quot;&gt;ant&lt;/a&gt; is invoked. This can be problematic to developers working on multiple
+&lt;a href=&quot;http://ant.apache.org/&quot;&gt;ant&lt;/a&gt; projects. It can be especially problematic for CI servers building
+&lt;a href=&quot;http://ant.apache.org/&quot;&gt;ant&lt;/a&gt; projects. Projects cannot select different versions of build tasks making the build none
+deterministic and dependent on the environment the build is executed in. Wouldn&amp;#8217;t it be nice if build libraries could
+be added to an &lt;a href=&quot;http://ant.apache.org/&quot;&gt;ant&lt;/a&gt; project dynamically within the build.xml file? This can be made possible by
+downloading the libraries from a repository like &lt;a href=&quot;https://search.maven.org/&quot;&gt;maven central&lt;/a&gt; and adding the tasks in the
+project&amp;#8217;s build file.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;The &lt;a href=&quot;http://ant.apache.org/&quot;&gt;ant&lt;/a&gt; build system does not come with dependency management. Developers either need to manage
+dependencies manually or use &lt;a href=&quot;http://ant.apache.org/ivy/&quot;&gt;ivy&lt;/a&gt;. Dependency management is not the easiest task to perform
+manually and it distracts developers from writing their projects. &lt;a href=&quot;http://ant.apache.org/ivy/&quot;&gt;Ivy&lt;/a&gt; is capable of
+downloading dependencies from maven central for use in the project. &lt;a href=&quot;http://ant.apache.org/ivy/&quot;&gt;Ivy&lt;/a&gt; will be used to
+provide build libraries to the &lt;a href=&quot;http://ant.apache.org/&quot;&gt;ant&lt;/a&gt; project so tasks may be added but first
+&lt;a href=&quot;http://ant.apache.org/ivy/&quot;&gt;ivy&lt;/a&gt; tasks must be added to the project.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;_base_build_xml&quot;&gt;base build.xml&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;To get started here is a &lt;code&gt;build.xml&lt;/code&gt; defining some properties we will use to download &lt;a href=&quot;http://ant.apache.org/ivy/&quot;&gt;ivy&lt;/a&gt;
+and a cleanup task.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;title&quot;&gt;build.xml&lt;/div&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;prettyprint highlight&quot;&gt;&lt;code class=&quot;language-ant&quot; data-lang=&quot;ant&quot;&gt;&amp;lt;project&amp;gt;
+    &amp;lt;basename property=&quot;ant.project.name&quot; file=&quot;${basedir}&quot;/&amp;gt;&lt;b class=&quot;conum&quot;&gt;(1)&lt;/b&gt;
+
+    &amp;lt;property name=&quot;build.cache.dir&quot; location=&quot;build-cache&quot;/&amp;gt;&lt;b class=&quot;conum&quot;&gt;(2)&lt;/b&gt;
+    &amp;lt;property name=&quot;build.cache.download.dir&quot; location=&quot;${build.cache.dir}/download&quot;/&amp;gt;
+
+    &amp;lt;target name=&quot;cleanBuildCache&quot; description=&quot;Deletes build cache.&quot;&amp;gt;&lt;b class=&quot;conum&quot;&gt;(3)&lt;/b&gt;
+        &amp;lt;delete dir=&quot;${build.cache.dir}&quot;/&amp;gt;
+    &amp;lt;/target&amp;gt;
+&amp;lt;/project&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;colist arabic&quot;&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;project name is name of directory&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;setup properties for build cache&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;create target to delete build cache&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Bootstrapping is split into two parts: installing &lt;a href=&quot;http://ant.apache.org/ivy/&quot;&gt;ivy&lt;/a&gt; and configuring the build tasks.
+First &lt;a href=&quot;http://ant.apache.org/ivy/&quot;&gt;ivy&lt;/a&gt; tasks are added to the project by downloading &lt;a href=&quot;http://ant.apache.org/ivy/&quot;&gt;ivy&lt;/a&gt;
+with &lt;a href=&quot;http://ant.apache.org/manual/Tasks/get.html&quot;&gt;get&lt;/a&gt; and adding it to the project with
+&lt;a href=&quot;http://ant.apache.org/manual/Tasks/taskdef.html&quot;&gt;taskdef&lt;/a&gt;. Second &lt;a href=&quot;http://ant.apache.org/ivy/&quot;&gt;ivy&lt;/a&gt; is used to resolve
+other &quot;build&quot; dependencies while ant adds the task with another set of
+&lt;a href=&quot;http://ant.apache.org/manual/Tasks/taskdef.html&quot;&gt;taskdefs&lt;/a&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;_adding_ivy_tasks&quot;&gt;adding ivy tasks&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&lt;a href=&quot;http://ant.apache.org/ivy/&quot;&gt;Ivy&lt;/a&gt; tasks are added to the project in a installIvy target. If
+&lt;a href=&quot;http://ant.apache.org/ivy/&quot;&gt;ivy&lt;/a&gt; has already been downloaded through a previous build it will skip downloading the jar
+and just add the tasks.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;title&quot;&gt;build.xml&lt;/div&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;prettyprint highlight&quot;&gt;&lt;code class=&quot;language-ant&quot; data-lang=&quot;ant&quot;&gt;&amp;lt;target name=&quot;installIvy&quot; description=&quot;Adds ivy jar to build cache and adds ivy tasks to project.&quot;&amp;gt;
+    &amp;lt;local name=&quot;ivy.dir&quot;/&amp;gt;&lt;b class=&quot;conum&quot;&gt;(1)&lt;/b&gt;
+    &amp;lt;local name=&quot;ivy.file&quot;/&amp;gt;
+    &amp;lt;local name=&quot;ivy.available&quot;/&amp;gt;
+
+    &amp;lt;property name=&quot;ivy.dir&quot; location=&quot;${build.cache.download.dir}/ivy&quot;/&amp;gt;
+    &amp;lt;property name=&quot;ivy.file&quot; location=&quot;${ivy.dir}/ivy-${ivy.version}.jar&quot;/&amp;gt;
+    &amp;lt;available file=&quot;${ivy.file}&quot; property=&quot;ivy.present&quot;/&amp;gt;&lt;b class=&quot;conum&quot;&gt;(2)&lt;/b&gt;
+
+    &amp;lt;echo if:set=&quot;ivy.present&quot;&amp;gt;ivy installed at ${ivy.file}&amp;lt;/echo&amp;gt;
+
+    &amp;lt;mkdir unless:set=&quot;ivy.present&quot; dir=&quot;${ivy.dir}&quot;/&amp;gt;
+    &amp;lt;get unless:set=&quot;ivy.present&quot; dest=&quot;${ivy.file}&quot;
+        src=&quot;${public.repo}/org/apache/ivy/ivy/${ivy.version}/ivy-${ivy.version}.jar&quot;/&amp;gt;&lt;b class=&quot;conum&quot;&gt;(3)&lt;/b&gt;
+
+    &amp;lt;taskdef resource=&quot;org/apache/ivy/ant/antlib.xml&quot; uri=&quot;antlib:org.apache.ivy.ant&quot; classpath=&quot;${ivy.file}&quot;/&amp;gt;&lt;b class=&quot;conum&quot;&gt;(4)&lt;/b&gt;
+&amp;lt;/target&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;colist arabic&quot;&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;setup local properties for jar location&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;check if ivy file exists&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;download ivy jar unless it has already been downloaded&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;add ivy tasks to project&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;ivy.version is a property defining the version of &lt;a href=&quot;http://ant.apache.org/ivy/&quot;&gt;ivy&lt;/a&gt; to use.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre&gt;&amp;lt;property name=&quot;ivy.version&quot; value=&quot;2.4.0&quot;/&amp;gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;public.repo is a property defining the repo to download &lt;a href=&quot;http://ant.apache.org/ivy/&quot;&gt;ivy&lt;/a&gt; from.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre&gt;&amp;lt;property name=&quot;public.repo&quot; value=&quot;http://repo1.maven.org/maven2&quot;/&amp;gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;_adding_other_build_tasks&quot;&gt;adding other build tasks&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Now that &lt;a href=&quot;http://ant.apache.org/ivy/&quot;&gt;ivy&lt;/a&gt; has been added to the project other tasks can be resolved using
+&lt;a href=&quot;http://ant.apache.org/ivy/&quot;&gt;ivy&lt;/a&gt; and added to the project. First we will create the ivysettings.xml and ivy.xml for the
+project. Then we will add the target which will download and add the build tasks.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect2&quot;&gt;
+&lt;h3 id=&quot;_ivysettings_xml&quot;&gt;ivysettings.xml&lt;/h3&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;ivysettings.xml allows us to define repositories in which to resolve and publish dependencies.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;title&quot;&gt;ivysettings.xml&lt;/div&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;prettyprint highlight&quot;&gt;&lt;code class=&quot;language-ant&quot; data-lang=&quot;ant&quot;&gt;&amp;lt;ivysettings&amp;gt;
+    &amp;lt;settings defaultResolver=&quot;default&quot;/&amp;gt;
+    &amp;lt;resolvers&amp;gt;
+      &amp;lt;ibiblio name=&quot;public&quot; root=&quot;https://jcenter.bintray.com/&quot; m2compatible=&quot;true&quot;/&amp;gt;&lt;b class=&quot;conum&quot;&gt;(1)&lt;/b&gt;
+    &amp;lt;/resolvers&amp;gt;
+    &amp;lt;include url=&quot;${ivy.default.settings.dir}/ivysettings-shared.xml&quot;/&amp;gt;
+    &amp;lt;include url=&quot;${ivy.default.settings.dir}/ivysettings-local.xml&quot;/&amp;gt;
+    &amp;lt;include url=&quot;${ivy.default.settings.dir}/ivysettings-main-chain.xml&quot;/&amp;gt;
+    &amp;lt;include url=&quot;${ivy.default.settings.dir}/ivysettings-default-chain.xml&quot;/&amp;gt;
+&amp;lt;/ivysettings&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;colist arabic&quot;&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;public repository is set to jcenter&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;The settings take advantage of the &lt;a href=&quot;http://ant.apache.org/ivy/&quot;&gt;ivy&lt;/a&gt; defaults while setting the public repo to jcenter.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect2&quot;&gt;
+&lt;h3 id=&quot;_ivy_xml&quot;&gt;ivy.xml&lt;/h3&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;ivy.xml provides project configurations and dependency management for the project. Dependencies can be added to
+configurations as needed. Configurations are sets of dependencies which can be used by different tasks such as javac
+and java. We will create a build configuration for the libraries containing &lt;a href=&quot;http://ant.apache.org/&quot;&gt;ant&lt;/a&gt; tasks.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;title&quot;&gt;ivy.xml&lt;/div&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;prettyprint highlight&quot;&gt;&lt;code class=&quot;language-ant&quot; data-lang=&quot;ant&quot;&gt;&amp;lt;ivy-module version=&quot;2.0&quot;&amp;gt;
+    &amp;lt;info organisation=&quot;${project.organisation}&quot; module=&quot;${ant.project.name}&quot;/&amp;gt;&lt;b class=&quot;conum&quot;&gt;(1)&lt;/b&gt;
+    &amp;lt;configurations defaultconfmapping=&quot;build-&amp;gt;master&quot;&amp;gt;
+        &amp;lt;conf name=&quot;build&quot; visibility=&quot;private&quot; description=&quot;libraries added to the ant build classpath&quot;/&amp;gt;&lt;b class=&quot;conum&quot;&gt;(2)&lt;/b&gt;
+    &amp;lt;/configurations&amp;gt;
+    &amp;lt;dependencies&amp;gt;
+        &amp;lt;dependency org=&quot;org.apache.ant&quot; name=&quot;ant-antunit&quot; rev=&quot;1.3&quot; conf=&quot;build&quot;/&amp;gt;&lt;b class=&quot;conum&quot;&gt;(3)&lt;/b&gt;
+        &amp;lt;dependency org=&quot;ant-contrib&quot; name=&quot;ant-contrib&quot; rev=&quot;1.0b3&quot; conf=&quot;build&quot;/&amp;gt;
+    &amp;lt;/dependencies&amp;gt;
+&amp;lt;/ivy-module&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;colist arabic&quot;&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;setup project info&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;create build configuration&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;add antunit and ant-contrib to build configuration&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;The &lt;a href=&quot;http://ant.apache.org/ivy/&quot;&gt;ivy&lt;/a&gt; file adds antunit and ant-contrib to the build configuration. The build
+configuration is the set of dependencies which will be used to build the project. antunit allows for the build to be
+tested while ant-contrib adds some useful build tasks to the project.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect2&quot;&gt;
+&lt;h3 id=&quot;_configurebuild_target&quot;&gt;configureBuild target&lt;/h3&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Finally the configureBuild target is used to resolve the build dependencies and add the tasks.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;title&quot;&gt;build.xml&lt;/div&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;prettyprint highlight&quot;&gt;&lt;code class=&quot;language-ant&quot; data-lang=&quot;ant&quot;&gt;&amp;lt;target name=&quot;configureBuild&quot; depends=&quot;installIvy&quot;&amp;gt;
+    &amp;lt;ivy:resolve conf=&quot;build&quot;/&amp;gt;
+    &amp;lt;ivy:cachepath pathid=&quot;build.classpath&quot; conf=&quot;build&quot;/&amp;gt;
+    &amp;lt;taskdef resource=&quot;org/apache/ant/antunit/antlib.xml&quot; uri=&quot;antlib:org.apache.ant.antunit&quot;
+        classpathref=&quot;build.classpath&quot;/&amp;gt;
+    &amp;lt;taskdef resource=&quot;net/sf/antcontrib/antlib.xml&quot; uri=&quot;antlib:net.sf.antcontrib&quot;
+        classpathref=&quot;build.classpath&quot;/&amp;gt;
+&amp;lt;/target&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;_final_build_xml&quot;&gt;final build.xml&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Here is the final &lt;code&gt;build.xml&lt;/code&gt; file.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;title&quot;&gt;build.xml&lt;/div&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;prettyprint highlight&quot;&gt;&lt;code class=&quot;language-ant&quot; data-lang=&quot;ant&quot;&gt;&amp;lt;project xmlns:if=&quot;ant:if&quot;
+    xmlns:unless=&quot;ant:unless&quot;
+    xmlns:ivy=&quot;antlib:org.apache.ivy.ant&quot;
+    xmlns:au=&quot;antlib:org.apache.ant.antunit&quot;
+    xmlns:ac=&quot;antlib:net.sf.antcontrib&quot;&amp;gt;
+
+    &amp;lt;basename property=&quot;ant.project.name&quot; file=&quot;${basedir}&quot;/&amp;gt;
+
+    &amp;lt;property name=&quot;ivy.version&quot; value=&quot;2.4.0&quot;/&amp;gt;
+    &amp;lt;property name=&quot;ivy.settings.file&quot; location=&quot;ivysettings.xml&quot;/&amp;gt;
+
+    &amp;lt;property name=&quot;build.cache.dir&quot; location=&quot;build-cache&quot;/&amp;gt;
+    &amp;lt;property name=&quot;build.cache.download.dir&quot; location=&quot;${build.cache.dir}/download&quot;/&amp;gt;
+
+    &amp;lt;property name=&quot;public.repo&quot; value=&quot;http://repo1.maven.org/maven2&quot;/&amp;gt;
+
+    &amp;lt;target name=&quot;cleanBuildCache&quot; description=&quot;Deletes build cache.&quot;&amp;gt;
+        &amp;lt;delete dir=&quot;${build.cache.dir}&quot;/&amp;gt;
+    &amp;lt;/target&amp;gt;
+
+    &amp;lt;target name=&quot;installIvy&quot; description=&quot;Adds ivy jar to build cache and adds ivy tasks to project.&quot;&amp;gt;
+        &amp;lt;local name=&quot;ivy.dir&quot;/&amp;gt;
+        &amp;lt;local name=&quot;ivy.file&quot;/&amp;gt;
+        &amp;lt;local name=&quot;ivy.present&quot;/&amp;gt;
+
+        &amp;lt;property name=&quot;ivy.dir&quot; location=&quot;${build.cache.download.dir}/ivy&quot;/&amp;gt;
+        &amp;lt;property name=&quot;ivy.file&quot; location=&quot;${ivy.dir}/ivy-${ivy.version}.jar&quot;/&amp;gt;
+        &amp;lt;available file=&quot;${ivy.file}&quot; property=&quot;ivy.present&quot;/&amp;gt;
+
+        &amp;lt;echo if:set=&quot;ivy.present&quot;&amp;gt;ivy installed at ${ivy.file}&amp;lt;/echo&amp;gt;
+
+        &amp;lt;mkdir unless:set=&quot;ivy.present&quot; dir=&quot;${ivy.dir}&quot;/&amp;gt;
+        &amp;lt;get unless:set=&quot;ivy.present&quot; dest=&quot;${ivy.file}&quot;
+            src=&quot;${public.repo}/org/apache/ivy/ivy/${ivy.version}/ivy-${ivy.version}.jar&quot;/&amp;gt;
+
+        &amp;lt;taskdef resource=&quot;org/apache/ivy/ant/antlib.xml&quot; uri=&quot;antlib:org.apache.ivy.ant&quot; classpath=&quot;${ivy.file}&quot;/&amp;gt;
+    &amp;lt;/target&amp;gt;
+
+    &amp;lt;target name=&quot;configureBuild&quot; depends=&quot;installIvy&quot;&amp;gt;
+        &amp;lt;ivy:resolve conf=&quot;build&quot;/&amp;gt;
+        &amp;lt;ivy:cachepath pathid=&quot;build.classpath&quot; conf=&quot;build&quot;/&amp;gt;
+        &amp;lt;taskdef resource=&quot;org/apache/ant/antunit/antlib.xml&quot; uri=&quot;antlib:org.apache.ant.antunit&quot;
+            classpathref=&quot;build.classpath&quot;/&amp;gt;
+        &amp;lt;taskdef resource=&quot;net/sf/antcontrib/antlib.xml&quot; uri=&quot;antlib:net.sf.antcontrib&quot;
+            classpathref=&quot;build.classpath&quot;/&amp;gt;
+    &amp;lt;/target&amp;gt;
+&amp;lt;/project&amp;gt;&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;

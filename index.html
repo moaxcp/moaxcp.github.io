@@ -110,6 +110,60 @@ as the template engine for <a href="http://jbake.org/">JBake</a>.</p>
                             <div class="row">
                                 <div class="small-3 medium-1 large-1 columns">
 <div class="termin">
+                                        <div class="month">Mar</div>
+                                        <div class="date">26</div>
+                                        <div class="year">2018</div>
+                                    </div>                                    
+                                </div><div class="small-9 medium-11 large-11 columns">
+                                    <div>
+                                        <h2>
+                                            <a href="/blog/2018/03-25-bootstrapping-ant.html">Bootstrapping Ivy and Other Tasks in Ant</a>
+                                        </h2><p>
+                                            <span>
+                                                <a href="/tags/ant.html" class="label">ant</a>
+                                            </span>
+                                        </p><a href="/blog/2018/03-25-bootstrapping-ant.html#disqus_thread">comments</a><hr/>
+                                    </div>
+                                </div>
+                            </div>
+                        </header><div class="row">
+                            <div class="small-9 small-offset-3 medium-11 medium-offset-1 large-11 large-offset-1 columns">
+                                <div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>Typically build libraries with <a href="http://ant.apache.org/">ant</a> tasks are carefully managed in <code>~/.ant/lib</code> or
+<code>$ANT_HOME/lib</code> by the developer. Every project using <a href="http://ant.apache.org/">ant</a> will have those tasks on the
+classpath every time <a href="http://ant.apache.org/">ant</a> is invoked. This can be problematic to developers working on multiple
+<a href="http://ant.apache.org/">ant</a> projects. It can be especially problematic for CI servers building
+<a href="http://ant.apache.org/">ant</a> projects. Projects cannot select different versions of build tasks making the build none
+deterministic and dependent on the environment the build is executed in. Wouldn&#8217;t it be nice if build libraries could
+be added to an <a href="http://ant.apache.org/">ant</a> project dynamically within the build.xml file? This can be made possible by
+downloading the libraries from a repository like <a href="https://search.maven.org/">maven central</a> and adding the tasks in the
+project&#8217;s build file.</p>
+</div>
+<div class="paragraph">
+<p>The <a href="http://ant.apache.org/">ant</a> build system does not come with dependency management. Developers either need to manage
+dependencies manually or use <a href="http://ant.apache.org/ivy/">ivy</a>. Dependency management is not the easiest task to perform
+manually and it distracts developers from writing their projects. <a href="http://ant.apache.org/ivy/">Ivy</a> is capable of
+downloading dependencies from maven central for use in the project. <a href="http://ant.apache.org/ivy/">Ivy</a> will be used to
+provide build libraries to the <a href="http://ant.apache.org/">ant</a> project so tasks may be added but first
+<a href="http://ant.apache.org/ivy/">ivy</a> tasks must be added to the project.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+
+                            </div>
+                        </div>
+                    </article>
+                </div>
+            </div><div class="row">
+                <div class="small-12 middle-12 large-12 columns">
+                    <article class="wrap">
+                        <header>
+                            <div class="row">
+                                <div class="small-3 medium-1 large-1 columns">
+<div class="termin">
                                         <div class="month">Jan</div>
                                         <div class="date">16</div>
                                         <div class="year">2018</div>
@@ -420,39 +474,6 @@ many problems as I did with the unstable release.</p>
 The <a href="https://github.com/moaxcp/graph-dsl">graph-dsl</a> project is setup to use codenarc for local development and <a href="http://sonarqube.com">sonarqube.com</a> for
  continuous integration. There is just one problem with <a href="http://sonarqube.com">sonarqube.com</a>, it only uses 59 rules rather than the 353 rules available.
  I wanted to find a way to send all of those rules to sonarqube.com that were missing.</p>
-</div>
-
-                            </div>
-                        </div>
-                    </article>
-                </div>
-            </div><div class="row">
-                <div class="small-12 middle-12 large-12 columns">
-                    <article class="wrap">
-                        <header>
-                            <div class="row">
-                                <div class="small-3 medium-1 large-1 columns">
-<div class="termin">
-                                        <div class="month">Jan</div>
-                                        <div class="date">19</div>
-                                        <div class="year">2017</div>
-                                    </div>                                    
-                                </div><div class="small-9 medium-11 large-11 columns">
-                                    <div>
-                                        <h2>
-                                            <a href="/blog/2017/01-19-testing-graph-dsl.html">Testing graph-dsl</a>
-                                        </h2><p>
-                                            
-                                        </p><a href="/blog/2017/01-19-testing-graph-dsl.html#disqus_thread">comments</a><hr/>
-                                    </div>
-                                </div>
-                            </div>
-                        </header><div class="row">
-                            <div class="small-9 small-offset-3 medium-11 medium-offset-1 large-11 large-offset-1 columns">
-                                <div class="paragraph">
-<p>graph-dsl is a project I started so I could write graphs and algorithms easily. Over the past
-year testing has become important to the way I write code. With graph-dsl I wanted to learn more
-about Test Driven Development and using different tools like gradle, spock, jacoco, and sonarqube.</p>
 </div>
 
                             </div>
