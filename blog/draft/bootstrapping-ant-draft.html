@@ -1,0 +1,426 @@
+<!DOCTYPE html><html lang="en">
+    <head>
+<meta charset="utf-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <title>John Mercier</title>
+        <link rel="stylesheet" href="/css/asciidoctor.css"/>
+        <link rel="stylesheet" href="/css/foundation.css"/>
+        <link rel="stylesheet" href="/css/social_foundicons.css"/>
+        <link rel="stylesheet" href="/css/prettify.css"/>
+        <link rel="stylesheet" href="/css/desert.css"/>
+        <link rel="stylesheet" href="/css/app.css"/>
+        
+        <script src="/js/vendor/modernizr.js"></script>
+        <script src="/js/app.js"></script>
+        
+    </head><body class="antialiased" onload="prettyPrint();">
+<div class="row">
+            <div class="small-12 large-12 middle-12 small-text-center large-text-center middle-text-center columns">
+                <div class="title-box">
+                    <div class="title-content">
+                        <h1>John Mercier</h1>
+                        <p>[A software developer interested in java, groovy, and nixos]</p>
+                        <p class="title-contact">
+                            <a href="https://twitter.com/moaxcp">
+                                <i class="foundicon-twitter"></i>
+                            </a><a href="https://github.com/moaxcp">
+                                <i class="foundicon-github"></i>
+                            </a>
+                        </p>
+                    </div>
+                </div><div class="sticky contain-to-grid">
+                    <nav class="top-bar" data-topbar="" role="navigation">
+                        <ul class="title-area">
+                            <li class="name"></li><!--Remove the class "menu-icon" to get rid of menu icon. Take out "Menu" to just have icon alone--><li class="toggle-topbar menu-icon">
+                                <a href="#">
+                                    <span>Menu</span>
+                                </a>
+                            </li>
+                        </ul><section class="top-bar-section">
+                            <ul class="left">
+                                <li>
+                                    <a href="/index.html">Home</a>
+                                </li><li>
+                                    <a href="/archive.html">Archive</a>
+                                </li><li class="has-dropdown">
+                                    <a href="#">Projects</a><ul class="dropdown">
+                                        
+                                    </ul>
+                                </li><li>
+                                    <a href="/feed.xml">Subscribe</a>
+                                </li><li>
+                                    <a href="/about.html">About</a>
+                                </li>
+                            </ul>
+                        </section>
+                    </nav>
+                </div>
+            </div>
+        </div>        <main>
+<div class="row">
+                <div class="small-12 middle-12 large-12 columns">
+                    <article class="wrap">
+                        <header>
+                            <div class="row">
+                                <div class="small-3 medium-1 large-1 columns">
+<div class="termin">
+                                        <div class="month">Mar</div>
+                                        <div class="date">26</div>
+                                        <div class="year">2018</div>
+                                    </div>                                    
+                                </div><div class="small-9 medium-11 large-11 columns">
+                                    <div>
+                                        <h2>
+                                            <a href="/blog/draft/bootstrapping-ant.html">Bootstrapping Ivy and Other Tasks in Ant</a>
+                                        </h2><p>
+                                            
+                                        </p><a href="/blog/draft/bootstrapping-ant.html#disqus_thread">comments</a><hr/>
+                                    </div>
+                                </div>
+                            </div>
+                        </header><div class="row">
+                            <div class="small-9 small-offset-3 medium-11 medium-offset-1 large-11 large-offset-1 columns">
+                                <div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>Typically build libraries with <a href="http://ant.apache.org/">ant</a> tasks are carefully managed in <code>~/.ant/lib</code> or
+<code>$ANT_HOME/lib</code> by the developer. Every project using <a href="http://ant.apache.org/">ant</a> will have those tasks on the
+classpath every time <a href="http://ant.apache.org/">ant</a> is invoked. This can be problematic to developers working on multiple
+<a href="http://ant.apache.org/">ant</a> projects. It can be especially problematic for CI servers building
+<a href="http://ant.apache.org/">ant</a> projects. Projects cannot select different versions of build tasks making the build none
+deterministic and dependent on the environment the build is executed in. Wouldn&#8217;t it be nice if build libraries could
+be added to an <a href="http://ant.apache.org/">ant</a> project dynamically within the build.xml file? This can be made possible by
+downloading the libraries from a repository like <a href="https://search.maven.org/">maven central</a> and adding the tasks in the
+project&#8217;s build file.</p>
+</div>
+<div class="paragraph">
+<p>The <a href="http://ant.apache.org/">ant</a> build system does not come with dependency management. Developers either need to manage
+dependencies manually or use <a href="http://ant.apache.org/ivy/">ivy</a>. Dependency management is not the easiest task to perform
+manually and it distracts developers from writing their projects. <a href="http://ant.apache.org/ivy/">Ivy</a> is capable of
+downloading dependencies from maven central for use in the project. <a href="http://ant.apache.org/ivy/">Ivy</a> will be used to
+provide build libraries to the <a href="http://ant.apache.org/">ant</a> project so tasks may be added but first
+<a href="http://ant.apache.org/ivy/">ivy</a> tasks must be added to the project.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_base_build_xml">base build.xml</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>To get started here is a <code>build.xml</code> defining some properties we will use to download <a href="http://ant.apache.org/ivy/">ivy</a>
+and a cleanup task.</p>
+</div>
+<div class="listingblock">
+<div class="title">build.xml</div>
+<div class="content">
+<pre class="prettyprint highlight"><code class="language-ant" data-lang="ant">&lt;project&gt;
+    &lt;basename property="ant.project.name" file="${basedir}"/&gt;<b class="conum">(1)</b>
+
+    &lt;property name="build.cache.dir" location="build-cache"/&gt;<b class="conum">(2)</b>
+    &lt;property name="build.cache.download.dir" location="${build.cache.dir}/download"/&gt;
+
+    &lt;target name="cleanBuildCache" description="Deletes build cache."&gt;<b class="conum">(3)</b>
+        &lt;delete dir="${build.cache.dir}"/&gt;
+    &lt;/target&gt;
+&lt;/project&gt;</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<ol>
+<li>
+<p>project name is name of directory</p>
+</li>
+<li>
+<p>setup properties for build cache</p>
+</li>
+<li>
+<p>create target to delete build cache</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>Bootstrapping is split into two parts: installing <a href="http://ant.apache.org/ivy/">ivy</a> and configuring the build tasks.
+First <a href="http://ant.apache.org/ivy/">ivy</a> tasks are added to the project by downloading <a href="http://ant.apache.org/ivy/">ivy</a>
+with <a href="http://ant.apache.org/manual/Tasks/get.html">get</a> and adding it to the project with
+<a href="http://ant.apache.org/manual/Tasks/taskdef.html">taskdef</a>. Second <a href="http://ant.apache.org/ivy/">ivy</a> is used to resolve
+other "build" dependencies while ant adds the task with another set of
+<a href="http://ant.apache.org/manual/Tasks/taskdef.html">taskdefs</a>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_adding_ivy_tasks">adding ivy tasks</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><a href="http://ant.apache.org/ivy/">Ivy</a> tasks are added to the project in a installIvy target. If
+<a href="http://ant.apache.org/ivy/">ivy</a> has already been downloaded through a previous build it will skip downloading the jar
+and just add the tasks.</p>
+</div>
+<div class="listingblock">
+<div class="title">build.xml</div>
+<div class="content">
+<pre class="prettyprint highlight"><code class="language-ant" data-lang="ant">&lt;target name="installIvy" description="Adds ivy jar to build cache and adds ivy tasks to project."&gt;
+    &lt;local name="ivy.dir"/&gt;<b class="conum">(1)</b>
+    &lt;local name="ivy.file"/&gt;
+    &lt;local name="ivy.available"/&gt;
+
+    &lt;property name="ivy.dir" location="${build.cache.download.dir}/ivy"/&gt;
+    &lt;property name="ivy.file" location="${ivy.dir}/ivy-${ivy.version}.jar"/&gt;
+    &lt;available file="${ivy.file}" property="ivy.present"/&gt;<b class="conum">(2)</b>
+
+    &lt;echo if:set="ivy.present"&gt;ivy installed at ${ivy.file}&lt;/echo&gt;
+
+    &lt;mkdir unless:set="ivy.present" dir="${ivy.dir}"/&gt;
+    &lt;get unless:set="ivy.present" dest="${ivy.file}"
+        src="${public.repo}/org/apache/ivy/ivy/${ivy.version}/ivy-${ivy.version}.jar"/&gt;<b class="conum">(3)</b>
+
+    &lt;taskdef resource="org/apache/ivy/ant/antlib.xml" uri="antlib:org.apache.ivy.ant" classpath="${ivy.file}"/&gt;<b class="conum">(4)</b>
+&lt;/target&gt;</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<ol>
+<li>
+<p>setup local properties for jar location</p>
+</li>
+<li>
+<p>check if ivy file exists</p>
+</li>
+<li>
+<p>download ivy jar unless it has already been downloaded</p>
+</li>
+<li>
+<p>add ivy tasks to project</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>ivy.version is a property defining the version of <a href="http://ant.apache.org/ivy/">ivy</a> to use.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>&lt;property name="ivy.version" value="2.4.0"/&gt;</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>public.repo is a property defining the repo to download <a href="http://ant.apache.org/ivy/">ivy</a> from.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>&lt;property name="public.repo" value="http://repo1.maven.org/maven2"/&gt;</pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_adding_other_build_tasks">adding other build tasks</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Now that <a href="http://ant.apache.org/ivy/">ivy</a> has been added to the project other tasks can be resolved using
+<a href="http://ant.apache.org/ivy/">ivy</a> and added to the project. First we will create the ivysettings.xml and ivy.xml for the
+project. Then we will add the target which will download and add the build tasks.</p>
+</div>
+<div class="sect2">
+<h3 id="_ivysettings_xml">ivysettings.xml</h3>
+<div class="paragraph">
+<p>ivysettings.xml allows us to define repositories in which to resolve and publish dependencies.</p>
+</div>
+<div class="listingblock">
+<div class="title">ivysettings.xml</div>
+<div class="content">
+<pre class="prettyprint highlight"><code class="language-ant" data-lang="ant">&lt;ivysettings&gt;
+    &lt;settings defaultResolver="default"/&gt;
+    &lt;resolvers&gt;
+      &lt;ibiblio name="public" root="https://jcenter.bintray.com/" m2compatible="true"/&gt;<b class="conum">(1)</b>
+    &lt;/resolvers&gt;
+    &lt;include url="${ivy.default.settings.dir}/ivysettings-shared.xml"/&gt;
+    &lt;include url="${ivy.default.settings.dir}/ivysettings-local.xml"/&gt;
+    &lt;include url="${ivy.default.settings.dir}/ivysettings-main-chain.xml"/&gt;
+    &lt;include url="${ivy.default.settings.dir}/ivysettings-default-chain.xml"/&gt;
+&lt;/ivysettings&gt;</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<ol>
+<li>
+<p>public repository is set to jcenter</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>The settings take advantage of the <a href="http://ant.apache.org/ivy/">ivy</a> defaults while setting the public repo to jcenter.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_ivy_xml">ivy.xml</h3>
+<div class="paragraph">
+<p>ivy.xml provides project configurations and dependency management for the project. Dependencies can be added to
+configurations as needed. Configurations are sets of dependencies which can be used by different tasks such as javac
+and java. We will create a build configuration for the libraries containing <a href="http://ant.apache.org/">ant</a> tasks.</p>
+</div>
+<div class="listingblock">
+<div class="title">ivy.xml</div>
+<div class="content">
+<pre class="prettyprint highlight"><code class="language-ant" data-lang="ant">&lt;ivy-module version="2.0"&gt;
+    &lt;info organisation="${project.organisation}" module="${ant.project.name}"/&gt;<b class="conum">(1)</b>
+    &lt;configurations defaultconfmapping="build-&gt;master"&gt;
+        &lt;conf name="build" visibility="private" description="libraries added to the ant build classpath"/&gt;<b class="conum">(2)</b>
+    &lt;/configurations&gt;
+    &lt;dependencies&gt;
+        &lt;dependency org="org.apache.ant" name="ant-antunit" rev="1.3" conf="build"/&gt;<b class="conum">(3)</b>
+        &lt;dependency org="ant-contrib" name="ant-contrib" rev="1.0b3" conf="build"/&gt;
+    &lt;/dependencies&gt;
+&lt;/ivy-module&gt;</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<ol>
+<li>
+<p>setup project info</p>
+</li>
+<li>
+<p>create build configuration</p>
+</li>
+<li>
+<p>add antunit and ant-contrib to build configuration</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>The <a href="http://ant.apache.org/ivy/">ivy</a> file adds antunit and ant-contrib to the build configuration. The build
+configuration is the set of dependencies which will be used to build the project. antunit allows for the build to be
+tested while ant-contrib adds some useful build tasks to the project.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_configurebuild_target">configureBuild target</h3>
+<div class="paragraph">
+<p>Finally the configureBuild target is used to resolve the build dependencies and add the tasks.</p>
+</div>
+<div class="listingblock">
+<div class="title">build.xml</div>
+<div class="content">
+<pre class="prettyprint highlight"><code class="language-ant" data-lang="ant">&lt;target name="configureBuild" depends="installIvy"&gt;
+    &lt;ivy:resolve conf="build"/&gt;
+    &lt;ivy:cachepath pathid="build.classpath" conf="build"/&gt;
+    &lt;taskdef resource="org/apache/ant/antunit/antlib.xml" uri="antlib:org.apache.ant.antunit"
+        classpathref="build.classpath"/&gt;
+    &lt;taskdef resource="net/sf/antcontrib/antlib.xml" uri="antlib:net.sf.antcontrib"
+        classpathref="build.classpath"/&gt;
+&lt;/target&gt;</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_final_build_xml">final build.xml</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Here is the final <code>build.xml</code> file.</p>
+</div>
+<div class="listingblock">
+<div class="title">build.xml</div>
+<div class="content">
+<pre class="prettyprint highlight"><code class="language-ant" data-lang="ant">&lt;project xmlns:if="ant:if"
+    xmlns:unless="ant:unless"
+    xmlns:ivy="antlib:org.apache.ivy.ant"
+    xmlns:au="antlib:org.apache.ant.antunit"
+    xmlns:ac="antlib:net.sf.antcontrib"&gt;
+
+    &lt;basename property="ant.project.name" file="${basedir}"/&gt;
+
+    &lt;property name="ivy.version" value="2.4.0"/&gt;
+    &lt;property name="ivy.settings.file" location="ivysettings.xml"/&gt;
+
+    &lt;property name="build.cache.dir" location="build-cache"/&gt;
+    &lt;property name="build.cache.download.dir" location="${build.cache.dir}/download"/&gt;
+
+    &lt;property name="public.repo" value="http://repo1.maven.org/maven2"/&gt;
+
+    &lt;target name="cleanBuildCache" description="Deletes build cache."&gt;
+        &lt;delete dir="${build.cache.dir}"/&gt;
+    &lt;/target&gt;
+
+    &lt;target name="installIvy" description="Adds ivy jar to build cache and adds ivy tasks to project."&gt;
+        &lt;local name="ivy.dir"/&gt;
+        &lt;local name="ivy.file"/&gt;
+        &lt;local name="ivy.present"/&gt;
+
+        &lt;property name="ivy.dir" location="${build.cache.download.dir}/ivy"/&gt;
+        &lt;property name="ivy.file" location="${ivy.dir}/ivy-${ivy.version}.jar"/&gt;
+        &lt;available file="${ivy.file}" property="ivy.present"/&gt;
+
+        &lt;echo if:set="ivy.present"&gt;ivy installed at ${ivy.file}&lt;/echo&gt;
+
+        &lt;mkdir unless:set="ivy.present" dir="${ivy.dir}"/&gt;
+        &lt;get unless:set="ivy.present" dest="${ivy.file}"
+            src="${public.repo}/org/apache/ivy/ivy/${ivy.version}/ivy-${ivy.version}.jar"/&gt;
+
+        &lt;taskdef resource="org/apache/ivy/ant/antlib.xml" uri="antlib:org.apache.ivy.ant" classpath="${ivy.file}"/&gt;
+    &lt;/target&gt;
+
+    &lt;target name="configureBuild" depends="installIvy"&gt;
+        &lt;ivy:resolve conf="build"/&gt;
+        &lt;ivy:cachepath pathid="build.classpath" conf="build"/&gt;
+        &lt;taskdef resource="org/apache/ant/antunit/antlib.xml" uri="antlib:org.apache.ant.antunit"
+            classpathref="build.classpath"/&gt;
+        &lt;taskdef resource="net/sf/antcontrib/antlib.xml" uri="antlib:net.sf.antcontrib"
+            classpathref="build.classpath"/&gt;
+    &lt;/target&gt;
+&lt;/project&gt;</code></pre>
+</div>
+</div>
+</div>
+</div>
+                            </div>
+                        </div><div class="row">
+                            <div id="disqus_thread">
+                                <script>
+                                    
+                                /**
+                                *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+                                *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+                                /*
+                                var disqus_config = function () {
+                                this.page.url = 'http://johnmercier.com/blog/draft/bootstrapping-ant.html';  // Replace PAGE_URL with your page's canonical URL variable
+                                this.page.identifier = 'blog/draft/bootstrapping-ant.html'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+                                };
+                                */
+                                (function() { // DON'T EDIT BELOW THIS LINE
+                                var d = document, s = d.createElement('script');
+                                s.src = 'https://moaxcp.disqus.com/embed.js';
+                                s.setAttribute('data-timestamp', +new Date());
+                                (d.head || d.body).appendChild(s);
+                                })();
+                            
+                                </script><noscript>
+                                    Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+                                </noscript>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+            </div>            
+        </main>
+<div class="row">
+            <div class="small-12 small-text-center">
+                <p class="muted credit">
+                    2014 - 2018 | Mixed with <a href="http://foundation.zurb.com/">Foundation v5.5.1</a> | Baked with <a href="http://jbake.org">JBake v2.5.1</a>
+                </p>
+            </div>
+        </div>        <script src="/js/vendor/jquery.js"></script>
+        <script src="/js/foundation.min.js"></script>
+        <script src="/js/vendor/prettify.js"></script>
+        <script>
+            $(document).foundation();
+            $(function() {
+               hljs.tabReplace = "  ";
+               hljs.initHighlighting();
+            });
+        </script>
+            <script id="dsq-count-scr" src="//moaxcp.disqus.com/count.js" async></script>
+        
+        
+    </body>
+</html>
