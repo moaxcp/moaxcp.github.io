@@ -4,7 +4,7 @@
     <link href="http://johnmercier.com/"/>
     <link rel="self" type="application/atom+xml" href="http://johnmercier.com/feed.xml"/>
     <subtitle>[A software developer interested in java, groovy, and nixos]</subtitle>
-    <updated>2018-03-26T02:28:17Z</updated>
+    <updated>2018-03-27T00:25:56Z</updated>
     <id>tag:null,2018:03</id>
     <entry>
         <title>Switching to groovy-mte in JBake</title>
@@ -12,7 +12,7 @@
             <name>2018-01-21</name>
         </author>
         <link href="http://johnmercier.com/blog/2018/01-21-switching-to-groovy-mte-in-jbake.html"/>
-        <updated>2018-03-26T02:27:23Z</updated>
+        <updated>2018-03-27T00:25:04Z</updated>
         <id>http://johnmercier.com/blog/2018/01-21-switching-to-groovy-mte-in-jbake.html</id>
         <category term="jbake"/>
         <category term="groovy"/>
@@ -384,7 +384,7 @@ displayed. Comments are displayed when the post is not a summary. Comments can b
             <name>2018-03-25</name>
         </author>
         <link href="http://johnmercier.com/blog/2018/03-25-bootstrapping-ant.html"/>
-        <updated>2018-03-26T02:27:23Z</updated>
+        <updated>2018-03-27T00:25:04Z</updated>
         <id>http://johnmercier.com/blog/2018/03-25-bootstrapping-ant.html</id>
         <category term="ant"/>
         <content type="html">
@@ -507,7 +507,7 @@ and just add the tasks.&lt;/p&gt;
 &lt;/div&gt;
 &lt;div class=&quot;listingblock&quot;&gt;
 &lt;div class=&quot;content&quot;&gt;
-&lt;pre&gt;&amp;lt;property name=&quot;ivy.version&quot; value=&quot;2.4.0&quot;/&amp;gt;&lt;/pre&gt;
+&lt;pre class=&quot;prettyprint highlight&quot;&gt;&lt;code class=&quot;language-ant&quot; data-lang=&quot;ant&quot;&gt;&amp;lt;property name=&quot;ivy.version&quot; value=&quot;2.4.0&quot;/&amp;gt;&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
@@ -515,7 +515,7 @@ and just add the tasks.&lt;/p&gt;
 &lt;/div&gt;
 &lt;div class=&quot;listingblock&quot;&gt;
 &lt;div class=&quot;content&quot;&gt;
-&lt;pre&gt;&amp;lt;property name=&quot;public.repo&quot; value=&quot;http://repo1.maven.org/maven2&quot;/&amp;gt;&lt;/pre&gt;
+&lt;pre class=&quot;prettyprint highlight&quot;&gt;&lt;code class=&quot;language-ant&quot; data-lang=&quot;ant&quot;&gt;&amp;lt;property name=&quot;public.repo&quot; value=&quot;http://repo1.maven.org/maven2&quot;/&amp;gt;&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
