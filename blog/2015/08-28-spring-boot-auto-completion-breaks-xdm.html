@@ -80,27 +80,27 @@
                             </div>
                         </header><div class="row">
                             <div class="small-9 small-offset-3 medium-11 medium-offset-1 large-11 large-offset-1 columns">
-                                <div class="paragraph">
-<p>After setting up the spring boot cli auto-completion feature everything was working fine. Typing spring and then hitting tab in the console brought up the list of spring commands as promised. What I did not expect was after restarting my computer the xdm service complained about spring shell-completion.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre> * Caching service dependencies ...                  [ ok ]
+                                <div class="paragraph"> 
+ <p>After setting up the spring boot cli auto-completion feature everything was working fine. Typing spring and then hitting tab in the console brought up the list of spring commands as promised. What I did not expect was after restarting my computer the xdm service complained about spring shell-completion.</p> 
+</div> 
+<div class="listingblock"> 
+ <div class="content"> 
+  <pre> * Caching service dependencies ...                  [ ok ]
  * Stopping xdm ...
  * start-stop-daemon: no matching processes found    [ ok ]
  * Setting up xdm ...
 /opt/spring-1.2.5.RELEASE/shell-completion/bash/spring: line 16: syntax error near unexpected token `&lt;'
-/opt/spring-1.2.5.RELEASE/shell-completion/bash/spring: line 16: `      done &lt; &lt;(spring hint ${cword} ${words[*] [ ok ]</pre>
-</div>
-</div>
-<div class="paragraph">
-<p>In a previous post I setup profile.d to create a spring cli environment for all users on my system. Once I remove the sourcing of shell-completion everything is fine but I want this to be fixed.</p>
-</div>
-<div class="paragraph">
-<p>After some research on the bash <a href="https://github.com/spring-projects/spring-boot/pull/3848">here document</a> the <a href="https://github.com/spring-projects/spring-boot/pull/3848">completion script</a> is using, I was not able to find the solution. The problem is not in the here-document but in the header of the script. After adding the correct sha-bang <code>#!/bin/bash</code> I was able to start xdm normally. I&#8217;m guessing that the double redirection with a here-document is not allowed in sh but is in bash and that xdm runs scripts in sh unless the sha-bang is present.</p>
-</div>
-<div class="paragraph">
-<p>I added a <a href="https://github.com/spring-projects/spring-boot/pull/3848">pull</a> request to spring-boot to fix the problem.</p>
+/opt/spring-1.2.5.RELEASE/shell-completion/bash/spring: line 16: `      done &lt; &lt;(spring hint ${cword} ${words[*] [ ok ]</pre> 
+ </div> 
+</div> 
+<div class="paragraph"> 
+ <p>In a previous post I setup profile.d to create a spring cli environment for all users on my system. Once I remove the sourcing of shell-completion everything is fine but I want this to be fixed.</p> 
+</div> 
+<div class="paragraph"> 
+ <p>After some research on the bash <a href="https://github.com/spring-projects/spring-boot/pull/3848">here document</a> the <a href="https://github.com/spring-projects/spring-boot/pull/3848">completion script</a> is using, I was not able to find the solution. The problem is not in the here-document but in the header of the script. After adding the correct sha-bang <code>#!/bin/bash</code> I was able to start xdm normally. I’m guessing that the double redirection with a here-document is not allowed in sh but is in bash and that xdm runs scripts in sh unless the sha-bang is present.</p> 
+</div> 
+<div class="paragraph"> 
+ <p>I added a <a href="https://github.com/spring-projects/spring-boot/pull/3848">pull</a> request to spring-boot to fix the problem.</p> 
 </div>
                             </div>
                         </div><div class="row">
@@ -135,7 +135,7 @@
 <div class="row">
             <div class="small-12 small-text-center">
                 <p class="muted credit">
-                    2014 - 2018 | Mixed with <a href="http://foundation.zurb.com/">Foundation v5.5.1</a> | Baked with <a href="http://jbake.org">JBake v2.5.1</a>
+                    2014 - 2018 | Mixed with <a href="http://foundation.zurb.com/">Foundation v5.5.1</a> | Baked with <a href="http://jbake.org">JBake v2.6.1</a>
                 </p>
             </div>
         </div>        <script src="/js/vendor/jquery.js"></script>

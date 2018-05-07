@@ -80,60 +80,32 @@
                             </div>
                         </header><div class="row">
                             <div class="small-9 small-offset-3 medium-11 medium-offset-1 large-11 large-offset-1 columns">
-                                <div class="paragraph">
-<p>I have created a small project focused on the md5 algorithm. I noticed the md5 in java cannot be restarted. If my
-program is md5ing a large file, I need to start the process over again if the program crashes.</p>
-</div>
-<div class="paragraph">
-<p>To solve this problem I created an MD5State which holds the state of the algorithm. A user can write this state to a
-file or database as bytes are being processed. If the program crashes the state can be recovered and processing can
-begin from where it left off.</p>
-</div>
-<div class="paragraph">
-<p>I originally wrote this on google code ages ago but I wanted try using some of the other internet tools out there. I
-moved the project over to github and signed up for a travis-ci account. I created a cloud9 project to work on it
-through a browser. I even created some tests so travis-ci could fail builds if I messed something up.</p>
-</div>
-<div class="paragraph">
-<p>I looked into installing this as a MessageDigest object in the java platform. It looks easy but I&#8217;m not sure if it is
-useful enough.</p>
-</div>
-<div class="paragraph">
-<p>The test method is a good example of how to use this project. It takes a byte array and compares the md5 with the md5
-from java.</p>
-</div>
-<div class="paragraph">
-<p>`
-private boolean testAgainstJavaMD5(byte[] bytes) {
-     MessageDigest expected = null;
-     MD5MessageDigest test = null;
-     try {
-         expected = MessageDigest.getInstance(&quot;md5&quot;);
-         test = new MD5MessageDigest();
-     } catch (NoSuchAlgorithmException ex) {
-         Logger.getLogger(MD5MessageDigestTest.class.getName()).log(Level.SEVERE, null, ex);
-         throw new IllegalStateException(&quot;could not create MessageDigest&quot;, ex);
-     }
-     expected.update(bytes);
-     String s = new BigInteger(1, expected.digest()).toString(16);
-     if (s.length() == 31) {
-         s = &quot;0&quot; + s;
-     }
-     test.digest(bytes);
-     Logger.getLogger(MD5MessageDigestTest.class.getName()).info(s);
-     Logger.getLogger(MD5MessageDigestTest.class.getName()).info(test.getState().toString());
-     return s.equals(test.getState().toString());
- }
-`</p>
-</div>
-<div class="paragraph">
-<p>Here are the links to the project.</p>
-</div>
-<div class="paragraph">
-<p><a href="https://github.com/moaxcp/recMD5" class="bare">https://github.com/moaxcp/recMD5</a></p>
-</div>
-<div class="paragraph">
-<p><a href="https://travis-ci.org/moaxcp/recMD5" class="bare">https://travis-ci.org/moaxcp/recMD5</a></p>
+                                <div class="paragraph"> 
+ <p>I have created a small project focused on the md5 algorithm. I noticed the md5 in java cannot be restarted. If my program is md5ing a large file, I need to start the process over again if the program crashes.</p> 
+</div> 
+<div class="paragraph"> 
+ <p>To solve this problem I created an MD5State which holds&nbsp;the state of the algorithm. A user can write this state to a file or database as bytes are being processed. If the program crashes the state can be recovered and processing can begin from where it left off.</p> 
+</div> 
+<div class="paragraph"> 
+ <p>I originally wrote this on google code ages ago but I wanted try using some of the other internet tools out there. I moved the project over to github and signed up for a travis-ci account. I created a cloud9 project to work on it through a browser. I even created some tests so travis-ci could fail&nbsp;builds if I messed something up.</p> 
+</div> 
+<div class="paragraph"> 
+ <p>I looked into installing this as a MessageDigest object in the java platform. It looks easy but I’m not sure if it is useful enough.</p> 
+</div> 
+<div class="paragraph"> 
+ <p>The test method is a good example of how to use this project. It takes a byte array and compares the md5 with the md5 from java.</p> 
+</div> 
+<div class="paragraph"> 
+ <p>` private boolean testAgainstJavaMD5(byte[] bytes) { MessageDigest expected = null; MD5MessageDigest test = null; try { expected = MessageDigest.getInstance("md5"); test = new MD5MessageDigest(); } catch (NoSuchAlgorithmException ex) { Logger.getLogger(MD5MessageDigestTest.class.getName()).log(Level.SEVERE, null, ex); throw new IllegalStateException("could not create MessageDigest", ex); } expected.update(bytes); String s = new BigInteger(1, expected.digest()).toString(16); if (s.length() == 31) { s = "0" + s; } test.digest(bytes); Logger.getLogger(MD5MessageDigestTest.class.getName()).info(s); Logger.getLogger(MD5MessageDigestTest.class.getName()).info(test.getState().toString()); return s.equals(test.getState().toString()); } `</p> 
+</div> 
+<div class="paragraph"> 
+ <p>Here are the links to the project.</p> 
+</div> 
+<div class="paragraph"> 
+ <p><a href="https://github.com/moaxcp/recMD5" class="bare">https://github.com/moaxcp/recMD5</a></p> 
+</div> 
+<div class="paragraph"> 
+ <p><a href="https://travis-ci.org/moaxcp/recMD5" class="bare">https://travis-ci.org/moaxcp/recMD5</a></p> 
 </div>
                             </div>
                         </div><div class="row">
@@ -168,7 +140,7 @@ private boolean testAgainstJavaMD5(byte[] bytes) {
 <div class="row">
             <div class="small-12 small-text-center">
                 <p class="muted credit">
-                    2014 - 2018 | Mixed with <a href="http://foundation.zurb.com/">Foundation v5.5.1</a> | Baked with <a href="http://jbake.org">JBake v2.5.1</a>
+                    2014 - 2018 | Mixed with <a href="http://foundation.zurb.com/">Foundation v5.5.1</a> | Baked with <a href="http://jbake.org">JBake v2.6.1</a>
                 </p>
             </div>
         </div>        <script src="/js/vendor/jquery.js"></script>

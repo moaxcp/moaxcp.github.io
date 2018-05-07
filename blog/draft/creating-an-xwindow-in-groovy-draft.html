@@ -64,8 +64,8 @@
                             <div class="row">
                                 <div class="small-3 medium-1 large-1 columns">
 <div class="termin">
-                                        <div class="month">Mar</div>
-                                        <div class="date">27</div>
+                                        <div class="month">May</div>
+                                        <div class="date">07</div>
                                         <div class="year">2018</div>
                                     </div>                                    
                                 </div><div class="small-9 medium-11 large-11 columns">
@@ -80,28 +80,25 @@
                             </div>
                         </header><div class="row">
                             <div class="small-9 small-offset-3 medium-11 medium-offset-1 large-11 large-offset-1 columns">
-                                <div id="preamble">
-<div class="sectionbody">
-<div class="paragraph">
-<p>It is a strange idea but being able to use x11 in groovy could be neat for a lot of reasons. First, checkout
-<a href="http://groovyfx.org">groovyfx</a>. It is a dsl for <a href="https://en.wikipedia.org/wiki/JavaFX">javafx</a>. Could a dsl like
-this exist for x11? What about creating a window manager? First there needs to be a way to talk to and x11 server.
-<a href="https://en.wikipedia.org/wiki/Xlib">Xlib</a> is used for many programming languages. It is a native library written in the
-C programming language. It can be accessed in java with <a href="https://github.com/java-native-access/jna">Java Native Access</a>.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_hello_world_example">Hello World Example</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p><a href="https://github.com/java-native-access/jna">Java Native Access</a> allows developers to access native functions as if they
-were java methods. It can be used in a groovy script to access the standard Clib.</p>
-</div>
-<div class="listingblock">
-<div class="title">hello</div>
-<div class="content">
-<pre class="prettyprint highlight"><code class="language-groovy" data-lang="groovy">#!/usr/bin/env groovy
+                                <div id="preamble"> 
+ <div class="sectionbody"> 
+  <div class="paragraph"> 
+   <p>It is a strange idea but being able to use x11 in groovy could be neat for a lot of reasons. First, checkout <a href="http://groovyfx.org">groovyfx</a>. It is a dsl for <a href="https://en.wikipedia.org/wiki/JavaFX">javafx</a>. Could a dsl like this exist for x11? What about creating a window manager? First there needs to be a way to talk to and x11 server. <a href="https://en.wikipedia.org/wiki/Xlib">Xlib</a> is used for many programming languages. It is a native library written in the C programming language. It can be accessed in java with <a href="https://github.com/java-native-access/jna">Java Native Access</a>.</p> 
+  </div> 
+ </div> 
+</div> 
+<div class="sect1"> 
+ <h2 id="_hello_world_example">Hello World Example</h2> 
+ <div class="sectionbody"> 
+  <div class="paragraph"> 
+   <p><a href="https://github.com/java-native-access/jna">Java Native Access</a> allows developers to access native functions as if they were java methods. It can be used in a groovy script to access the standard Clib.</p> 
+  </div> 
+  <div class="listingblock"> 
+   <div class="title">
+    hello
+   </div> 
+   <div class="content"> 
+    <pre class="prettyprint highlight"><code class="language-groovy" data-lang="groovy">#!/usr/bin/env groovy
 
 @Grab(group='net.java.dev.jna', module='jna', version='4.5.1') <b class="conum">(1)</b>
 
@@ -115,54 +112,44 @@ class CLib {
     }
 }
 
-CLib.printf("Hello, World!\n") <b class="conum">(4)</b></code></pre>
-</div>
-</div>
-<div class="colist arabic">
-<ol>
-<li>
-<p>Grab jna using groovy grape dependency manager</p>
-</li>
-<li>
-<p>Get instance of library from jna</p>
-</li>
-<li>
-<p>Define <code>printf</code> function as a static method</p>
-</li>
-<li>
-<p>Call <code>printf</code></p>
-</li>
-</ol>
-</div>
-<div class="paragraph">
-<p>Running the script results in:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre>john@n1 ~/p/g/jna (master)&gt; ./hello
-Hello, World!</pre>
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_nixos_setup">NixOS Setup</h2>
-<div class="sectionbody">
-
-</div>
-</div>
-<div class="sect1">
-<h2 id="_creating_an_x11_window_in_c">Creating an X11 Window in C</h2>
-<div class="sectionbody">
-
-</div>
-</div>
-<div class="sect1">
-<h2 id="_creating_an_x11_window_in_groovy">Creating an X11 Window in Groovy</h2>
-<div class="sectionbody">
-<div class="listingblock">
-<div class="content">
-<pre>#!/usr/bin/env nix-shell
+CLib.printf("Hello, World!\n") <b class="conum">(4)</b></code></pre> 
+   </div> 
+  </div> 
+  <div class="colist arabic"> 
+   <ol> 
+    <li> <p>Grab jna using groovy grape dependency manager</p> </li> 
+    <li> <p>Get instance of library from jna</p> </li> 
+    <li> <p>Define <code>printf</code> function as a static method</p> </li> 
+    <li> <p>Call <code>printf</code></p> </li> 
+   </ol> 
+  </div> 
+  <div class="paragraph"> 
+   <p>Running the script results in:</p> 
+  </div> 
+  <div class="listingblock"> 
+   <div class="content"> 
+    <pre>john@n1 ~/p/g/jna (master)&gt; ./hello
+Hello, World!</pre> 
+   </div> 
+  </div> 
+ </div> 
+</div> 
+<div class="sect1"> 
+ <h2 id="_nixos_setup">NixOS Setup</h2> 
+ <div class="sectionbody"> 
+ </div> 
+</div> 
+<div class="sect1"> 
+ <h2 id="_creating_an_x11_window_in_c">Creating an X11 Window in C</h2> 
+ <div class="sectionbody"> 
+ </div> 
+</div> 
+<div class="sect1"> 
+ <h2 id="_creating_an_x11_window_in_groovy">Creating an X11 Window in Groovy</h2> 
+ <div class="sectionbody"> 
+  <div class="listingblock"> 
+   <div class="content"> 
+    <pre>#!/usr/bin/env nix-shell
 /*
 #!nix-shell -i groovy
 #!nix-shell deps.nix
@@ -213,14 +200,13 @@ X11.INSTANCE.with {
     XFreeGC(display, gc)
     XDestroyWindow(display, window)
     XCloseDisplay(display)
-}</pre>
-</div>
-</div>
-<div class="paragraph">
-<p><a href="https://github.com/java-native-access/jna">Java Native Access</a> comes with a partial implementation for using X11
-<code>com.sun.jna.platform.unix.X11</code>.</p>
-</div>
-</div>
+}</pre> 
+   </div> 
+  </div> 
+  <div class="paragraph"> 
+   <p><a href="https://github.com/java-native-access/jna">Java Native Access</a> comes with a partial implementation for using X11 <code>com.sun.jna.platform.unix.X11</code>.</p> 
+  </div> 
+ </div> 
 </div>
                             </div>
                         </div><div class="row">
@@ -255,7 +241,7 @@ X11.INSTANCE.with {
 <div class="row">
             <div class="small-12 small-text-center">
                 <p class="muted credit">
-                    2014 - 2018 | Mixed with <a href="http://foundation.zurb.com/">Foundation v5.5.1</a> | Baked with <a href="http://jbake.org">JBake v2.5.1</a>
+                    2014 - 2018 | Mixed with <a href="http://foundation.zurb.com/">Foundation v5.5.1</a> | Baked with <a href="http://jbake.org">JBake v2.6.1</a>
                 </p>
             </div>
         </div>        <script src="/js/vendor/jquery.js"></script>

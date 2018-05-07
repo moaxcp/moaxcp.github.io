@@ -80,12 +80,12 @@
                             </div>
                         </header><div class="row">
                             <div class="small-9 small-offset-3 medium-11 medium-offset-1 large-11 large-offset-1 columns">
-                                <div class="paragraph">
-<p>I finally got my gentoo vagrant box up and running. There was a <a href="https://github.com/mitchellh/vagrant/issues/5070#issuecomment-75738232">bug</a> in vagrant which I was able to find a workaround. I also had to make sure that the vboxsf module is loaded on boot. Otherwise, I got and error:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre>    Failed to mount folders in Linux guest. This is usually because
+                                <div class="paragraph"> 
+ <p>I finally got my gentoo vagrant box up and running. There was a <a href="https://github.com/mitchellh/vagrant/issues/5070#issuecomment-75738232">bug</a> in vagrant which I was able to find a workaround. I also had to make sure that the vboxsf module is loaded on boot. Otherwise, I got and error:</p> 
+</div> 
+<div class="listingblock"> 
+ <div class="content"> 
+  <pre>    Failed to mount folders in Linux guest. This is usually because
     the "vboxsf" file system is not available. Please verify that
     the guest additions are properly installed in the guest and
     can work properly. The command attempted was:
@@ -95,22 +95,22 @@
 
     The error output from the last command was:
 
-    /sbin/mount.vboxsf: mounting failed with the error: No such device</pre>
-</div>
-</div>
-<div class="paragraph">
-<p>To fix this add</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre>    modules="vboxsf"</pre>
-</div>
-</div>
-<div class="paragraph">
-<p>to the file /etc/conf.d/modules.</p>
-</div>
-<div class="paragraph">
-<p>I was able to package the box after following another <a href="https://github.com/mitchellh/vagrant/issues/5186#issuecomment-77355450">fix</a> but I won&#8217;t be able to release the package until the above problems are fixed in the original vm.</p>
+    /sbin/mount.vboxsf: mounting failed with the error: No such device</pre> 
+ </div> 
+</div> 
+<div class="paragraph"> 
+ <p>To fix this add</p> 
+</div> 
+<div class="listingblock"> 
+ <div class="content"> 
+  <pre>    modules="vboxsf"</pre> 
+ </div> 
+</div> 
+<div class="paragraph"> 
+ <p>to the file /etc/conf.d/modules.</p> 
+</div> 
+<div class="paragraph"> 
+ <p>I was able to package the box after following another <a href="https://github.com/mitchellh/vagrant/issues/5186#issuecomment-77355450">fix</a> but I won’t be able to release the package until the above problems are fixed in the original vm.</p> 
 </div>
                             </div>
                         </div><div class="row">
@@ -145,7 +145,7 @@
 <div class="row">
             <div class="small-12 small-text-center">
                 <p class="muted credit">
-                    2014 - 2018 | Mixed with <a href="http://foundation.zurb.com/">Foundation v5.5.1</a> | Baked with <a href="http://jbake.org">JBake v2.5.1</a>
+                    2014 - 2018 | Mixed with <a href="http://foundation.zurb.com/">Foundation v5.5.1</a> | Baked with <a href="http://jbake.org">JBake v2.6.1</a>
                 </p>
             </div>
         </div>        <script src="/js/vendor/jquery.js"></script>

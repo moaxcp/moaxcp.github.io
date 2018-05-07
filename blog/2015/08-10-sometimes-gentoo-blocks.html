@@ -80,31 +80,31 @@
                             </div>
                         </header><div class="row">
                             <div class="small-9 small-offset-3 medium-11 medium-offset-1 large-11 large-offset-1 columns">
-                                <div class="paragraph">
-<p>I was trying to update my system which resulted in a blocked package.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre>emerge -avuUND --withb-deps=y @world
+                                <div class="paragraph"> 
+ <p>I was trying to update my system which resulted in a blocked package.</p> 
+</div> 
+<div class="listingblock"> 
+ <div class="content"> 
+  <pre>emerge -avuUND --withb-deps=y @world
 
 * Error: The above package list contains packages which cannot be
 * installed at the same time on the same system.
 
   (x11-libs/libfm-extra-1.2.3:0/4.3.0::gentoo, ebuild scheduled for merge) pulled in by
     ~x11-libs/libfm-extra-1.2.3 required by (x11-libs/libfm-1.2.3-r1:0/4.3.0::gentoo, ebuild scheduled for merge)
-    x11-libs/libfm-extra required by (lxde-base/menu-cache-1.0.0-r1:0/2::gentoo, ebuild scheduled for merge)</pre>
-</div>
-</div>
-<div class="paragraph">
-<p>After reading the change log for the ebuild it turns out the package was changed so users would unmerge the package and then merge it again.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre>emerge --unmerge x11-libs/libfm</pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Now my system is happy and being updated.</p>
+    x11-libs/libfm-extra required by (lxde-base/menu-cache-1.0.0-r1:0/2::gentoo, ebuild scheduled for merge)</pre> 
+ </div> 
+</div> 
+<div class="paragraph"> 
+ <p>After reading the change log for the ebuild it turns out the package was changed so users would unmerge the package and then merge it again.</p> 
+</div> 
+<div class="listingblock"> 
+ <div class="content"> 
+  <pre>emerge --unmerge x11-libs/libfm</pre> 
+ </div> 
+</div> 
+<div class="paragraph"> 
+ <p>Now my system is happy and being updated.</p> 
 </div>
                             </div>
                         </div><div class="row">
@@ -139,7 +139,7 @@
 <div class="row">
             <div class="small-12 small-text-center">
                 <p class="muted credit">
-                    2014 - 2018 | Mixed with <a href="http://foundation.zurb.com/">Foundation v5.5.1</a> | Baked with <a href="http://jbake.org">JBake v2.5.1</a>
+                    2014 - 2018 | Mixed with <a href="http://foundation.zurb.com/">Foundation v5.5.1</a> | Baked with <a href="http://jbake.org">JBake v2.6.1</a>
                 </p>
             </div>
         </div>        <script src="/js/vendor/jquery.js"></script>

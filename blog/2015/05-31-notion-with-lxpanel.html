@@ -80,62 +80,53 @@
                             </div>
                         </header><div class="row">
                             <div class="small-9 small-offset-3 medium-11 medium-offset-1 large-11 large-offset-1 columns">
-                                <div class="paragraph">
-<p>Today I am starting a project to use lxpanel from lxde in the notion window manager. I am starting with
-a fresh set of config files.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre>    cp /usr/local/etc/notion/* /home/john/.notion</pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Turn off mod_statusbar and turn on mod_dock.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre>    nano /home/john/.notion/cfg_notion.lua</pre>
-</div>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>comment out dopath("cfg_defaults")</p>
-</li>
-<li>
-<p>Uncomment the rest of the modules except for mod_statusbar</p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p>Reload the session</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>press F12</p>
-</li>
-<li>
-<p>type session/restart</p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p>There will be a floating dock (black empty box) in the lower right of the workspace. To get rid of it</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre>    nano /home/john/.notion/cfg_dock.lua</pre>
-</div>
-</div>
-<div class="paragraph">
-<p>The first section creates a dock floating dock that can be used to place the lxpanel application. Set the mode to embedded or floating. Floating will allow the panel to be hidden. Embedded will permenently place the panel at the bottom of the screen. Set floating_hidden=true to automatically hide the panel when the session starts. Restart the session once cfg_dock.lua is saved (F12 + session/restart).</p>
-</div>
-<div class="paragraph">
-<p>Start lxpanel by pression F3 and typing lxpanel.</p>
-</div>
-<div class="paragraph">
-<p>After the dock is setup add lxpanel to your .xinitrc This will make sure the panel is started when you log into the computer.</p>
+                                <div class="paragraph"> 
+ <p>Today I am starting a project to use lxpanel from lxde in the notion window manager. I am starting with a fresh set of config files.</p> 
+</div> 
+<div class="listingblock"> 
+ <div class="content"> 
+  <pre>    cp /usr/local/etc/notion/* /home/john/.notion</pre> 
+ </div> 
+</div> 
+<div class="paragraph"> 
+ <p>Turn off mod_statusbar and turn on mod_dock.</p> 
+</div> 
+<div class="listingblock"> 
+ <div class="content"> 
+  <pre>    nano /home/john/.notion/cfg_notion.lua</pre> 
+ </div> 
+</div> 
+<div class="ulist"> 
+ <ul> 
+  <li> <p>comment out dopath("cfg_defaults")</p> </li> 
+  <li> <p>Uncomment the rest of the modules except for mod_statusbar</p> </li> 
+ </ul> 
+</div> 
+<div class="paragraph"> 
+ <p>Reload the session</p> 
+</div> 
+<div class="ulist"> 
+ <ul> 
+  <li> <p>press F12</p> </li> 
+  <li> <p>type session/restart</p> </li> 
+ </ul> 
+</div> 
+<div class="paragraph"> 
+ <p>There will be a floating dock (black empty box) in the lower right of the workspace. To get rid of it</p> 
+</div> 
+<div class="listingblock"> 
+ <div class="content"> 
+  <pre>    nano /home/john/.notion/cfg_dock.lua</pre> 
+ </div> 
+</div> 
+<div class="paragraph"> 
+ <p>The first section creates a dock floating dock that can be used to place the lxpanel application. Set the mode to embedded or floating. Floating will allow the panel to be hidden. Embedded will permenently place the panel at the bottom of the screen. Set floating_hidden=true to automatically hide the panel when the session starts. Restart the session once cfg_dock.lua is saved (F12 + session/restart).</p> 
+</div> 
+<div class="paragraph"> 
+ <p>Start lxpanel by pression F3 and typing lxpanel.</p> 
+</div> 
+<div class="paragraph"> 
+ <p>After the dock is setup add lxpanel to your .xinitrc This will make sure the panel is started when you log into the computer.</p> 
 </div>
                             </div>
                         </div><div class="row">
@@ -170,7 +161,7 @@ a fresh set of config files.</p>
 <div class="row">
             <div class="small-12 small-text-center">
                 <p class="muted credit">
-                    2014 - 2018 | Mixed with <a href="http://foundation.zurb.com/">Foundation v5.5.1</a> | Baked with <a href="http://jbake.org">JBake v2.5.1</a>
+                    2014 - 2018 | Mixed with <a href="http://foundation.zurb.com/">Foundation v5.5.1</a> | Baked with <a href="http://jbake.org">JBake v2.6.1</a>
                 </p>
             </div>
         </div>        <script src="/js/vendor/jquery.js"></script>

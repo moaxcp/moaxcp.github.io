@@ -80,50 +80,48 @@
                             </div>
                         </header><div class="row">
                             <div class="small-9 small-offset-3 medium-11 medium-offset-1 large-11 large-offset-1 columns">
-                                <div id="preamble">
-<div class="sectionbody">
-<div class="paragraph">
-<p>Java has an <a href="http://jpc.sourceforge.net/download_application.html">x86 emulator</a> that claims to run linux. After
-attempting the demo links for other distributions that do not work I decided to try to install gentoo on it myself.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_create_a_disk_from_the_disks_menu">create a disk from the disks menu.</h2>
-<div class="sectionbody">
-<div class="listingblock">
-<div class="content">
-<pre>hda 2gb</pre>
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_start_jpc">start jpc</h2>
-<div class="sectionbody">
-<div class="listingblock">
-<div class="content">
-<pre>java -jar JPCApplication.jar -boot cdrom -cd
-rom gentoo\install-x86-minimal-20141209.iso -hda gentoo\hda.imgj</pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Note: could not use absolute paths (bad programming for c:)</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_file_start">File -&gt; Start</h2>
-<div class="sectionbody">
-
-</div>
-</div>
-<div class="sect1">
-<h2 id="_error">Error</h2>
-<div class="sectionbody">
-<div class="listingblock">
-<div class="content">
-<pre>C:\Users\megan\Dropbox\Software\jcp&gt;java -jar JPCApplication.jar -boot cdrom -cd
+                                <div id="preamble"> 
+ <div class="sectionbody"> 
+  <div class="paragraph"> 
+   <p>Java has an <a href="http://jpc.sourceforge.net/download_application.html">x86 emulator</a> that claims to run linux. After attempting the demo links for other distributions that do not work I decided to try to install gentoo on it myself.</p> 
+  </div> 
+ </div> 
+</div> 
+<div class="sect1"> 
+ <h2 id="_create_a_disk_from_the_disks_menu">create a disk from the disks menu.</h2> 
+ <div class="sectionbody"> 
+  <div class="listingblock"> 
+   <div class="content"> 
+    <pre>hda 2gb</pre> 
+   </div> 
+  </div> 
+ </div> 
+</div> 
+<div class="sect1"> 
+ <h2 id="_start_jpc">start jpc</h2> 
+ <div class="sectionbody"> 
+  <div class="listingblock"> 
+   <div class="content"> 
+    <pre>java -jar JPCApplication.jar -boot cdrom -cd
+rom gentoo\install-x86-minimal-20141209.iso -hda gentoo\hda.imgj</pre> 
+   </div> 
+  </div> 
+  <div class="paragraph"> 
+   <p>Note: could not use absolute paths (bad programming for c:)</p> 
+  </div> 
+ </div> 
+</div> 
+<div class="sect1"> 
+ <h2 id="_file_start">File -&gt; Start</h2> 
+ <div class="sectionbody"> 
+ </div> 
+</div> 
+<div class="sect1"> 
+ <h2 id="_error">Error</h2> 
+ <div class="sectionbody"> 
+  <div class="listingblock"> 
+   <div class="content"> 
+    <pre>C:\Users\megan\Dropbox\Software\jcp&gt;java -jar JPCApplication.jar -boot cdrom -cd
 rom gentoo\install-x86-minimal-20141209.iso -hda gentoo\hda.img
 Jan 31, 2015 10:05:09 PM org.jpc.j2se.JPCApplication main
 INFO: Using configuration specified on command line
@@ -206,79 +204,66 @@ INFO: java.lang.NullPointerException: unimplemented microcode: PUSHAD_A16
 Jan 31, 2015 10:05:20 PM org.jpc.emulator.motherboard.Bios print
 INFO: KBD: unsupported int 16h function 03
 Jan 31, 2015 10:05:20 PM org.jpc.emulator.motherboard.Bios print
-INFO: *** int 15h function AX=e980, BX=0000 not yet supported!</pre>
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_started_damn_small_linux">Started damn small linux</h2>
-<div class="sectionbody">
-<div class="listingblock">
-<div class="content">
-<pre>java -jar JPCApplication.jar -boot cdrom -cd rom dsl\dsl-4.4.10.iso -hda gentoo\gentoo.img</pre>
-</div>
-</div>
-<div class="paragraph">
-<p>`
-Java HotSpot&#8482; 64-Bit Server VM warning: CodeCache is full. Compiler has been
-disabled.
-Java HotSpot&#8482; 64-Bit Server VM warning: Try increasing the code cache size us
-ing -XX:ReservedCodeCacheSize=
-CodeCache: size=245760Kb used=239785Kb max_used=240710Kb free=5974Kb
- bounds [0x000000000f010000, 0x000000001e010000, 0x000000001e010000]
- total_blobs=13616 nmethods=13063 adapters=463
- compilation: enabled
-`</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_restarted_damn_small_linux">Restarted damn small linux</h2>
-<div class="sectionbody">
-<div class="listingblock">
-<div class="content">
-<pre>java -XX:ReservedCodeCacheSize=2048m -jar JPCApplication.jar -boot cdrom -cdrom dsl\dsl-4.4.10.iso -hda gentoo\gentoo.img</pre>
-</div>
-</div>
-<div class="paragraph">
-<p>This is still not starting correctly. Also noticed uptime was 45 minutes after about 10 minutes.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_switching_to_system_rescue_cd">Switching to System Rescue CD</h2>
-<div class="sectionbody">
-<div class="listingblock">
-<div class="content">
-<pre>java -XX:ReservedCodeCacheSize=2048m -jar JPCApplication.jar -boot cdrom -cdrom gentoo\systemrescuecd-x86-4.4.1.iso -hda gentoo\gentoo.img</pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Not working!</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_damn_small_linux_in_text_mode_dsl_2">Damn Small Linux in text mode (dsl 2)</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>Works in run level 2!</p>
-</div>
-<div class="paragraph">
-<p>After looking into the ethernet setup I found that an internal network can be setup with the -net argument but it only
- works between two vms on the same computer. It doesn&#8217;t actually connect to the internet through the host system.</p>
-</div>
-<div class="paragraph">
-<p>Since this emulator cannot connect to the internet. I have to rethink the usefulness of jpc. If it is not possible to
-setup a network how can it be used for any form of processing? It either needs to have networking or access to files on
-the host system. It needs I/O to the host system other than the keyboard, mouse, and monitor. It may be possible to
-forward everything from the EthernetHubServer to the host system network card somehow in java but I&#8217;m not sure how.</p>
-</div>
-<div class="paragraph">
-<p>This was a fun experiment but JPC is only useful for playing dos games.</p>
-</div>
-</div>
+INFO: *** int 15h function AX=e980, BX=0000 not yet supported!</pre> 
+   </div> 
+  </div> 
+ </div> 
+</div> 
+<div class="sect1"> 
+ <h2 id="_started_damn_small_linux">Started damn small linux</h2> 
+ <div class="sectionbody"> 
+  <div class="listingblock"> 
+   <div class="content"> 
+    <pre>java -jar JPCApplication.jar -boot cdrom -cd&nbsp;rom dsl\dsl-4.4.10.iso -hda gentoo\gentoo.img</pre> 
+   </div> 
+  </div> 
+  <div class="paragraph"> 
+   <p>` Java HotSpot™ 64-Bit Server VM warning: CodeCache is full. Compiler has been disabled. Java HotSpot™ 64-Bit Server VM warning: Try increasing the code cache size us ing -XX:ReservedCodeCacheSize= CodeCache: size=245760Kb used=239785Kb max_used=240710Kb free=5974Kb bounds [0x000000000f010000, 0x000000001e010000, 0x000000001e010000] total_blobs=13616 nmethods=13063 adapters=463 compilation: enabled `</p> 
+  </div> 
+ </div> 
+</div> 
+<div class="sect1"> 
+ <h2 id="_restarted_damn_small_linux">Restarted damn small linux</h2> 
+ <div class="sectionbody"> 
+  <div class="listingblock"> 
+   <div class="content"> 
+    <pre>java -XX:ReservedCodeCacheSize=2048m -jar JPCApplication.jar -boot cdrom -cdrom dsl\dsl-4.4.10.iso -hda gentoo\gentoo.img</pre> 
+   </div> 
+  </div> 
+  <div class="paragraph"> 
+   <p>This is still not starting correctly. Also noticed uptime was 45 minutes after about 10 minutes.</p> 
+  </div> 
+ </div> 
+</div> 
+<div class="sect1"> 
+ <h2 id="_switching_to_system_rescue_cd">Switching to System Rescue CD</h2> 
+ <div class="sectionbody"> 
+  <div class="listingblock"> 
+   <div class="content"> 
+    <pre>java -XX:ReservedCodeCacheSize=2048m -jar JPCApplication.jar -boot cdrom -cdrom gentoo\systemrescuecd-x86-4.4.1.iso -hda gentoo\gentoo.img</pre> 
+   </div> 
+  </div> 
+  <div class="paragraph"> 
+   <p>Not working!</p> 
+  </div> 
+ </div> 
+</div> 
+<div class="sect1"> 
+ <h2 id="_damn_small_linux_in_text_mode_dsl_2">Damn Small Linux in text mode (dsl 2)</h2> 
+ <div class="sectionbody"> 
+  <div class="paragraph"> 
+   <p>Works in run level 2!</p> 
+  </div> 
+  <div class="paragraph"> 
+   <p>After looking into the ethernet setup I found that an internal network can be setup with the -net argument but it only works between two vms on the same computer. It doesn’t actually connect to the internet through the host system.</p> 
+  </div> 
+  <div class="paragraph"> 
+   <p>Since this emulator cannot connect to&nbsp;the internet. I have to rethink the usefulness of jpc. If it is not possible to setup a network how can it be used for any form of processing? It either needs to have networking or access to files on the host system. It needs I/O to the host system other than the keyboard, mouse, and monitor. It may be possible to forward everything from the EthernetHubServer to the host system network card somehow in java but I’m not sure how.</p> 
+  </div> 
+  <div class="paragraph"> 
+   <p>This was a fun experiment but JPC is only useful for playing dos games.</p> 
+  </div> 
+ </div> 
 </div>
                             </div>
                         </div><div class="row">
@@ -313,7 +298,7 @@ forward everything from the EthernetHubServer to the host system network card so
 <div class="row">
             <div class="small-12 small-text-center">
                 <p class="muted credit">
-                    2014 - 2018 | Mixed with <a href="http://foundation.zurb.com/">Foundation v5.5.1</a> | Baked with <a href="http://jbake.org">JBake v2.5.1</a>
+                    2014 - 2018 | Mixed with <a href="http://foundation.zurb.com/">Foundation v5.5.1</a> | Baked with <a href="http://jbake.org">JBake v2.6.1</a>
                 </p>
             </div>
         </div>        <script src="/js/vendor/jquery.js"></script>

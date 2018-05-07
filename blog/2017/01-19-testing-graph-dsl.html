@@ -80,41 +80,31 @@
                             </div>
                         </header><div class="row">
                             <div class="small-9 small-offset-3 medium-11 medium-offset-1 large-11 large-offset-1 columns">
-                                <div class="paragraph">
-<p>graph-dsl is a project I started so I could write graphs and algorithms easily. Over the past
-year testing has become important to the way I write code. With graph-dsl I wanted to learn more
-about Test Driven Development and using different tools like gradle, spock, jacoco, and sonarqube.</p>
-</div>
-<div class="paragraph">
-<p>Gradle is the build tool I am most familiar with. It combines the best features from groovy, ant,
-ivy, and maven. It supports massive multiproject builds and it is easy to override any convention.
-It also has a large community for support and it is constantly updated.</p>
-</div>
-<div class="paragraph">
-<p>Spock is a testing framework built on top of JUnit. It provides an easy way to describe code and
-what it is expected to do. Spock is not really about testing units of code and integrating them.
-It is all about writing specifications and testing expected features of the code. The perspective
-is different but the end result is similar.</p>
-</div>
-<div class="paragraph">
-<p>Adding spock to a gradle project is easy. Just add the dependency.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="prettyprint highlight"><code class="language-groovy" data-lang="groovy">dependencies {
+                                <div class="paragraph"> 
+ <p>graph-dsl is a project I started so I could write graphs and algorithms easily. Over the past year testing has become important to the way I write code. With graph-dsl I wanted to learn more about Test Driven Development and using different tools like gradle, spock, jacoco, and sonarqube.</p> 
+</div> 
+<div class="paragraph"> 
+ <p>Gradle is the build tool I am most familiar with. It combines the best features from groovy, ant, ivy, and maven. It supports massive multiproject builds and it is easy to override any convention. It also has a large community for support and it is constantly updated.</p> 
+</div> 
+<div class="paragraph"> 
+ <p>Spock is a testing framework built on top of JUnit. It provides an easy way to describe code and what it is expected to do. Spock is not really about testing units of code and integrating them. It is all about writing specifications and testing expected features of the code. The perspective is different but the end result is similar.</p> 
+</div> 
+<div class="paragraph"> 
+ <p>Adding spock to a gradle project is easy. Just add the dependency.</p> 
+</div> 
+<div class="listingblock"> 
+ <div class="content"> 
+  <pre class="prettyprint highlight"><code class="language-groovy" data-lang="groovy">dependencies {
     testCompile 'org.spockframework:spock-core:1.0-groovy-2.4'
-}</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>In spock it is not easy to separate unit tests from integration tests and run them separately.
-There isn&#8217;t really a convention for naming tests as there is in JUnit and it is common to end
-test classes with *Spec. When testing with groovy (in JUnit and Spock) it is helpful to use strings
-as method names.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre>def 'can get correct second unvisited vertex'() {
+}</code></pre> 
+ </div> 
+</div> 
+<div class="paragraph"> 
+ <p>In spock it is not easy to separate unit tests from integration tests and run them separately. There isn’t really a convention for naming tests as there is in JUnit and it is common to end test classes with *Spec. When testing with groovy (in JUnit and Spock) it is helpful to use strings as method names.</p> 
+</div> 
+<div class="listingblock"> 
+ <div class="content"> 
+  <pre>def 'can get correct second unvisited vertex'() {
     setup:
     def graph = new Graph()
     graph.with {
@@ -128,72 +118,60 @@ as method names.</p>
 
     then:
     name == 'step2'
-}</pre>
-</div>
-</div>
-<div class="paragraph">
-<p>When a test method fails the string should try to point out what feature failed. Spock is just one
-tool I am using for testing. I also rely on jacoco to ensure I have good test coverage.</p>
-</div>
-<div class="paragraph">
-<p>Jacoco is a great tool for viewing code coverage for tests or anything else running in the jvm. Gradle
- makes using jacoco easy. To use jacoco in gradle apply the plugin.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="prettyprint highlight"><code class="language-groovy" data-lang="groovy">apply plugin: 'jacoco'</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>If you plan on following TDD it is easy to see the coverage as you build tests and add code. It
-is not so easy to see what code each individual test is covering. There is some support to view
-this in sonar when using jacoco with maven but I haven&#8217;t found support in gradle.</p>
-</div>
-<div class="paragraph">
-<p>There is a trick to using jacoco with groovy that took me a while to figure out. When groovy is
-compiled there are some optimizations added to the resulting bytecode. These optimizations
-show up in jacoco as extra instructions that may not be covered in your tests. It is better to
-turn off these optimizations when running tests with jacoco. To do this I added the following
-to my build.gradle</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="prettyprint highlight"><code class="language-groovy" data-lang="groovy">gradle.taskGraph.whenReady { graph -&gt;
+}</pre> 
+ </div> 
+</div> 
+<div class="paragraph"> 
+ <p>When a test method fails the string should try to point out what feature failed. Spock is just one tool I am using for testing. I also rely on jacoco to ensure I have good test coverage.</p> 
+</div> 
+<div class="paragraph"> 
+ <p>Jacoco is a great tool for viewing code coverage for tests or anything else running in the jvm. Gradle makes using jacoco easy. To use jacoco in gradle apply the plugin.</p> 
+</div> 
+<div class="listingblock"> 
+ <div class="content"> 
+  <pre class="prettyprint highlight"><code class="language-groovy" data-lang="groovy">apply plugin: 'jacoco'</code></pre> 
+ </div> 
+</div> 
+<div class="paragraph"> 
+ <p>If you plan on following TDD it is easy to see the coverage as you build tests and add code. It is not so easy to see what code each individual test is covering. There is some support to view this in sonar when using jacoco with maven but I haven’t found support in gradle.</p> 
+</div> 
+<div class="paragraph"> 
+ <p>There is a trick to using jacoco with groovy that took me a while to figure out. When groovy is compiled there are some optimizations added to the resulting bytecode. These optimizations show up in jacoco as extra instructions that may not be covered in your tests. It is better to turn off these optimizations when running tests with jacoco. To do this I added the following to my build.gradle</p> 
+</div> 
+<div class="listingblock"> 
+ <div class="content"> 
+  <pre class="prettyprint highlight"><code class="language-groovy" data-lang="groovy">gradle.taskGraph.whenReady { graph -&gt;
     if (graph.hasTask(':jacocoTestReport') || graph.hasTask(':sonarqube')) {
         compileGroovy.groovyOptions.optimizationOptions.all = false
     }
-}</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>This will turn off optimizations any time jacocoTestReport or sonarqube will be run.</p>
-</div>
-<div class="paragraph">
-<p>Sonarqube is a tool that performs static code analysis. It provides reports on bugs and vulnerabilities
-like and has a nice user interface. It also provides a central place to view test reports and
-code coverage from jacoco (I could only find info about this for maven). Metrics are rated in
-sonarqube which allows the developer to see the health of a project.</p>
-</div>
-<div class="paragraph">
-<p>Adding sonarqube is easy</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="prettyprint highlight"><code class="language-groovy" data-lang="groovy">apply plugin: 'org.sonarqube'</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Using sonarqube.com is free. Once you have an account set up and access key and add some entries to gradle.properties.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre>systemProp.sonar.host.url=https://sonarqube.com/
-systemProp.sonar.login=sonar login</pre>
-</div>
-</div>
-<div class="paragraph">
-<p>sonar seems to calculate line coverage differently than jacoco. It is usually a few percentage points
-higher.</p>
+}</code></pre> 
+ </div> 
+</div> 
+<div class="paragraph"> 
+ <p>This will turn off optimizations any time jacocoTestReport or sonarqube will be run.</p> 
+</div> 
+<div class="paragraph"> 
+ <p>Sonarqube is a tool that performs static code analysis. It provides reports on bugs and vulnerabilities like and has a nice user interface. It also provides a central place to view test reports and code coverage from jacoco (I could only find info about this for maven). Metrics are rated in sonarqube which allows the developer to see the health of a project.</p> 
+</div> 
+<div class="paragraph"> 
+ <p>Adding sonarqube is easy</p> 
+</div> 
+<div class="listingblock"> 
+ <div class="content"> 
+  <pre class="prettyprint highlight"><code class="language-groovy" data-lang="groovy">apply plugin: 'org.sonarqube'</code></pre> 
+ </div> 
+</div> 
+<div class="paragraph"> 
+ <p>Using sonarqube.com is free. Once you have an account set up and access key and add some entries to gradle.properties.</p> 
+</div> 
+<div class="listingblock"> 
+ <div class="content"> 
+  <pre>systemProp.sonar.host.url=https://sonarqube.com/
+systemProp.sonar.login=sonar login</pre> 
+ </div> 
+</div> 
+<div class="paragraph"> 
+ <p>sonar seems to calculate line coverage differently than jacoco. It is usually a few percentage points higher.</p> 
 </div>
                             </div>
                         </div><div class="row">
@@ -228,7 +206,7 @@ higher.</p>
 <div class="row">
             <div class="small-12 small-text-center">
                 <p class="muted credit">
-                    2014 - 2018 | Mixed with <a href="http://foundation.zurb.com/">Foundation v5.5.1</a> | Baked with <a href="http://jbake.org">JBake v2.5.1</a>
+                    2014 - 2018 | Mixed with <a href="http://foundation.zurb.com/">Foundation v5.5.1</a> | Baked with <a href="http://jbake.org">JBake v2.6.1</a>
                 </p>
             </div>
         </div>        <script src="/js/vendor/jquery.js"></script>

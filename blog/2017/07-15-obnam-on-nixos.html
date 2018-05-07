@@ -80,49 +80,42 @@
                             </div>
                         </header><div class="row">
                             <div class="small-9 small-offset-3 medium-11 medium-offset-1 large-11 large-offset-1 columns">
-                                <div class="paragraph">
-<p><a href="http://www.obnam.org">obnam</a> is a backup program I have used
-<a href="http://moaxcp.github.io/2015/09/09/obnam-on-gentoo.html">used</a>
-in the past to backup my gentoo system. Now that I am using nixos I would like to setup backups for a number of reasons:</p>
-</div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>I am on satalite internet so building the nix store, and downloading files from dropbox again could cost a lot of time.</p>
-</li>
-<li>
-<p>there are still a lot of files that are not in the nixstore.</p>
-</li>
-</ol>
-</div>
-<div class="paragraph">
-<p>Setting up obnam on nixos starts with installing it. This is done by adding obnam to the systemPackages.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="prettyprint highlight"><code class="language-nix" data-lang="nix">environment.systemPackages = with pkgs; [
+                                <div class="paragraph"> 
+ <p><a href="http://www.obnam.org">obnam</a> is a backup program I have used <a href="http://moaxcp.github.io/2015/09/09/obnam-on-gentoo.html">used</a> in the past to backup my gentoo system. Now that I am using nixos I would like to setup backups for a number of reasons:</p> 
+</div> 
+<div class="olist arabic"> 
+ <ol class="arabic"> 
+  <li> <p>I am on satalite internet so building the nix store, and downloading files from dropbox again could cost a lot of time.</p> </li> 
+  <li> <p>there are still a lot of files that are not in the nixstore.</p> </li> 
+ </ol> 
+</div> 
+<div class="paragraph"> 
+ <p>Setting up obnam on nixos starts with installing it. This is done by adding obnam to the systemPackages.</p> 
+</div> 
+<div class="listingblock"> 
+ <div class="content"> 
+  <pre class="prettyprint highlight"><code class="language-nix" data-lang="nix">environment.systemPackages = with pkgs; [
   obnam
-];</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>The next part is setting up the configuration. obnam search for a config in the following order.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre>/etc/obnam.conf
+];</code></pre> 
+ </div> 
+</div> 
+<div class="paragraph"> 
+ <p>The next part is setting up the configuration. obnam search for a config in the following order.</p> 
+</div> 
+<div class="listingblock"> 
+ <div class="content"> 
+  <pre>/etc/obnam.conf
 /etc/obnam/*.conf
 ~/.obnam.conf
-~/.config/obnam/*.conf</pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Nixos is able to create an etc file from it&#8217;s configuration with the <code>environment.etc</code> attribute. To create <code>/etc/obnam.conf</code>
-add this code to <code>configuration.nix</code>.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="prettyprint highlight"><code class="language-nix" data-lang="nix">environment.etc."obnam.conf" = {
+~/.config/obnam/*.conf</pre> 
+ </div> 
+</div> 
+<div class="paragraph"> 
+ <p>Nixos is able to create an etc file from it’s configuration with the <code>environment.etc</code> attribute. To create <code>/etc/obnam.conf</code> add this code to <code>configuration.nix</code>.</p> 
+</div> 
+<div class="listingblock"> 
+ <div class="content"> 
+  <pre class="prettyprint highlight"><code class="language-nix" data-lang="nix">environment.etc."obnam.conf" = {
   enable = true;
   text = ''
     [config]
@@ -133,32 +126,29 @@ add this code to <code>configuration.nix</code>.</p>
     one-file-system = yes
     exclude = /data
   '';
-};</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>At this point (once <code>nixos-rebuild switch</code> is run) obnam can be run manually as root. It would be nice if backups were run
-daily though. This can be setup with fcron.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="prettyprint highlight"><code class="language-nix" data-lang="nix">services.fcron = {
+};</code></pre> 
+ </div> 
+</div> 
+<div class="paragraph"> 
+ <p>At this point (once <code>nixos-rebuild switch</code> is run) obnam can be run manually as root. It would be nice if backups were run daily though. This can be setup with fcron.</p> 
+</div> 
+<div class="listingblock"> 
+ <div class="content"> 
+  <pre class="prettyprint highlight"><code class="language-nix" data-lang="nix">services.fcron = {
   enable = true;
   allow = [ "john" ];
   systab = ''
     @ 1d obnam backup
   '';
-};</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>The above code will install fcron and setup a job to run obnam once a day. Since systemd is used on nixos it would be better
-to use a timer instead of fcron. This can be done by removing <code>services.fcron</code> and adding a systemd service and timer for
-obnam.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="prettyprint highlight"><code class="language-nix" data-lang="nix">systemd.services.obnam = {
+};</code></pre> 
+ </div> 
+</div> 
+<div class="paragraph"> 
+ <p>The above code will install fcron and setup a job to run obnam once a day. Since systemd is used on nixos it would be better to use a timer instead of fcron. This can be done by removing <code>services.fcron</code> and adding a systemd service and timer for obnam.</p> 
+</div> 
+<div class="listingblock"> 
+ <div class="content"> 
+  <pre class="prettyprint highlight"><code class="language-nix" data-lang="nix">systemd.services.obnam = {
   description = "Perform system backup";
   script = "${pkgs.obnam}/bin/obnam backup";
 };
@@ -170,8 +160,8 @@ systemd.timers.obnam = {
     OnCalendar = "daily";
     Persistent = true;
   };
-};</code></pre>
-</div>
+};</code></pre> 
+ </div> 
 </div>
                             </div>
                         </div><div class="row">
@@ -206,7 +196,7 @@ systemd.timers.obnam = {
 <div class="row">
             <div class="small-12 small-text-center">
                 <p class="muted credit">
-                    2014 - 2018 | Mixed with <a href="http://foundation.zurb.com/">Foundation v5.5.1</a> | Baked with <a href="http://jbake.org">JBake v2.5.1</a>
+                    2014 - 2018 | Mixed with <a href="http://foundation.zurb.com/">Foundation v5.5.1</a> | Baked with <a href="http://jbake.org">JBake v2.6.1</a>
                 </p>
             </div>
         </div>        <script src="/js/vendor/jquery.js"></script>

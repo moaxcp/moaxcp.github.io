@@ -80,60 +80,54 @@
                             </div>
                         </header><div class="row">
                             <div class="small-9 small-offset-3 medium-11 medium-offset-1 large-11 large-offset-1 columns">
-                                <div id="preamble">
-<div class="sectionbody">
-<div class="paragraph">
-<p>Today I am working on a vagrant base box using gentoo and VirtualBox. I created a gentoo stage-3 vm in VirtualBox. But this is not enough to run gentoo in VirtualBox let alone as a vagrant box. There are a number of packages that need to be installed to make a stage-3 useful for virtual box and vagrant.</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>virtualbox-guest-additions</p>
-</li>
-<li>
-<p>acpi - for poweroff</p>
-</li>
-<li>
-<p>sudo - to run commands without a password</p>
-</li>
-</ul>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_virtualbox_guest_additions">virtualbox-guest-additions</h2>
-<div class="sectionbody">
-<div class="listingblock">
-<div class="content">
-<pre>    emerge --ask app-emulation/virtualbox-guest-additions</pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Keep in mind this package installs dbus. I recommend setting up dbus using <a href="https://wiki.gentoo.org/wiki/D-Bus">this guide</a>.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_acpi">acpi</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>This is a service I did not have running on my own system. Follow <a href="https://wiki.gentoo.org/wiki/ACPI">this guide</a> to get it setup. This will allow gentoo to shutdown when performing acpi shutdown in the Machine menu.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_sudo">sudo</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>This is required to allow the vagrant user to run commands without a password. It is easy to install and configure for vagrant. <a href="https://wiki.gentoo.org/wiki/Sudo">This</a> is the gentoo guide for sudo.</p>
-</div>
-<div class="paragraph">
-<p>Now I am following <a href="http://docs.vagrantup.com/v2/boxes/base.html">this guide</a> to setup the base box.</p>
-</div>
-<div class="paragraph">
-<p>Another option I would like to try is <a href="https://github.com/d11wtq/gentoo-packer">this</a> setup.</p>
-</div>
-</div>
+                                <div id="preamble"> 
+ <div class="sectionbody"> 
+  <div class="paragraph"> 
+   <p>Today I am working on a vagrant base box using gentoo and VirtualBox. I created a gentoo stage-3 vm in VirtualBox. But this is not enough to run gentoo in VirtualBox let alone as a vagrant box. There are a number of packages that need to be installed to make a stage-3 useful for virtual box and vagrant.</p> 
+  </div> 
+  <div class="ulist"> 
+   <ul> 
+    <li> <p>virtualbox-guest-additions</p> </li> 
+    <li> <p>acpi - for poweroff</p> </li> 
+    <li> <p>sudo - to run commands without a password</p> </li> 
+   </ul> 
+  </div> 
+ </div> 
+</div> 
+<div class="sect1"> 
+ <h2 id="_virtualbox_guest_additions">virtualbox-guest-additions</h2> 
+ <div class="sectionbody"> 
+  <div class="listingblock"> 
+   <div class="content"> 
+    <pre>    emerge --ask app-emulation/virtualbox-guest-additions</pre> 
+   </div> 
+  </div> 
+  <div class="paragraph"> 
+   <p>Keep in mind this package installs dbus. I recommend setting up dbus using <a href="https://wiki.gentoo.org/wiki/D-Bus">this guide</a>.</p> 
+  </div> 
+ </div> 
+</div> 
+<div class="sect1"> 
+ <h2 id="_acpi">acpi</h2> 
+ <div class="sectionbody"> 
+  <div class="paragraph"> 
+   <p>This is a service I did not have running on my own system. Follow <a href="https://wiki.gentoo.org/wiki/ACPI">this guide</a> to get it setup. This will allow gentoo to shutdown when performing acpi shutdown in the Machine menu.</p> 
+  </div> 
+ </div> 
+</div> 
+<div class="sect1"> 
+ <h2 id="_sudo">sudo</h2> 
+ <div class="sectionbody"> 
+  <div class="paragraph"> 
+   <p>This is required to allow the vagrant user to run commands without a password. It is easy to install and configure for vagrant. <a href="https://wiki.gentoo.org/wiki/Sudo">This</a> is the gentoo guide for sudo.</p> 
+  </div> 
+  <div class="paragraph"> 
+   <p>Now I am following <a href="http://docs.vagrantup.com/v2/boxes/base.html">this guide</a> to setup the base box.</p> 
+  </div> 
+  <div class="paragraph"> 
+   <p>Another option I would like to try is <a href="https://github.com/d11wtq/gentoo-packer">this</a> setup.</p> 
+  </div> 
+ </div> 
 </div>
                             </div>
                         </div><div class="row">
@@ -168,7 +162,7 @@
 <div class="row">
             <div class="small-12 small-text-center">
                 <p class="muted credit">
-                    2014 - 2018 | Mixed with <a href="http://foundation.zurb.com/">Foundation v5.5.1</a> | Baked with <a href="http://jbake.org">JBake v2.5.1</a>
+                    2014 - 2018 | Mixed with <a href="http://foundation.zurb.com/">Foundation v5.5.1</a> | Baked with <a href="http://jbake.org">JBake v2.6.1</a>
                 </p>
             </div>
         </div>        <script src="/js/vendor/jquery.js"></script>

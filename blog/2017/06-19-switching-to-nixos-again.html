@@ -80,132 +80,109 @@
                             </div>
                         </header><div class="row">
                             <div class="small-9 small-offset-3 medium-11 medium-offset-1 large-11 large-offset-1 columns">
-                                <div class="paragraph">
-<p>I have decided to switch from gentoo to nixos. I tried nixos over a year ago but had a lot of troubles. This was
-probably because I used the unstable release and couldn&#8217;t really get gradle stuff to work. This time I will only use
-the stable release and try to import newer stuff from unstable if I decided I need it. Hopefully I will not have as
-many problems as I did with the unstable release.</p>
-</div>
-<div class="paragraph">
-<p>First, I downloaded the latest minimal install cd.</p>
-</div>
-<div class="paragraph">
-<p>Second, I backed up my stuff.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre>rsync -r /home/john /mnt/backup</pre>
-</div>
-</div>
-<div class="paragraph">
-<p>The biggest worry I had with this install was getting the partitions and boot setup. A few years ago I had to replace
-my motherboard because installing the uefi boot loader completely messed up the whole machine. I also considered using
-zfs but I&#8217;m not sure I want to dive into that technology yet. So I decided to reuse the setup I used for gentoo. This
-helped save time and gave me less to worry about during the whole process.</p>
-</div>
-<div class="paragraph">
-<p>The partition setup is somewhat unique and I was able to piece it together by reading about setting up mdadm,
-luks, and lvm with gentoo and arch. The partitions look something like this:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre>partitions:
+                                <div class="paragraph"> 
+ <p>I have decided to switch from gentoo to nixos. I tried nixos over a year ago but had a lot of troubles. This was probably because I used the unstable release and couldn’t really get gradle stuff to work. This time I will only use the stable release and try to import newer stuff from unstable if I decided I need it. Hopefully I will not have as many problems as I did with the unstable release.</p> 
+</div> 
+<div class="paragraph"> 
+ <p>First, I downloaded the latest minimal install cd.</p> 
+</div> 
+<div class="paragraph"> 
+ <p>Second, I backed up my stuff.</p> 
+</div> 
+<div class="listingblock"> 
+ <div class="content"> 
+  <pre>rsync -r /home/john /mnt/backup</pre> 
+ </div> 
+</div> 
+<div class="paragraph"> 
+ <p>The biggest worry I had with this install was getting the partitions and boot setup. A few years ago I had to replace my motherboard because installing the uefi boot loader completely messed up the whole machine. I also considered using zfs but I’m not sure I want to dive into that technology yet. So I decided to reuse the setup I used for gentoo. This helped save time and gave me less to worry about during the whole process.</p> 
+</div> 
+<div class="paragraph"> 
+ <p>The partition setup is somewhat unique and I was able to piece it together by reading about setting up mdadm, luks, and lvm with gentoo and arch. The partitions look something like this:</p> 
+</div> 
+<div class="listingblock"> 
+ <div class="content"> 
+  <pre>partitions:
 
 /dev/sda
 |----/dev/sda1----|------------/dev/sda2------------|
 
 /dev/sdb
-|----/dev/sdb1----|------------/dev/sdb2------------|</pre>
-</div>
-</div>
-<div class="paragraph">
-<p>The the first partitions of each drive are setup by mdadm as a raid1. The second partitions are setup by mdadm as a
-raid0. This is the logical view of the raid arrays.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre>raid arrays:
+|----/dev/sdb1----|------------/dev/sdb2------------|</pre> 
+ </div> 
+</div> 
+<div class="paragraph"> 
+ <p>The the first partitions of each drive are setup by mdadm as a raid1. The second partitions are setup by mdadm as a raid0. This is the logical view of the raid arrays.</p> 
+</div> 
+<div class="listingblock"> 
+ <div class="content"> 
+  <pre>raid arrays:
 
-|----/dev/md/0----|------------/dev/md/1------------|</pre>
-</div>
-</div>
-<div class="paragraph">
-<p>/dev/md/0 is setup with ext4 and it becomes /boot in the filesystem. /dev/md/1 is slightly more complicated. It is a
-luks encrypted drive which contains lvm&#8217;s volume group 0. vg0 contains swap and '/'.</p>
-</div>
-<div class="paragraph">
-<p>I know there is a lot more risk with raid0 but I also have a third drive which is used for backups using obnam. This
-mitigates any real risks of losing data.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre>backup partition:
+|----/dev/md/0----|------------/dev/md/1------------|</pre> 
+ </div> 
+</div> 
+<div class="paragraph"> 
+ <p>/dev/md/0 is setup with ext4 and it becomes /boot in the filesystem. /dev/md/1 is slightly more complicated. It is a luks encrypted drive which contains lvm’s volume group 0. vg0 contains swap and '/'.</p> 
+</div> 
+<div class="paragraph"> 
+ <p>I know there is a lot more risk with raid0 but I also have a third drive which is used for backups using obnam. This mitigates any real risks of losing data.</p> 
+</div> 
+<div class="listingblock"> 
+ <div class="content"> 
+  <pre>backup partition:
 
 /dev/sdc
-|------------/dev/sdc1------------|</pre>
-</div>
-</div>
-<div class="paragraph">
-<p>I read a few posts on reddit where the users coppied the current '/' to a different directory before starting the
-install. I decided to try this out since it would make recovering my home directory very easy. The gentoo root was
-moved to /gentoo-root. This ended up helping a lot when I needed to setup the mdadm.conf. I just copied most of the
-content from the gentoo-root.</p>
-</div>
-<div class="paragraph">
-<p>Getting nixos to use the gentoo setup went smoothly. Here is the grub setup.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="prettyprint highlight"><code class="language-nix" data-lang="nix">boot.loader.grub.enable = true;
+|------------/dev/sdc1------------|</pre> 
+ </div> 
+</div> 
+<div class="paragraph"> 
+ <p>I read a few posts on reddit where the users coppied the current '/' to a different directory before starting the install. I decided to try this out since it would make recovering my home directory very easy. The gentoo root was moved to /gentoo-root. This ended up helping a lot when I needed to setup the mdadm.conf. I just copied most of the content from the gentoo-root.</p> 
+</div> 
+<div class="paragraph"> 
+ <p>Getting nixos to use the gentoo setup went smoothly. Here is the grub setup.</p> 
+</div> 
+<div class="listingblock"> 
+ <div class="content"> 
+  <pre class="prettyprint highlight"><code class="language-nix" data-lang="nix">boot.loader.grub.enable = true;
 boot.loader.grub.version = 2;
-boot.loader.grub.devices = [ "/dev/sda" "/dev/sdb" ];</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Grub needs to be installed on both drives (/dev/sda and /dev/sdb) so that if either goes down it will still boot (not
-sure this would really work given the raid0). Nixos can open the luks encrypted drive by setting up
-<code>boot.initrd.luks.devices</code>.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="prettyprint highlight"><code class="language-nix" data-lang="nix">boot.initrd.luks.devices = [
+boot.loader.grub.devices = [ "/dev/sda" "/dev/sdb" ];</code></pre> 
+ </div> 
+</div> 
+<div class="paragraph"> 
+ <p>Grub needs to be installed on both drives (/dev/sda and /dev/sdb) so that if either goes down it will still boot (not sure this would really work given the raid0). Nixos can open the luks encrypted drive by setting up <code>boot.initrd.luks.devices</code>.</p> 
+</div> 
+<div class="listingblock"> 
+ <div class="content"> 
+  <pre class="prettyprint highlight"><code class="language-nix" data-lang="nix">boot.initrd.luks.devices = [
   {
     name = "root";
     device = "/dev/md/1";
     preLVM = true;
   }
-];</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>This sets up initrd to open the luks device before searching for lvm volumes. If this doesn&#8217;t happen before the lvm
-scan the boot will fail to find swap and '/'. The concept for this setup is 'lvm on luks'.</p>
-</div>
-<div class="paragraph">
-<p>Remember how my machine has two raid arrays? An interesting thing happens when you have two raid arrays. On each boot
-which one gets named /dev/md126 is non-deterministic. As a corollary which one gets named /dev/md127 is
-non-deterministic. It is impossible to determine which array contains the luks device ahead of time using these names.
-I found that sometimes the boot would ask for the passphrase and sometimes it would not be able to start at all. The
-solution is to setup named devices in mdadm.conf and use the correct name in the luks config above. Luckily nixos
-supports mdadm.conf within initrd.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="prettyprint highlight"><code class="language-nix" data-lang="nix">boot.initrd.mdadmConf = ''
+];</code></pre> 
+ </div> 
+</div> 
+<div class="paragraph"> 
+ <p>This sets up initrd to open the luks device before searching for lvm volumes. If this doesn’t happen before the lvm scan the boot will fail to find swap and '/'. The concept for this setup is 'lvm on luks'.</p> 
+</div> 
+<div class="paragraph"> 
+ <p>Remember how my machine has two raid arrays? An interesting thing happens when you have two raid arrays. On each boot which one gets named /dev/md126 is non-deterministic. As a corollary which one gets named /dev/md127 is non-deterministic. It is impossible to determine which array contains the luks device ahead of time using these names. I found that sometimes the boot would ask for the passphrase and sometimes it would not be able to start at all. The solution is to setup named devices in mdadm.conf and use the correct name in the luks config above. Luckily nixos supports mdadm.conf within initrd.</p> 
+</div> 
+<div class="listingblock"> 
+ <div class="content"> 
+  <pre class="prettyprint highlight"><code class="language-nix" data-lang="nix">boot.initrd.mdadmConf = ''
   DEVICE /dev/sda1 /dev/sdb1
   DEVICE /dev/sda2 /dev/sdb2
   ARRAY /dev/md/0 metadata=1.2 UUID=2a7ffaec:fd80f34a:48cebc26:5caf521c name=g1:0
   ARRAY /dev/md/1 metadata=1.2 UUID=70e06d78:4e14590a:a4e13279:9e6e387f name=g1:1
-'';</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>This added the names /dev/md/0 and /dev/md/1 which should be used at boot instead of /dev/md126 and /dev/md127. This
-solved all the problems with initrd finding the luks device at boot.</p>
-</div>
-<div class="paragraph">
-<p>Getting this right was a real pain. I&#8217;m not going to say nixos makes it easier because I learned a lot going through
-this with gentoo. I believe the gentoo experience made setting this up in nixos easier.</p>
+'';</code></pre> 
+ </div> 
+</div> 
+<div class="paragraph"> 
+ <p>This added the names /dev/md/0 and /dev/md/1 which should be used at boot instead of /dev/md126 and /dev/md127. This solved all the problems with initrd finding the luks device at boot.</p> 
+</div> 
+<div class="paragraph"> 
+ <p>Getting this right was a real pain. I’m not going to say nixos makes it easier because I learned a lot going through this with gentoo. I believe the gentoo experience made setting this up in nixos easier.</p> 
 </div>
                             </div>
                         </div><div class="row">
@@ -240,7 +217,7 @@ this with gentoo. I believe the gentoo experience made setting this up in nixos 
 <div class="row">
             <div class="small-12 small-text-center">
                 <p class="muted credit">
-                    2014 - 2018 | Mixed with <a href="http://foundation.zurb.com/">Foundation v5.5.1</a> | Baked with <a href="http://jbake.org">JBake v2.5.1</a>
+                    2014 - 2018 | Mixed with <a href="http://foundation.zurb.com/">Foundation v5.5.1</a> | Baked with <a href="http://jbake.org">JBake v2.6.1</a>
                 </p>
             </div>
         </div>        <script src="/js/vendor/jquery.js"></script>

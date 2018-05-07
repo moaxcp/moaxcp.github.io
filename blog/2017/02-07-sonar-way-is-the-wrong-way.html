@@ -80,53 +80,47 @@
                             </div>
                         </header><div class="row">
                             <div class="small-9 small-offset-3 medium-11 medium-offset-1 large-11 large-offset-1 columns">
-                                <div class="paragraph">
-<p>Codenarc is a static code analysis tool for groovy. It is the same tool <a href="http://sonarqube.com">sonarqube.com</a> uses to to publish its results.
-The <a href="https://github.com/moaxcp/graph-dsl">graph-dsl</a> project is setup to use codenarc for local development and <a href="http://sonarqube.com">sonarqube.com</a> for
- continuous integration. There is just one problem with <a href="http://sonarqube.com">sonarqube.com</a>, it only uses 59 rules rather than the 353 rules available.
- I wanted to find a way to send all of those rules to sonarqube.com that were missing.</p>
-</div>
-<div class="paragraph">
-<p>To start I found <a href="https://github.com/SonarQubeCommunity/sonar-groovy">sonar-groovy</a> this is a plugin for sonar-runner which
-scans groovy code. It can be configured to look at a codenarc report within groovy.</p>
-</div>
-<div class="paragraph">
-<p>Note: this porject uses gradle so the following is gradle configurations to accomplish this.</p>
-</div>
-<div class="paragraph">
-<p>First, codenarc needs to be setup to output xml formatted reports.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre>codenarc {
+                                <div class="paragraph"> 
+ <p>Codenarc is a static code analysis tool for groovy. It is the same tool <a href="http://sonarqube.com">sonarqube.com</a> uses to to publish its results. The <a href="https://github.com/moaxcp/graph-dsl">graph-dsl</a> project is setup to use codenarc for local development and <a href="http://sonarqube.com">sonarqube.com</a> for continuous integration. There is just one problem with <a href="http://sonarqube.com">sonarqube.com</a>, it only uses 59 rules rather than the 353 rules available. I wanted to find a way to send all of those rules to sonarqube.com that were missing.</p> 
+</div> 
+<div class="paragraph"> 
+ <p>To start I found <a href="https://github.com/SonarQubeCommunity/sonar-groovy">sonar-groovy</a> this is a plugin for sonar-runner which scans groovy code. It can be configured to look at a codenarc report within groovy.</p> 
+</div> 
+<div class="paragraph"> 
+ <p>Note: this porject uses gradle so the following is gradle configurations to accomplish this.</p> 
+</div> 
+<div class="paragraph"> 
+ <p>First, codenarc needs to be setup to output xml formatted reports.</p> 
+</div> 
+<div class="listingblock"> 
+ <div class="content"> 
+  <pre>codenarc {
     reportFormat = 'xml'
-}</pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Next, the sonarqube plugin needs to be configured to use that report.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre>sonarqube {
+}</pre> 
+ </div> 
+</div> 
+<div class="paragraph"> 
+ <p>Next, the sonarqube plugin needs to be configured to use that report.</p> 
+</div> 
+<div class="listingblock"> 
+ <div class="content"> 
+  <pre>sonarqube {
     properties {
         property 'sonar.groovy.codenarc.reportPath', codenarcMain.getReports().getXml().getDestination()
     }
-}</pre>
-</div>
-</div>
-<div class="paragraph">
-<p>This results in lots a messages that look like this</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre>No such rule in Sonar, so violation from CodeNarc will be ignored:</pre>
-</div>
-</div>
-<div class="paragraph">
-<p>It appears that <a href="http://sonarqube.com">sonarqube.com</a> is setup with Quality Profiles. These profiles determine which rules are
-actually turned on. The default for groovy projects only enables 59 of 353 rules. For <a href="https://github.com/moaxcp/graph-dsl">graph-dsl</a>
-it is not possible to modify the Quality Profile and as a result <a href="http://sonarqube.com">sonarqube.com</a> does not seem very useful for groovy projects.</p>
+}</pre> 
+ </div> 
+</div> 
+<div class="paragraph"> 
+ <p>This results in lots a messages that look like this</p> 
+</div> 
+<div class="listingblock"> 
+ <div class="content"> 
+  <pre>No such rule in Sonar, so violation from CodeNarc will be ignored:</pre> 
+ </div> 
+</div> 
+<div class="paragraph"> 
+ <p>It appears that <a href="http://sonarqube.com">sonarqube.com</a> is setup with Quality Profiles. These profiles determine which rules are actually turned on. The default for groovy projects only enables 59 of 353 rules. For <a href="https://github.com/moaxcp/graph-dsl">graph-dsl</a> it is not possible to modify the Quality Profile and as a result <a href="http://sonarqube.com">sonarqube.com</a> does not seem very useful for groovy projects.</p> 
 </div>
                             </div>
                         </div><div class="row">
@@ -161,7 +155,7 @@ it is not possible to modify the Quality Profile and as a result <a href="http:/
 <div class="row">
             <div class="small-12 small-text-center">
                 <p class="muted credit">
-                    2014 - 2018 | Mixed with <a href="http://foundation.zurb.com/">Foundation v5.5.1</a> | Baked with <a href="http://jbake.org">JBake v2.5.1</a>
+                    2014 - 2018 | Mixed with <a href="http://foundation.zurb.com/">Foundation v5.5.1</a> | Baked with <a href="http://jbake.org">JBake v2.6.1</a>
                 </p>
             </div>
         </div>        <script src="/js/vendor/jquery.js"></script>

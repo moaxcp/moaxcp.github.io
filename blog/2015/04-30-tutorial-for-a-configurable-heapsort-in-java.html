@@ -80,33 +80,25 @@
                             </div>
                         </header><div class="row">
                             <div class="small-9 small-offset-3 medium-11 medium-offset-1 large-11 large-offset-1 columns">
-                                <div id="preamble">
-<div class="sectionbody">
-<div class="paragraph">
-<p>Heapsort is implemented by creating a heap and continuously removing the root element until the heap is empty. A heap
-is a tree with two properties: shape and heap. The shape property requires that the tree is always a complete tree. The
-heap property requires the tree to be in min-heap order or max-heap order. A min-heap is a tree where each node is
-smaller than it&#8217;s children. A max-heap is a tree where each node is larger than it&#8217;s children. d-ary is used to
-describe the maximum number of children a node can have in the heap. Typical heapsort algorithms use a 2-ary heap but
-others are possible including a 1-ary heap.</p>
-</div>
-<div class="paragraph">
-<p>From the above concepts two choices are made when designing a heapsort. What heap property to use and what d-ary to
-use? A configurable heapsort would allow a user to make these decisions instead of being hard coded into the algorithm.
-If a user could make those choices what would the heapsort look like? How can the algorithm change between min-heap and
-max-heap? How can the algorithm change between 2-ary, 3-ary, 1-ary, or 15-ary? First, lets look at a heap sort.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_a_2_ary_heap_sort">A 2-ary heap sort</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>To get things started the following is a 2-ary heapsort</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre>import java.util.Arrays;
+                                <div id="preamble"> 
+ <div class="sectionbody"> 
+  <div class="paragraph"> 
+   <p>Heapsort is implemented by creating a heap and continuously removing the root element until the heap is empty. A heap is a tree with two properties: shape and heap. The shape property requires that the tree is always a complete tree. The heap property requires the tree to be in min-heap order or max-heap order. A min-heap is a tree where each node is smaller than it’s children. A max-heap is a tree where each node is larger than it’s children. d-ary is used to describe the maximum number of children a node can have in the heap.&nbsp;Typical heapsort algorithms use a 2-ary heap but others are possible including a 1-ary heap.</p> 
+  </div> 
+  <div class="paragraph"> 
+   <p>From the above concepts two choices are made when designing a heapsort. What heap property to use and what d-ary to use? A configurable heapsort would allow a user to make these decisions instead of being hard coded into the algorithm. If a user could make those choices what would the heapsort look like? How can the algorithm change between min-heap and max-heap? How can the algorithm&nbsp;change between 2-ary, 3-ary, 1-ary, or 15-ary? First, lets look at a heap sort.</p> 
+  </div> 
+ </div> 
+</div> 
+<div class="sect1"> 
+ <h2 id="_a_2_ary_heap_sort">A 2-ary heap sort</h2> 
+ <div class="sectionbody"> 
+  <div class="paragraph"> 
+   <p>To get things started the following is a 2-ary heapsort</p> 
+  </div> 
+  <div class="listingblock"> 
+   <div class="content"> 
+    <pre>import java.util.Arrays;
 
 public class HeapSort {
     private void swap(int[] list, int i, int j) {
@@ -159,35 +151,26 @@ public class HeapSort {
         new HeapSort().sort(list);
         System.out.println("after: " + Arrays.toString(list));
     }
-}</pre>
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_adding_the_heap_property">Adding the heap property</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>Changing the order requires switching the relational operator on line 21 and 17 from less than to greater than. This
-requires an if statement to decided which comparison to make.</p>
-</div>
-<div class="paragraph">
-<p>There are a few different designs that could be implemented. There could be two implementations of an abstract
-HeapSort. One that implements a min-heap and another that implements a max-heap. siftDown is the only method that needs
-to be abstract. This could get complicated when implementing a configuration for d-ary. MaxHeapSort and MinHeapSort
-would both need to implement the code for d-ary which will mean overriding the other methods.</p>
-</div>
-<div class="paragraph">
-<p>For now, I am going with a simple approach of using an enum to configure the heap behavior. I split the siftDown method
-into two different methods: siftDownMin and siftDownMax. Which method is used when siftDown is called depends on the
-value of the enum member variable. The performance benefit of using two different methods is to only make one
-comparison of the enum when siftDown is called rather than in the while loop for siftDown. This design does call for
-copying almost the exact code in the two methods. Since the methods are short and well defined this exception is
-reasonable.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre>import java.util.Arrays;
+}</pre> 
+   </div> 
+  </div> 
+ </div> 
+</div> 
+<div class="sect1"> 
+ <h2 id="_adding_the_heap_property">Adding the heap property</h2> 
+ <div class="sectionbody"> 
+  <div class="paragraph"> 
+   <p>Changing the order requires switching the relational operator on line 21 and 17 from less than to greater than. This requires an if statement to decided which comparison to make.</p> 
+  </div> 
+  <div class="paragraph"> 
+   <p>There are a few different designs that could be implemented. There could be two implementations of an abstract HeapSort. One that implements a min-heap and another that implements a max-heap. siftDown is the only method that needs to be abstract. This could get complicated when implementing a configuration for d-ary. MaxHeapSort and MinHeapSort would both need to implement the code for d-ary which will mean overriding the other methods.</p> 
+  </div> 
+  <div class="paragraph"> 
+   <p>For now, I am going with a simple approach of using an enum to configure the heap behavior. I split the siftDown method into two different methods: siftDownMin and siftDownMax. Which method is used when siftDown is called depends on the value of the enum member variable. The performance benefit of using two different methods is to only make one comparison of the enum when siftDown is called rather than in the while loop for siftDown. This design does call for copying almost the exact code in the two methods. Since the methods are short and well defined this exception is reasonable.</p> 
+  </div> 
+  <div class="listingblock"> 
+   <div class="content"> 
+    <pre>import java.util.Arrays;
 
 public class HeapSortSelectHeap {
     public enum Heap {MINHEAP, MAXHEAP};
@@ -284,17 +267,16 @@ public class HeapSortSelectHeap {
         list = new int[]{7, 9, 2, 6, 4, 1, 0, 3, 5, 8};
         runList(list, HeapSortSelectHeap.Heap.MAXHEAP);
     }
-}</pre>
-</div>
-</div>
-<div class="paragraph">
-<p><a href="https://github.com/moaxcp/heapsort">This</a> is the repository for the heapsort project. In the next post I will show how
-to make a ternary heapsort and generalize it into any possible d-ary heapsort.</p>
-</div>
-<div class="paragraph">
-<p>Edit: I fixed an error in siftDownMax and siftDownMin. They used the wrong comparison operators.</p>
-</div>
-</div>
+}</pre> 
+   </div> 
+  </div> 
+  <div class="paragraph"> 
+   <p><a href="https://github.com/moaxcp/heapsort">This</a> is the repository for the heapsort project. In the next post I will show how to make a ternary heapsort and generalize it into any possible d-ary heapsort.</p> 
+  </div> 
+  <div class="paragraph"> 
+   <p>Edit: I fixed an error in siftDownMax and siftDownMin. They used the wrong comparison operators.</p> 
+  </div> 
+ </div> 
 </div>
                             </div>
                         </div><div class="row">
@@ -329,7 +311,7 @@ to make a ternary heapsort and generalize it into any possible d-ary heapsort.</
 <div class="row">
             <div class="small-12 small-text-center">
                 <p class="muted credit">
-                    2014 - 2018 | Mixed with <a href="http://foundation.zurb.com/">Foundation v5.5.1</a> | Baked with <a href="http://jbake.org">JBake v2.5.1</a>
+                    2014 - 2018 | Mixed with <a href="http://foundation.zurb.com/">Foundation v5.5.1</a> | Baked with <a href="http://jbake.org">JBake v2.6.1</a>
                 </p>
             </div>
         </div>        <script src="/js/vendor/jquery.js"></script>

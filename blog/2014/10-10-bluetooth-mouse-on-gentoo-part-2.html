@@ -80,45 +80,41 @@
                             </div>
                         </header><div class="row">
                             <div class="small-9 small-offset-3 medium-11 medium-offset-1 large-11 large-offset-1 columns">
-                                <div class="paragraph">
-<p>simple-agent is no longer available in bluez. The gentoo wiki must be very outdated. The version I am using is 5.21.
-The test-programs use flag is no longer used. So I removed it from package.use. After searching for commands that start
-with blue I found bluetoothctl which did everything I needed. Here is what I did once bluetoothctl opened.</p>
-</div>
-<div class="paragraph">
-<p><code>list</code></p>
-</div>
-<div class="paragraph">
-<p>displays the local controllers on the computer.</p>
-</div>
-<div class="paragraph">
-<p><code>devices</code></p>
-</div>
-<div class="paragraph">
-<p>displays the devices.</p>
-</div>
-<div class="paragraph">
-<p><code>scan on</code></p>
-</div>
-<div class="paragraph">
-<p>starts scanning for new devices to add. (put the device in pairing mode).</p>
-</div>
-<div class="paragraph">
-<p><code>pair {mac address}</code></p>
-</div>
-<div class="paragraph">
-<p>pairs the device with the controller.</p>
-</div>
-<div class="paragraph">
-<p>From here I thought the mouse would work well but the mouse was still flashing for pairing. The help menu has a connect
-command in it so I tried that.</p>
-</div>
-<div class="paragraph">
-<p><code>connect {mac address}</code></p>
-</div>
-<div class="paragraph">
-<p>Now the mouse is working. I also have a bluetooth remote keyboard that I could add in the future. In the past I had to
-enter keys on it to pair. It will be interesting to see how bluetoothctl handles this.</p>
+                                <div class="paragraph"> 
+ <p>simple-agent is no longer available in bluez. The gentoo wiki must be very outdated. The version I am using is 5.21. The test-programs use flag is no longer used. So I removed it from package.use. After searching for commands that start with blue I found bluetoothctl which did everything I needed. Here is what I did once bluetoothctl opened.</p> 
+</div> 
+<div class="paragraph"> 
+ <p><code>list</code></p> 
+</div> 
+<div class="paragraph"> 
+ <p>displays the local controllers on the computer.</p> 
+</div> 
+<div class="paragraph"> 
+ <p><code>devices</code></p> 
+</div> 
+<div class="paragraph"> 
+ <p>displays the devices.</p> 
+</div> 
+<div class="paragraph"> 
+ <p><code>scan on</code></p> 
+</div> 
+<div class="paragraph"> 
+ <p>starts scanning for new devices to add. (put the device in pairing mode).</p> 
+</div> 
+<div class="paragraph"> 
+ <p><code>pair {mac address}</code></p> 
+</div> 
+<div class="paragraph"> 
+ <p>pairs the device with the controller.</p> 
+</div> 
+<div class="paragraph"> 
+ <p>From here I thought the mouse would work well but the mouse was still flashing for pairing. The help menu has a connect command in it so I tried that.</p> 
+</div> 
+<div class="paragraph"> 
+ <p><code>connect {mac address}</code></p> 
+</div> 
+<div class="paragraph"> 
+ <p>Now the mouse is working. I also have a bluetooth remote keyboard that I could add in the future. In the past I had to enter keys on it to pair. It will be interesting to see how bluetoothctl handles this.</p> 
 </div>
                             </div>
                         </div><div class="row">
@@ -153,7 +149,7 @@ enter keys on it to pair. It will be interesting to see how bluetoothctl handles
 <div class="row">
             <div class="small-12 small-text-center">
                 <p class="muted credit">
-                    2014 - 2018 | Mixed with <a href="http://foundation.zurb.com/">Foundation v5.5.1</a> | Baked with <a href="http://jbake.org">JBake v2.5.1</a>
+                    2014 - 2018 | Mixed with <a href="http://foundation.zurb.com/">Foundation v5.5.1</a> | Baked with <a href="http://jbake.org">JBake v2.6.1</a>
                 </p>
             </div>
         </div>        <script src="/js/vendor/jquery.js"></script>

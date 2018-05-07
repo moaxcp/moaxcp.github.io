@@ -1,11 +1,11 @@
 <?xml version="1.0"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
     <url>
-        <loc>http://johnmercier.com/about.html</loc><lastmod>2018-03-27</lastmod>
+        <loc>http://johnmercier.com/about.html</loc><lastmod>2018-05-07</lastmod>
     </url><url>
-        <loc>http://johnmercier.com/blog/2018/01-21-switching-to-groovy-mte-in-jbake.html</loc><lastmod>2018-03-27</lastmod>
+        <loc>http://johnmercier.com/blog/2018/01-21-switching-to-groovy-mte-in-jbake.html</loc><lastmod>2018-05-07</lastmod>
     </url><url>
-        <loc>http://johnmercier.com/blog/2018/03-25-bootstrapping-ant.html</loc><lastmod>2018-03-27</lastmod>
+        <loc>http://johnmercier.com/blog/2018/03-25-bootstrapping-ant.html</loc><lastmod>2018-05-07</lastmod>
     </url><url>
         <loc>http://johnmercier.com/blog/2018/01-16-switching-from-jekyll-to-jbake.html</loc><lastmod>2018-01-16</lastmod>
     </url><url>
@@ -35,9 +35,9 @@
     </url><url>
         <loc>http://johnmercier.com/blog/2015/08-26-adding-posts-to-a-github-blog.html</loc><lastmod>2015-08-26</lastmod>
     </url><url>
-        <loc>http://johnmercier.com/blog/2015/08-26-installing-spring-boot-cli-in-gentoo.html</loc><lastmod>2015-08-26</lastmod>
-    </url><url>
         <loc>http://johnmercier.com/blog/2015/08-26-pipe-service.html</loc><lastmod>2015-08-26</lastmod>
+    </url><url>
+        <loc>http://johnmercier.com/blog/2015/08-26-installing-spring-boot-cli-in-gentoo.html</loc><lastmod>2015-08-26</lastmod>
     </url><url>
         <loc>http://johnmercier.com/blog/2015/08-18-gentoo-audit-log.html</loc><lastmod>2015-08-18</lastmod>
     </url><url>
@@ -49,9 +49,9 @@
     </url><url>
         <loc>http://johnmercier.com/blog/2015/06-15-provisioning-java-on-gentoo-with-vagrant.html</loc><lastmod>2015-06-15</lastmod>
     </url><url>
-        <loc>http://johnmercier.com/blog/2015/06-13-release-of-vagrant-box.html</loc><lastmod>2015-06-13</lastmod>
-    </url><url>
         <loc>http://johnmercier.com/blog/2015/06-13-webcam.html</loc><lastmod>2015-06-13</lastmod>
+    </url><url>
+        <loc>http://johnmercier.com/blog/2015/06-13-release-of-vagrant-box.html</loc><lastmod>2015-06-13</lastmod>
     </url><url>
         <loc>http://johnmercier.com/blog/2015/06-10-gentoo-vagrant-box.html</loc><lastmod>2015-06-10</lastmod>
     </url><url>
@@ -85,9 +85,9 @@
     </url><url>
         <loc>http://johnmercier.com/blog/2015/04-15-ps1-in-gentoo.html</loc><lastmod>2015-04-15</lastmod>
     </url><url>
-        <loc>http://johnmercier.com/blog/2015/04-14-creating-factordb.html</loc><lastmod>2015-04-14</lastmod>
-    </url><url>
         <loc>http://johnmercier.com/blog/2015/04-14-setting-up-xterm.html</loc><lastmod>2015-04-14</lastmod>
+    </url><url>
+        <loc>http://johnmercier.com/blog/2015/04-14-creating-factordb.html</loc><lastmod>2015-04-14</lastmod>
     </url><url>
         <loc>http://johnmercier.com/blog/2015/02-20-recmd5.html</loc><lastmod>2015-02-20</lastmod>
     </url><url>
@@ -105,9 +105,9 @@
     </url><url>
         <loc>http://johnmercier.com/blog/2014/10-11-stalonetray-in-notion.html</loc><lastmod>2014-10-11</lastmod>
     </url><url>
-        <loc>http://johnmercier.com/blog/2014/10-10-bluetooth-mouse-on-gentoo-part-2.html</loc><lastmod>2014-10-10</lastmod>
-    </url><url>
         <loc>http://johnmercier.com/blog/2014/10-10-install-bluetooth-mouse.html</loc><lastmod>2014-10-10</lastmod>
+    </url><url>
+        <loc>http://johnmercier.com/blog/2014/10-10-bluetooth-mouse-on-gentoo-part-2.html</loc><lastmod>2014-10-10</lastmod>
     </url><url>
         <loc>http://johnmercier.com/blog/2014/06-01-connecting-to-a-wpa-wireless-network-from-the-gentoo-minimal-install-cd.html</loc><lastmod>2014-06-01</lastmod>
     </url><url>

@@ -80,39 +80,38 @@
                             </div>
                         </header><div class="row">
                             <div class="small-9 small-offset-3 medium-11 medium-offset-1 large-11 large-offset-1 columns">
-                                <div class="paragraph">
-<p>I had to fix my previous post on HeapSort because I used the wrong comparison operators for siftDownMax and
-siftDownMin. To check these I made heapify public and printed the heap before sorting in runList.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre>public static void runList(int[] list, Heap heap) {
+                                <div class="paragraph"> 
+ <p>I had to fix my previous post on HeapSort because I used the wrong comparison operators for siftDownMax and siftDownMin. To check these I made heapify public and printed the heap before sorting in runList.</p> 
+</div> 
+<div class="listingblock"> 
+ <div class="content"> 
+  <pre>public static void runList(int[] list, Heap heap) {
     System.out.println("before: " + Arrays.toString(list));
     HeapSortSelectHeap s = new HeapSortSelectHeap(heap);
     s.heapify(list);
     System.out.println("heap: " + Arrays.toString(list));
     s.sort(list);
     System.out.println("after: " + Arrays.toString(list));
-}</pre>
-</div>
-</div>
-<div class="paragraph">
-<p>This results in:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre>MINHEAP
+}</pre> 
+ </div> 
+</div> 
+<div class="paragraph"> 
+ <p>This results in:</p> 
+</div> 
+<div class="listingblock"> 
+ <div class="content"> 
+  <pre>MINHEAP
 before: [5, 6, 4, 9, 1, 2, 0, 8, 7, 3]
 heap: [0, 1, 2, 7, 3, 5, 4, 8, 9, 6]
 after: [9, 8, 7, 6, 5, 4, 3, 2, 1, 0]
 MAXHEAP
 before: [7, 9, 2, 6, 4, 1, 0, 3, 5, 8]
 heap: [9, 8, 2, 6, 7, 1, 0, 3, 5, 4]
-after: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]</pre>
-</div>
-</div>
-<div class="paragraph">
-<p>As you can see a min heap results in descending order and max heap results in ascending order.</p>
+after: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]</pre> 
+ </div> 
+</div> 
+<div class="paragraph"> 
+ <p>As you can see a min heap results in descending order and max heap results in ascending order.</p> 
 </div>
                             </div>
                         </div><div class="row">
@@ -147,7 +146,7 @@ after: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]</pre>
 <div class="row">
             <div class="small-12 small-text-center">
                 <p class="muted credit">
-                    2014 - 2018 | Mixed with <a href="http://foundation.zurb.com/">Foundation v5.5.1</a> | Baked with <a href="http://jbake.org">JBake v2.5.1</a>
+                    2014 - 2018 | Mixed with <a href="http://foundation.zurb.com/">Foundation v5.5.1</a> | Baked with <a href="http://jbake.org">JBake v2.6.1</a>
                 </p>
             </div>
         </div>        <script src="/js/vendor/jquery.js"></script>

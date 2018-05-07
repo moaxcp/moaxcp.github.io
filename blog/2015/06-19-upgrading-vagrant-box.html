@@ -80,65 +80,53 @@
                             </div>
                         </header><div class="row">
                             <div class="small-9 small-offset-3 medium-11 medium-offset-1 large-11 large-offset-1 columns">
-                                <div class="paragraph">
-<p>I&#8217;m upgrading <a href="https://vagrantcloud.com/moaxcp/boxes/gentoo64">moaxcp/gentoo64</a> and these are my notes.</p>
-</div>
-<div class="paragraph">
-<p>After an <code>emerge --sync</code> and <code>emerge -avuND @world</code> I found that gentoo release a new kernel (4.0.5). I followed
-<a href="https://wiki.gentoo.org/wiki/Kernel/Upgrade">this</a> to upgrade making sure to use –lvm. I added a new script
-/root/buildkernel.sh which will build the kernel with the correct options. I made sure to remove the old kernel
-to save space.</p>
-</div>
-<div class="paragraph">
-<p>There is a script cleanup_diskspace.sh which will remove some files and make the .box file smaller when it is
-built.</p>
-</div>
-<div class="paragraph">
-<p>When I originally created the vm I used lvm and made the root partition 7GB. Now is the time to resize it to
-something more useful. I changed the disk size to 120GB using <code>VBoxManage modifyhd gentoo-vagrant.vdi --resize
-122880</code></p>
-</div>
-<div class="paragraph">
-<p>LVM was not installed on the system even though the modules are in the kernel. When installing lvm there was an
-error related to <a href="https://forums.gentoo.org/viewtopic-t-986982.html?sid=6a911ac3752245becdc98096c9dd8081">this
-thread</a>. The advice on
-the thread is to remove parallel compilation by setting MAKEOPTS="-j1". After this change boost still did not
-compile. I added the ~amd64 keyword for dev-libs/boost to pick up a newer package. Even then I still had errors.</p>
-</div>
-<div class="paragraph">
-<p>The problem with parallel compilation is the amount of memory used. I increased the memory and got a different
-error. This time the error is No space left on device.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre>    df -h
+                                <div class="paragraph"> 
+ <p>I’m upgrading <a href="https://vagrantcloud.com/moaxcp/boxes/gentoo64">moaxcp/gentoo64</a> and these are my notes.</p> 
+</div> 
+<div class="paragraph"> 
+ <p>After an <code>emerge --sync</code> and <code>emerge -avuND @world</code> I found that gentoo release a new kernel (4.0.5). I followed <a href="https://wiki.gentoo.org/wiki/Kernel/Upgrade">this</a> to upgrade making sure to use –lvm. I added a new script /root/buildkernel.sh which will build the kernel with the correct options. I made sure to remove the old kernel to save space.</p> 
+</div> 
+<div class="paragraph"> 
+ <p>There is a script cleanup_diskspace.sh which will remove some files and make the .box file smaller when it is built.</p> 
+</div> 
+<div class="paragraph"> 
+ <p>When I originally created the vm I used lvm and made the root partition 7GB. Now is the time to resize it to something more useful. I changed the disk size to 120GB using <code>VBoxManage modifyhd gentoo-vagrant.vdi --resize 122880</code></p> 
+</div> 
+<div class="paragraph"> 
+ <p>LVM was not installed on the system even though the modules are in the kernel. When installing lvm there was an error related to <a href="https://forums.gentoo.org/viewtopic-t-986982.html?sid=6a911ac3752245becdc98096c9dd8081">this thread</a>. The advice on the thread is to remove parallel compilation by setting MAKEOPTS="-j1". After this change boost still did not compile. I added the ~amd64 keyword for dev-libs/boost to pick up a newer package. Even then I still had errors.</p> 
+</div> 
+<div class="paragraph"> 
+ <p>The problem with parallel compilation is the amount of memory used. I increased the memory and got a different error. This time the error is No space left on device.</p> 
+</div> 
+<div class="listingblock"> 
+ <div class="content"> 
+  <pre>    df -h
 
     Filesystem            Size  Used Avail Use% Mounted on
     udev                   10M  4.0K   10M   1% /dev
     /dev/mapper/vg0-root  6.8G  4.5G  2.0G  70% /
     tmpfs                 201M  388K  201M   1% /run
     shm                  1005M     0 1005M   0% /dev/shm
-    cgroup_root            10M     0   10M   0% /sys/fs/cgroup</pre>
-</div>
-</div>
-<div class="paragraph">
-<p>This shows root as only 70% full but checking the inode count I get</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre>    df -i
+    cgroup_root            10M     0   10M   0% /sys/fs/cgroup</pre> 
+ </div> 
+</div> 
+<div class="paragraph"> 
+ <p>This shows root as only 70% full but checking the inode count I get</p> 
+</div> 
+<div class="listingblock"> 
+ <div class="content"> 
+  <pre>    df -i
 
     Filesystem           Inodes  IUsed  IFree IUse% Mounted on
     udev                 256513    409 256104    1% /dev
     /dev/mapper/vg0-root 458752 458745      7  100% /
     tmpfs                257103    355 256748    1% /run
     shm                  257103      1 257102    1% /dev/shm
-    cgroup_root          257103      4 257099    1% /sys/fs/cgroup</pre>
-</div>
-</div>
-<div class="paragraph">
-<p>This makes me want to rethink the entire gentoo64 build. I shouldn&#8217;t have to use lvm and I&#8217;m not sure why I
-installed it. I think I&#8217;m going to rebuild the whole system without lvm and make a larger hard drive.</p>
+    cgroup_root          257103      4 257099    1% /sys/fs/cgroup</pre> 
+ </div> 
+</div> 
+<div class="paragraph"> 
+ <p>This makes me want to rethink the entire gentoo64 build. I shouldn’t have to use lvm and I’m not sure why I installed it. I think I’m going to rebuild the whole system without lvm and make a larger hard drive.</p> 
 </div>
                             </div>
                         </div><div class="row">
@@ -173,7 +161,7 @@ installed it. I think I&#8217;m going to rebuild the whole system without lvm an
 <div class="row">
             <div class="small-12 small-text-center">
                 <p class="muted credit">
-                    2014 - 2018 | Mixed with <a href="http://foundation.zurb.com/">Foundation v5.5.1</a> | Baked with <a href="http://jbake.org">JBake v2.5.1</a>
+                    2014 - 2018 | Mixed with <a href="http://foundation.zurb.com/">Foundation v5.5.1</a> | Baked with <a href="http://jbake.org">JBake v2.6.1</a>
                 </p>
             </div>
         </div>        <script src="/js/vendor/jquery.js"></script>

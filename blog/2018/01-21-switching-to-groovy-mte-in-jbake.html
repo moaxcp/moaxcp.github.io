@@ -64,8 +64,8 @@
                             <div class="row">
                                 <div class="small-3 medium-1 large-1 columns">
 <div class="termin">
-                                        <div class="month">Mar</div>
-                                        <div class="date">27</div>
+                                        <div class="month">May</div>
+                                        <div class="date">07</div>
                                         <div class="year">2018</div>
                                     </div>                                    
                                 </div><div class="small-9 medium-11 large-11 columns">
@@ -84,30 +84,22 @@
                             </div>
                         </header><div class="row">
                             <div class="small-9 small-offset-3 medium-11 medium-offset-1 large-11 large-offset-1 columns">
-                                <div id="preamble">
-<div class="sectionbody">
-<div class="paragraph">
-<p>One thing I don&#8217;t like about <a href="https://en.wikipedia.org/wiki/JavaServer_Pages">jsp</a> is that it looks like
-<a href="https://en.wikipedia.org/wiki/HTML">html</a>. The default engine for <a href="http://jbake.org/">JBake</a> is
-<a href="https://freemarker.apache.org/">freemarker</a>. Like many other template engines
-<a href="https://freemarker.apache.org/">freemarker</a> adds expressions to the html language. I would much rather work with
-something that looks like groovy so I&#8217;m going to try out groovy&#8217;s
-<a href="http://docs.groovy-lang.org/latest/html/documentation/template-engines.html#_the_markuptemplateengine">MarkupTemplateEngine</a>
-as the template engine for <a href="http://jbake.org/">JBake</a>.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_using_markuptemplateengine">Using MarkupTemplateEngine</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p><a href="http://docs.groovy-lang.org/latest/html/documentation/template-engines.html#_the_markuptemplateengine">groovy-mte</a>
-support in <a href="http://jbake.org/">JBake</a> allows developers to write templates in a groovy dsl rather than markup. Here is a
-basic example of how it works:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="prettyprint highlight"><code class="language-groovy" data-lang="groovy">import groovy.text.markup.*
+                                <div id="preamble"> 
+ <div class="sectionbody"> 
+  <div class="paragraph"> 
+   <p>One thing I don’t like about <a href="https://en.wikipedia.org/wiki/JavaServer_Pages">jsp</a> is that it looks like <a href="https://en.wikipedia.org/wiki/HTML">html</a>. The default engine for <a href="http://jbake.org/">JBake</a> is <a href="https://freemarker.apache.org/">freemarker</a>. Like many other template engines <a href="https://freemarker.apache.org/">freemarker</a> adds expressions to the html language. I would much rather work with something that looks like groovy so I’m going to try out groovy’s <a href="http://docs.groovy-lang.org/latest/html/documentation/template-engines.html#_the_markuptemplateengine">MarkupTemplateEngine</a> as the template engine for <a href="http://jbake.org/">JBake</a>.</p> 
+  </div> 
+ </div> 
+</div> 
+<div class="sect1"> 
+ <h2 id="_using_markuptemplateengine">Using MarkupTemplateEngine</h2> 
+ <div class="sectionbody"> 
+  <div class="paragraph"> 
+   <p><a href="http://docs.groovy-lang.org/latest/html/documentation/template-engines.html#_the_markuptemplateengine">groovy-mte</a> support in <a href="http://jbake.org/">JBake</a> allows developers to write templates in a groovy dsl rather than markup. Here is a basic example of how it works:</p> 
+  </div> 
+  <div class="listingblock"> 
+   <div class="content"> 
+    <pre class="prettyprint highlight"><code class="language-groovy" data-lang="groovy">import groovy.text.markup.*
 
 def template = new MarkupTemplateEngine(new TemplateConfiguration()).createTemplate('''
     html {
@@ -122,192 +114,181 @@ def template = new MarkupTemplateEngine(new TemplateConfiguration()).createTempl
 
 def model = [pageTitle:"Hello, World!"] <b class="conum">(2)</b>
 
-template.make(model).writeTo(new PrintWriter(System.out)) <b class="conum">(3)</b></code></pre>
-</div>
-</div>
-<div class="colist arabic">
-<ol>
-<li>
-<p>Create a template</p>
-</li>
-<li>
-<p>Define a model</p>
-</li>
-<li>
-<p>Make the results</p>
-</li>
-</ol>
-</div>
-<div class="paragraph">
-<p>The builder syntax allows for a more <code>groovy</code> html. It is easy to recognize as html but, rather than writing all those
-html tags, developers can use groovy. Running the script results in:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="prettyprint highlight"><code class="language-html" data-lang="html">&lt;html&gt;&lt;head&gt;&lt;title&gt;Hello, World!&lt;/title&gt;&lt;/head&gt;&lt;body&gt;&lt;h1&gt;Hello, World!&lt;/h1&gt;&lt;/body&gt;&lt;/html&gt;</code></pre>
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_switching_jbake_to_markuptemplateengine">Switching JBake to MarkupTemplateEngine</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>The <a href="http://jbake.org/docs/2.5.1/#templates_directory">documentation</a> implies that changing templates means removing any
-old templates and replacing them with the new templates. Default assets should also be replaced. There are a number of
-example templates using the <a href="https://github.com/topics/jbake-template-project">jbake-template-project</a> tag on github. The
-<a href="https://github.com/ancho/jbake-example-project-groovy-mte">groovy-mte</a> example templates are somewhat outdated but it is
-a good starting point.</p>
-</div>
-<div class="sect2">
-<h3 id="_copy_template_and_assets">Copy Template and Assets</h3>
-<div class="paragraph">
-<p>First, clone the groovy-mte project.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre>john@n1 ~/projects&gt; git clone https://github.com/ancho/jbake-example-project-groovy-mte.git
+template.make(model).writeTo(new PrintWriter(System.out)) <b class="conum">(3)</b></code></pre> 
+   </div> 
+  </div> 
+  <div class="colist arabic"> 
+   <ol> 
+    <li> <p>Create a template</p> </li> 
+    <li> <p>Define a model</p> </li> 
+    <li> <p>Make the results</p> </li> 
+   </ol> 
+  </div> 
+  <div class="paragraph"> 
+   <p>The builder syntax allows for a more <code>groovy</code> html. It is easy to recognize as html but, rather than writing all those html tags, developers can use groovy. Running the script results in:</p> 
+  </div> 
+  <div class="listingblock"> 
+   <div class="content"> 
+    <pre class="prettyprint highlight"><code class="language-html" data-lang="html">&lt;html&gt;&lt;head&gt;&lt;title&gt;Hello, World!&lt;/title&gt;&lt;/head&gt;&lt;body&gt;&lt;h1&gt;Hello, World!&lt;/h1&gt;&lt;/body&gt;&lt;/html&gt;</code></pre> 
+   </div> 
+  </div> 
+ </div> 
+</div> 
+<div class="sect1"> 
+ <h2 id="_switching_jbake_to_markuptemplateengine">Switching JBake to MarkupTemplateEngine</h2> 
+ <div class="sectionbody"> 
+  <div class="paragraph"> 
+   <p>The <a href="http://jbake.org/docs/2.5.1/#templates_directory">documentation</a> implies that changing templates means removing any old templates and replacing them with the new templates. Default assets should also be replaced. There are a number of example templates using the <a href="https://github.com/topics/jbake-template-project">jbake-template-project</a> tag on github. The <a href="https://github.com/ancho/jbake-example-project-groovy-mte">groovy-mte</a> example templates are somewhat outdated but it is a good starting point.</p> 
+  </div> 
+  <div class="sect2"> 
+   <h3 id="_copy_template_and_assets">Copy Template and Assets</h3> 
+   <div class="paragraph"> 
+    <p>First, clone the groovy-mte project.</p> 
+   </div> 
+   <div class="listingblock"> 
+    <div class="content"> 
+     <pre>john@n1 ~/projects&gt; git clone https://github.com/ancho/jbake-example-project-groovy-mte.git
 Cloning into 'jbake-example-project-groovy-mte'...
 remote: Counting objects: 250, done.
 remote: Total 250 (delta 0), reused 0 (delta 0), pack-reused 250
 Receiving objects: 100% (250/250), 1.61 MiB | 312.00 KiB/s, done.
-Resolving deltas: 100% (85/85), done.</pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Then remove the original <code>templates</code> and <code>assets</code> directories from the project.</p>
-</div>
-<div class="paragraph">
-<p>Then go into the project and copy the files to the site</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre>john@n1 ~/projects&gt; cd jbake-example-project-groovy-mte/
+Resolving deltas: 100% (85/85), done.</pre> 
+    </div> 
+   </div> 
+   <div class="paragraph"> 
+    <p>Then remove the original <code>templates</code> and <code>assets</code> directories from the project.</p> 
+   </div> 
+   <div class="paragraph"> 
+    <p>Then go into the project and copy the files to the site</p> 
+   </div> 
+   <div class="listingblock"> 
+    <div class="content"> 
+     <pre>john@n1 ~/projects&gt; cd jbake-example-project-groovy-mte/
 john@n1 ~/p/jbake-example-project-groovy-mte (master)&gt; ls
 assets  content  jbake.properties  LICENSE  README.md  templates
 john@n1 ~/p/jbake-example-project-groovy-mte (master)&gt; cp -r templates ../johnmercier.com/src/jbake/
 john@n1 ~/p/jbake-example-project-groovy-mte (master)&gt; ls assets/
 css  fonts  img  js
-john@n1 ~/p/jbake-example-project-groovy-mte (master)&gt; cp -r assets ../johnmercier.com/src/jbake/</pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Bake the site and view the results.</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_issues">Issues</h3>
-<div class="paragraph">
-<p>There were a few issues I found</p>
-</div>
-<div class="sect3">
-<h4 id="_tags_tpl">tags.tpl</h4>
-<div class="paragraph">
-<p>posts without tags caused an error in <code>tags.tpl</code>.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="prettyprint highlight"><code class="language-groovy" data-lang="groovy">post.tags.contains(tag)</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Needed to be changed to</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="prettyprint highlight"><code class="language-groovy" data-lang="groovy">post.tags?.contains(tag)</code></pre>
-</div>
-</div>
-</div>
-<div class="sect3">
-<h4 id="_jbake_properties">jbake.properties</h4>
-<div class="paragraph">
-<p>jbake.properties needed some new properties</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="prettyprint highlight"><code class="language-groovy" data-lang="groovy">site.contextPath=/
+john@n1 ~/p/jbake-example-project-groovy-mte (master)&gt; cp -r assets ../johnmercier.com/src/jbake/</pre> 
+    </div> 
+   </div> 
+   <div class="paragraph"> 
+    <p>Bake the site and view the results.</p> 
+   </div> 
+  </div> 
+  <div class="sect2"> 
+   <h3 id="_issues">Issues</h3> 
+   <div class="paragraph"> 
+    <p>There were a few issues I found</p> 
+   </div> 
+   <div class="sect3"> 
+    <h4 id="_tags_tpl">tags.tpl</h4> 
+    <div class="paragraph"> 
+     <p>posts without tags caused an error in <code>tags.tpl</code>.</p> 
+    </div> 
+    <div class="listingblock"> 
+     <div class="content"> 
+      <pre class="prettyprint highlight"><code class="language-groovy" data-lang="groovy">post.tags.contains(tag)</code></pre> 
+     </div> 
+    </div> 
+    <div class="paragraph"> 
+     <p>Needed to be changed to</p> 
+    </div> 
+    <div class="listingblock"> 
+     <div class="content"> 
+      <pre class="prettyprint highlight"><code class="language-groovy" data-lang="groovy">post.tags?.contains(tag)</code></pre> 
+     </div> 
+    </div> 
+   </div> 
+   <div class="sect3"> 
+    <h4 id="_jbake_properties">jbake.properties</h4> 
+    <div class="paragraph"> 
+     <p>jbake.properties needed some new properties</p> 
+    </div> 
+    <div class="listingblock"> 
+     <div class="content"> 
+      <pre class="prettyprint highlight"><code class="language-groovy" data-lang="groovy">site.contextPath=/
 blog.title=John Mercier
 blog.subtitle=A software developer interested in java, groovy, and nixos
-foundation.version=5.5.1</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Without <code>site.contextPath</code> None of the pages could find assets. I have a feeling this could be removed and the
-templates could use content.rootpath instead. Using an absolute path like this makes it impossible to view the files
-locally without a server.</p>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_improvements">Improvements</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>This got the site up and running with groovy-mte but I found a few improvements to make.</p>
-</div>
-<div class="sect2">
-<h3 id="_menu_tpl">menu.tpl</h3>
-<div class="paragraph">
-<p>The twitter and github accounts were hardcoded in the template. The template was changed to use jbake.properties</p>
-</div>
-<div class="listingblock">
-<div class="title">menu.tpl</div>
-<div class="content">
-<pre class="prettyprint highlight"><code class="language-groovy" data-lang="groovy">p(class:"title-contact"){
+foundation.version=5.5.1</code></pre> 
+     </div> 
+    </div> 
+    <div class="paragraph"> 
+     <p>Without <code>site.contextPath</code> None of the pages could find assets. I have a feeling this could be removed and the templates could use content.rootpath instead. Using an absolute path like this makes it impossible to view the files locally without a server.</p> 
+    </div> 
+   </div> 
+  </div> 
+ </div> 
+</div> 
+<div class="sect1"> 
+ <h2 id="_improvements">Improvements</h2> 
+ <div class="sectionbody"> 
+  <div class="paragraph"> 
+   <p>This got the site up and running with groovy-mte but I found a few improvements to make.</p> 
+  </div> 
+  <div class="sect2"> 
+   <h3 id="_menu_tpl">menu.tpl</h3> 
+   <div class="paragraph"> 
+    <p>The twitter and github accounts were hardcoded in the template. The template was changed to use jbake.properties</p> 
+   </div> 
+   <div class="listingblock"> 
+    <div class="title">
+     menu.tpl
+    </div> 
+    <div class="content"> 
+     <pre class="prettyprint highlight"><code class="language-groovy" data-lang="groovy">p(class:"title-contact"){
     a(href:"https://twitter.com/$config.twitter"){
         i(class:"foundicon-twitter"){}
     }
     a(href:"https://github.com/$config.github"){
         i(class:"foundicon-github"){}
     }
-}</code></pre>
-</div>
-</div>
-<div class="listingblock">
-<div class="title">jbake.properties</div>
-<div class="content">
-<pre class="prettyprint highlight"><code class="language-groovy" data-lang="groovy">twitter=moaxcp
-github=moaxcp</code></pre>
-</div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_post_summary">post summary</h3>
-<div class="paragraph">
-<p>Having full posts on the index page can be annoying. I like having a summary of around 10 posts on the index. For most
-of my pages the summary is the first paragraph or everything up to the first section of the post. It is possible to
-add support for a summary to <code>post-brick.tpl</code> but first an explanation.</p>
-</div>
-<div class="paragraph">
-<p><code>index.tpl</code> and <code>post.tpl</code> both use <code>post-brick.tpl</code> as a template for displaying posts. <code>index.tpl</code> and <code>post.tpl</code> are
-<strong>composed</strong> with <code>post-brick.tpl</code> to display a consistent blog post. I don&#8217;t want it to be consistent. I want
-<code>post-brick.tpl</code> to only display a summary when it is used from <code>index.tpl</code> and display the full post from <code>post.tpl</code>.
-This can be done with a few changes to these files.</p>
-</div>
-<div class="sect3">
-<h4 id="_index_tpl">index.tpl</h4>
-<div class="paragraph">
-<p>The first 10 published posts are visible from the index page.</p>
-</div>
-<div class="listingblock">
-<div class="title">index.tpl</div>
-<div class="content">
-<pre class="prettyprint highlight"><code class="language-groovy" data-lang="groovy">published_posts[0..9].each { post -&gt;
+}</code></pre> 
+    </div> 
+   </div> 
+   <div class="listingblock"> 
+    <div class="title">
+     jbake.properties
+    </div> 
+    <div class="content"> 
+     <pre class="prettyprint highlight"><code class="language-groovy" data-lang="groovy">twitter=moaxcp
+github=moaxcp</code></pre> 
+    </div> 
+   </div> 
+  </div> 
+  <div class="sect2"> 
+   <h3 id="_post_summary">post summary</h3> 
+   <div class="paragraph"> 
+    <p>Having full posts on the index page can be annoying. I like having a summary of around 10 posts on the index. For most of my pages the summary is the first paragraph or everything up to the first section of the post. It is possible to add support for a summary to <code>post-brick.tpl</code> but first an explanation.</p> 
+   </div> 
+   <div class="paragraph"> 
+    <p><code>index.tpl</code> and <code>post.tpl</code> both use <code>post-brick.tpl</code> as a template for displaying posts. <code>index.tpl</code> and <code>post.tpl</code> are <strong>composed</strong> with <code>post-brick.tpl</code> to display a consistent blog post. I don’t want it to be consistent. I want <code>post-brick.tpl</code> to only display a summary when it is used from <code>index.tpl</code> and display the full post from <code>post.tpl</code>. This can be done with a few changes to these files.</p> 
+   </div> 
+   <div class="sect3"> 
+    <h4 id="_index_tpl">index.tpl</h4> 
+    <div class="paragraph"> 
+     <p>The first 10 published posts are visible from the index page.</p> 
+    </div> 
+    <div class="listingblock"> 
+     <div class="title">
+      index.tpl
+     </div> 
+     <div class="content"> 
+      <pre class="prettyprint highlight"><code class="language-groovy" data-lang="groovy">published_posts[0..9].each { post -&gt;
     model.put('post', post)
     include template: 'post-brick.tpl'
-}</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Next a summary is added to each post unless the post already contains a summary. If there are sections the summary is
-everything before the first section. Otherwise, the first paragraph is used.</p>
-</div>
-<div class="listingblock">
-<div class="title">index.tpl</div>
-<div class="content">
-<pre class="prettyprint highlight"><code class="language-groovy" data-lang="groovy">if(!post.summary) {
+}</code></pre> 
+     </div> 
+    </div> 
+    <div class="paragraph"> 
+     <p>Next a summary is added to each post unless the post already contains a summary. If there are sections the summary is everything before the first section. Otherwise, the first paragraph is used.</p> 
+    </div> 
+    <div class="listingblock"> 
+     <div class="title">
+      index.tpl
+     </div> 
+     <div class="content"> 
+      <pre class="prettyprint highlight"><code class="language-groovy" data-lang="groovy">if(!post.summary) {
     def h = post.body.indexOf("&lt;h")
     def p = post.body.indexOf("&lt;/div&gt;")
     if(h &gt; 0) {
@@ -315,79 +296,77 @@ everything before the first section. Otherwise, the first paragraph is used.</p>
     } else if(post.body.contains("&lt;/div&gt;")) {
         post.summary = post.body.substring(0, p + 7) <b class="conum">(2)</b>
     }
-}</code></pre>
-</div>
-</div>
-<div class="colist arabic">
-<ol>
-<li>
-<p>Text before first section is used</p>
-</li>
-<li>
-<p>If there are no sections then use first paragraph</p>
-</li>
-</ol>
-</div>
-<div class="paragraph">
-<p>Then <code>post-brick.tpl</code> is called as a layout rather than an include. This has a few advantages like decoupling from the
-JBake model and being able to pass in only what is needed for the template to function.</p>
-</div>
-<div class="listingblock">
-<div class="title">index.tpl</div>
-<div class="content">
-<pre class="prettyprint highlight"><code class="language-groovy" data-lang="groovy">layout 'post-brick.tpl', config:config, post:post, summary:true <b class="conum">(1)</b></code></pre>
-</div>
-</div>
-<div class="colist arabic">
-<ol>
-<li>
-<p>summary flag set to true</p>
-</li>
-</ol>
-</div>
-</div>
-<div class="sect3">
-<h4 id="_post_tpl">post.tpl</h4>
-<div class="paragraph">
-<p><code>post.tpl</code> is modified to use a layout just like <code>index.tpl</code>.</p>
-</div>
-<div class="listingblock">
-<div class="title">post.tpl</div>
-<div class="content">
-<pre class="prettyprint highlight"><code class="language-groovy" data-lang="groovy">layout 'post-brick.tpl', config:config, post:content, summary:false <b class="conum">(1)</b></code></pre>
-</div>
-</div>
-<div class="colist arabic">
-<ol>
-<li>
-<p>summary flag set to false</p>
-</li>
-</ol>
-</div>
-</div>
-<div class="sect3">
-<h4 id="_post_brick_tpl">post-brick.tpl</h4>
-<div class="paragraph">
-<p><code>post-brick.tpl</code> is modified to display the summary instead of body when needed.</p>
-</div>
-<div class="listingblock">
-<div class="title">post-brick.tpl</div>
-<div class="content">
-<pre class="prettyprint highlight"><code class="language-groovy" data-lang="groovy">yieldUnescaped summary ? post.summary : post.body</code></pre>
-</div>
-</div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_disqus_comments">Disqus comments</h3>
-<div class="paragraph">
-<p>Now that we know when a post in <code>post-brick.tpl</code> is really a summary we can figure out if comments need to be
-displayed. Comments are displayed when the post is not a summary. Comments can be added as a new row.</p>
-</div>
-<div class="listingblock">
-<div class="title">post-brick.tpl</div>
-<div class="content">
-<pre class="prettyprint highlight"><code class="language-groovy" data-lang="groovy">if(!summary) {
+}</code></pre> 
+     </div> 
+    </div> 
+    <div class="colist arabic"> 
+     <ol> 
+      <li> <p>Text before first section is used</p> </li> 
+      <li> <p>If there are no sections then use first paragraph</p> </li> 
+     </ol> 
+    </div> 
+    <div class="paragraph"> 
+     <p>Then <code>post-brick.tpl</code> is called as a layout rather than an include. This has a few advantages like decoupling from the JBake model and being able to pass in only what is needed for the template to function.</p> 
+    </div> 
+    <div class="listingblock"> 
+     <div class="title">
+      index.tpl
+     </div> 
+     <div class="content"> 
+      <pre class="prettyprint highlight"><code class="language-groovy" data-lang="groovy">layout 'post-brick.tpl', config:config, post:post, summary:true <b class="conum">(1)</b></code></pre> 
+     </div> 
+    </div> 
+    <div class="colist arabic"> 
+     <ol> 
+      <li> <p>summary flag set to true</p> </li> 
+     </ol> 
+    </div> 
+   </div> 
+   <div class="sect3"> 
+    <h4 id="_post_tpl">post.tpl</h4> 
+    <div class="paragraph"> 
+     <p><code>post.tpl</code> is modified to use a layout just like <code>index.tpl</code>.</p> 
+    </div> 
+    <div class="listingblock"> 
+     <div class="title">
+      post.tpl
+     </div> 
+     <div class="content"> 
+      <pre class="prettyprint highlight"><code class="language-groovy" data-lang="groovy">layout 'post-brick.tpl', config:config, post:content, summary:false <b class="conum">(1)</b></code></pre> 
+     </div> 
+    </div> 
+    <div class="colist arabic"> 
+     <ol> 
+      <li> <p>summary flag set to false</p> </li> 
+     </ol> 
+    </div> 
+   </div> 
+   <div class="sect3"> 
+    <h4 id="_post_brick_tpl">post-brick.tpl</h4> 
+    <div class="paragraph"> 
+     <p><code>post-brick.tpl</code> is modified to display the summary instead of body when needed.</p> 
+    </div> 
+    <div class="listingblock"> 
+     <div class="title">
+      post-brick.tpl
+     </div> 
+     <div class="content"> 
+      <pre class="prettyprint highlight"><code class="language-groovy" data-lang="groovy">yieldUnescaped summary ? post.summary : post.body</code></pre> 
+     </div> 
+    </div> 
+   </div> 
+  </div> 
+  <div class="sect2"> 
+   <h3 id="_disqus_comments">Disqus comments</h3> 
+   <div class="paragraph"> 
+    <p>Now that we know when a post in <code>post-brick.tpl</code> is really a summary we can figure out if comments need to be displayed. Comments are displayed when the post is not a summary. Comments can be added as a new row.</p> 
+   </div> 
+   <div class="listingblock"> 
+    <div class="title">
+     post-brick.tpl
+    </div> 
+    <div class="content"> 
+     <pre class="prettyprint highlight"><code class="language-groovy" data-lang="groovy">if(!summary) {
     div(class:'row') {
         div(id:'disqus_thread') {
             script {
@@ -414,34 +393,38 @@ displayed. Comments are displayed when the post is not a summary. Comments can b
             }
         }
     }
-}</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>A comment count can also be added for each post. First the disqus script needs to be added to <code>maint.tpl</code>.</p>
-</div>
-<div class="listingblock">
-<div class="title">main.tpl</div>
-<div class="content">
-<pre class="prettyprint highlight"><code class="language-groovy" data-lang="groovy">yieldUnescaped '''
+}</code></pre> 
+    </div> 
+   </div> 
+   <div class="paragraph"> 
+    <p>A comment count can also be added for each post. First the disqus script needs to be added to <code>maint.tpl</code>.</p> 
+   </div> 
+   <div class="listingblock"> 
+    <div class="title">
+     main.tpl
+    </div> 
+    <div class="content"> 
+     <pre class="prettyprint highlight"><code class="language-groovy" data-lang="groovy">yieldUnescaped '''
     &lt;script id="dsq-count-scr" src="//moaxcp.disqus.com/count.js" async&gt;&lt;/script&gt;
-'''</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>then a link needs to be added to <code>post-brick.tpl</code>.</p>
-</div>
-<div class="listingblock">
-<div class="title">post-brick.tpl</div>
-<div class="content">
-<pre class="prettyprint highlight"><code class="language-groovy" data-lang="groovy">a(href:"${config.site_contextPath}${post.uri}#disqus_thread", 'comments')</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Disqus will look up comment counts using the script and update the link within the dom to include the count text.</p>
-</div>
-</div>
-</div>
+'''</code></pre> 
+    </div> 
+   </div> 
+   <div class="paragraph"> 
+    <p>then a link needs to be added to <code>post-brick.tpl</code>.</p> 
+   </div> 
+   <div class="listingblock"> 
+    <div class="title">
+     post-brick.tpl
+    </div> 
+    <div class="content"> 
+     <pre class="prettyprint highlight"><code class="language-groovy" data-lang="groovy">a(href:"${config.site_contextPath}${post.uri}#disqus_thread", 'comments')</code></pre> 
+    </div> 
+   </div> 
+   <div class="paragraph"> 
+    <p>Disqus will look up comment counts using the script and update the link within the dom to include the count text.</p> 
+   </div> 
+  </div> 
+ </div> 
 </div>
                             </div>
                         </div><div class="row">
@@ -476,7 +459,7 @@ displayed. Comments are displayed when the post is not a summary. Comments can b
 <div class="row">
             <div class="small-12 small-text-center">
                 <p class="muted credit">
-                    2014 - 2018 | Mixed with <a href="http://foundation.zurb.com/">Foundation v5.5.1</a> | Baked with <a href="http://jbake.org">JBake v2.5.1</a>
+                    2014 - 2018 | Mixed with <a href="http://foundation.zurb.com/">Foundation v5.5.1</a> | Baked with <a href="http://jbake.org">JBake v2.6.1</a>
                 </p>
             </div>
         </div>        <script src="/js/vendor/jquery.js"></script>

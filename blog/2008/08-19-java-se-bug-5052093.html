@@ -80,15 +80,12 @@
                             </div>
                         </header><div class="row">
                             <div class="small-9 small-offset-3 medium-11 medium-offset-1 large-11 large-offset-1 columns">
-                                <div class="paragraph">
-<p>While I was working on my
-<a href="http://code.google.com/p/delta-utilities/">download manager</a> yesterday
-I found a bug in java. Every time I tried to make a connection to a
-fedora iso file I would get this error:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre>java.lang.NumberFormatException: For input string: "3580680192"
+                                <div class="paragraph"> 
+ <p>While I was working on my <a href="http://code.google.com/p/delta-utilities/">download manager</a> yesterday I found a bug in java. Every time I tried to make a connection to a fedora iso file I would get this error:</p> 
+</div> 
+<div class="listingblock"> 
+ <div class="content"> 
+  <pre>java.lang.NumberFormatException: For input string: "3580680192"
    at java.lang.NumberFormatException.forInputString(NumberFormatException.java:48)
    at java.lang.Integer.parseInt(Integer.java:459)
    at java.lang.Integer.parseInt(Integer.java:497)
@@ -100,24 +97,14 @@ fedora iso file I would get this error:</p>
    at mercier.lib.download.ConnectionFactory.getConnection(ConnectionFactory.java:60)
    at mercier.lib.download.ConnectionFactoryTest.testGetFTPDownloadConnection(ConnectionFactoryTest.java:119)
    at
-   ...</pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Does anyone know why this would happen? I found out after looking it up
-and finding <a href="http://bugs.sun.com/bugdatabase/view_bug.do?bug_id=5052093">bug #5052093</a>.
-It happened because the api for contentLength uses an int return value,
-which has a max of 2,147,483,647. Not only that but when the internal
-code parses the contentLength from the stream it has to parseInt in
-order to return an int. Since anything above 2,147,483,647 is not an
-int a NumberFormatException is thrown. The content-length for the iso
-is 3,580,680,192.</p>
-</div>
-<div class="paragraph">
-<p>The fix for this bug is only in JDK7 which can only be downloaded as a
-snapshot from java.net. Since they couldn&#8217;t change the original
-getContenthLength a new getContethLengthLong method has been added.
-From now on I&#8217;m going to use JDK7 even though it&#8217;s not out yet.</p>
+   ...</pre> 
+ </div> 
+</div> 
+<div class="paragraph"> 
+ <p>Does anyone know why this would happen? I found out after looking it up and finding <a href="http://bugs.sun.com/bugdatabase/view_bug.do?bug_id=5052093">bug #5052093</a>. It happened because the api for contentLength uses an int return value, which has a max of 2,147,483,647. Not only that but when the internal code parses the contentLength from the stream it has to parseInt in order to return an int. Since anything above 2,147,483,647 is not an int a NumberFormatException is thrown. The content-length for the iso is 3,580,680,192.</p> 
+</div> 
+<div class="paragraph"> 
+ <p>The fix for this bug is only in JDK7 which can only be downloaded as a snapshot from java.net. Since they couldn’t change the original getContenthLength a new getContethLengthLong method has been added. From now on I’m going to use JDK7 even though it’s not out yet.</p> 
 </div>
                             </div>
                         </div><div class="row">
@@ -152,7 +139,7 @@ From now on I&#8217;m going to use JDK7 even though it&#8217;s not out yet.</p>
 <div class="row">
             <div class="small-12 small-text-center">
                 <p class="muted credit">
-                    2014 - 2018 | Mixed with <a href="http://foundation.zurb.com/">Foundation v5.5.1</a> | Baked with <a href="http://jbake.org">JBake v2.5.1</a>
+                    2014 - 2018 | Mixed with <a href="http://foundation.zurb.com/">Foundation v5.5.1</a> | Baked with <a href="http://jbake.org">JBake v2.6.1</a>
                 </p>
             </div>
         </div>        <script src="/js/vendor/jquery.js"></script>

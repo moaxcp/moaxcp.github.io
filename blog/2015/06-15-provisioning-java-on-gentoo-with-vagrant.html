@@ -80,8 +80,8 @@
                             </div>
                         </header><div class="row">
                             <div class="small-9 small-offset-3 medium-11 medium-offset-1 large-11 large-offset-1 columns">
-                                <div class="paragraph">
-<p>I wrote a <a href="https://github.com/moaxcp/fileServices/blob/master/Vagrantfile">small script</a> that will provision <a href="https://packages.gentoo.org/package/dev-java/oracle-jdk-bin">oracle-jdk-bin-1.8.0</a> on my <a href="https://atlas.hashicorp.com/moaxcp/boxes/gentoo64/versions/0.0.2">gentoo64</a> box. The script can be called multiple times through <code>vagrant reload --provision</code> and it will only install the jdk once. Oracle&#8217;s jdk has some restrictions. On gentoo the license needs to be accepted and a file needs to be manually downloaded and added to <code>/usr/portage/distfiles</code>. My Vagrantfile adds a share to <code>/usr/portage/distfiles</code> on the guest machine in <code>/distfiles</code>. The shell script will copy the file if it doesn&#8217;t exist, accept the license, and install the package. The only requirement is <code>jdk-8u45-linux-x64.tar.gz</code> needs to be located at '/usr/portage/distfiles'. This can be changed in your own project by editing the share in your Vagrantfile.</p>
+                                <div class="paragraph"> 
+ <p>I wrote a <a href="https://github.com/moaxcp/fileServices/blob/master/Vagrantfile">small script</a> that will provision <a href="https://packages.gentoo.org/package/dev-java/oracle-jdk-bin">oracle-jdk-bin-1.8.0</a> on my <a href="https://atlas.hashicorp.com/moaxcp/boxes/gentoo64/versions/0.0.2">gentoo64</a> box. The script can be called multiple times through <code>vagrant reload --provision</code> and it will only install the jdk once. Oracle’s jdk has some restrictions. On gentoo the license needs to be accepted and a file needs to be manually downloaded and added to <code>/usr/portage/distfiles</code>. My Vagrantfile adds a share to <code>/usr/portage/distfiles</code> on the guest machine in <code>/distfiles</code>. The shell script will copy the file if it doesn’t exist, accept the license, and install the package. The only requirement is <code>jdk-8u45-linux-x64.tar.gz</code> needs to be located at '/usr/portage/distfiles'. This can be changed in your own project by editing the share in your Vagrantfile.</p> 
 </div>
                             </div>
                         </div><div class="row">
@@ -116,7 +116,7 @@
 <div class="row">
             <div class="small-12 small-text-center">
                 <p class="muted credit">
-                    2014 - 2018 | Mixed with <a href="http://foundation.zurb.com/">Foundation v5.5.1</a> | Baked with <a href="http://jbake.org">JBake v2.5.1</a>
+                    2014 - 2018 | Mixed with <a href="http://foundation.zurb.com/">Foundation v5.5.1</a> | Baked with <a href="http://jbake.org">JBake v2.6.1</a>
                 </p>
             </div>
         </div>        <script src="/js/vendor/jquery.js"></script>

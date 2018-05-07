@@ -80,42 +80,32 @@
                             </div>
                         </header><div class="row">
                             <div class="small-9 small-offset-3 medium-11 medium-offset-1 large-11 large-offset-1 columns">
-                                <div id="preamble">
-<div class="sectionbody">
-<div class="paragraph">
-<p>My webcam doesn&#8217;t work on my gentoo machine. I actually have a list of hardware that I want to make sure works.</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>webcam</p>
-</li>
-<li>
-<p>CAC card reader</p>
-</li>
-<li>
-<p>hdmi out</p>
-</li>
-<li>
-<p>bluetooth</p>
-</li>
-<li>
-<p>external dvd burner</p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p>The gentoo wiki doesn&#8217;t seem to have a page for webcams but <a href="https://wiki.archlinux.org/index.php/Webcam_setup">arch linux</a> does.</p>
-</div>
-</div>
-</div>
-<h1 id="_using_lsusb" class="sect0">Using lsusb</h1>
-<div class="paragraph">
-<p>To view all devices</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre>    lsusb
+                                <div id="preamble"> 
+ <div class="sectionbody"> 
+  <div class="paragraph"> 
+   <p>My webcam doesn’t work on my gentoo machine. I actually have a list of hardware that I want to make sure works.</p> 
+  </div> 
+  <div class="ulist"> 
+   <ul> 
+    <li> <p>webcam</p> </li> 
+    <li> <p>CAC card reader</p> </li> 
+    <li> <p>hdmi out</p> </li> 
+    <li> <p>bluetooth</p> </li> 
+    <li> <p>external dvd burner</p> </li> 
+   </ul> 
+  </div> 
+  <div class="paragraph"> 
+   <p>The gentoo wiki doesn’t seem to have a page for webcams but <a href="https://wiki.archlinux.org/index.php/Webcam_setup">arch linux</a> does.</p> 
+  </div> 
+ </div> 
+</div> 
+<h1 id="_using_lsusb" class="sect0">Using lsusb</h1> 
+<div class="paragraph"> 
+ <p>To view all devices</p> 
+</div> 
+<div class="listingblock"> 
+ <div class="content"> 
+  <pre>    lsusb
 
     Bus 002 Device 003: ID 0a5c:5800 Broadcom Corp. BCM5880 Secure Applications Processor
     Bus 002 Device 002: ID 8087:0024 Intel Corp. Integrated Rate Matching Hub
@@ -125,25 +115,25 @@
     Bus 001 Device 004: ID 1bcf:280b Sunplus Innovation Technology Inc.
     Bus 001 Device 003: ID 413c:8187 Dell Computer Corp. DW375 Bluetooth Module
     Bus 001 Device 002: ID 8087:0024 Intel Corp. Integrated Rate Matching Hub
-    Bus 001 Device 001: ID 1d6b:0002 Linux Foundation 2.0 root hub</pre>
-</div>
-</div>
-<div class="paragraph">
-<p>To view the details of the web cam</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre>    lsusb -s 001:004
+    Bus 001 Device 001: ID 1d6b:0002 Linux Foundation 2.0 root hub</pre> 
+ </div> 
+</div> 
+<div class="paragraph"> 
+ <p>To view the details of the web cam</p> 
+</div> 
+<div class="listingblock"> 
+ <div class="content"> 
+  <pre>    lsusb -s 001:004
 
-    Bus 001 Device 004: ID 1bcf:280b Sunplus Innovation Technology Inc.</pre>
-</div>
-</div>
-<div class="paragraph">
-<p>To view more details</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre>    lsusb -v -s 001:004
+    Bus 001 Device 004: ID 1bcf:280b Sunplus Innovation Technology Inc.</pre> 
+ </div> 
+</div> 
+<div class="paragraph"> 
+ <p>To view more details</p> 
+</div> 
+<div class="listingblock"> 
+ <div class="content"> 
+  <pre>    lsusb -v -s 001:004
 
     Bus 001 Device 004: ID 1bcf:280b Sunplus Innovation Technology Inc.
     Device Descriptor:
@@ -161,15 +151,15 @@
       iProduct                2 Laptop_Integrated_Webcam_FHD
       iSerial                 0
       bNumConfigurations      1
-    ...</pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Check for messages about the device</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre>    dmesg | less
+    ...</pre> 
+ </div> 
+</div> 
+<div class="paragraph"> 
+ <p>Check for messages about the device</p> 
+</div> 
+<div class="listingblock"> 
+ <div class="content"> 
+  <pre>    dmesg | less
 
     typing /usb+enter will highlight the word usb. Type n to go to next match.
 
@@ -177,38 +167,31 @@
     [    9.787353] usb 1-1.5: New USB device found, idVendor=1bcf, idProduct=280b
     [    9.787356] usb 1-1.5: New USB device strings: Mfr=1, Product=2, SerialNumber=0
     [    9.787357] usb 1-1.5: Product: Laptop_Integrated_Webcam_FHD
-    [    9.787358] usb 1-1.5: Manufacturer: CN0CJ3P27248724CBBDJA01</pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Now we know the device is recognized but it doesn&#8217;t look like a driver is being loaded. This is indicated by a missing /dev/video0. Devices are assigned by udev. After trying to test using</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre>    udevadm --debug test /sys/class/video4linux/video0</pre>
-</div>
-</div>
-<div class="paragraph">
-<p>I found that I do not have video4linux. This could mean the kernel does not support video4linux.</p>
-</div>
-<div class="paragraph">
-<p>running my buildkernel.sh I found that I did not have the kernel setup for webcams.</p>
-</div>
-<div class="paragraph">
-<p>Device Drivers –&gt;
- &lt;M&gt; Multimedia support —&gt;
- [*] Cameras/video grabbers support
- [<em>] Media USB Adapters —&gt;
- &lt;M&gt; USB Video Class (UVC)
- [</em>] UVC input events device support (NEW)</p>
-</div>
-<div class="paragraph">
-<p>Now that the kernel is compiled with these options I am restarting the system to see what happens.
-…
-The camera works in Cheese!</p>
-</div>
-<div class="paragraph">
-<p>Note: when making this post I was able to file an <a href="https://github.com/tmux/tmux/issues/25">issue</a> with tmux.</p>
+    [    9.787358] usb 1-1.5: Manufacturer: CN0CJ3P27248724CBBDJA01</pre> 
+ </div> 
+</div> 
+<div class="paragraph"> 
+ <p>Now we know the device is recognized but it doesn’t look like a driver is being loaded. This is indicated by a missing /dev/video0. Devices are assigned by udev. After trying to test using</p> 
+</div> 
+<div class="listingblock"> 
+ <div class="content"> 
+  <pre>    udevadm --debug test /sys/class/video4linux/video0</pre> 
+ </div> 
+</div> 
+<div class="paragraph"> 
+ <p>I found that I do not have video4linux. This could mean the kernel does not support video4linux.</p> 
+</div> 
+<div class="paragraph"> 
+ <p>running my buildkernel.sh I found that I did not have the kernel setup for webcams.</p> 
+</div> 
+<div class="paragraph"> 
+ <p>Device Drivers –&gt; &lt;M&gt; Multimedia support —&gt; [*] Cameras/video grabbers support [<em>] Media USB Adapters —&gt; &lt;M&gt; USB Video Class (UVC) [</em>] UVC input events device support (NEW)</p> 
+</div> 
+<div class="paragraph"> 
+ <p>Now that the kernel is compiled with these options I am restarting the system to see what happens. … The camera works in Cheese!</p> 
+</div> 
+<div class="paragraph"> 
+ <p>Note: when making this post I was able to file an <a href="https://github.com/tmux/tmux/issues/25">issue</a> with tmux.</p> 
 </div>
                             </div>
                         </div><div class="row">
@@ -243,7 +226,7 @@ The camera works in Cheese!</p>
 <div class="row">
             <div class="small-12 small-text-center">
                 <p class="muted credit">
-                    2014 - 2018 | Mixed with <a href="http://foundation.zurb.com/">Foundation v5.5.1</a> | Baked with <a href="http://jbake.org">JBake v2.5.1</a>
+                    2014 - 2018 | Mixed with <a href="http://foundation.zurb.com/">Foundation v5.5.1</a> | Baked with <a href="http://jbake.org">JBake v2.6.1</a>
                 </p>
             </div>
         </div>        <script src="/js/vendor/jquery.js"></script>

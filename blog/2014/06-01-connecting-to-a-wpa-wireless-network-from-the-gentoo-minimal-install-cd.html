@@ -80,27 +80,22 @@
                             </div>
                         </header><div class="row">
                             <div class="small-9 small-offset-3 medium-11 medium-offset-1 large-11 large-offset-1 columns">
-                                <div id="preamble">
-<div class="sectionbody">
-<div class="paragraph">
-<p>Connecting to a wpa enabled wireless network can be difficult in the gentoo minimum install cd. Most sources suggest
-not to use the cd if this is an issue and to use a cd from a different distribution. There is no reason to do this
-because the minimal install CD comes with wpa_supplicant. wpa_supplicant is the basic tool and library that most
-network configuration tools for all linux distributions use to connect to wpa networks.</p>
-</div>
-<div class="paragraph">
-<p>When using the minimal install cd the network card should be configured to use wpa_supplicant and wpa_cli should be
-used to connect to the network. Using the configuration files that most tutorials show is useless as any changes will
-only be temporary and will be lost once the system is restarted.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_get_the_wireless_interface_name">Get the wireless interface name</h2>
-<div class="sectionbody">
-<div class="listingblock">
-<div class="content">
-<pre class="prettyprint highlight"><code class="language-console" data-lang="console">livecd ~ # iwconfig
+                                <div id="preamble"> 
+ <div class="sectionbody"> 
+  <div class="paragraph"> 
+   <p>Connecting to a wpa enabled wireless network can be difficult in the gentoo minimum install cd. Most sources suggest not to use the cd if this is an issue and to use a cd from a different distribution. There is no reason to do this because the minimal install CD comes with wpa_supplicant. wpa_supplicant is the basic tool and library that most network configuration tools for all linux distributions use to connect to wpa networks.</p> 
+  </div> 
+  <div class="paragraph"> 
+   <p>When using the minimal install cd the network card should be configured to use wpa_supplicant and wpa_cli should be used to connect to the network. Using the configuration files that most tutorials show is useless as any changes will only be temporary and will be lost once the system is restarted.</p> 
+  </div> 
+ </div> 
+</div> 
+<div class="sect1"> 
+ <h2 id="_get_the_wireless_interface_name">Get the wireless interface name</h2> 
+ <div class="sectionbody"> 
+  <div class="listingblock"> 
+   <div class="content"> 
+    <pre class="prettyprint highlight"><code class="language-console" data-lang="console">livecd ~ # iwconfig
 lo      no wireless extensions.
 
 enp1s0  no wireless extensions.
@@ -109,64 +104,64 @@ wlp2s0  IEE802.11bgn ESSID:off/any
        Mode:Managed Access Point: Not-Associated Tx-Power=15 dBm
        Retry long limit:7 RTS thr:off Fragment thr:off
        Encryption key:off
-       Power Management:off</code></pre>
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_use_the_wireless_interface_name_to_create_the_init_script_for_the_interface">Use the wireless interface name to create the init script for the interface</h2>
-<div class="sectionbody">
-<div class="listingblock">
-<div class="content">
-<pre class="prettyprint highlight"><code class="language-console" data-lang="console">livecd~ # cp /etc/init.d/net.lo /etc/init.d/net.wlp2s0</code></pre>
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_create_the_init_script_for_the_wlp2s0_interface">Create the init script for the wlp2s0 interface</h2>
-<div class="sectionbody">
-<div class="listingblock">
-<div class="content">
-<pre class="prettyprint highlight"><code class="language-console" data-lang="console">livecd~ # nano /etc/conf.d/net
+       Power Management:off</code></pre> 
+   </div> 
+  </div> 
+ </div> 
+</div> 
+<div class="sect1"> 
+ <h2 id="_use_the_wireless_interface_name_to_create_the_init_script_for_the_interface">Use the wireless interface name to create the init script for the interface</h2> 
+ <div class="sectionbody"> 
+  <div class="listingblock"> 
+   <div class="content"> 
+    <pre class="prettyprint highlight"><code class="language-console" data-lang="console">livecd~ # cp /etc/init.d/net.lo /etc/init.d/net.wlp2s0</code></pre> 
+   </div> 
+  </div> 
+ </div> 
+</div> 
+<div class="sect1"> 
+ <h2 id="_create_the_init_script_for_the_wlp2s0_interface">Create the init script for the wlp2s0 interface</h2> 
+ <div class="sectionbody"> 
+  <div class="listingblock"> 
+   <div class="content"> 
+    <pre class="prettyprint highlight"><code class="language-console" data-lang="console">livecd~ # nano /etc/conf.d/net
 ...
 modules="wpa_supplicant"
 wpa_supplicant_wlp2s0="-Dwext -iwlp2s0 -c/etc/wpa_supplicant/wpa_supplicant.conf"
-config_wlp2s0="dhcp"</code></pre>
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_edit_etc_wpa_supplicant_wpa_supplicant_conf">Edit /etc/wpa_supplicant/wpa_supplicant.conf</h2>
-<div class="sectionbody">
-<div class="listingblock">
-<div class="content">
-<pre class="prettyprint highlight"><code class="language-console" data-lang="console">livecd ~ # nano /etc/wpa_supplicant/wpa_supplicant.conf
+config_wlp2s0="dhcp"</code></pre> 
+   </div> 
+  </div> 
+ </div> 
+</div> 
+<div class="sect1"> 
+ <h2 id="_edit_etc_wpa_supplicant_wpa_supplicant_conf">Edit /etc/wpa_supplicant/wpa_supplicant.conf</h2> 
+ <div class="sectionbody"> 
+  <div class="listingblock"> 
+   <div class="content"> 
+    <pre class="prettyprint highlight"><code class="language-console" data-lang="console">livecd ~ # nano /etc/wpa_supplicant/wpa_supplicant.conf
 ...
 ctrl_interface=/var/run/wpa_supplicant
-ctrl_interface_group=0</code></pre>
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_start_the_wlp2s0_interface">Start the wlp2s0 interface</h2>
-<div class="sectionbody">
-<div class="listingblock">
-<div class="content">
-<pre class="prettyprint highlight"><code class="language-console" data-lang="console">livecd ~ # /etc/init.d/net.wlp2s0 start</code></pre>
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_connect_to_the_network_using_wpa_cli">Connect to the network using wpa_cli</h2>
-<div class="sectionbody">
-<div class="listingblock">
-<div class="content">
-<pre class="prettyprint highlight"><code class="language-console" data-lang="console">livecd ~ # wpa_cli&amp;gt;scan
+ctrl_interface_group=0</code></pre> 
+   </div> 
+  </div> 
+ </div> 
+</div> 
+<div class="sect1"> 
+ <h2 id="_start_the_wlp2s0_interface">Start the wlp2s0 interface</h2> 
+ <div class="sectionbody"> 
+  <div class="listingblock"> 
+   <div class="content"> 
+    <pre class="prettyprint highlight"><code class="language-console" data-lang="console">livecd ~ # /etc/init.d/net.wlp2s0 start</code></pre> 
+   </div> 
+  </div> 
+ </div> 
+</div> 
+<div class="sect1"> 
+ <h2 id="_connect_to_the_network_using_wpa_cli">Connect to the network using wpa_cli</h2> 
+ <div class="sectionbody"> 
+  <div class="listingblock"> 
+   <div class="content"> 
+    <pre class="prettyprint highlight"><code class="language-console" data-lang="console">livecd ~ # wpa_cli&amp;gt;scan
 CTRL-EVENT-SCAN-RESULTS
 &gt;scan_results
 &gt;add_network
@@ -177,20 +172,20 @@ OK
 OK
 &gt;enable_network 0
 OK
-&gt;quit</code></pre>
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_test_the_network_with_a_ping">Test the network with a ping</h2>
-<div class="sectionbody">
-<div class="listingblock">
-<div class="content">
-<pre class="prettyprint highlight"><code class="language-console" data-lang="console">livecd ~ # ping www.google.com</code></pre>
-</div>
-</div>
-</div>
+&gt;quit</code></pre> 
+   </div> 
+  </div> 
+ </div> 
+</div> 
+<div class="sect1"> 
+ <h2 id="_test_the_network_with_a_ping">Test the network with a ping</h2> 
+ <div class="sectionbody"> 
+  <div class="listingblock"> 
+   <div class="content"> 
+    <pre class="prettyprint highlight"><code class="language-console" data-lang="console">livecd ~ # ping www.google.com</code></pre> 
+   </div> 
+  </div> 
+ </div> 
 </div>
                             </div>
                         </div><div class="row">
@@ -225,7 +220,7 @@ OK
 <div class="row">
             <div class="small-12 small-text-center">
                 <p class="muted credit">
-                    2014 - 2018 | Mixed with <a href="http://foundation.zurb.com/">Foundation v5.5.1</a> | Baked with <a href="http://jbake.org">JBake v2.5.1</a>
+                    2014 - 2018 | Mixed with <a href="http://foundation.zurb.com/">Foundation v5.5.1</a> | Baked with <a href="http://jbake.org">JBake v2.6.1</a>
                 </p>
             </div>
         </div>        <script src="/js/vendor/jquery.js"></script>

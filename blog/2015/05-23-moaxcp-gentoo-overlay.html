@@ -80,113 +80,103 @@
                             </div>
                         </header><div class="row">
                             <div class="small-9 small-offset-3 medium-11 medium-offset-1 large-11 large-offset-1 columns">
-                                <div class="paragraph">
-<p>I created an <a href="https://github.com/moaxcp/moaxcp-gentoo-overlay">gentoo overlay</a> with the latest version of x11-wm/notion
-and my own project dev-java/recMD5. Go to the &lt;a href="https://github.com/moaxcp/moaxcp-gentoo-overlay"&gt;overlay&lt;/a&gt; and
-follow the README.md for instructions on using the <a href="https://github.com/moaxcp/moaxcp-gentoo-overlay">overlay</a>. Here are
-the notes from setting things up.</p>
-</div>
-<div class="paragraph">
-<p>I&#8217;m going through this <a href="https://wiki.gentoo.org/wiki/Overlay/Local_overlay">tutorial</a> for creating an overlay. The base
-directory is</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre>/usr/local/portage/moaxcp</pre>
-</div>
-</div>
-<div class="paragraph">
-<p>from the first section of the tutorial you create the repo</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre>mkdir -p /usr/local/portage/moaxcp/{metadata,profiles}
+                                <div class="paragraph"> 
+ <p>I created an <a href="https://github.com/moaxcp/moaxcp-gentoo-overlay">gentoo overlay</a> with the latest version of x11-wm/notion and my own project dev-java/recMD5. Go to the &lt;a href="https://github.com/moaxcp/moaxcp-gentoo-overlay"&gt;overlay&lt;/a&gt; and follow the README.md for instructions on using the <a href="https://github.com/moaxcp/moaxcp-gentoo-overlay">overlay</a>. Here are the notes from setting things up.</p> 
+</div> 
+<div class="paragraph"> 
+ <p>I’m going through this <a href="https://wiki.gentoo.org/wiki/Overlay/Local_overlay">tutorial</a> for creating an overlay. The base directory is</p> 
+</div> 
+<div class="listingblock"> 
+ <div class="content"> 
+  <pre>/usr/local/portage/moaxcp</pre> 
+ </div> 
+</div> 
+<div class="paragraph"> 
+ <p>from the first section of the tutorial you create the repo</p> 
+</div> 
+<div class="listingblock"> 
+ <div class="content"> 
+  <pre>mkdir -p /usr/local/portage/moaxcp/{metadata,profiles}
 echo 'moaxcp' &gt; /usr/local/portage/moaxcp/profiles/repo_name
 echo 'masters = gentoo' &gt; /usr/local/portage/moaxcp/metadata/layout.conf
 chown -R portage:portage /usr/local/portage/moaxcp
 /usr/local/portage is already owned by portage
 mkdir /etc/portage/repos.conf
-nano /etc/portage/repos.conf/local.conf</pre>
-</div>
-</div>
-<div class="paragraph">
-<p>add the following text, save and exit</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre>[moaxcp]
+nano /etc/portage/repos.conf/local.conf</pre> 
+ </div> 
+</div> 
+<div class="paragraph"> 
+ <p>add the following text, save and exit</p> 
+</div> 
+<div class="listingblock"> 
+ <div class="content"> 
+  <pre>[moaxcp]
 location = /usr/local/portage/moaxcp
 masters = gentoo
-auto-sync = no</pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Now that the repo is create put a package in it</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre>mkdir -p /usr/local/portage/moaxcp/x11-wm/notion
-nano /usr/local/portage/moaxcp/x11-wm/notion/notion_p2014052800.ebuild</pre>
-</div>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>Add text from <a href="https://523566.bugs.gentoo.org/attachment.cgi?id=389597" class="bare">https://523566.bugs.gentoo.org/attachment.cgi?id=389597</a>. The file is called notion-3-2014052800-src.tar.bz2 on sourceforge. Which looks similar to what the ebuild looks for.</p>
-</li>
-<li>
-<p>save and exit</p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p>chown -R portage:portage /usr/local/portage/moaxcp
-pushd /usr/local/portage/moaxcp/x11-wm/notion
-repoman manifest</p>
-</div>
-<div class="paragraph">
-<p>now I get</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre>Invalid ebuild name: /usr/local/portage/moaxcp/x11-wm/notion/notion_p2014052800.ebuild
+auto-sync = no</pre> 
+ </div> 
+</div> 
+<div class="paragraph"> 
+ <p>Now that the repo is create put a package in it</p> 
+</div> 
+<div class="listingblock"> 
+ <div class="content"> 
+  <pre>mkdir -p /usr/local/portage/moaxcp/x11-wm/notion
+nano /usr/local/portage/moaxcp/x11-wm/notion/notion_p2014052800.ebuild</pre> 
+ </div> 
+</div> 
+<div class="ulist"> 
+ <ul> 
+  <li> <p>Add text from <a href="https://523566.bugs.gentoo.org/attachment.cgi?id=389597" class="bare">https://523566.bugs.gentoo.org/attachment.cgi?id=389597</a>. The file is called notion-3-2014052800-src.tar.bz2 on sourceforge. Which looks similar to what the ebuild looks for.</p> </li> 
+  <li> <p>save and exit</p> </li> 
+ </ul> 
+</div> 
+<div class="paragraph"> 
+ <p>chown -R portage:portage /usr/local/portage/moaxcp pushd /usr/local/portage/moaxcp/x11-wm/notion repoman manifest</p> 
+</div> 
+<div class="paragraph"> 
+ <p>now I get</p> 
+</div> 
+<div class="listingblock"> 
+ <div class="content"> 
+  <pre>Invalid ebuild name: /usr/local/portage/moaxcp/x11-wm/notion/notion_p2014052800.ebuild
 &gt;&gt;&gt; Creating Manifest for /usr/local/portage/moaxcp/x11-wm/notion
 !!! Invalid package name: 'x11-wm/notion_p2014052800'
-Unable to generate manifest.</pre>
-</div>
-</div>
-<div class="paragraph">
-<p>This was caused by the file name not containing the version number. I changed the file name to notion-3_p2014052800.ebuild and everything worked. Now add a keyword for the protected package so it will emerge.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre>nano /etc/portage/package.keywords/notion
-=x11-wm/notion-3_p2014052800 ~amd64</pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Or use -a when emerging the package and accept the changes (don&#8217;t forget to dispatch-conf). On a side note once the overlay is setup I added everything in the overlay to github and setup the overlay to sync with github. Now when I do emerge –sync the overlay will sync with github. Any changes I make to the overlay can by committed using git.</p>
-</div>
-<div class="paragraph">
-<p>To sync with git I changed the repos.conf/local.conf file</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre>nano /etc/portage/repos.conf/local.conf</pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Add text</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre>[moaxcp]
+Unable to generate manifest.</pre> 
+ </div> 
+</div> 
+<div class="paragraph"> 
+ <p>This was caused by the file name not containing the version number. I changed the file name to notion-3_p2014052800.ebuild and everything worked. Now add a keyword for the protected package so it will emerge.</p> 
+</div> 
+<div class="listingblock"> 
+ <div class="content"> 
+  <pre>nano /etc/portage/package.keywords/notion
+=x11-wm/notion-3_p2014052800 ~amd64</pre> 
+ </div> 
+</div> 
+<div class="paragraph"> 
+ <p>Or use -a when emerging the package and accept the changes (don’t forget to dispatch-conf). On a side note once the overlay is setup I added everything in the overlay to github and setup the overlay to sync with github. Now when I do emerge –sync the overlay will sync with github. Any changes I make to the overlay can by committed using git.</p> 
+</div> 
+<div class="paragraph"> 
+ <p>To sync with git I changed the repos.conf/local.conf file</p> 
+</div> 
+<div class="listingblock"> 
+ <div class="content"> 
+  <pre>nano /etc/portage/repos.conf/local.conf</pre> 
+ </div> 
+</div> 
+<div class="paragraph"> 
+ <p>Add text</p> 
+</div> 
+<div class="listingblock"> 
+ <div class="content"> 
+  <pre>[moaxcp]
 location = /usr/local/portage/moaxcp
 sync-uri = https://github.com/moaxcp/moaxcp-gentoo-overlay.git
 masters = gentoo
 auto-sync = yes
-sync-type = git</pre>
-</div>
+sync-type = git</pre> 
+ </div> 
 </div>
                             </div>
                         </div><div class="row">
@@ -221,7 +211,7 @@ sync-type = git</pre>
 <div class="row">
             <div class="small-12 small-text-center">
                 <p class="muted credit">
-                    2014 - 2018 | Mixed with <a href="http://foundation.zurb.com/">Foundation v5.5.1</a> | Baked with <a href="http://jbake.org">JBake v2.5.1</a>
+                    2014 - 2018 | Mixed with <a href="http://foundation.zurb.com/">Foundation v5.5.1</a> | Baked with <a href="http://jbake.org">JBake v2.6.1</a>
                 </p>
             </div>
         </div>        <script src="/js/vendor/jquery.js"></script>

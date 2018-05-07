@@ -80,12 +80,12 @@
                             </div>
                         </header><div class="row">
                             <div class="small-9 small-offset-3 medium-11 medium-offset-1 large-11 large-offset-1 columns">
-                                <div class="paragraph">
-<p>Using <a href="https://github.com/java-native-access/jna">Java Native Access</a> in a groovy script seems easy enough. Just use grape to grab the dependency and use it an a simple groovy script.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="prettyprint highlight"><code class="language-groovy" data-lang="groovy">#!/usr/bin/env groovy
+                                <div class="paragraph"> 
+ <p>Using <a href="https://github.com/java-native-access/jna">Java Native Access</a> in a groovy script seems easy enough. Just use grape to grab the dependency and use it an a simple groovy script.</p> 
+</div> 
+<div class="listingblock"> 
+ <div class="content"> 
+  <pre class="prettyprint highlight"><code class="language-groovy" data-lang="groovy">#!/usr/bin/env groovy
 
 // https://mvnrepository.com/artifact/net.java.dev.jna/jna
 @Grapes(
@@ -105,15 +105,15 @@ public interface CLibrary extends Library {
 CLibrary.INSTANCE.printf("Hello, World\n")
 for(int i = 0; i &lt; args.length; i++) {
     CLibrary.INSTANCE.printf('Argument %d: %s\n', i, args[i])
-}</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>The <a href="https://github.com/java-native-access/jna/blob/master/www/DynamicallyTypedLanguages.md">Dynamically Typed Languages</a> article suggests that we can be smart about using jna in Jython and JRuby but what about groovy? Groovy supports intercepting missing methods but I&#8217;m going with just defining the methods. There doesn&#8217;t seem to be a way to map the invoke methods with the correct return type for the c methods. For example printf is a void method but in the article it would use invokeInt. This is not correct.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="prettyprint highlight"><code class="language-groovy" data-lang="groovy">#!/usr/bin/env groovy
+}</code></pre> 
+ </div> 
+</div> 
+<div class="paragraph"> 
+ <p>The <a href="https://github.com/java-native-access/jna/blob/master/www/DynamicallyTypedLanguages.md">Dynamically Typed Languages</a> article suggests that we can be smart about using jna in Jython and JRuby but what about groovy? Groovy supports intercepting missing methods but I’m going with just defining the methods. There doesn’t seem to be a way to map the invoke methods with the correct return type for the c methods. For example printf is a void method but in the article it would use invokeInt. This is not correct.</p> 
+</div> 
+<div class="listingblock"> 
+ <div class="content"> 
+  <pre class="prettyprint highlight"><code class="language-groovy" data-lang="groovy">#!/usr/bin/env groovy
 
 // https://mvnrepository.com/artifact/net.java.dev.jna/jna
 @Grapes(
@@ -133,11 +133,11 @@ public class CLib {
 CLib.printf("Hello, World\n")
 for(int i = 0; i &lt; args.length; i++) {
     CLib.printf('Argument %d: %s\n', i, args[i])
-}</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>JNA makes it very easy to map native code in groovy. Please check out the <a href="https://github.com/java-native-access/jna">project</a> for more details.</p>
+}</code></pre> 
+ </div> 
+</div> 
+<div class="paragraph"> 
+ <p>JNA makes it very easy to map native code in groovy. Please check out the <a href="https://github.com/java-native-access/jna">project</a> for more details.</p> 
 </div>
                             </div>
                         </div><div class="row">
@@ -172,7 +172,7 @@ for(int i = 0; i &lt; args.length; i++) {
 <div class="row">
             <div class="small-12 small-text-center">
                 <p class="muted credit">
-                    2014 - 2018 | Mixed with <a href="http://foundation.zurb.com/">Foundation v5.5.1</a> | Baked with <a href="http://jbake.org">JBake v2.5.1</a>
+                    2014 - 2018 | Mixed with <a href="http://foundation.zurb.com/">Foundation v5.5.1</a> | Baked with <a href="http://jbake.org">JBake v2.6.1</a>
                 </p>
             </div>
         </div>        <script src="/js/vendor/jquery.js"></script>
