@@ -74,7 +74,7 @@
                                             <a href="/blog/2018/05-08-notes-on-updating-visualvm-in-nixpkgs.html">Notes on updating visualvm in nixpkgs</a>
                                         </h2><p>
                                             <span>
-                                                <a href="/tags/ant.html" class="label">ant</a>
+                                                <a href="/tags/nixos.html" class="label">nixos</a>
                                             </span>
                                         </p><a href="/blog/2018/05-08-notes-on-updating-visualvm-in-nixpkgs.html#disqus_thread">comments</a><hr/>
                                     </div>
@@ -82,64 +82,74 @@
                             </div>
                         </header><div class="row">
                             <div class="small-9 small-offset-3 medium-11 medium-offset-1 large-11 large-offset-1 columns">
-                                <div class="paragraph"> 
- <p><a href="https://visualvm.github.io/">VisualVM</a> is an application for monitoring and performance analysis of java applications. The package for nixos is located <a href="https://github.com/NixOS/nixpkgs/blob/c7e11a28dce73ecf13e53ce48e83096064700cb8/pkgs/development/tools/java/visualvm/default.nix">here</a>. There are a few tips I learned when performing this upgrade.</p> 
-</div> 
-<div class="paragraph"> 
- <p>==fetchzip</p> 
-</div> 
-<div class="listingblock"> 
- <div class="title">
-  visualvm/default.nix
+                                <div id="preamble"> 
+ <div class="sectionbody"> 
+  <div class="paragraph"> 
+   <p><a href="https://visualvm.github.io/">VisualVM</a> is an application for monitoring and performance analysis of java applications. The package for nixos is located <a href="https://github.com/NixOS/nixpkgs/blob/c7e11a28dce73ecf13e53ce48e83096064700cb8/pkgs/development/tools/java/visualvm/default.nix">here</a>. There are a few tips I learned when performing this upgrade.</p> 
+  </div> 
  </div> 
- <div class="content"> 
-  <pre class="prettyprint highlight"><code>src = fetchzip {
+</div> 
+<div class="sect1"> 
+ <h2 id="_fetchzip">fetchzip</h2> 
+ <div class="sectionbody"> 
+  <div class="listingblock"> 
+   <div class="title">
+    visualvm/default.nix
+   </div> 
+   <div class="content"> 
+    <pre class="prettyprint highlight"><code>src = fetchzip {
   url = "https://github.com/visualvm/visualvm.src/releases/download/${version}/visualvm_${builtins.replaceStrings ["."] [""]  version}.zip";
   sha256 = "10ciyggf8mcy3c53shpl03fxqwsa2ilgw3xdgqhb1ah151k18p78";
 };</code></pre> 
+   </div> 
+  </div> 
+  <div class="paragraph"> 
+   <p>fetchzip uses "source" as the name by default. Only name and checksum affect the path within the nix store. Inheriting the name may solve this problem if the version is updated. Just changing the url may result in the wrong file being used. For visualvm I needed to change the url and sha256. sha256 is a hash of the content of the zip file not the zip file itself. To get the hash use nix-prefetch-url with the attribute to fetch. In the case of visualvm use</p> 
+  </div> 
+  <div class="listingblock"> 
+   <div class="title">
+    visualvm/default.nix
+   </div> 
+   <div class="content"> 
+    <pre class="prettyprint highlight"><code>nix-prefetch-url -A visualvm.src</code></pre> 
+   </div> 
+  </div> 
+  <div class="paragraph"> 
+   <p>nix-prefetch-url will download the src attribute to current directory. The default name of the dir is source. If the hash doesn’t match a message will display the correct hash. The hash is not of the archive it is a deterministic hash of the contents of the archive. You cannot run sha256sum on the file and expect it to be correct.</p> 
+  </div> 
  </div> 
 </div> 
-<div class="paragraph"> 
- <p>fetchzip uses "source" as the name by default. Only name and checksum affect the path within the nix store. Inheriting the name may solve this problem if the version is updated. Just changing the url may result in the wrong file being used. For visualvm I needed to change the url and sha256. sha256 is a hash of the content of the zip file not the zip file itself. To get the hash use nix-prefetch-url with the attribute to fetch. In the case of visualvm use</p> 
-</div> 
-<div class="listingblock"> 
- <div class="title">
-  visualvm/default.nix
- </div> 
- <div class="content"> 
-  <pre class="prettyprint highlight"><code>nix-prefetch-url -A visualvm.src</code></pre> 
- </div> 
-</div> 
-<div class="paragraph"> 
- <p>nix-prefetch-url will download the src attribute to current directory. The default name of the dir is source. If the hash doesn’t match a message will display the correct hash. The hash is not of the archive it is a deterministic hash of the contents of the archive. You cannot run sha256sum on the file and expect it to be correct.</p> 
-</div> 
-<div class="paragraph"> 
- <p>==building</p> 
-</div> 
-<div class="paragraph"> 
- <p>From nixpkgs repo run</p> 
-</div> 
-<div class="listingblock"> 
- <div class="content"> 
-  <pre class="prettyprint highlight"><code>nix-build -A visualvm</code></pre> 
+<div class="sect1"> 
+ <h2 id="_building">building</h2> 
+ <div class="sectionbody"> 
+  <div class="paragraph"> 
+   <p>From nixpkgs repo run</p> 
+  </div> 
+  <div class="listingblock"> 
+   <div class="content"> 
+    <pre class="prettyprint highlight"><code>nix-build -A visualvm</code></pre> 
+   </div> 
+  </div> 
+  <div class="paragraph"> 
+   <p>This will build the package and link to the results in the current directory.</p> 
+  </div> 
  </div> 
 </div> 
-<div class="paragraph"> 
- <p>This will build the package and link to the results in the current directory.</p> 
-</div> 
-<div class="paragraph"> 
- <p>==installing</p> 
-</div> 
-<div class="listingblock"> 
- <div class="content"> 
-  <pre class="prettyprint highlight"><code>nix-env -iA visualvm -f .</code></pre> 
+<div class="sect1"> 
+ <h2 id="_installing">installing</h2> 
+ <div class="sectionbody"> 
+  <div class="listingblock"> 
+   <div class="content"> 
+    <pre class="prettyprint highlight"><code>nix-env -iA visualvm -f .</code></pre> 
+   </div> 
+  </div> 
+  <div class="paragraph"> 
+   <p>This will install the package for the user environment.</p> 
+  </div> 
+  <div class="paragraph"> 
+   <p>The application can now be started.</p> 
+  </div> 
  </div> 
-</div> 
-<div class="paragraph"> 
- <p>This will install the package for the user environment.</p> 
-</div> 
-<div class="paragraph"> 
- <p>The application can now be started.</p> 
 </div>
                             </div>
                         </div><div class="row">
