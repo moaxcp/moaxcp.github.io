@@ -65,16 +65,18 @@
                                 <div class="small-3 medium-1 large-1 columns">
 <div class="termin">
                                         <div class="month">May</div>
-                                        <div class="date">10</div>
+                                        <div class="date">09</div>
                                         <div class="year">2018</div>
                                     </div>                                    
                                 </div><div class="small-9 medium-11 large-11 columns">
                                     <div>
                                         <h2>
-                                            <a href="/blog/draft/creating-an-xwindow-in-groovy.html">Creating an X11 Window in Groovy</a>
+                                            <a href="/blog/draft/upgrade-jbake.html">Notes on updating jbake in nixpkgs</a>
                                         </h2><p>
-                                            
-                                        </p><a href="/blog/draft/creating-an-xwindow-in-groovy.html#disqus_thread">comments</a><hr/>
+                                            <span>
+                                                <a href="/tags/nixos.html" class="label">nixos</a>
+                                            </span>
+                                        </p><a href="/blog/draft/upgrade-jbake.html#disqus_thread">comments</a><hr/>
                                     </div>
                                 </div>
                             </div>
@@ -83,128 +85,67 @@
                                 <div id="preamble"> 
  <div class="sectionbody"> 
   <div class="paragraph"> 
-   <p>It is a strange idea but being able to use x11 in groovy could be neat for a lot of reasons. First, checkout <a href="http://groovyfx.org">groovyfx</a>. It is a dsl for <a href="https://en.wikipedia.org/wiki/JavaFX">javafx</a>. Could a dsl like this exist for x11? What about creating a window manager? First there needs to be a way to talk to and x11 server. <a href="https://en.wikipedia.org/wiki/Xlib">Xlib</a> is used for many programming languages. It is a native library written in the C programming language. It can be accessed in java with <a href="https://github.com/java-native-access/jna">Java Native Access</a>.</p> 
+   <p>After a bot upgraded jbake I was unable to run it on my system. The cause was due to a change in the jbakes script detected the java executable. With some help from the nix community I was able to fix it.</p> 
   </div> 
  </div> 
 </div> 
 <div class="sect1"> 
- <h2 id="_hello_world_example">Hello World Example</h2> 
+ <h2 id="_error">error</h2> 
  <div class="sectionbody"> 
   <div class="paragraph"> 
-   <p><a href="https://github.com/java-native-access/jna">Java Native Access</a> allows developers to access native functions as if they were java methods. It can be used in a groovy script to access the standard Clib.</p> 
-  </div> 
-  <div class="listingblock"> 
-   <div class="title">
-    hello
-   </div> 
-   <div class="content"> 
-    <pre class="prettyprint highlight"><code class="language-groovy" data-lang="groovy">#!/usr/bin/env groovy
-
-@Grab(group='net.java.dev.jna', module='jna', version='4.5.1') <b class="conum">(1)</b>
-
-import com.sun.jna.NativeLibrary
-import com.sun.jna.Platform
-
-class CLib {
-    static def lib = NativeLibrary.getInstance(Platform.isWindows() ? 'msvcrt' : 'c') <b class="conum">(2)</b>
-    static def printf(format, args) { <b class="conum">(3)</b>
-        lib.getFunction('printf').invokeVoid([format, args])
-    }
-}
-
-CLib.printf("Hello, World!\n") <b class="conum">(4)</b></code></pre> 
-   </div> 
-  </div> 
-  <div class="colist arabic"> 
-   <ol> 
-    <li> <p>Grab jna using groovy grape dependency manager</p> </li> 
-    <li> <p>Get instance of library from jna</p> </li> 
-    <li> <p>Define <code>printf</code> function as a static method</p> </li> 
-    <li> <p>Call <code>printf</code></p> </li> 
-   </ol> 
-  </div> 
-  <div class="paragraph"> 
-   <p>Running the script results in:</p> 
+   <p>Starting jbake would output an error.</p> 
   </div> 
   <div class="listingblock"> 
    <div class="content"> 
-    <pre>john@n1 ~/p/g/jna (master)&gt; ./hello
-Hello, World!</pre> 
+    <pre>0 + john@n1 nixpkgs $ ./result/bin/jbake
+
+ERROR: JAVA_HOME is set to an invalid directory: /nix/store/szwdr2qmldwn0q227qfrjpagzzzvxsb0-openjdk-9.0.4-b11/lib/openjdk
+
+Please set the JAVA_HOME variable in your environment to match the
+location of your Java installation.</pre> 
    </div> 
   </div> 
  </div> 
 </div> 
 <div class="sect1"> 
- <h2 id="_nixos_setup">NixOS Setup</h2> 
+ <h2 id="_cause">cause</h2> 
  <div class="sectionbody"> 
- </div> 
-</div> 
-<div class="sect1"> 
- <h2 id="_creating_an_x11_window_in_c">Creating an X11 Window in C</h2> 
- <div class="sectionbody"> 
- </div> 
-</div> 
-<div class="sect1"> 
- <h2 id="_creating_an_x11_window_in_groovy">Creating an X11 Window in Groovy</h2> 
- <div class="sectionbody"> 
+  <div class="paragraph"> 
+   <p>The new script which runs jbake switched from using the java command available on $PATH to calling java from $JAVA_HOME/bin/java. The nix package substituted the java command with a full path to the executable.</p> 
+  </div> 
   <div class="listingblock"> 
    <div class="content"> 
-    <pre>#!/usr/bin/env nix-shell
-/*
-#!nix-shell -i groovy
-#!nix-shell deps.nix
-*/
-
-@Grapes(
-    @Grab(group='net.java.dev.jna', module='jna-platform', version='4.5.1')
-)
-
-import com.sun.jna.platform.unix.X11
-import com.sun.jna.NativeLong
-
-X11.INSTANCE.with {
-
-    def display = XOpenDisplay(null)
-    def screen = XDefaultScreen(display)
-    def root = XDefaultRootWindow(display)
-    def window = XCreateSimpleWindow(display, root, 100, 100, 275, 120, 1, 1, 0)
-    def gc = XCreateGC(display, window, new NativeLong(0), null)
-
-    XSetForeground(display, gc, new NativeLong(0))
-    XSetBackground(display, gc, new NativeLong(100))
-    XSelectInput(display, window, new NativeLong(KeyPressMask | ExposureMask))
-    XMapRaised(display, window)
-
-    def start = System.currentTimeMillis()
-
-    while(System.currentTimeMillis() - start &lt; 10 * 1000) {
-        def event = new X11.XEvent()
-        XNextEvent(display, event)
-        switch(event.type) {
-            case Expose:
-                if(event.xexpose.count == 0) {
-                    //XDrawImageString(event.xexpose.display, event.xexpose.window, gc, 105, 65, ...)
-                }
-                break
-            case MappingNotify:
-                //XRefreshKeybaordMapping(event)
-                break
-
-            case KeyPress:
-                //int keycount = XLookupString(event, ...
-                //finish application
-                break
-        }
-    }
-
-    XFreeGC(display, gc)
-    XDestroyWindow(display, window)
-    XCloseDisplay(display)
-}</pre> 
+    <pre>substituteInPlace bin/jbake --replace "java" "${jre}/bin/java"</pre> 
+   </div> 
+  </div> 
+ </div> 
+</div> 
+<div class="sect1"> 
+ <h2 id="_solution">solution</h2> 
+ <div class="sectionbody"> 
+  <div class="paragraph"> 
+   <p>This is fixed by removing the call to substituteInPlace and adding wrapProgram.</p> 
+  </div> 
+  <div class="listingblock"> 
+   <div class="content"> 
+    <pre>     installPhase = ''
+￼ -    substituteInPlace bin/jbake --replace "java" "${jre}/bin/java"
+￼      mkdir -p $out
+￼      cp -vr * $out
+￼ +    wrapProgram $out/bin/jbake --set JAVA_HOME "${jre}"
+￼    '';</pre> 
    </div> 
   </div> 
   <div class="paragraph"> 
-   <p><a href="https://github.com/java-native-access/jna">Java Native Access</a> comes with a partial implementation for using X11 <code>com.sun.jna.platform.unix.X11</code>.</p> 
+   <p>wrapProgram adds the correct JAVA_HOME environment variable.</p> 
+  </div> 
+ </div> 
+</div> 
+<div class="sect1"> 
+ <h2 id="_preventing_future_issues">preventing future issues</h2> 
+ <div class="sectionbody"> 
+  <div class="paragraph"> 
+   <p>The best thing to do is write a test for the jbake executable. Information on writing tests is found <a href="https://nixos.org/nixos/manual/index.html#sec-nixos-tests">here</a>.</p> 
   </div> 
  </div> 
 </div>
@@ -218,8 +159,8 @@ X11.INSTANCE.with {
                                 *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
                                 /*
                                 var disqus_config = function () {
-                                this.page.url = 'http://johnmercier.com/blog/draft/creating-an-xwindow-in-groovy.html';  // Replace PAGE_URL with your page's canonical URL variable
-                                this.page.identifier = 'blog/draft/creating-an-xwindow-in-groovy.html'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+                                this.page.url = 'http://johnmercier.com/blog/draft/upgrade-jbake.html';  // Replace PAGE_URL with your page's canonical URL variable
+                                this.page.identifier = 'blog/draft/upgrade-jbake.html'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
                                 };
                                 */
                                 (function() { // DON'T EDIT BELOW THIS LINE
