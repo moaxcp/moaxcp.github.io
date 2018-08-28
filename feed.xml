@@ -4,8 +4,80 @@
     <link href="http://johnmercier.com/"/>
     <link rel="self" type="application/atom+xml" href="http://johnmercier.com/feed.xml"/>
     <subtitle>[A software developer interested in java, groovy, and nixos]</subtitle>
-    <updated>2018-05-10T02:16:30Z</updated>
-    <id>tag:null,2018:05</id>
+    <updated>2018-08-28T12:13:10Z</updated>
+    <id>tag:null,2018:08</id>
+    <entry>
+        <title>Reckon Makes Semantic Versioning Easy</title>
+        <author>
+            <name>John Mercier</name>
+        </author>
+        <link href="http://johnmercier.com/blog/2018/08-28-reckon-makes-semantic-versioning-easy.html"/>
+        <updated>2018-08-28T00:00:00Z</updated>
+        <id>http://johnmercier.com/blog/2018/08-28-reckon-makes-semantic-versioning-easy.html</id>
+        <category term="gradle"/>
+        <content type="html">
+            &lt;div id=&quot;preamble&quot;&gt; 
+ &lt;div class=&quot;sectionbody&quot;&gt; 
+  &lt;div class=&quot;paragraph&quot;&gt; 
+   &lt;p&gt;&lt;code&gt;reckon&lt;/code&gt; is a gradle plugin which provides automatic semantic versioning to a project. It uses git tags to determine what the current version should be for any given build operation. It also enforces that versioning follows &lt;a href=&quot;http://semver.org/&quot;&gt;semver&lt;/a&gt;.&lt;/p&gt; 
+  &lt;/div&gt; 
+ &lt;/div&gt; 
+&lt;/div&gt; 
+&lt;div class=&quot;sect1&quot;&gt; 
+ &lt;h2 id=&quot;_apply_the_plugin&quot;&gt;apply the plugin&lt;/h2&gt; 
+ &lt;div class=&quot;sectionbody&quot;&gt; 
+  &lt;div class=&quot;listingblock&quot;&gt; 
+   &lt;div class=&quot;title&quot;&gt;
+    build.gradle
+   &lt;/div&gt; 
+   &lt;div class=&quot;content&quot;&gt; 
+    &lt;pre class=&quot;prettyprint highlight&quot;&gt;&lt;code class=&quot;language-groovy&quot; data-lang=&quot;groovy&quot;&gt;---
+plugins {
+    id &apos;org.ajoberstar.reckon&apos; version &apos;0.8.0&apos;
+}
+---&lt;/code&gt;&lt;/pre&gt; 
+   &lt;/div&gt; 
+  &lt;/div&gt; 
+ &lt;/div&gt; 
+&lt;/div&gt; 
+&lt;div class=&quot;sect1&quot;&gt; 
+ &lt;h2 id=&quot;_configure_the_plugin&quot;&gt;configure the plugin&lt;/h2&gt; 
+ &lt;div class=&quot;sectionbody&quot;&gt; 
+  &lt;div class=&quot;listingblock&quot;&gt; 
+   &lt;div class=&quot;title&quot;&gt;
+    build.gradle
+   &lt;/div&gt; 
+   &lt;div class=&quot;content&quot;&gt; 
+    &lt;pre class=&quot;prettyprint highlight&quot;&gt;&lt;code class=&quot;language-groovy&quot; data-lang=&quot;groovy&quot;&gt;---
+reckon {
+    scopeFromProp()
+    snapshotFromProp()
+}
+---&lt;/code&gt;&lt;/pre&gt; 
+   &lt;/div&gt; 
+  &lt;/div&gt; 
+ &lt;/div&gt; 
+&lt;/div&gt; 
+&lt;div class=&quot;sect1&quot;&gt; 
+ &lt;h2 id=&quot;_run_a_build_to_see_the_version&quot;&gt;run a build to see the version&lt;/h2&gt; 
+ &lt;div class=&quot;sectionbody&quot;&gt; 
+  &lt;hr&gt; 
+  &lt;div class=&quot;paragraph&quot;&gt; 
+   &lt;p&gt;Reckoned version: 0.1.0-SNAPSHOT ---&lt;/p&gt; 
+  &lt;/div&gt; 
+  &lt;div class=&quot;paragraph&quot;&gt; 
+   &lt;p&gt;0.1.0 is the default version.&lt;/p&gt; 
+  &lt;/div&gt; 
+  &lt;div class=&quot;paragraph&quot;&gt; 
+   &lt;p&gt;Versions are synchronized with git tags. Once a repository is tagged with a version in git that tag becomes the current version for that commit. Any other changes in the git repo including untracked changes will cause the version to change.&lt;/p&gt; 
+  &lt;/div&gt; 
+  &lt;div class=&quot;paragraph&quot;&gt; 
+   &lt;p&gt;Reckon works very well with github workflow. When a change is ready it can be merged to master through a pull request before being released. Once the ci system checks the build a tag can be added to start a full release.&lt;/p&gt; 
+  &lt;/div&gt; 
+ &lt;/div&gt; 
+&lt;/div&gt;
+        </content>
+    </entry>
     <entry>
         <title>Notes on updating visualvm in nixpkgs</title>
         <author>

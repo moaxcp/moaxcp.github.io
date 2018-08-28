@@ -64,19 +64,19 @@
                             <div class="row">
                                 <div class="small-3 medium-1 large-1 columns">
 <div class="termin">
-                                        <div class="month">May</div>
-                                        <div class="date">09</div>
+                                        <div class="month">Aug</div>
+                                        <div class="date">28</div>
                                         <div class="year">2018</div>
                                     </div>                                    
                                 </div><div class="small-9 medium-11 large-11 columns">
                                     <div>
                                         <h2>
-                                            <a href="/blog/draft/upgrade-jbake.html">Notes on updating jbake in nixpkgs</a>
+                                            <a href="/blog/2018/08-28-reckon-makes-semantic-versioning-easy.html">Reckon Makes Semantic Versioning Easy</a>
                                         </h2><p>
                                             <span>
-                                                <a href="/tags/nixos.html" class="label">nixos</a>
+                                                <a href="/tags/gradle.html" class="label">gradle</a>
                                             </span>
-                                        </p><a href="/blog/draft/upgrade-jbake.html#disqus_thread">comments</a><hr/>
+                                        </p><a href="/blog/2018/08-28-reckon-makes-semantic-versioning-easy.html#disqus_thread">comments</a><hr/>
                                     </div>
                                 </div>
                             </div>
@@ -85,73 +85,60 @@
                                 <div id="preamble"> 
  <div class="sectionbody"> 
   <div class="paragraph"> 
-   <p>After a bot upgraded jbake I was unable to run it on my system. The cause was due to a change in the jbakes script detected the java executable. With some help from the nix community I was able to fix it.</p> 
+   <p><code>reckon</code> is a gradle plugin which provides automatic semantic versioning to a project. It uses git tags to determine what the current version should be for any given build operation. It also enforces that versioning follows <a href="http://semver.org/">semver</a>.</p> 
   </div> 
  </div> 
 </div> 
 <div class="sect1"> 
- <h2 id="_error">error</h2> 
+ <h2 id="_apply_the_plugin">apply the plugin</h2> 
  <div class="sectionbody"> 
-  <div class="paragraph"> 
-   <p>Starting jbake would output an error.</p> 
-  </div> 
   <div class="listingblock"> 
+   <div class="title">
+    build.gradle
+   </div> 
    <div class="content"> 
-    <pre>0 + john@n1 nixpkgs $ ./result/bin/jbake
-
-ERROR: JAVA_HOME is set to an invalid directory: /nix/store/szwdr2qmldwn0q227qfrjpagzzzvxsb0-openjdk-9.0.4-b11/lib/openjdk
-
-Please set the JAVA_HOME variable in your environment to match the
-location of your Java installation.</pre> 
+    <pre class="prettyprint highlight"><code class="language-groovy" data-lang="groovy">---
+plugins {
+    id 'org.ajoberstar.reckon' version '0.8.0'
+}
+---</code></pre> 
    </div> 
   </div> 
  </div> 
 </div> 
 <div class="sect1"> 
- <h2 id="_cause">cause</h2> 
+ <h2 id="_configure_the_plugin">configure the plugin</h2> 
  <div class="sectionbody"> 
-  <div class="paragraph"> 
-   <p>The new script which runs jbake switched from using the java command available on $PATH to calling java from $JAVA_HOME/bin/java. The nix package substituted the java command with a full path to the executable.</p> 
-  </div> 
   <div class="listingblock"> 
+   <div class="title">
+    build.gradle
+   </div> 
    <div class="content"> 
-    <pre>substituteInPlace bin/jbake --replace "java" "${jre}/bin/java"</pre> 
+    <pre class="prettyprint highlight"><code class="language-groovy" data-lang="groovy">---
+reckon {
+    scopeFromProp()
+    snapshotFromProp()
+}
+---</code></pre> 
    </div> 
   </div> 
  </div> 
 </div> 
 <div class="sect1"> 
- <h2 id="_solution">solution</h2> 
+ <h2 id="_run_a_build_to_see_the_version">run a build to see the version</h2> 
  <div class="sectionbody"> 
+  <hr> 
   <div class="paragraph"> 
-   <p>This is fixed by removing the call to substituteInPlace and adding wrapProgram.</p> 
-  </div> 
-  <div class="listingblock"> 
-   <div class="content"> 
-    <pre>     installPhase = ''
-￼ -    substituteInPlace bin/jbake --replace "java" "${jre}/bin/java"
-￼      mkdir -p $out
-￼      cp -vr * $out
-￼ +    wrapProgram $out/bin/jbake --set JAVA_HOME "${jre}"
-￼    '';</pre> 
-   </div> 
+   <p>Reckoned version: 0.1.0-SNAPSHOT ---</p> 
   </div> 
   <div class="paragraph"> 
-   <p>wrapProgram adds the correct JAVA_HOME environment variable.</p> 
-  </div> 
- </div> 
-</div> 
-<div class="sect1"> 
- <h2 id="_preventing_future_issues">preventing future issues</h2> 
- <div class="sectionbody"> 
-  <div class="paragraph"> 
-   <p>The best thing to do is write a test for jbake.</p> 
+   <p>0.1.0 is the default version.</p> 
   </div> 
   <div class="paragraph"> 
-   <p>Information on writing tests is found <a href="https://nixos.org/nixos/manual/index.html#sec-nixos-tests">here</a>.</p> 
+   <p>Versions are synchronized with git tags. Once a repository is tagged with a version in git that tag becomes the current version for that commit. Any other changes in the git repo including untracked changes will cause the version to change.</p> 
   </div> 
   <div class="paragraph"> 
-   <p>NixOS provides a powerful testing framework. Each test is isolated in a virtual machine (or many vms) built with the exact specification in the test. Once the vm is running a perl test script is run. If the test script fails the test fails.</p> 
+   <p>Reckon works very well with github workflow. When a change is ready it can be merged to master through a pull request before being released. Once the ci system checks the build a tag can be added to start a full release.</p> 
   </div> 
  </div> 
 </div>
@@ -165,8 +152,8 @@ location of your Java installation.</pre>
                                 *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
                                 /*
                                 var disqus_config = function () {
-                                this.page.url = 'http://johnmercier.com/blog/draft/upgrade-jbake.html';  // Replace PAGE_URL with your page's canonical URL variable
-                                this.page.identifier = 'blog/draft/upgrade-jbake.html'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+                                this.page.url = 'http://johnmercier.com/blog/2018/08-28-reckon-makes-semantic-versioning-easy.html';  // Replace PAGE_URL with your page's canonical URL variable
+                                this.page.identifier = 'blog/2018/08-28-reckon-makes-semantic-versioning-easy.html'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
                                 };
                                 */
                                 (function() { // DON'T EDIT BELOW THIS LINE
