@@ -4,8 +4,93 @@
     <link href="http://johnmercier.com/"/>
     <link rel="self" type="application/atom+xml" href="http://johnmercier.com/feed.xml"/>
     <subtitle>[A software developer interested in java, groovy, and nixos]</subtitle>
-    <updated>2018-08-28T12:17:24Z</updated>
+    <updated>2018-08-28T12:18:31Z</updated>
     <id>tag:null,2018:08</id>
+    <entry>
+        <title>Notes on updating jbake in nixpkgs</title>
+        <author>
+            <name>John Mercier</name>
+        </author>
+        <link href="http://johnmercier.com/blog/2018/08-28-upgrade-jbake.html"/>
+        <updated>2018-08-28T00:00:00Z</updated>
+        <id>http://johnmercier.com/blog/2018/08-28-upgrade-jbake.html</id>
+        <category term="nixos"/>
+        <content type="html">
+            &lt;div id=&quot;preamble&quot;&gt; 
+ &lt;div class=&quot;sectionbody&quot;&gt; 
+  &lt;div class=&quot;paragraph&quot;&gt; 
+   &lt;p&gt;After a bot upgraded jbake I was unable to run it on my system. The cause was due to a change in the jbakes script detected the java executable. With some help from the nix community I was able to fix it.&lt;/p&gt; 
+  &lt;/div&gt; 
+ &lt;/div&gt; 
+&lt;/div&gt; 
+&lt;div class=&quot;sect1&quot;&gt; 
+ &lt;h2 id=&quot;_error&quot;&gt;error&lt;/h2&gt; 
+ &lt;div class=&quot;sectionbody&quot;&gt; 
+  &lt;div class=&quot;paragraph&quot;&gt; 
+   &lt;p&gt;Starting jbake would output an error.&lt;/p&gt; 
+  &lt;/div&gt; 
+  &lt;div class=&quot;listingblock&quot;&gt; 
+   &lt;div class=&quot;content&quot;&gt; 
+    &lt;pre&gt;0 + john@n1 nixpkgs $ ./result/bin/jbake
+
+ERROR: JAVA_HOME is set to an invalid directory: /nix/store/szwdr2qmldwn0q227qfrjpagzzzvxsb0-openjdk-9.0.4-b11/lib/openjdk
+
+Please set the JAVA_HOME variable in your environment to match the
+location of your Java installation.&lt;/pre&gt; 
+   &lt;/div&gt; 
+  &lt;/div&gt; 
+ &lt;/div&gt; 
+&lt;/div&gt; 
+&lt;div class=&quot;sect1&quot;&gt; 
+ &lt;h2 id=&quot;_cause&quot;&gt;cause&lt;/h2&gt; 
+ &lt;div class=&quot;sectionbody&quot;&gt; 
+  &lt;div class=&quot;paragraph&quot;&gt; 
+   &lt;p&gt;The new script which runs jbake switched from using the java command available on $PATH to calling java from $JAVA_HOME/bin/java. The nix package substituted the java command with a full path to the executable.&lt;/p&gt; 
+  &lt;/div&gt; 
+  &lt;div class=&quot;listingblock&quot;&gt; 
+   &lt;div class=&quot;content&quot;&gt; 
+    &lt;pre&gt;substituteInPlace bin/jbake --replace &quot;java&quot; &quot;${jre}/bin/java&quot;&lt;/pre&gt; 
+   &lt;/div&gt; 
+  &lt;/div&gt; 
+ &lt;/div&gt; 
+&lt;/div&gt; 
+&lt;div class=&quot;sect1&quot;&gt; 
+ &lt;h2 id=&quot;_solution&quot;&gt;solution&lt;/h2&gt; 
+ &lt;div class=&quot;sectionbody&quot;&gt; 
+  &lt;div class=&quot;paragraph&quot;&gt; 
+   &lt;p&gt;This is fixed by removing the call to substituteInPlace and adding wrapProgram.&lt;/p&gt; 
+  &lt;/div&gt; 
+  &lt;div class=&quot;listingblock&quot;&gt; 
+   &lt;div class=&quot;content&quot;&gt; 
+    &lt;pre&gt;     installPhase = &apos;&apos;
+￼ -    substituteInPlace bin/jbake --replace &quot;java&quot; &quot;${jre}/bin/java&quot;
+￼      mkdir -p $out
+￼      cp -vr * $out
+￼ +    wrapProgram $out/bin/jbake --set JAVA_HOME &quot;${jre}&quot;
+￼    &apos;&apos;;&lt;/pre&gt; 
+   &lt;/div&gt; 
+  &lt;/div&gt; 
+  &lt;div class=&quot;paragraph&quot;&gt; 
+   &lt;p&gt;wrapProgram adds the correct JAVA_HOME environment variable.&lt;/p&gt; 
+  &lt;/div&gt; 
+ &lt;/div&gt; 
+&lt;/div&gt; 
+&lt;div class=&quot;sect1&quot;&gt; 
+ &lt;h2 id=&quot;_preventing_future_issues&quot;&gt;preventing future issues&lt;/h2&gt; 
+ &lt;div class=&quot;sectionbody&quot;&gt; 
+  &lt;div class=&quot;paragraph&quot;&gt; 
+   &lt;p&gt;The best thing to do is write a test for jbake.&lt;/p&gt; 
+  &lt;/div&gt; 
+  &lt;div class=&quot;paragraph&quot;&gt; 
+   &lt;p&gt;Information on writing tests is found &lt;a href=&quot;https://nixos.org/nixos/manual/index.html#sec-nixos-tests&quot;&gt;here&lt;/a&gt;.&lt;/p&gt; 
+  &lt;/div&gt; 
+  &lt;div class=&quot;paragraph&quot;&gt; 
+   &lt;p&gt;NixOS provides a powerful testing framework. Each test is isolated in a virtual machine (or many vms) built with the exact specification in the test. Once the vm is running a perl test script is run. If the test script fails the test fails.&lt;/p&gt; 
+  &lt;/div&gt; 
+ &lt;/div&gt; 
+&lt;/div&gt;
+        </content>
+    </entry>
     <entry>
         <title>Reckon Makes Semantic Versioning Easy</title>
         <author>
