@@ -4,16 +4,16 @@
     <link href="http://johnmercier.com/"/>
     <link rel="self" type="application/atom+xml" href="http://johnmercier.com/feed.xml"/>
     <subtitle>[A software developer interested in java, groovy, and nixos]</subtitle>
-    <updated>2018-08-30T18:17:04Z</updated>
+    <updated>2018-08-30T18:18:05Z</updated>
     <id>tag:null,2018:08</id>
     <entry>
         <title>Adding Sonar to Gradle and travis-ci</title>
         <author>
             <name>John Mercier</name>
         </author>
-        <link href="http://johnmercier.com/blog/draft/adding-sonar-to-travis-ci-build-with-gradle.html"/>
-        <updated>2018-08-29T00:00:00Z</updated>
-        <id>http://johnmercier.com/blog/draft/adding-sonar-to-travis-ci-build-with-gradle.html</id>
+        <link href="http://johnmercier.com/blog/2018/08-30-adding-sonar-to-travis-ci-build-with-gradle.html"/>
+        <updated>2018-08-30T00:00:00Z</updated>
+        <id>http://johnmercier.com/blog/2018/08-30-adding-sonar-to-travis-ci-build-with-gradle.html</id>
         <category term="gradle travis-ci"/>
         <content type="html">
             &lt;div class=&quot;paragraph&quot;&gt; 
